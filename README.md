@@ -1,1 +1,1 @@
-# Mỗi trường: Visual Studio 2019, C# Winform
+# Môi trường: Visual Studio 2019, C# Winform
