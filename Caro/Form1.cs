@@ -15,6 +15,21 @@ namespace Caro
         public Form1()
         {
             InitializeComponent();
+
+            butMode.Click += ButMode_Click;
+            butModeLan.Click += ButModeLan_Click;
         }
+
+        #region Event Handle
+        private void ButModeLan_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ButMode_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }
