@@ -14,6 +14,7 @@ namespace Caro.CaroManager
         private static CheckWinner checkWinner;
         private Dictionary<KeyValuePair<int, int>, Button> caroBoard;
         private List<Player> playerList;
+        CaroStack<Button> butUndo, butRedo;
 
         public Manager(Form1 mainForm, TextBox txtPlayer, Panel pnlCaroBoard, CONST caroConst)
         {
@@ -21,8 +22,9 @@ namespace Caro.CaroManager
             this.txtPlayer = txtPlayer;
             this.pnlCaroBoard = pnlCaroBoard;
             Manager.caroConst = caroConst;
+            butUndo = new CaroStack<Button>(5);
+            butRedo = new CaroStack<Button>(5);
             checkWinner = new CheckWinner(caroConst.numberOfColumn, caroConst.numberOfRow);
-
             caroBoard = new Dictionary<KeyValuePair<int, int>, Button>();
             playerList = new List<Player>()
             {
@@ -36,6 +38,7 @@ namespace Caro.CaroManager
         public void DrawCaroBoard(int numberOfRow, int numberOfColumn)
         {
             pnlCaroBoard.Controls.Clear();
+            caroBoard.Clear();
             for(int i = 0; i < numberOfRow; i++)
             {
                 for(int j = 0; j < numberOfColumn; j++)
@@ -74,6 +77,71 @@ namespace Caro.CaroManager
             return player;
         }
 
+        private void NewGameHandle(int player)
+        {
+            playerList[player].IsTurn = 0;
+            playerList[1 - player].IsTurn = 1;
+            checkWinner.NewGameHanlde(player);
+            txtPlayer.Text = playerList[player].NamePlayer;
+            txtPlayer.BackColor = (player == 0) ? Color.Red : Color.Green;
+            DrawCaroBoard(caroConst.numberOfRow, caroConst.numberOfColumn);
+        }
+
+        private void EndGameHandle(int player, Button eventBut)
+        {
+            int[] check = checkWinner.check;
+            if(check[0] == 1)
+            {
+                foreach (KeyValuePair<int, int> item in checkWinner.arrRow)
+                    caroBoard[item].FlatStyle = FlatStyle.Flat;
+            }
+            if(check[1] == 1)
+            {
+                foreach (KeyValuePair<int, int> item in checkWinner.arrColumn)
+                    caroBoard[item].FlatStyle = FlatStyle.Flat;
+            }
+            if (check[2] == 1)
+            {
+                foreach (KeyValuePair<int, int> item in checkWinner.arrMainDiagonal)
+                    caroBoard[item].FlatStyle = FlatStyle.Flat;
+            }
+            if (check[3] == 1)
+            {
+                foreach (KeyValuePair<int, int> item in checkWinner.arrSubDiagomal)
+                    caroBoard[item].FlatStyle = FlatStyle.Flat;
+            }
+            eventBut.FlatStyle = FlatStyle.Flat;
+            MessageBox.Show("The " + playerList[player].NamePlayer + " win", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result == DialogResult.OK) NewGameHandle(player);
+        }
+
+        public void UndoHandle()
+        {
+            if(butUndo.Count() > 0)
+            {
+                Button but = butUndo.Pop();
+                butRedo.Push(but);
+                but.Image = null;
+                but.FlatStyle = FlatStyle.Standard;
+                if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Flat;
+                TurnPalyer();
+            }
+        }
+
+        public void RedoHandle()
+        {
+            if(butRedo.Count() > 0)
+            {
+                Button but = butRedo.Pop();
+                if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
+                butUndo.Push(but);
+                int player = TurnPalyer();
+                but.Image = playerList[player].ImagePlayer;
+                but.FlatStyle = FlatStyle.Flat;
+            }
+        }
+
         #region Event handle
         private void But_Click(object sender, System.EventArgs e)
         {
@@ -82,11 +150,14 @@ namespace Caro.CaroManager
             int Y = eventBut.Location.Y;
             if(eventBut.Image == null)
             {
+                eventBut.FlatStyle = FlatStyle.Flat;
+                if(butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
+                butUndo.Push(eventBut);
                 int player = TurnPalyer();
                 checkWinner.Turn = player;
                 eventBut.Image = playerList[player].ImagePlayer;
                 bool isWiner = checkWinner.IsWiner(X, Y);
-                if (isWiner) MessageBox.Show("Win");
+                if (isWiner) EndGameHandle(player, eventBut);
                 else checkWinner.DrawCaroBoard(X, Y);
             }
         }

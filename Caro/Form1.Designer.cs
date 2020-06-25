@@ -9,11 +9,12 @@ namespace Caro
         private System.ComponentModel.IContainer components = null;
 
         private Form formGameMode;
-        private Button butMode, butModeLan;
+        private Button butTwoPlayer, butModeLan, butUndo, butRedo;
         private Panel pnlCaroBoard;
         private MenuStrip mainMenu;
         private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemGameMode;
         private TextBox txtPlayer;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -82,10 +83,10 @@ namespace Caro
 
         private void DrawGameModeForm()
         {
-            butMode = new Button()
+            butTwoPlayer = new Button()
             {
                 Name = "butMode",
-                Text = "One Computer",
+                Text = "Two Player",
                 Size = new Size(120, 80),
                 Location = new Point(50, 85)
             };
@@ -106,7 +107,7 @@ namespace Caro
                 ClientSize = new Size(400, 250)
             };
 
-            formGameMode.Controls.Add(butMode);
+            formGameMode.Controls.Add(butTwoPlayer);
             formGameMode.Controls.Add(butModeLan);
         }
 
@@ -116,17 +117,34 @@ namespace Caro
             {
                 Name = "pnlCaroBoard",
                 Size = new Size(CONST.WIDTH * numberOfColumn, CONST.HEIGHT * numberOfRow),
-                Location = new Point(1, 50)
+                Location = new Point(1, 70)
             };
 
-            txtPlayer = new TextBox();
-
             this.Width = pnlCaroBoard.Width + numberOfColumn * 2;
-            this.Height = pnlCaroBoard.Height + numberOfRow * 4 + 50;
+            this.Height = pnlCaroBoard.Height + numberOfRow * 4 + 70;
 
-            txtPlayer.Name = "txtPlayer";
-            txtPlayer.ReadOnly = true;
-            txtPlayer.Location = new Point(this.Width / 3 + 10, 0);
+            butUndo = new Button()
+            {
+                Name = "butUndo",
+                Text = "Undo",
+                Size = new Size(60, 20),
+                Location = new Point(this.Width - 150, 30)
+            };
+
+            butRedo = new Button()
+            {
+                Name = "butRedo",
+                Text = "Redo",
+                Size = new Size(60, 20),
+                Location = new Point(this.Width - 80, 30)
+            };
+
+            txtPlayer = new TextBox()
+            {
+                Name = "txtPlayer",
+                ReadOnly = true,
+                Location = new Point(this.Width / 3 + 10, 0)
+            };
             int temp = 2 * this.Width / 3 - 10;
             if (temp < 200) txtPlayer.Width = temp - 20;
             else txtPlayer.Width = 200;
@@ -134,6 +152,8 @@ namespace Caro
             CreateMainMenu(this.Width / 3);
             this.Controls.Add(pnlCaroBoard);
             this.Controls.Add(txtPlayer);
+            this.Controls.Add(butRedo);
+            this.Controls.Add(butUndo);
         }
         
         private void InitializeComponent()

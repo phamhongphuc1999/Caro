@@ -16,8 +16,12 @@ namespace Caro
             caroConst = new CONST();
             DrawMainForm(caroConst.numberOfRow, caroConst.numberOfColumn);
             manager = new Manager(this, txtPlayer, pnlCaroBoard, caroConst);
-            butMode.Click += ButMode_Click;
+
+            butTwoPlayer.Click += ButTwoPlayer_Click;
             butModeLan.Click += ButModeLan_Click;
+            butRedo.Click += ButRedo_Click;
+            butUndo.Click += ButUndo_Click;
+
             formGameMode.ShowDialog();
         }
 
@@ -29,10 +33,20 @@ namespace Caro
             manager.DrawCaroBoard(caroConst.numberOfRow, caroConst.numberOfColumn);
         }
 
-        private void ButMode_Click(object sender, EventArgs e)
+        private void ButTwoPlayer_Click(object sender, EventArgs e)
         {
             formGameMode.Close();
             manager.DrawCaroBoard(caroConst.numberOfRow, caroConst.numberOfColumn);
+        }
+
+        private void ButUndo_Click(object sender, EventArgs e)
+        {
+            manager.UndoHandle();
+        }
+
+        private void ButRedo_Click(object sender, EventArgs e)
+        {
+            manager.RedoHandle();
         }
         #endregion
     }
