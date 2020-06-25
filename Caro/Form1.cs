@@ -15,7 +15,7 @@ namespace Caro
             InitializeComponent();
             caroConst = new CONST();
             DrawMainForm(caroConst.numberOfRow, caroConst.numberOfColumn);
-            manager = new Manager(this, pnlCaroBoard, caroConst);
+            manager = new Manager(this, txtPlayer, pnlCaroBoard, caroConst);
             butMode.Click += ButMode_Click;
             butModeLan.Click += ButModeLan_Click;
             formGameMode.ShowDialog();

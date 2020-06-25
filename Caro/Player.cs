@@ -16,6 +16,13 @@ namespace Caro
             set { namePlayer = value; }
         }
 
+        private int isTurn;
+        public int IsTurn
+        {
+            get { return isTurn; }
+            set { isTurn = value; }
+        }
+
         private Image imagePlayer;
         public Image ImagePlayer
         {
@@ -23,10 +30,11 @@ namespace Caro
             set { imagePlayer = value; }
         }
 
-        public Player(string namePlayer, Image imagePlayer)
+        public Player(string namePlayer, Image imagePlayer, int isTurn)
         {
             this.namePlayer = namePlayer;
             this.imagePlayer = imagePlayer;
+            this.isTurn = isTurn;
         }
     }
 }

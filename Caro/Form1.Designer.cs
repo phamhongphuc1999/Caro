@@ -8,9 +8,12 @@ namespace Caro
     {
         private System.ComponentModel.IContainer components = null;
 
-        private Form formGameMode, formPlayer;
+        private Form formGameMode;
         private Button butMode, butModeLan;
         private Panel pnlCaroBoard;
+        private MenuStrip mainMenu;
+        private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemGameMode;
+        private TextBox txtPlayer;
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -21,6 +24,62 @@ namespace Caro
         }
 
         #region Windows Form Designer generated code
+        private void CreateMainMenu(int width)
+        {
+            toolItemGameMode = new ToolStripMenuItem()
+            {
+                Name = "GameMode",
+                Text = "Game Mode"
+            };
+
+            toolItemNewGame = new ToolStripMenuItem()
+            {
+                Name = "NewGame",
+                Text = "New Game"
+            };
+
+            toolItemQuick = new ToolStripMenuItem()
+            {
+                Name = "Quick",
+                Text = "Quick Game"
+            };
+
+            toolItemMain = new ToolStripMenuItem()
+            {
+                Name = "Main",
+                Text = "Menu"
+            };
+            toolItemMain.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                toolItemNewGame,
+                toolItemGameMode,
+                toolItemQuick
+            });
+
+            mainMenu = new MenuStrip()
+            {
+                Name = "mainMenu",
+                Text = "Menu",
+                GripMargin = new Padding(2, 2, 0, 2),
+                ImageScalingSize = new Size(24, 24),
+                Location = new Point(0, 0),
+                Size = new Size(width, 20),
+                TabIndex = 0,
+                BackColor = Color.Green
+            };
+
+            mainMenu.SuspendLayout();
+            this.SuspendLayout();
+            mainMenu.Items.AddRange(new ToolStripItem[]
+            {
+                toolItemMain
+            });
+
+            this.Controls.Add(mainMenu);
+            mainMenu.ResumeLayout(false);
+            mainMenu.PerformLayout();
+        }
+
         private void DrawGameModeForm()
         {
             butMode = new Button()
@@ -51,24 +110,30 @@ namespace Caro
             formGameMode.Controls.Add(butModeLan);
         }
 
-        private void DrawPlayerForm()
-        {
-
-        }
-
         private void DrawMainForm(int numberOfRow, int numberOfColumn)
         {
             pnlCaroBoard = new Panel()
             {
                 Name = "pnlCaroBoard",
                 Size = new Size(CONST.WIDTH * numberOfColumn, CONST.HEIGHT * numberOfRow),
-                Location = new Point(1, 20)
+                Location = new Point(1, 50)
             };
 
-            this.Width = pnlCaroBoard.Width + numberOfColumn * 2;
-            this.Height = pnlCaroBoard.Height + numberOfRow * 4 + 20;
+            txtPlayer = new TextBox();
 
+            this.Width = pnlCaroBoard.Width + numberOfColumn * 2;
+            this.Height = pnlCaroBoard.Height + numberOfRow * 4 + 50;
+
+            txtPlayer.Name = "txtPlayer";
+            txtPlayer.ReadOnly = true;
+            txtPlayer.Location = new Point(this.Width / 3 + 10, 0);
+            int temp = 2 * this.Width / 3 - 10;
+            if (temp < 200) txtPlayer.Width = temp - 20;
+            else txtPlayer.Width = 200;
+
+            CreateMainMenu(this.Width / 3);
             this.Controls.Add(pnlCaroBoard);
+            this.Controls.Add(txtPlayer);
         }
         
         private void InitializeComponent()
