@@ -12,5 +12,10 @@
         public static int INTERVAL = 1000;
         public static string NAME_PLAYER1 = "";
         public static string NAME_PALYER2 = "";
+
+        public static string IP = "127.0.0.1";
+        public static int PORT = 9999;
+        public static int BUFFER = 1024;
+        public static bool isServer = true;
     }
 }

@@ -48,8 +48,9 @@
   <ItemGroup>
     <Compile Include="CaroManager\CheckWinner.cs" />
     <Compile Include="CaroManager\Manager.cs" />
-    <Compile Include="CaroManager\SocketManager.cs" />
     <Compile Include="CaroStack.cs" />
+    <Compile Include="ConnectManager\EncapsulateData.cs" />
+    <Compile Include="ConnectManager\SocketManager.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

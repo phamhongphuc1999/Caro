@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 using Caro.Setting;
+using Caro.ConnectManager;
 
 namespace Caro
 {
@@ -11,17 +12,19 @@ namespace Caro
         private Form settingForm;
         private Button butTwoPlayer, butModeLan, butUndo, butRedo;
         private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSave;
-        private Button butSTimeOnOrOff;
+        private Button butSTimeOnOrOff, butConnect;
         private Panel pnlCaroBoard;
         private MenuStrip mainMenu;
         private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting;
         private TextBox txtPlayer, txtSTimeTurn, txtSTimeInterval;
         private TextBox txtSSizeRow, txtSSizeColumn;
         private TextBox txtNamePlayer1, txtNamePlayer2;
+        private TextBox txtPort, txtIP;
         private Timer timer;
         private Label lblTime, lblSTimeTurn, lblSTimeInterval;
         private Label lblSSizeRow, lblSSizeColumn;
         private Label lblNamePlayer1, lblNamePlayer2;
+        private Label lblPort, lblIP;
 
         protected override void Dispose(bool disposing)
         {
@@ -127,16 +130,61 @@ namespace Caro
             txtNamePlayer1 = new TextBox()
             {
                 Name = "txtNamePlayer1",
+                Text = CONST.NAME_PLAYER1,
                 Width = 200,
                 Location = new Point(100, 30)
             };
 
             txtNamePlayer2 = new TextBox()
             {
-                Name = "txtSTimeInterval",
+                Name = "txtNamePlayer2",
+                Text = CONST.NAME_PALYER2,
                 Width = 200,
                 Location = new Point(100, 80)
             };
+        }
+
+        private void InitalizeLANController()
+        {
+            lblIP = new Label()
+            {
+                Name = "lblIP",
+                Text = "IP",
+                Size = new Size(60, 30),
+                Location = new Point(20, 30)
+            };
+
+            lblPort = new Label()
+            {
+                Name = "lblPort",
+                Text = "Port",
+                Size = new Size(60, 30),
+                Location = new Point(20, 80)
+            };
+
+            txtIP = new TextBox()
+            {
+                Name = "txtIP",
+                Text = SocketManager.GetIPv4(),
+                Width = 200,
+                Location = new Point(100, 30)
+            };
+
+            txtPort = new TextBox()
+            {
+                Name = "txtPort",
+                Width = 200,
+                Location = new Point(100, 80)
+            };
+
+            butConnect = new Button()
+            {
+                Name = "butConnect",
+                Text = "Connect",
+                Size = new Size(60, 30),
+                Location = new Point(100, 200)
+            };
+            butConnect.Click += ButConnect_Click;
         }
 
         private void InitializeMainController()
@@ -324,11 +372,30 @@ namespace Caro
             namePlayerForm.Text = formText;
             namePlayerForm.AutoScaleDimensions = new SizeF(9F, 20F);
             namePlayerForm.ClientSize = new Size(400, 250);
+            if (gameMode == "LAN") lblNamePlayer1.Text = "Player";
+            else
+            {
+                lblNamePlayer1.Text = "Player 1";
+                namePlayerForm.Controls.Add(lblNamePlayer2);
+                namePlayerForm.Controls.Add(txtNamePlayer2);
+            }
             namePlayerForm.Controls.Add(lblNamePlayer1);
-            namePlayerForm.Controls.Add(lblNamePlayer2);
             namePlayerForm.Controls.Add(txtNamePlayer1);
-            namePlayerForm.Controls.Add(txtNamePlayer2);
             namePlayerForm.Controls.Add(butSave);
+        }
+
+        private void DrawLANForm(Form LANForm)
+        {
+            LANForm.Controls.Clear();
+            LANForm.Text = "LAN Connection";
+            LANForm.AutoScaleDimensions = new SizeF(9F, 20F);
+            LANForm.ClientSize = new Size(400, 250);
+            LANForm.Controls.Add(lblIP);
+            LANForm.Controls.Add(lblPort);
+            LANForm.Controls.Add(txtIP);
+            LANForm.Controls.Add(txtPort);
+            LANForm.Controls.Add(butSave);
+            LANForm.Controls.Add(butConnect);
         }
 
         private void DrawMainForm(Form mainForm)
@@ -403,6 +470,7 @@ namespace Caro
             this.SuspendLayout();
             InitializeGameModeController();
             InitializeNamePlayerController();
+            InitalizeLANController();
             InitializeMainController();
             InitializeSettingController();
             InitializeTimeSettingController();

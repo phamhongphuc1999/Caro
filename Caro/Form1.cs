@@ -1,4 +1,5 @@
 ﻿using Caro.CaroManager;
+using Caro.ConnectManager;
 using Caro.Setting;
 using System;
 using System.Windows.Forms;
@@ -8,11 +9,13 @@ namespace Caro
     public partial class Form1 : Form
     {
         private Manager manager;
+        private SocketManager socketManager;
 
         public Form1()
         {
             InitializeComponent();
             manager = new Manager(txtPlayer, pnlCaroBoard, lblTime);
+            socketManager = new SocketManager();
             manager.NewGameEvent += Manager_NewGameEvent;
             manager.EndGameEvent += Manager_EndGameEvent;
             this.FormClosing += Form1_FormClosing;
@@ -172,6 +175,10 @@ namespace Caro
             }
         }
 
+        private void ButConnect_Click(object sender, System.EventArgs e)
+        {
+        }
+
         private void ButSave_Click(object sender, EventArgs e)
         {
             Button eventBut = (Button)sender;
@@ -235,7 +242,7 @@ namespace Caro
                     }
                 }
             }
-            else if(temp == "Name Player")
+            else if(temp == "Name Player" && CONST.gameMode == "TWO_PLAYER")
             {
                 string namePlayer1 = txtNamePlayer1.Text;
                 string namePlayer2 = txtNamePlayer2.Text;
@@ -258,6 +265,20 @@ namespace Caro
                     manager.NewGameHandle(0);
                     DrawMainForm(this);
                     if (CONST.IS_ON_TIMER) timer.Start();
+                }
+            }
+            else if(temp == "Name Player" && CONST.gameMode == "LAN")
+            {
+                string namePlayer = txtNamePlayer1.Text;
+                if (string.IsNullOrEmpty(namePlayer))
+                {
+                    MessageBox.Show("Must be enter your name", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtNamePlayer1.Text = CONST.NAME_PLAYER1;
+                }
+                else
+                {
+                    CONST.NAME_PLAYER1 = namePlayer;
+                    DrawLANForm(this);
                 }
             }
             else if(temp == "Name Player Setting")
@@ -285,6 +306,10 @@ namespace Caro
                     txtPlayer.Text = manager.PlayerList[manager.Turn].NamePlayer;
                     DrawSettingForm(settingForm);
                 }
+            }
+            else if(temp == "LAN Connection")
+            {
+                DrawMainForm(this);
             }
         }
         #endregion
