@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 using Caro.Setting;
+using System;
 
 namespace Caro
 {
@@ -11,12 +12,13 @@ namespace Caro
         private Form settingForm;
         private Button butTwoPlayer, butModeLan, butUndo, butRedo;
         private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSave;
+        private Button butSTimeOnOrOff;
         private Panel pnlCaroBoard;
         private MenuStrip mainMenu;
         private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting;
-        private TextBox txtPlayer;
+        private TextBox txtPlayer, txtSTimeTurn, txtSTimeInterval;
         private Timer timer;
-        private Label lblTime;
+        private Label lblTime, lblSTimeTurn, lblSTimeInterval;
 
         protected override void Dispose(bool disposing)
         {
@@ -188,6 +190,50 @@ namespace Caro
             butSave.Click += ButSave_Click;
         }
 
+        private void InitializeTimeSettingController()
+        {
+            lblSTimeTurn = new Label()
+            {
+                Name = "lblSTimeTurn",
+                Text = "Time Turn",
+                Size = new Size(60, 30),
+                Location = new Point(20, 30)
+            };
+
+            lblSTimeInterval = new Label()
+            {
+                Name = "lblSTimeInterval",
+                Text = "Interval",
+                Size = new Size(60, 30),
+                Location = new Point(20, 80)
+            };
+
+            txtSTimeTurn = new TextBox()
+            {
+                Name = "txtSTimeTurn",
+                Text = CONST.TIME_TURN.ToString(),
+                Width = 200,
+                Location = new Point(100, 30)
+            };
+
+            txtSTimeInterval = new TextBox()
+            {
+                Name = "txtSTimeInterval",
+                Text = CONST.INTERVAL.ToString(),
+                Width = 200,
+                Location = new Point(100, 80)
+            };
+
+            butSTimeOnOrOff = new Button()
+            {
+                Name = "butSTimeOnOrOff",
+                Text = CONST.IS_ON_TIMER ? "Off Timer" : "On Timer",
+                Size = new Size(60, 30),
+                Location = new Point(150, 200)
+            };
+            butSTimeOnOrOff.Click += ButSTimeOnOrOff_Click;
+        }
+
         private void DrawGameModeForm(Form gameModeForm)
         {
             gameModeForm.Controls.Clear();
@@ -235,6 +281,20 @@ namespace Caro
             settingForm.Controls.Add(butSizeBoard);
             settingForm.Controls.Add(butSave);
         }
+
+        private void DrawTimeSettingForm(Form timeSettingForm)
+        {
+            timeSettingForm.Controls.Clear();
+            timeSettingForm.Text = "Time Setting";
+            timeSettingForm.AutoScaleDimensions = new SizeF(9F, 20F);
+            timeSettingForm.ClientSize = new Size(400, 250);
+            timeSettingForm.Controls.Add(lblSTimeTurn);
+            timeSettingForm.Controls.Add(lblSTimeInterval);
+            timeSettingForm.Controls.Add(txtSTimeTurn);
+            timeSettingForm.Controls.Add(txtSTimeInterval);
+            timeSettingForm.Controls.Add(butSTimeOnOrOff);
+            timeSettingForm.Controls.Add(butSave);
+        }
         
         private void InitializeComponent()
         {
@@ -242,6 +302,7 @@ namespace Caro
             InitializeGameModeController();
             InitializeMainController();
             InitializeSettingController();
+            InitializeTimeSettingController();
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -252,6 +313,7 @@ namespace Caro
             {
                 Interval = CONST.INTERVAL
             };
+            settingForm.FormClosing += SettingForm_FormClosing;
             timer.Tick += Timer_Tick;
             this.ResumeLayout(false);
         }

@@ -143,6 +143,7 @@ namespace Caro.CaroManager
         {
             if (butUndo.Count() > 0)
             {
+                lblTime.Text = CONST.TIME_TURN.ToString();
                 Button but = butUndo.Pop();
                 butRedo.Push(but);
                 but.Image = null;
@@ -156,6 +157,7 @@ namespace Caro.CaroManager
         {
             if (butRedo.Count() > 0)
             {
+                lblTime.Text = CONST.TIME_TURN.ToString();
                 Button but = butRedo.Pop();
                 if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
                 butUndo.Push(but);
