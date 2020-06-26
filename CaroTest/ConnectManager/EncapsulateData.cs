@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace Caro.ConnectManager
+namespace CaroTest.ConnectManager
 {
     //100: send player name to other player
     struct MessageData

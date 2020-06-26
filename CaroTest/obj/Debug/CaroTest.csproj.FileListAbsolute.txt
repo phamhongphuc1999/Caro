@@ -1,0 +1,8 @@
+D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\CaroTest.Properties.Resources.resources
+D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\CaroTest.csproj.GenerateResource.cache
+D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\CaroTest.csproj.CoreCompileInputs.cache
+D:\Documents\VisualStudio\Caro\CaroTest\bin\Debug\CaroTest.exe.config
+D:\Documents\VisualStudio\Caro\CaroTest\bin\Debug\CaroTest.exe
+D:\Documents\VisualStudio\Caro\CaroTest\bin\Debug\CaroTest.pdb
+D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\CaroTest.exe
+D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\CaroTest.pdb

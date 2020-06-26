@@ -1,4 +1,4 @@
-﻿namespace Caro.Setting
+﻿namespace CaroTest.Setting
 {
     public static class CONST
     {

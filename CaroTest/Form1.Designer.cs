@@ -1,9 +1,9 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
-using Caro.Setting;
-using Caro.ConnectManager;
+using CaroTest.Setting;
+using CaroTest.ConnectManager;
 
-namespace Caro
+namespace CaroTest
 {
     partial class Form1
     {
@@ -392,7 +392,7 @@ namespace Caro
             namePlayerForm.Controls.Add(butBack);
             namePlayerForm.Controls.Add(butSave);
             butSave.Text = "Next";
-            
+
         }
 
         private void DrawLANForm(Form LANForm)

@@ -7,4 +7,3 @@ D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.csproj.GenerateResource.Cache
 D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.exe
 D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.pdb
 D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.csproj.CoreCompileInputs.cache
-D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.csprojAssemblyReference.cache

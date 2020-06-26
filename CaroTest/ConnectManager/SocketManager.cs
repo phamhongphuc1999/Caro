@@ -1,11 +1,11 @@
-﻿using Caro.Setting;
+﻿using CaroTest.Setting;
 using System;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading;
 
-namespace Caro.ConnectManager
+namespace CaroTest.ConnectManager
 {
     class SocketManager
     {
