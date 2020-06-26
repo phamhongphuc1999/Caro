@@ -1,7 +1,6 @@
 ﻿using Caro.CaroManager;
 using Caro.Setting;
 using System;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace Caro
@@ -17,21 +16,19 @@ namespace Caro
             manager.NewGameEvent += Manager_NewGameEvent;
             manager.EndGameEvent += Manager_EndGameEvent;
             this.FormClosing += Form1_FormClosing;
-            DrawGameModeForm(this);
+            DrawGameModeForm(this, "Game Mode");
         }
 
         #region Event Handle
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            timer.Stop();
             DialogResult result = MessageBox.Show("Are you sure?", "WARNING", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-            if (result == DialogResult.Cancel) e.Cancel = true;
-        }
-
-        private void SettingForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Are you sure?", "WARNING", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-            if (result == DialogResult.OK) timer.Start();
-            else e.Cancel = true;
+            if (result == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+                if (CONST.IS_ON_TIMER) timer.Start();
+            }
         }
 
         private void Manager_EndGameEvent(object sender, EventArgs e)
@@ -41,6 +38,7 @@ namespace Caro
 
         private void Manager_NewGameEvent(object sender, EventArgs e)
         {
+            DrawMainForm(this);
             if (CONST.IS_ON_TIMER) timer.Start();
         }
 
@@ -60,22 +58,52 @@ namespace Caro
 
         private void ButModeLan_Click(object sender, EventArgs e)
         {
-            CONST.gameMode = "LAN";
-            CONST.numberOfColumn = 10;
-            CONST.numberOfRow = 10;
-            DrawMainForm(this, CONST.numberOfRow, CONST.numberOfColumn);
-            manager.NewGameHandle(0);
-            if(CONST.IS_ON_TIMER) timer.Start();
+            Button eventBut = (Button)sender;
+            Form parent = (Form)eventBut.Parent;
+            if(parent.Text == "Game Mode")
+            {
+                CONST.gameMode = "LAN";
+                CONST.numberOfColumn = 10;
+                CONST.numberOfRow = 10;
+                DrawNamePlayerForm(this, "Name Player", "LAN");
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show("This action will make a new game\nAre you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if(result == DialogResult.OK)
+                {
+                    CONST.gameMode = "LAN";
+                    settingForm.Close();
+                    DrawMainForm(this);
+                    manager.NewGameHandle(0);
+                    if (CONST.IS_ON_TIMER) timer.Start();
+                }
+            }
         }
 
         private void ButTwoPlayer_Click(object sender, EventArgs e)
         {
-            CONST.gameMode = "TWO_PLAYER";
-            CONST.numberOfColumn = 10;
-            CONST.numberOfRow = 10;
-            DrawMainForm(this, CONST.numberOfRow, CONST.numberOfColumn);
-            manager.NewGameHandle(0);
-            if (CONST.IS_ON_TIMER) timer.Start();
+            Button eventBut = (Button)sender;
+            Form parent = (Form)eventBut.Parent;
+            if (parent.Text == "Game Mode")
+            {
+                CONST.gameMode = "TWO_PLAYER";
+                CONST.numberOfColumn = 10;
+                CONST.numberOfRow = 10;
+                DrawNamePlayerForm(this, "Name Player", "TWO_PLAYER");
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show("This action will make a new game\nAre you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.OK)
+                {
+                    CONST.gameMode = "TWO_PLAYER";
+                    settingForm.Close();
+                    DrawMainForm(this);
+                    manager.NewGameHandle(0);
+                    if (CONST.IS_ON_TIMER) timer.Start();
+                }
+            }
         }
 
         private void ButUndo_Click(object sender, EventArgs e)
@@ -97,18 +125,24 @@ namespace Caro
 
         private void ToolItemQuick_Click(object sender, EventArgs e)
         {
+            Application.Exit();
         }
 
         private void ToolItemNewGame_Click(object sender, EventArgs e)
         {
+            timer.Stop();
+            DialogResult result = MessageBox.Show("Are you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK) manager.NewGameHandle(manager.Turn);
         }
 
         private void ButSizeBoard_Click(object sender, EventArgs e)
         {
+            DrawSizeSettingForm(settingForm);
         }
 
         private void ButNamePlayer_Click(object sender, EventArgs e)
         {
+            DrawNamePlayerForm(settingForm, "Name Player Setting");
         }
 
         private void ButTimer_Click(object sender, EventArgs e)
@@ -118,6 +152,7 @@ namespace Caro
 
         private void ButGameMode_Click(object sender, EventArgs e)
         {
+            DrawGameModeForm(settingForm, "Game Mode Setting");
         }
 
         private void ButSTimeOnOrOff_Click(object sender, EventArgs e)
@@ -139,7 +174,9 @@ namespace Caro
 
         private void ButSave_Click(object sender, EventArgs e)
         {
-            string temp = settingForm.Text;
+            Button eventBut = (Button)sender;
+            Form parent = (Form)eventBut.Parent;
+            string temp = parent.Text;
             if (temp == "Setting")
             {
                 settingForm.Close();
@@ -167,6 +204,87 @@ namespace Caro
                 }
                 else CONST.IS_ON_TIMER = false;
                 DrawSettingForm(settingForm);
+            }
+            else if(temp == "Size Setting")
+            {
+                int row = 0, column = 0;
+                bool check1 = Int32.TryParse(txtSSizeRow.Text, out row);
+                bool check2 = Int32.TryParse(txtSSizeColumn.Text, out column);
+                if (!check1 || !check2)
+                {
+                    MessageBox.Show("Must be enter integer", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtSSizeRow.Text = CONST.numberOfRow.ToString();
+                    txtSSizeColumn.Text = CONST.numberOfColumn.ToString();
+                }
+                else if(row > 20 || row < 5 || column > 30 || column < 5)
+                {
+                    MessageBox.Show("Number of row is less than 20 and greater than 5\nNumber of column is less than 30 and greater than 5"
+                        , "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtSSizeRow.Text = CONST.numberOfRow.ToString();
+                    txtSSizeColumn.Text = CONST.numberOfColumn.ToString();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show("This action will make a new game\nAre you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                    if(result == DialogResult.OK)
+                    {
+                        CONST.numberOfRow = row;
+                        CONST.numberOfColumn = column;
+                        settingForm.Close();
+                        manager.NewGameHandle(manager.Turn);
+                    }
+                }
+            }
+            else if(temp == "Name Player")
+            {
+                string namePlayer1 = txtNamePlayer1.Text;
+                string namePlayer2 = txtNamePlayer2.Text;
+                if (string.IsNullOrEmpty(namePlayer1) || string.IsNullOrEmpty(namePlayer2))
+                {
+                    MessageBox.Show("Must be enter your name", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtNamePlayer1.Text = CONST.NAME_PLAYER1;
+                    txtNamePlayer2.Text = CONST.NAME_PALYER2;
+                }
+                else if (namePlayer1 == namePlayer2)
+                {
+                    MessageBox.Show("Wrong", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtNamePlayer1.Text = CONST.NAME_PLAYER1;
+                    txtNamePlayer2.Text = CONST.NAME_PALYER2;
+                }
+                else
+                {
+                    CONST.NAME_PLAYER1 = namePlayer1;
+                    CONST.NAME_PALYER2 = namePlayer2;
+                    manager.NewGameHandle(0);
+                    DrawMainForm(this);
+                    if (CONST.IS_ON_TIMER) timer.Start();
+                }
+            }
+            else if(temp == "Name Player Setting")
+            {
+                string namePlayer1 = txtNamePlayer1.Text;
+                string namePlayer2 = txtNamePlayer2.Text;
+                if (string.IsNullOrEmpty(namePlayer1) || string.IsNullOrEmpty(namePlayer2))
+                {
+                    MessageBox.Show("Must be enter your name", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtNamePlayer1.Text = CONST.NAME_PLAYER1;
+                    txtNamePlayer2.Text = CONST.NAME_PALYER2;
+                }
+                else if(namePlayer1 == namePlayer2)
+                {
+                    MessageBox.Show("Wrong", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtNamePlayer1.Text = CONST.NAME_PLAYER1;
+                    txtNamePlayer2.Text = CONST.NAME_PALYER2;
+                }
+                else
+                {
+                    CONST.NAME_PLAYER1 = namePlayer1;
+                    CONST.NAME_PALYER2 = namePlayer2;
+                    manager.PlayerList[0].NamePlayer = CONST.NAME_PLAYER1;
+                    manager.PlayerList[1].NamePlayer = CONST.NAME_PALYER2;
+                    txtPlayer.Text = manager.PlayerList[manager.Turn].NamePlayer;
+                    DrawSettingForm(settingForm);
+                }
             }
         }
         #endregion

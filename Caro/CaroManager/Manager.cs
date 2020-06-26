@@ -52,11 +52,9 @@ namespace Caro.CaroManager
             caroBoard = new Dictionary<KeyValuePair<int, int>, Button>();
             playerList = new List<Player>()
             {
-                new Player("Player 1", Image.FromFile("./Image/red.png"), 0),
-                new Player("Player 2", Image.FromFile("./Image/green.png"), 1)
+                new Player("", Image.FromFile("./Image/red.png"), 0),
+                new Player("", Image.FromFile("./Image/green.png"), 1)
             };
-            txtPlayer.Text = "Player 1";
-            txtPlayer.BackColor = Color.Red;
         }
 
         private void DrawCaroBoard(int numberOfRow, int numberOfColumn)
@@ -86,12 +84,12 @@ namespace Caro.CaroManager
             playerList[1 - turn].IsTurn = 0;
             if (turn == 0)
             {
-                txtPlayer.Text = "Player 1";
+                txtPlayer.Text = playerList[0].NamePlayer;
                 txtPlayer.BackColor = Color.Red;
             }
             else
             {
-                txtPlayer.Text = "Player 2";
+                txtPlayer.Text = playerList[1].NamePlayer;
                 txtPlayer.BackColor = Color.Green;
             }
         }
@@ -99,6 +97,8 @@ namespace Caro.CaroManager
         public void NewGameHandle(int player)
         {
             turn = player;
+            playerList[0].NamePlayer = CONST.NAME_PLAYER1;
+            playerList[1].NamePlayer = CONST.NAME_PALYER2;
             txtPlayer.Text = playerList[turn].NamePlayer;
             txtPlayer.BackColor = (turn == 0) ? Color.Red : Color.Green;
             checkWinner.NewGameHanlde(player);

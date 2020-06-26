@@ -1,7 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 using Caro.Setting;
-using System;
 
 namespace Caro
 {
@@ -17,8 +16,12 @@ namespace Caro
         private MenuStrip mainMenu;
         private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting;
         private TextBox txtPlayer, txtSTimeTurn, txtSTimeInterval;
+        private TextBox txtSSizeRow, txtSSizeColumn;
+        private TextBox txtNamePlayer1, txtNamePlayer2;
         private Timer timer;
         private Label lblTime, lblSTimeTurn, lblSTimeInterval;
+        private Label lblSSizeRow, lblSSizeColumn;
+        private Label lblNamePlayer1, lblNamePlayer2;
 
         protected override void Dispose(bool disposing)
         {
@@ -30,6 +33,7 @@ namespace Caro
         }
 
         #region Windows Form Designer generated code
+        #region Initialize Controller
         private void CreateMainMenu()
         {
             toolItemSetting = new ToolStripMenuItem()
@@ -88,7 +92,7 @@ namespace Caro
                 Name = "butMode",
                 Text = "Two Player",
                 Size = new Size(120, 80),
-                Location = new Point(50, 85)
+                Location = new Point(40, 85)
             };
 
             butModeLan = new Button()
@@ -96,10 +100,43 @@ namespace Caro
                 Name = "butModeLan",
                 Text = "LAN Mode",
                 Size = new Size(120, 80),
-                Location = new Point(230, 85)
+                Location = new Point(240, 85)
             };
             butTwoPlayer.Click += ButTwoPlayer_Click;
             butModeLan.Click += ButModeLan_Click;
+        }
+
+        private void InitializeNamePlayerController()
+        {
+            lblNamePlayer1 = new Label()
+            {
+                Name = "lblNamePlayer1",
+                Text = "Player 1",
+                Size = new Size(60, 30),
+                Location = new Point(20, 30)
+            };
+
+            lblNamePlayer2 = new Label()
+            {
+                Name = "lblNamePlayer2",
+                Text = "Player 2",
+                Size = new Size(60, 30),
+                Location = new Point(20, 80)
+            };
+
+            txtNamePlayer1 = new TextBox()
+            {
+                Name = "txtNamePlayer1",
+                Width = 200,
+                Location = new Point(100, 30)
+            };
+
+            txtNamePlayer2 = new TextBox()
+            {
+                Name = "txtSTimeInterval",
+                Width = 200,
+                Location = new Point(100, 80)
+            };
         }
 
         private void InitializeMainController()
@@ -234,23 +271,74 @@ namespace Caro
             butSTimeOnOrOff.Click += ButSTimeOnOrOff_Click;
         }
 
-        private void DrawGameModeForm(Form gameModeForm)
+        private void InitializeSizeSettingController()
+        {
+            lblSSizeRow = new Label()
+            {
+                Name = "lblSSizeRow",
+                Text = "Row",
+                Size = new Size(60, 30),
+                Location = new Point(20, 30)
+            };
+
+            lblSSizeColumn = new Label()
+            {
+                Name = "lblSSizeColumn",
+                Text = "Column",
+                Size = new Size(60, 30),
+                Location = new Point(20, 80)
+            };
+
+            txtSSizeRow = new TextBox()
+            {
+                Name = "txtSSizeRow",
+                Text = CONST.numberOfRow.ToString(),
+                Width = 200,
+                Location = new Point(100, 30)
+            };
+
+            txtSSizeColumn = new TextBox()
+            {
+                Name = "txtSSizeColumn",
+                Text = CONST.numberOfColumn.ToString(),
+                Width = 200,
+                Location = new Point(100, 80)
+            };
+        }
+        #endregion
+
+        #region Draw Form
+        private void DrawGameModeForm(Form gameModeForm, string formText)
         {
             gameModeForm.Controls.Clear();
+            gameModeForm.Text = formText;
             gameModeForm.AutoScaleDimensions = new SizeF(9F, 20F);
             gameModeForm.ClientSize = new Size(400, 250);
             gameModeForm.Controls.Add(butTwoPlayer);
             gameModeForm.Controls.Add(butModeLan);
         }
 
-        private void DrawMainForm(Form mainForm, int numberOfRow, int numberOfColumn)
+        private void DrawNamePlayerForm(Form namePlayerForm, string formText, string gameMode = "")
+        {
+            namePlayerForm.Controls.Clear();
+            namePlayerForm.Text = formText;
+            namePlayerForm.AutoScaleDimensions = new SizeF(9F, 20F);
+            namePlayerForm.ClientSize = new Size(400, 250);
+            namePlayerForm.Controls.Add(lblNamePlayer1);
+            namePlayerForm.Controls.Add(lblNamePlayer2);
+            namePlayerForm.Controls.Add(txtNamePlayer1);
+            namePlayerForm.Controls.Add(txtNamePlayer2);
+            namePlayerForm.Controls.Add(butSave);
+        }
+
+        private void DrawMainForm(Form mainForm)
         {
             mainForm.Controls.Clear();
 
-            pnlCaroBoard.Size = new Size(CONST.WIDTH * numberOfColumn, CONST.HEIGHT * numberOfRow);
+            pnlCaroBoard.Size = new Size(CONST.WIDTH * CONST.numberOfColumn, CONST.HEIGHT * CONST.numberOfRow);
 
-            mainForm.Width = pnlCaroBoard.Width + numberOfColumn * 2;
-            mainForm.Height = pnlCaroBoard.Height + numberOfRow * 4 + 70;
+            mainForm.Width = pnlCaroBoard.Width + CONST.numberOfColumn * 2;
+            mainForm.Height = pnlCaroBoard.Height + CONST.numberOfRow * 4 + 70;
             butUndo.Location = new Point(mainForm.Width - 150, 30);
             butRedo.Location = new Point(mainForm.Width - 80, 30);
             txtPlayer.Location = new Point(mainForm.Width / 3 + 10, 5);
@@ -295,14 +383,30 @@ namespace Caro
             timeSettingForm.Controls.Add(butSTimeOnOrOff);
             timeSettingForm.Controls.Add(butSave);
         }
-        
+
+        private void DrawSizeSettingForm(Form sizeSettingForm)
+        {
+            sizeSettingForm.Controls.Clear();
+            sizeSettingForm.Text = "Size Setting";
+            sizeSettingForm.AutoScaleDimensions = new SizeF(9F, 20F);
+            sizeSettingForm.ClientSize = new Size(400, 250);
+            sizeSettingForm.Controls.Add(lblSSizeColumn);
+            sizeSettingForm.Controls.Add(lblSSizeRow);
+            sizeSettingForm.Controls.Add(txtSSizeColumn);
+            sizeSettingForm.Controls.Add(txtSSizeRow);
+            sizeSettingForm.Controls.Add(butSave);
+        }
+        #endregion
+
         private void InitializeComponent()
         {
             this.SuspendLayout();
             InitializeGameModeController();
+            InitializeNamePlayerController();
             InitializeMainController();
             InitializeSettingController();
             InitializeTimeSettingController();
+            InitializeSizeSettingController();
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -313,7 +417,6 @@ namespace Caro
             {
                 Interval = CONST.INTERVAL
             };
-            settingForm.FormClosing += SettingForm_FormClosing;
             timer.Tick += Timer_Tick;
             this.ResumeLayout(false);
         }
