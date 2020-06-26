@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Caro.Setting
+﻿namespace Caro.Setting
 {
-    public class CONST
+    public static class CONST
     {
-        public string gameMode;
-        public int numberOfRow, numberOfColumn;
+        public static string gameMode = "TWO_PLAYER";
+        public static int numberOfRow = 10;
+        public static int numberOfColumn = 10;
         public static int WIDTH = 25;
         public static int HEIGHT = 25;
-
-        public CONST(string gameMode = "ONE_COMPUTER", int  numberOfRow = 10, int numberOfColumn = 10)
-        {
-            this.gameMode = gameMode;
-            this.numberOfColumn = numberOfColumn;
-            this.numberOfRow = numberOfRow;
-        }
+        public static int TIME_TURN = 5;
+        public static int INTERVAL = 1000;
     }
 }

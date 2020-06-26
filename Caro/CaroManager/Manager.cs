@@ -2,29 +2,53 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
+using System;
 
 namespace Caro.CaroManager
 {
     class Manager
     {
-        private Form1 mainForm;
+        private int turn;
+        public int Turn
+        {
+            get { return turn; }
+            set { turn = value; }
+        }
         private Panel pnlCaroBoard;
         private TextBox txtPlayer;
-        private static CONST caroConst;
+        private Label lblTime;
         private static CheckWinner checkWinner;
         private Dictionary<KeyValuePair<int, int>, Button> caroBoard;
         private List<Player> playerList;
-        CaroStack<Button> butUndo, butRedo;
-
-        public Manager(Form1 mainForm, TextBox txtPlayer, Panel pnlCaroBoard, CONST caroConst)
+        public List<Player> PlayerList
         {
-            this.mainForm = mainForm;
+            get { return playerList; }
+            set { playerList = value; }
+        }
+        private CaroStack<Button> butUndo, butRedo;
+
+        private event EventHandler newGameEvent;
+        public event EventHandler NewGameEvent
+        {
+            add { newGameEvent += value; }
+            remove { newGameEvent += value; }
+        }
+
+        private event EventHandler endGameEvent;
+        public event EventHandler EndGameEvent
+        {
+            add { endGameEvent += value; }
+            remove { endGameEvent += value; }
+        }
+
+        public Manager(TextBox txtPlayer, Panel pnlCaroBoard, Label lblTime)
+        {
             this.txtPlayer = txtPlayer;
             this.pnlCaroBoard = pnlCaroBoard;
-            Manager.caroConst = caroConst;
+            this.lblTime = lblTime;
             butUndo = new CaroStack<Button>(5);
             butRedo = new CaroStack<Button>(5);
-            checkWinner = new CheckWinner(caroConst.numberOfColumn, caroConst.numberOfRow);
+            checkWinner = new CheckWinner(CONST.numberOfColumn, CONST.numberOfRow);
             caroBoard = new Dictionary<KeyValuePair<int, int>, Button>();
             playerList = new List<Player>()
             {
@@ -35,13 +59,13 @@ namespace Caro.CaroManager
             txtPlayer.BackColor = Color.Red;
         }
 
-        public void DrawCaroBoard(int numberOfRow, int numberOfColumn)
+        private void DrawCaroBoard(int numberOfRow, int numberOfColumn)
         {
             pnlCaroBoard.Controls.Clear();
             caroBoard.Clear();
-            for(int i = 0; i < numberOfRow; i++)
+            for (int i = 0; i < numberOfRow; i++)
             {
-                for(int j = 0; j < numberOfColumn; j++)
+                for (int j = 0; j < numberOfColumn; j++)
                 {
                     Button but = new Button()
                     {
@@ -55,47 +79,46 @@ namespace Caro.CaroManager
             }
         }
 
-        private int TurnPalyer()
+        private void TurnPalyer()
         {
-            int player = -1;
-            if(playerList[0].IsTurn == 1)
+            turn = 1 - turn;
+            playerList[turn].IsTurn = 1;
+            playerList[1 - turn].IsTurn = 0;
+            if (turn == 0)
             {
-                player = 1;
-                playerList[0].IsTurn = 0;
-                playerList[1].IsTurn = 1;
                 txtPlayer.Text = "Player 1";
                 txtPlayer.BackColor = Color.Red;
             }
             else
             {
-                player = 0;
-                playerList[1].IsTurn = 0;
-                playerList[0].IsTurn = 1;
                 txtPlayer.Text = "Player 2";
                 txtPlayer.BackColor = Color.Green;
             }
-            return player;
         }
 
-        private void NewGameHandle(int player)
+        public void NewGameHandle(int player)
         {
-            playerList[player].IsTurn = 0;
-            playerList[1 - player].IsTurn = 1;
+            turn = player;
+            txtPlayer.Text = playerList[turn].NamePlayer;
+            txtPlayer.BackColor = (turn == 0) ? Color.Red : Color.Green;
             checkWinner.NewGameHanlde(player);
             txtPlayer.Text = playerList[player].NamePlayer;
             txtPlayer.BackColor = (player == 0) ? Color.Red : Color.Green;
-            DrawCaroBoard(caroConst.numberOfRow, caroConst.numberOfColumn);
+            DrawCaroBoard(CONST.numberOfRow, CONST.numberOfColumn);
+            lblTime.Text = CONST.TIME_TURN.ToString();
+            newGameEvent(this, new EventArgs());
         }
 
         private void EndGameHandle(int player, Button eventBut)
         {
+            endGameEvent(this, new EventArgs());
             int[] check = checkWinner.check;
-            if(check[0] == 1)
+            if (check[0] == 1)
             {
                 foreach (KeyValuePair<int, int> item in checkWinner.arrRow)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
-            if(check[1] == 1)
+            if (check[1] == 1)
             {
                 foreach (KeyValuePair<int, int> item in checkWinner.arrColumn)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
@@ -112,13 +135,13 @@ namespace Caro.CaroManager
             }
             eventBut.FlatStyle = FlatStyle.Flat;
             MessageBox.Show("The " + playerList[player].NamePlayer + " win", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (result == DialogResult.OK) NewGameHandle(player);
         }
 
         public void UndoHandle()
         {
-            if(butUndo.Count() > 0)
+            if (butUndo.Count() > 0)
             {
                 Button but = butUndo.Pop();
                 butRedo.Push(but);
@@ -131,14 +154,14 @@ namespace Caro.CaroManager
 
         public void RedoHandle()
         {
-            if(butRedo.Count() > 0)
+            if (butRedo.Count() > 0)
             {
                 Button but = butRedo.Pop();
                 if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
                 butUndo.Push(but);
-                int player = TurnPalyer();
-                but.Image = playerList[player].ImagePlayer;
+                but.Image = playerList[turn].ImagePlayer;
                 but.FlatStyle = FlatStyle.Flat;
+                TurnPalyer();
             }
         }
 
@@ -148,17 +171,21 @@ namespace Caro.CaroManager
             Button eventBut = (Button)sender;
             int X = eventBut.Location.X;
             int Y = eventBut.Location.Y;
-            if(eventBut.Image == null)
+            if (eventBut.Image == null)
             {
+                lblTime.Text = CONST.TIME_TURN.ToString();
                 eventBut.FlatStyle = FlatStyle.Flat;
-                if(butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
+                if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
                 butUndo.Push(eventBut);
-                int player = TurnPalyer();
-                checkWinner.Turn = player;
-                eventBut.Image = playerList[player].ImagePlayer;
+                checkWinner.Turn = turn;
+                eventBut.Image = playerList[turn].ImagePlayer;
                 bool isWiner = checkWinner.IsWiner(X, Y);
-                if (isWiner) EndGameHandle(player, eventBut);
-                else checkWinner.DrawCaroBoard(X, Y);
+                if (isWiner) EndGameHandle(turn, eventBut);
+                else
+                {
+                    checkWinner.DrawCaroBoard(X, Y);
+                    TurnPalyer();
+                }
             }
         }
         #endregion

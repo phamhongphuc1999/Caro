@@ -8,12 +8,15 @@ namespace Caro
     {
         private System.ComponentModel.IContainer components = null;
 
-        private Form formGameMode;
+        private Form settingForm;
         private Button butTwoPlayer, butModeLan, butUndo, butRedo;
+        private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSave;
         private Panel pnlCaroBoard;
         private MenuStrip mainMenu;
-        private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemGameMode;
+        private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting;
         private TextBox txtPlayer;
+        private Timer timer;
+        private Label lblTime;
 
         protected override void Dispose(bool disposing)
         {
@@ -25,12 +28,12 @@ namespace Caro
         }
 
         #region Windows Form Designer generated code
-        private void CreateMainMenu(int width)
+        private void CreateMainMenu()
         {
-            toolItemGameMode = new ToolStripMenuItem()
+            toolItemSetting = new ToolStripMenuItem()
             {
-                Name = "GameMode",
-                Text = "Game Mode"
+                Name = "Setting",
+                Text = "Setting"
             };
 
             toolItemNewGame = new ToolStripMenuItem()
@@ -53,9 +56,12 @@ namespace Caro
             toolItemMain.DropDownItems.AddRange(new ToolStripItem[]
             {
                 toolItemNewGame,
-                toolItemGameMode,
+                toolItemSetting,
                 toolItemQuick
             });
+            toolItemNewGame.Click += ToolItemNewGame_Click;
+            toolItemQuick.Click += ToolItemQuick_Click;
+            toolItemSetting.Click += ToolItemSetting_Click;
 
             mainMenu = new MenuStrip()
             {
@@ -64,24 +70,16 @@ namespace Caro
                 GripMargin = new Padding(2, 2, 0, 2),
                 ImageScalingSize = new Size(24, 24),
                 Location = new Point(0, 0),
-                Size = new Size(width, 20),
-                TabIndex = 0,
-                BackColor = Color.Green
+                TabIndex = 0
             };
 
-            mainMenu.SuspendLayout();
-            this.SuspendLayout();
             mainMenu.Items.AddRange(new ToolStripItem[]
             {
                 toolItemMain
             });
-
-            this.Controls.Add(mainMenu);
-            mainMenu.ResumeLayout(false);
-            mainMenu.PerformLayout();
         }
 
-        private void DrawGameModeForm()
+        private void InitializeGameModeController()
         {
             butTwoPlayer = new Button()
             {
@@ -98,80 +96,165 @@ namespace Caro
                 Size = new Size(120, 80),
                 Location = new Point(230, 85)
             };
-
-            formGameMode = new Form()
-            {
-                Name = "formGameMode",
-                Text = "Game Mode",
-                AutoScaleDimensions = new SizeF(9F, 20F),
-                ClientSize = new Size(400, 250)
-            };
-
-            formGameMode.Controls.Add(butTwoPlayer);
-            formGameMode.Controls.Add(butModeLan);
+            butTwoPlayer.Click += ButTwoPlayer_Click;
+            butModeLan.Click += ButModeLan_Click;
         }
 
-        private void DrawMainForm(int numberOfRow, int numberOfColumn)
+        private void InitializeMainController()
         {
             pnlCaroBoard = new Panel()
             {
                 Name = "pnlCaroBoard",
-                Size = new Size(CONST.WIDTH * numberOfColumn, CONST.HEIGHT * numberOfRow),
                 Location = new Point(1, 70)
             };
-
-            this.Width = pnlCaroBoard.Width + numberOfColumn * 2;
-            this.Height = pnlCaroBoard.Height + numberOfRow * 4 + 70;
 
             butUndo = new Button()
             {
                 Name = "butUndo",
                 Text = "Undo",
-                Size = new Size(60, 20),
-                Location = new Point(this.Width - 150, 30)
+                Size = new Size(60, 20)
             };
 
             butRedo = new Button()
             {
                 Name = "butRedo",
                 Text = "Redo",
-                Size = new Size(60, 20),
-                Location = new Point(this.Width - 80, 30)
+                Size = new Size(60, 20)
             };
 
             txtPlayer = new TextBox()
             {
                 Name = "txtPlayer",
-                ReadOnly = true,
-                Location = new Point(this.Width / 3 + 10, 0)
+                ReadOnly = true
             };
-            int temp = 2 * this.Width / 3 - 10;
+
+            lblTime = new Label()
+            {
+                Name = "lblTime",
+                Text = CONST.TIME_TURN.ToString(),
+                Location = new Point(0, 30)
+            };
+            CreateMainMenu();
+
+            butRedo.Click += ButRedo_Click;
+            butUndo.Click += ButUndo_Click;
+        }
+
+        private void InitializeSettingController()
+        {
+            butGameMode = new Button()
+            {
+                Name = "butGameMode",
+                Text = "Game Mode",
+                Size = new Size(100, 40),
+                Location = new Point(50, 45)
+            };
+
+            butTimer = new Button()
+            {
+                Name = "butTimer",
+                Text = "Time",
+                Size = new Size(100, 40),
+                Location = new Point(250, 45)
+            };
+
+            butNamePlayer = new Button()
+            {
+                Name = "butNamePlayer",
+                Text = "Name Player",
+                Size = new Size(100, 40),
+                Location = new Point(50, 95)
+            };
+
+            butSizeBoard = new Button()
+            {
+                Name = "butSizeBoard",
+                Text = "Size Board",
+                Size = new Size(100, 40),
+                Location = new Point(250, 95)
+            };
+
+            butSave = new Button()
+            {
+                Name = "butSave",
+                Text = "Save Change",
+                Size = new Size(80, 30),
+                Location = new Point(300, 200)
+            };
+            butGameMode.Click += ButGameMode_Click;
+            butTimer.Click += ButTimer_Click;
+            butNamePlayer.Click += ButNamePlayer_Click;
+            butSizeBoard.Click += ButSizeBoard_Click;
+            butSave.Click += ButSave_Click;
+        }
+
+        private void DrawGameModeForm(Form gameModeForm)
+        {
+            gameModeForm.Controls.Clear();
+            gameModeForm.AutoScaleDimensions = new SizeF(9F, 20F);
+            gameModeForm.ClientSize = new Size(400, 250);
+            gameModeForm.Controls.Add(butTwoPlayer);
+            gameModeForm.Controls.Add(butModeLan);
+        }
+
+        private void DrawMainForm(Form mainForm, int numberOfRow, int numberOfColumn)
+        {
+            mainForm.Controls.Clear();
+
+            pnlCaroBoard.Size = new Size(CONST.WIDTH * numberOfColumn, CONST.HEIGHT * numberOfRow);
+
+            mainForm.Width = pnlCaroBoard.Width + numberOfColumn * 2;
+            mainForm.Height = pnlCaroBoard.Height + numberOfRow * 4 + 70;
+            butUndo.Location = new Point(mainForm.Width - 150, 30);
+            butRedo.Location = new Point(mainForm.Width - 80, 30);
+            txtPlayer.Location = new Point(mainForm.Width / 3 + 10, 5);
+            int temp = 2 * mainForm.Width / 3 - 10;
             if (temp < 200) txtPlayer.Width = temp - 20;
             else txtPlayer.Width = 200;
+            mainMenu.Size = new Size(mainForm.Width / 3, 20);
 
-            CreateMainMenu(this.Width / 3);
-            this.Controls.Add(pnlCaroBoard);
-            this.Controls.Add(txtPlayer);
-            this.Controls.Add(butRedo);
-            this.Controls.Add(butUndo);
+            mainForm.Controls.Add(pnlCaroBoard);
+            mainForm.Controls.Add(txtPlayer);
+            mainForm.Controls.Add(butRedo);
+            mainForm.Controls.Add(butUndo);
+            mainForm.Controls.Add(lblTime);
+            mainForm.Controls.Add(mainMenu);
+            mainMenu.ResumeLayout(false);
+            mainMenu.PerformLayout();
+        }
+
+        private void DrawSettingForm(Form settingForm)
+        {
+            settingForm.Controls.Clear();
+            settingForm.Text = "Setting";
+            settingForm.AutoScaleDimensions = new SizeF(9F, 20F);
+            settingForm.ClientSize = new Size(400, 250);
+            settingForm.Controls.Add(butGameMode);
+            settingForm.Controls.Add(butTimer);
+            settingForm.Controls.Add(butNamePlayer);
+            settingForm.Controls.Add(butSizeBoard);
+            settingForm.Controls.Add(butSave);
         }
         
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // Form1
-            // 
+            InitializeGameModeController();
+            InitializeMainController();
+            InitializeSettingController();
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "Form1";
             this.Text = "Caro";
+            settingForm = new Form();
+            timer = new Timer()
+            {
+                Interval = CONST.INTERVAL
+            };
+            timer.Tick += Timer_Tick;
             this.ResumeLayout(false);
-
-            DrawGameModeForm();
         }
-
         #endregion
     }
 }
