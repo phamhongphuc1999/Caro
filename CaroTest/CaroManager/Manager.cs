@@ -87,13 +87,13 @@ namespace CaroTest.CaroManager
             playerList[1 - turn].IsTurn = 0;
             if (turn == 0)
             {
-                txtPlayer.Text = playerList[0].NamePlayer;
                 txtPlayer.BackColor = Color.Red;
+                txtPlayer.Text = playerList[0].NamePlayer;
             }
             else
             {
-                txtPlayer.Text = playerList[1].NamePlayer;
                 txtPlayer.BackColor = Color.Green;
+                txtPlayer.Text = playerList[1].NamePlayer;
             }
         }
 
@@ -181,6 +181,7 @@ namespace CaroTest.CaroManager
 
         public void LANMovePointHandle(int X, int Y)
         {
+            CONST.IS_LOCK = true;
             Button eventBut = caroBoard[new KeyValuePair<int, int>(X, Y)];
             But_Click(eventBut, new EventArgs());
         }
@@ -191,13 +192,14 @@ namespace CaroTest.CaroManager
             Button eventBut = (Button)sender;
             int X = eventBut.Location.X;
             int Y = eventBut.Location.Y;
-            if (eventBut.Image == null)
+            if (eventBut.Image == null && CONST.IS_LOCK)
             {
                 if (CONST.gameMode == "LAN" && CONST.IS_TURN)
                 {
                     string sX = X.ToString(), sY = Y.ToString();
                     socketManager.SEND_TCP(EncapsulateData.CreateMessage(101, sX + " " + sY), SocketFlags.None);
                     CONST.IS_TURN = !CONST.IS_TURN;
+                    CONST.IS_LOCK = !CONST.IS_LOCK;
                 }
                 else if (CONST.gameMode == "LAN") CONST.IS_TURN = !CONST.IS_TURN;
                 lblTime.Text = CONST.TIME_TURN.ToString();
@@ -211,7 +213,8 @@ namespace CaroTest.CaroManager
                 else
                 {
                     checkWinner.DrawCaroBoard(X, Y);
-                    TurnPalyer();
+                    if (CONST.gameMode == "TWO_PLAYER") TurnPalyer();
+                    else CrossThread.PerformSafely(txtPlayer, TurnPalyer);
                 }
             }
         }

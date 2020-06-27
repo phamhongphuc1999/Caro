@@ -18,5 +18,6 @@
         public static int BUFF_SIZE = 10240;
         public static bool isServer = true;
         public static bool IS_TURN = true;
+        public static bool IS_LOCK = true;
     }
 }

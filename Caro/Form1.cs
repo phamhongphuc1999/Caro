@@ -18,8 +18,8 @@ namespace Caro
         {
             InitializeComponent();
             manager = new Manager(txtPlayer, pnlCaroBoard, lblTime);
-            Manager.socketManager = socketManager;
             socketManager = new SocketManager();
+            Manager.socketManager = socketManager;
             manager.NewGameEvent += Manager_NewGameEvent;
             manager.EndGameEvent += Manager_EndGameEvent;
             this.FormClosing += Form1_FormClosing;
@@ -199,6 +199,7 @@ namespace Caro
                             butSave.Enabled = true;
                             CONST.isServer = true;
                             CONST.IS_TURN = true;
+                            CONST.IS_LOCK = true;
                             Thread listenThread = new Thread(() =>
                             {
                                 int odcode = -1; string message = "";
@@ -220,7 +221,7 @@ namespace Caro
                                             manager.LANMovePointHandle(X, Y);
                                         }
                                     }
-                                    catch { continue; }
+                                    catch { txtPlayer.Text = "123456"; continue; }
                                 }
                             });
                             listenThread.IsBackground = true;
@@ -241,6 +242,7 @@ namespace Caro
                         butSave.Enabled = true;
                         CONST.isServer = false;
                         CONST.IS_TURN = false;
+                        CONST.IS_LOCK = false;
                         Thread listenThread = new Thread(() =>
                         {
                             int odcode = -1; string message = "";
