@@ -194,8 +194,12 @@ namespace Caro
                     {
                         if (socketManager.CreateServer())
                         {
+                            txtIP.ReadOnly = true;
+                            txtPort.ReadOnly = true;
+                            butConnect.Enabled = false;
                             butConnect.Text = "Success";
                             butConnect.BackColor = Color.Green;
+                            butGetIP.Enabled = false;
                             butSave.Enabled = true;
                             CONST.isServer = true;
                             CONST.IS_TURN = true;
@@ -208,20 +212,21 @@ namespace Caro
                                     try
                                     {
                                         socketManager.RECEIVE_TCP(ref odcode, ref message, SocketFlags.None);
-                                        if(odcode == 100)
+                                        if (odcode == 100)
                                         {
                                             CONST.NAME_PLAYER2 = message;
                                             socketManager.SEND_TCP(EncapsulateData.CreateMessage(100, CONST.NAME_PLAYER1), SocketFlags.None);
                                         }
-                                        else if(odcode == 101)
+                                        else if (odcode == 101)
                                         {
                                             string[] XY = message.Split(' ');
                                             int X = Int32.Parse(XY[0]);
                                             int Y = Int32.Parse(XY[1]);
                                             manager.LANMovePointHandle(X, Y);
                                         }
+                                        else if (odcode == 112) CrossThread.PerformSafely<int>(manager.pnlCaroBoard, manager.NewGameHandle, manager.Turn);
                                     }
-                                    catch { txtPlayer.Text = "123456"; continue; }
+                                    catch { continue; }
                                 }
                             });
                             listenThread.IsBackground = true;
@@ -237,8 +242,12 @@ namespace Caro
                     }
                     else
                     {
+                        txtIP.ReadOnly = true;
+                        txtPort.ReadOnly = true;
+                        butConnect.Enabled = false;
                         butConnect.Text = "Success";
                         butConnect.BackColor = Color.Green;
+                        butGetIP.Enabled = false;
                         butSave.Enabled = true;
                         CONST.isServer = false;
                         CONST.IS_TURN = false;
@@ -262,6 +271,7 @@ namespace Caro
                                         int Y = Int32.Parse(XY[1]);
                                         manager.LANMovePointHandle(X, Y);
                                     }
+                                    else if (odcode == 112) CrossThread.PerformSafely<int>(manager.pnlCaroBoard, manager.NewGameHandle, manager.Turn);
                                 }
                                 catch { continue; }
                             }
@@ -282,6 +292,11 @@ namespace Caro
             string temp = parent.Text;
             if (temp == "Name Player") DrawGameModeForm(this, "Game Mode");
             else if (temp == "LAN Connection") DrawNamePlayerForm(this, "Name Player", CONST.gameMode);
+        }
+
+        private void ButGetIP_Click(object sender, EventArgs e)
+        {
+            txtIP.Text = SocketManager.GetIPv4();
         }
 
         private void ButSave_Click(object sender, EventArgs e)

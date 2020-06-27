@@ -16,7 +16,7 @@ namespace CaroTest.CaroManager
             get { return turn; }
             set { turn = value; }
         }
-        private Panel pnlCaroBoard;
+        public Panel pnlCaroBoard;
         private TextBox txtPlayer;
         private Label lblTime;
         private static CheckWinner checkWinner;
@@ -87,6 +87,7 @@ namespace CaroTest.CaroManager
             playerList[1 - turn].IsTurn = 0;
             if (turn == 0)
             {
+
                 txtPlayer.BackColor = Color.Red;
                 txtPlayer.Text = playerList[0].NamePlayer;
             }
@@ -104,6 +105,11 @@ namespace CaroTest.CaroManager
             {
                 playerList[0].NamePlayer = CONST.NAME_PLAYER2;
                 playerList[1].NamePlayer = CONST.NAME_PLAYER1;
+            }
+            else if (CONST.gameMode == "LAN" && CONST.isServer)
+            {
+                playerList[0].NamePlayer = CONST.NAME_PLAYER1;
+                playerList[1].NamePlayer = CONST.NAME_PLAYER2;
             }
             else
             {
@@ -146,9 +152,34 @@ namespace CaroTest.CaroManager
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             eventBut.FlatStyle = FlatStyle.Flat;
-            MessageBox.Show("The " + playerList[player].NamePlayer + " win", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (result == DialogResult.OK) NewGameHandle(player);
+            if (CONST.gameMode == "TWO_PLAYER")
+            {
+                MessageBox.Show("The " + playerList[player].NamePlayer + " win", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.OK) NewGameHandle(player);
+            }
+            else if (CONST.gameMode == "LAN" && !CONST.IS_TURN)
+            {
+                CONST.IS_LOCK = !CONST.IS_LOCK;
+                CONST.IS_TURN = !CONST.IS_TURN;
+                MessageBox.Show("You are the winner", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.OK)
+                {
+                    socketManager.SEND_TCP(EncapsulateData.CreateMessage(112, ""), SocketFlags.None);
+                    NewGameHandle(player);
+                }
+                else
+                {
+
+                }
+            }
+            else if (CONST.gameMode == "LAN" && CONST.IS_TURN)
+            {
+                CONST.IS_LOCK = !CONST.IS_LOCK;
+                CONST.IS_TURN = !CONST.IS_TURN;
+                MessageBox.Show("You are the lost", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         public void UndoHandle()
@@ -213,8 +244,7 @@ namespace CaroTest.CaroManager
                 else
                 {
                     checkWinner.DrawCaroBoard(X, Y);
-                    if (CONST.gameMode == "TWO_PLAYER") TurnPalyer();
-                    else CrossThread.PerformSafely(txtPlayer, TurnPalyer);
+                    CrossThread.PerformSafely(txtPlayer, TurnPalyer);
                 }
             }
         }

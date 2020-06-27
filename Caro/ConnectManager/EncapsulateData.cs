@@ -46,6 +46,9 @@ namespace Caro.ConnectManager
 
         //100: send name player
         //101: send point
+        //110: handle undo game
+        //111: handle redo game
+        //112: new game
         public static void ReadMessage(string data, ref int odcode, ref string message)
         {
             odcode = Int32.Parse(data.Substring(0, 3));

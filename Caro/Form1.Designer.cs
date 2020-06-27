@@ -1,7 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 using Caro.Setting;
-using Caro.ConnectManager;
 
 namespace Caro
 {
@@ -12,7 +11,7 @@ namespace Caro
         private Form settingForm;
         private Button butTwoPlayer, butModeLan, butUndo, butRedo;
         private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSave;
-        private Button butSTimeOnOrOff, butConnect, butBack;
+        private Button butSTimeOnOrOff, butConnect, butBack, butGetIP;
         private Panel pnlCaroBoard;
         private MenuStrip mainMenu;
         private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting;
@@ -174,7 +173,6 @@ namespace Caro
             txtIP = new TextBox()
             {
                 Name = "txtIP",
-                Text = SocketManager.GetIPv4(),
                 Width = 200,
                 Location = new Point(100, 30)
             };
@@ -191,9 +189,19 @@ namespace Caro
                 Name = "butConnect",
                 Size = new Size(80, 30),
                 TextAlign = ContentAlignment.MiddleCenter,
-                Location = new Point(100, 150)
+                Location = new Point(150, 150)
+            };
+
+            butGetIP = new Button()
+            {
+                Name = "butGetIP",
+                Text = "Get IP",
+                Size = new Size(80, 30),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Location = new Point(300, 150)
             };
             butConnect.Click += ButConnect_Click;
+            butGetIP.Click += ButGetIP_Click;
         }
 
         private void InitializeMainController()
@@ -398,6 +406,14 @@ namespace Caro
 
         private void DrawLANForm(Form LANForm)
         {
+            butSave.Text = "Next";
+            butSave.Enabled = false;
+            butConnect.Text = "Connect";
+            butConnect.BackColor = Color.White;
+            butConnect.Enabled = true;
+            butGetIP.Enabled = true;
+            txtPort.ReadOnly = false;
+            txtIP.ReadOnly = false;
             LANForm.Controls.Clear();
             LANForm.Text = "LAN Connection";
             LANForm.AutoScaleDimensions = new SizeF(9F, 20F);
@@ -407,12 +423,9 @@ namespace Caro
             LANForm.Controls.Add(txtIP);
             LANForm.Controls.Add(txtPort);
             LANForm.Controls.Add(butSave);
-            butSave.Text = "Next";
-            butSave.Enabled = false;
             LANForm.Controls.Add(butConnect);
-            butConnect.BackColor = Color.White;
-            butConnect.Text = "Connect";
             LANForm.Controls.Add(butBack);
+            LANForm.Controls.Add(butGetIP);
         }
 
         private void DrawMainForm(Form mainForm)

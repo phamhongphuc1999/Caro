@@ -194,8 +194,12 @@ namespace CaroTest
                     {
                         if (socketManager.CreateServer())
                         {
+                            txtIP.ReadOnly = true;
+                            txtPort.ReadOnly = true;
+                            butConnect.Enabled = false;
                             butConnect.Text = "Success";
                             butConnect.BackColor = Color.Green;
+                            butGetIP.Enabled = false;
                             butSave.Enabled = true;
                             CONST.isServer = true;
                             CONST.IS_TURN = true;
@@ -220,6 +224,7 @@ namespace CaroTest
                                             int Y = Int32.Parse(XY[1]);
                                             manager.LANMovePointHandle(X, Y);
                                         }
+                                        else if (odcode == 112) CrossThread.PerformSafely<int>(manager.pnlCaroBoard, manager.NewGameHandle, manager.Turn);
                                     }
                                     catch { continue; }
                                 }
@@ -237,8 +242,12 @@ namespace CaroTest
                     }
                     else
                     {
+                        txtIP.ReadOnly = true;
+                        txtPort.ReadOnly = true;
+                        butConnect.Enabled = false;
                         butConnect.Text = "Success";
                         butConnect.BackColor = Color.Green;
+                        butGetIP.Enabled = false;
                         butSave.Enabled = true;
                         CONST.isServer = false;
                         CONST.IS_TURN = false;
@@ -262,6 +271,7 @@ namespace CaroTest
                                         int Y = Int32.Parse(XY[1]);
                                         manager.LANMovePointHandle(X, Y);
                                     }
+                                    else if (odcode == 112) CrossThread.PerformSafely<int>(manager.pnlCaroBoard, manager.NewGameHandle, manager.Turn);
                                 }
                                 catch { continue; }
                             }
@@ -282,6 +292,11 @@ namespace CaroTest
             string temp = parent.Text;
             if (temp == "Name Player") DrawGameModeForm(this, "Game Mode");
             else if (temp == "LAN Connection") DrawNamePlayerForm(this, "Name Player", CONST.gameMode);
+        }
+
+        private void ButGetIP_Click(object sender, EventArgs e)
+        {
+            txtIP.Text = SocketManager.GetIPv4();
         }
 
         private void ButSave_Click(object sender, EventArgs e)
