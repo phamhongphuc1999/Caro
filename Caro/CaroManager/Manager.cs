@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;
 using System;
+using Caro.ConnectManager;
+using System.Net.Sockets;
 
 namespace Caro.CaroManager
 {
@@ -18,6 +20,7 @@ namespace Caro.CaroManager
         private TextBox txtPlayer;
         private Label lblTime;
         private static CheckWinner checkWinner;
+        public static SocketManager socketManager;
         private Dictionary<KeyValuePair<int, int>, Button> caroBoard;
         private List<Player> playerList;
         public List<Player> PlayerList
@@ -120,6 +123,7 @@ namespace Caro.CaroManager
         private void EndGameHandle(int player, Button eventBut)
         {
             endGameEvent(this, new EventArgs());
+            pnlCaroBoard.Enabled = true;
             int[] check = checkWinner.check;
             if (check[0] == 1)
             {
@@ -175,14 +179,27 @@ namespace Caro.CaroManager
             }
         }
 
+        public void LANMovePointHandle(int X, int Y)
+        {
+            Button eventBut = caroBoard[new KeyValuePair<int, int>(X, Y)];
+            But_Click(eventBut, new EventArgs());
+        }
+
         #region Event handle
-        private void But_Click(object sender, System.EventArgs e)
+        private void But_Click(object sender, EventArgs e)
         {
             Button eventBut = (Button)sender;
             int X = eventBut.Location.X;
             int Y = eventBut.Location.Y;
             if (eventBut.Image == null)
             {
+                if(CONST.gameMode == "LAN" && CONST.IS_TURN)
+                {
+                    string sX = X.ToString(), sY = Y.ToString();
+                    socketManager.SEND_TCP(EncapsulateData.CreateMessage(101, sX + " " + sY), SocketFlags.None);
+                    CONST.IS_TURN = !CONST.IS_TURN;
+                }
+                else if(CONST.gameMode == "LAN") CONST.IS_TURN = !CONST.IS_TURN;
                 lblTime.Text = CONST.TIME_TURN.ToString();
                 eventBut.FlatStyle = FlatStyle.Flat;
                 if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;

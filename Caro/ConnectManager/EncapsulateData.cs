@@ -37,5 +37,19 @@ namespace Caro.ConnectManager
             ms.Position = 0;
             return bf1.Deserialize(ms);
         }
+
+        public static string CreateMessage(int odcode, string data)
+        {
+            string sOdcode = odcode.ToString();
+            return sOdcode + data;
+        }
+
+        //100: send name player
+        //101: send point
+        public static void ReadMessage(string data, ref int odcode, ref string message)
+        {
+            odcode = Int32.Parse(data.Substring(0, 3));
+            message = data.Substring(3);
+        }
     }
 }
