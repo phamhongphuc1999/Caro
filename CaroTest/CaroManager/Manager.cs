@@ -97,8 +97,16 @@ namespace CaroTest.CaroManager
         public void NewGameHandle(int player)
         {
             turn = player;
-            playerList[0].NamePlayer = CONST.NAME_PLAYER1;
-            playerList[1].NamePlayer = CONST.NAME_PALYER2;
+            if (CONST.gameMode == "LAN" && !CONST.isServer)
+            {
+                playerList[0].NamePlayer = CONST.NAME_PLAYER2;
+                playerList[1].NamePlayer = CONST.NAME_PLAYER1;
+            }
+            else
+            {
+                playerList[0].NamePlayer = CONST.NAME_PLAYER1;
+                playerList[1].NamePlayer = CONST.NAME_PLAYER2;
+            }
             txtPlayer.Text = playerList[turn].NamePlayer;
             txtPlayer.BackColor = (turn == 0) ? Color.Red : Color.Green;
             checkWinner.NewGameHanlde(player);

@@ -84,8 +84,8 @@ namespace CaroTest.ConnectManager
                 {
                     client = server.Accept();
                 });
-                acceptThread.Start();
                 acceptThread.IsBackground = true;
+                acceptThread.Start();
                 return true;
             }
             catch

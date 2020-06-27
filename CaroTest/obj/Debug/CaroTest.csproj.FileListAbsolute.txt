@@ -6,3 +6,4 @@ D:\Documents\VisualStudio\Caro\CaroTest\bin\Debug\CaroTest.exe
 D:\Documents\VisualStudio\Caro\CaroTest\bin\Debug\CaroTest.pdb
 D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\CaroTest.exe
 D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\CaroTest.pdb
+D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\CaroTest.csprojAssemblyReference.cache

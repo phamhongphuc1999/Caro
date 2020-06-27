@@ -138,7 +138,7 @@ namespace Caro
             txtNamePlayer2 = new TextBox()
             {
                 Name = "txtNamePlayer2",
-                Text = CONST.NAME_PALYER2,
+                Text = CONST.NAME_PLAYER2,
                 Width = 200,
                 Location = new Point(100, 80)
             };
@@ -189,8 +189,9 @@ namespace Caro
             butConnect = new Button()
             {
                 Name = "butConnect",
-                Size = new Size(60, 30),
-                Location = new Point(100, 200)
+                Size = new Size(80, 30),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Location = new Point(100, 150)
             };
             butConnect.Click += ButConnect_Click;
         }
@@ -407,6 +408,7 @@ namespace Caro
             LANForm.Controls.Add(txtPort);
             LANForm.Controls.Add(butSave);
             butSave.Text = "Next";
+            butSave.Enabled = false;
             LANForm.Controls.Add(butConnect);
             butConnect.BackColor = Color.White;
             butConnect.Text = "Connect";

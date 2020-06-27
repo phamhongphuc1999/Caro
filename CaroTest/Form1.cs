@@ -25,24 +25,6 @@ namespace CaroTest
             DrawGameModeForm(this, "Game Mode");
         }
 
-        public void ListenOtherPlayer()
-        {
-            byte[] byteData = new byte[CONST.BUFF_SIZE];
-            while (true)
-            {
-                try
-                {
-                    socketManager.client.Receive(byteData, CONST.BUFF_SIZE, SocketFlags.None);
-                    MessageData message = EncapsulateData.DeserializeData(byteData);
-                    if (message.odcode == 1) manager.PlayerList[1].NamePlayer = message.data;
-                }
-                catch
-                {
-                    continue;
-                }
-            }
-        }
-
         #region Event Handle
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -213,16 +195,26 @@ namespace CaroTest
                         {
                             butConnect.Text = "Success";
                             butConnect.BackColor = Color.Green;
+                            butSave.Enabled = true;
                             CONST.isServer = true;
                             Thread listenThread = new Thread(() =>
                             {
-                                ListenOtherPlayer();
+                                while (true)
+                                {
+                                    try
+                                    {
+                                        byte[] data = new byte[CONST.BUFF_SIZE];
+                                        socketManager.client.Receive(data, CONST.BUFF_SIZE, SocketFlags.None);
+                                        CONST.NAME_PLAYER2 = (string)EncapsulateData.DeserializeData(data);
+                                        data = EncapsulateData.SerializeData(CONST.NAME_PLAYER1);
+                                        socketManager.client.Send(data, data.Length, SocketFlags.None);
+                                        break;
+                                    }
+                                    catch { continue; }
+                                }
                             });
-                            listenThread.Start();
                             listenThread.IsBackground = true;
-                            MessageData message = EncapsulateData.CreateMessage(1, CONST.NAME_PLAYER1);
-                            byte[] vs = EncapsulateData.SerializeData(message);
-                            socketManager.client.Send(vs, CONST.BUFF_SIZE, SocketFlags.None);
+                            listenThread.Start();
                         }
                         else
                         {
@@ -236,16 +228,13 @@ namespace CaroTest
                     {
                         butConnect.Text = "Success";
                         butConnect.BackColor = Color.Green;
+                        butSave.Enabled = true;
                         CONST.isServer = false;
-                        Thread listenThread = new Thread(() =>
-                        {
-                            ListenOtherPlayer();
-                        });
-                        listenThread.Start();
-                        listenThread.IsBackground = true;
-                        MessageData message = EncapsulateData.CreateMessage(1, CONST.NAME_PLAYER1);
-                        byte[] vs = EncapsulateData.SerializeData(message);
-                        socketManager.client.Send(vs, CONST.BUFF_SIZE, SocketFlags.None);
+                        byte[] data = EncapsulateData.SerializeData(CONST.NAME_PLAYER1);
+                        socketManager.client.Send(data, data.Length, SocketFlags.None);
+                        data = new byte[CONST.BUFF_SIZE];
+                        socketManager.client.Receive(data, CONST.BUFF_SIZE, SocketFlags.None);
+                        CONST.NAME_PLAYER2 = (string)EncapsulateData.DeserializeData(data);
                     }
                 }
             }
@@ -332,18 +321,18 @@ namespace CaroTest
                 {
                     MessageBox.Show("Must be enter your name", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtNamePlayer1.Text = CONST.NAME_PLAYER1;
-                    txtNamePlayer2.Text = CONST.NAME_PALYER2;
+                    txtNamePlayer2.Text = CONST.NAME_PLAYER2;
                 }
                 else if (namePlayer1 == namePlayer2)
                 {
                     MessageBox.Show("Wrong", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtNamePlayer1.Text = CONST.NAME_PLAYER1;
-                    txtNamePlayer2.Text = CONST.NAME_PALYER2;
+                    txtNamePlayer2.Text = CONST.NAME_PLAYER2;
                 }
                 else
                 {
                     CONST.NAME_PLAYER1 = namePlayer1;
-                    CONST.NAME_PALYER2 = namePlayer2;
+                    CONST.NAME_PLAYER2 = namePlayer2;
                     manager.NewGameHandle(0);
                     DrawMainForm(this);
                     if (CONST.IS_ON_TIMER) timer.Start();
@@ -371,20 +360,20 @@ namespace CaroTest
                 {
                     MessageBox.Show("Must be enter your name", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtNamePlayer1.Text = CONST.NAME_PLAYER1;
-                    txtNamePlayer2.Text = CONST.NAME_PALYER2;
+                    txtNamePlayer2.Text = CONST.NAME_PLAYER2;
                 }
                 else if (namePlayer1 == namePlayer2)
                 {
                     MessageBox.Show("Wrong", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtNamePlayer1.Text = CONST.NAME_PLAYER1;
-                    txtNamePlayer2.Text = CONST.NAME_PALYER2;
+                    txtNamePlayer2.Text = CONST.NAME_PLAYER2;
                 }
                 else
                 {
                     CONST.NAME_PLAYER1 = namePlayer1;
-                    CONST.NAME_PALYER2 = namePlayer2;
+                    CONST.NAME_PLAYER2 = namePlayer2;
                     manager.PlayerList[0].NamePlayer = CONST.NAME_PLAYER1;
-                    manager.PlayerList[1].NamePlayer = CONST.NAME_PALYER2;
+                    manager.PlayerList[1].NamePlayer = CONST.NAME_PLAYER2;
                     txtPlayer.Text = manager.PlayerList[manager.Turn].NamePlayer;
                     DrawSettingForm(settingForm);
                 }
@@ -392,8 +381,7 @@ namespace CaroTest
             else if (temp == "LAN Connection")
             {
                 DrawMainForm(this);
-                if (CONST.isServer) manager.NewGameHandle(0);
-                else manager.NewGameHandle(1);
+                manager.NewGameHandle(0);
                 if (CONST.IS_ON_TIMER) timer.Start();
             }
         }

@@ -11,11 +11,11 @@
         public static int TIME_TURN = 5;
         public static int INTERVAL = 1000;
         public static string NAME_PLAYER1 = "";
-        public static string NAME_PALYER2 = "";
+        public static string NAME_PLAYER2 = "";
 
         public static string IP = "127.0.0.1";
         public static int PORT = 9999;
-        public static int BUFF_SIZE = 1024;
+        public static int BUFF_SIZE = 10240;
         public static bool isServer = true;
     }
 }
