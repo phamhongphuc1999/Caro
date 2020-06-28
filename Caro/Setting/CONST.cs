@@ -30,8 +30,8 @@ namespace Caro.Setting
         {
             using (StreamReader sr = File.OpenText("./CONST.json"))
             {
-                string obj = sr.ReadToEnd();
-                jsonConst = JsonConvert.DeserializeObject<JsonConst>(obj);
+                string data = sr.ReadToEnd();
+                jsonConst = JsonConvert.DeserializeObject<JsonConst>(data);
                 NUMBER_OF_ROW = Int32.Parse(jsonConst.numberOfRow);
                 NUMBER_OF_COLUMN = Int32.Parse(jsonConst.numberOfColumn);
                 IS_ON_TIMER = jsonConst.isOnTime;
@@ -40,6 +40,20 @@ namespace Caro.Setting
                 INTERVAL = Int32.Parse(jsonConst.interval);
 
             }
+        }
+
+        public static void WriteCONST()
+        {
+            jsonConst.numberOfRow = NUMBER_OF_ROW.ToString();
+            jsonConst.numberOfColumn = NUMBER_OF_COLUMN.ToString();
+            jsonConst.isOnTime = IS_ON_TIMER;
+            jsonConst.isPlayMusic = IS_PLAY_MUSIC;
+            jsonConst.timeTurn = TIME_TURN.ToString();
+            jsonConst.interval = INTERVAL.ToString();
+            StreamWriter sw = new StreamWriter("./CONST.json");
+            string data = JsonConvert.SerializeObject(jsonConst);
+            sw.WriteLine(data);
+            sw.Close();
         }
     }
 }

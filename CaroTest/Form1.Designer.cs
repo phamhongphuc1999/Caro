@@ -517,6 +517,7 @@ namespace CaroTest
             InitializeSizeSettingController();
             this.Icon = new Icon("./Image/caro.ico");
             settingForm = new Form();
+            settingForm.FormClosing += SettingForm_FormClosing;
             settingForm.Icon = new Icon("./Image/setting.ico");
             timer = new Timer()
             {

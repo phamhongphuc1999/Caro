@@ -21,12 +21,12 @@ namespace Caro
             InitializeComponent();
             manager = new Manager(txtPlayer, pnlCaroBoard, lblTime);
             socketManager = new SocketManager();
-            //soundManager = new SoundManager("./Sound/su-thanh-hoa.wav");
-            //if (CONST.IS_PLAY_MUSIC)
-            //{
-            //    soundManager.IsLoop = true;
-            //    soundManager.Play();
-            //}
+            soundManager = new SoundManager();
+            if (CONST.IS_PLAY_MUSIC)
+            {
+                soundManager.IsLoop = true;
+                soundManager.Play("./Sound/su-thanh-hoa.wav");
+            }
             Manager.socketManager = socketManager;
             manager.NewGameEvent += Manager_NewGameEvent;
             manager.EndGameEvent += Manager_EndGameEvent;
@@ -44,6 +44,12 @@ namespace Caro
                 e.Cancel = true;
                 if (CONST.IS_ON_TIMER) timer.Start();
             }
+            else CONST.WriteCONST();
+        }
+
+        private void SettingForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (CONST.IS_ON_TIMER) timer.Start();
         }
 
         private void Manager_EndGameEvent(object sender, EventArgs e)

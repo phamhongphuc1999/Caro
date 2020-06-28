@@ -10,3 +10,5 @@ D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\CaroTest.csprojAssemblyReferen
 D:\Documents\VisualStudio\Caro\CaroTest\bin\Debug\Newtonsoft.Json.dll
 D:\Documents\VisualStudio\Caro\CaroTest\bin\Debug\Newtonsoft.Json.xml
 D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\CaroTest.csproj.CopyComplete
+D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\Interop.WMPLib.dll
+D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\CaroTest.csproj.ResolveComReference.cache

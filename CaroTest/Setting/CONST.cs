@@ -41,5 +41,19 @@ namespace CaroTest.Setting
 
             }
         }
+
+        public static void WriteCONST()
+        {
+            jsonConst.numberOfRow = NUMBER_OF_ROW.ToString();
+            jsonConst.numberOfColumn = NUMBER_OF_COLUMN.ToString();
+            jsonConst.isOnTime = IS_ON_TIMER;
+            jsonConst.isPlayMusic = IS_PLAY_MUSIC;
+            jsonConst.timeTurn = TIME_TURN.ToString();
+            jsonConst.interval = INTERVAL.ToString();
+            StreamWriter sw = new StreamWriter("./CONST.json");
+            string data = JsonConvert.SerializeObject(jsonConst);
+            sw.WriteLine(data);
+            sw.Close();
+        }
     }
 }

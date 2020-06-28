@@ -1,6 +1,6 @@
 ﻿using WMPLib;
 
-namespace Caro.Setting
+namespace CaroTest.Setting
 {
     class SoundManager
     {
