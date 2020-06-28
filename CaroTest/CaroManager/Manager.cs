@@ -122,7 +122,7 @@ namespace CaroTest.CaroManager
             txtPlayer.Text = playerList[player].NamePlayer;
             txtPlayer.BackColor = (player == 0) ? Color.Red : Color.Green;
             DrawCaroBoard(CONST.NUMBER_OF_ROW, CONST.NUMBER_OF_COLUMN);
-            lblTime.Text = CONST.IS_ON_TIMER ? CONST.TIME_TURN.ToString() : "No Timer";
+            lblTime.Text = (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") ? CONST.TIME_TURN.ToString() : "No Timer";
             newGameEvent(this, new EventArgs());
         }
 
@@ -233,7 +233,7 @@ namespace CaroTest.CaroManager
                     CONST.IS_LOCK = !CONST.IS_LOCK;
                 }
                 else if (CONST.GAME_MODE == "LAN") CONST.IS_TURN = !CONST.IS_TURN;
-                if (CONST.IS_ON_TIMER) lblTime.Text = CONST.TIME_TURN.ToString();
+                if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") lblTime.Text = CONST.TIME_TURN.ToString();
                 eventBut.FlatStyle = FlatStyle.Flat;
                 if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
                 butUndo.Push(eventBut);

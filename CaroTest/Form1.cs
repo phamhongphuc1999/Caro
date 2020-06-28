@@ -42,14 +42,14 @@ namespace CaroTest
             if (result == DialogResult.Cancel)
             {
                 e.Cancel = true;
-                if (CONST.IS_ON_TIMER) timer.Start();
+                if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") timer.Start();
             }
             else CONST.WriteCONST();
         }
 
         private void SettingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (CONST.IS_ON_TIMER) timer.Start();
+            if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") timer.Start();
         }
 
         private void Manager_EndGameEvent(object sender, EventArgs e)
@@ -60,7 +60,7 @@ namespace CaroTest
         private void Manager_NewGameEvent(object sender, EventArgs e)
         {
             DrawMainForm(this);
-            if (CONST.IS_ON_TIMER) timer.Start();
+            if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") timer.Start();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -84,8 +84,6 @@ namespace CaroTest
             if (parent.Text == "Game Mode")
             {
                 CONST.GAME_MODE = "LAN";
-                CONST.NUMBER_OF_COLUMN = 10;
-                CONST.NUMBER_OF_ROW = 10;
                 DrawNamePlayerForm(this, "Name Player", "LAN");
             }
             else
@@ -109,8 +107,6 @@ namespace CaroTest
             if (parent.Text == "Game Mode")
             {
                 CONST.GAME_MODE = "TWO_PLAYER";
-                CONST.NUMBER_OF_ROW = 10;
-                CONST.NUMBER_OF_COLUMN = 10;
                 DrawNamePlayerForm(this, "Name Player", "TWO_PLAYER");
             }
             else
@@ -154,6 +150,10 @@ namespace CaroTest
             timer.Stop();
             DialogResult result = MessageBox.Show("Are you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (result == DialogResult.OK) manager.NewGameHandle(manager.Turn);
+            else
+            {
+                if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") timer.Start();
+            }
         }
 
         private void ButSizeBoard_Click(object sender, EventArgs e)
@@ -327,7 +327,7 @@ namespace CaroTest
             if (temp == "Setting")
             {
                 settingForm.Close();
-                if (CONST.IS_ON_TIMER) timer.Start();
+                if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") timer.Start();
             }
             else if (temp == "Time Setting")
             {
@@ -456,7 +456,6 @@ namespace CaroTest
             {
                 DrawMainForm(this);
                 manager.NewGameHandle(0);
-                if (CONST.IS_ON_TIMER) timer.Start();
             }
         }
         #endregion
