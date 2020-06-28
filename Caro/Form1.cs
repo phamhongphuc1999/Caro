@@ -66,7 +66,7 @@ namespace Caro
         private void Timer_Tick(object sender, EventArgs e)
         {
             int time = Int32.Parse(lblTime.Text);
-            if(time > 0) lblTime.Text = (time - 1).ToString();
+            if (time > 0) lblTime.Text = (time - 1).ToString();
             else
             {
                 System.Windows.Forms.Timer timer = (System.Windows.Forms.Timer)sender;
@@ -81,7 +81,7 @@ namespace Caro
         {
             Button eventBut = (Button)sender;
             Form parent = (Form)eventBut.Parent;
-            if(parent.Text == "Game Mode")
+            if (parent.Text == "Game Mode")
             {
                 CONST.GAME_MODE = "LAN";
                 DrawNamePlayerForm(this, "Name Player", "LAN");
@@ -89,7 +89,7 @@ namespace Caro
             else
             {
                 DialogResult result = MessageBox.Show("This action will make a new game\nAre you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                if(result == DialogResult.OK)
+                if (result == DialogResult.OK)
                 {
                     CONST.GAME_MODE = "LAN";
                     settingForm.Close();
@@ -179,7 +179,7 @@ namespace Caro
         private void ButSTimeOnOrOff_Click(object sender, EventArgs e)
         {
             Button eventBut = (Button)sender;
-            if(eventBut.Text == "Off Timer")
+            if (eventBut.Text == "Off Timer")
             {
                 eventBut.Text = "On Timer";
                 txtSTimeTurn.Enabled = false;
@@ -204,10 +204,10 @@ namespace Caro
             int port = -1;
             if (Int32.TryParse(sPort, out port))
             {
-                if(SocketManager.CheckIP(IP) && (port > 0) && (port < 99999))
+                if (SocketManager.CheckIP(IP) && (port > 0) && (port < 99999))
                 {
                     CONST.IP = IP; CONST.PORT = port;
-                    node:
+                node:
                     if (!socketManager.ConnectServer())
                     {
                         if (socketManager.CreateServer())
@@ -309,7 +309,7 @@ namespace Caro
             Form parent = (Form)eventBut.Parent;
             string temp = parent.Text;
             if (temp == "Name Player") DrawGameModeForm(this, "Game Mode");
-            else if (temp == "Name Player Setting" || temp == "Time Setting" || temp == "Game Mode Setting" || temp == "Size Setting") 
+            else if (temp == "Name Player Setting" || temp == "Time Setting" || temp == "Game Mode Setting" || temp == "Size Setting")
                 DrawSettingForm(settingForm);
             else if (temp == "LAN Connection") DrawNamePlayerForm(this, "Name Player", CONST.GAME_MODE);
         }
@@ -357,7 +357,7 @@ namespace Caro
                 }
                 DrawSettingForm(settingForm);
             }
-            else if(temp == "Size Setting")
+            else if (temp == "Size Setting")
             {
                 int row = 0, column = 0;
                 bool check1 = Int32.TryParse(txtSSizeRow.Text, out row);
@@ -368,7 +368,7 @@ namespace Caro
                     txtSSizeRow.Text = CONST.NUMBER_OF_ROW.ToString();
                     txtSSizeColumn.Text = CONST.NUMBER_OF_COLUMN.ToString();
                 }
-                else if(row > 20 || row < 5 || column > 30 || column < 5)
+                else if (row > 20 || row < 5 || column > 30 || column < 5)
                 {
                     MessageBox.Show("Number of row is less than 20 and greater than 5\nNumber of column is less than 30 and greater than 5"
                         , "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -378,7 +378,7 @@ namespace Caro
                 else
                 {
                     DialogResult result = MessageBox.Show("This action will make a new game\nAre you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                    if(result == DialogResult.OK)
+                    if (result == DialogResult.OK)
                     {
                         CONST.NUMBER_OF_ROW = row;
                         CONST.NUMBER_OF_COLUMN = column;
@@ -387,7 +387,7 @@ namespace Caro
                     }
                 }
             }
-            else if(temp == "Name Player" && CONST.GAME_MODE == "TWO_PLAYER")
+            else if (temp == "Name Player" && CONST.GAME_MODE == "TWO_PLAYER")
             {
                 string namePlayer1 = txtNamePlayer1.Text;
                 string namePlayer2 = txtNamePlayer2.Text;
@@ -412,7 +412,7 @@ namespace Caro
                     if (CONST.IS_ON_TIMER) timer.Start();
                 }
             }
-            else if(temp == "Name Player" && CONST.GAME_MODE == "LAN")
+            else if (temp == "Name Player" && CONST.GAME_MODE == "LAN")
             {
                 string namePlayer = txtNamePlayer1.Text;
                 if (string.IsNullOrEmpty(namePlayer))
@@ -426,7 +426,7 @@ namespace Caro
                     DrawLANForm(this);
                 }
             }
-            else if(temp == "Name Player Setting")
+            else if (temp == "Name Player Setting")
             {
                 string namePlayer1 = txtNamePlayer1.Text;
                 string namePlayer2 = txtNamePlayer2.Text;
@@ -436,7 +436,7 @@ namespace Caro
                     txtNamePlayer1.Text = CONST.NAME_PLAYER1;
                     txtNamePlayer2.Text = CONST.NAME_PLAYER2;
                 }
-                else if(namePlayer1 == namePlayer2)
+                else if (namePlayer1 == namePlayer2)
                 {
                     MessageBox.Show("Wrong", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtNamePlayer1.Text = CONST.NAME_PLAYER1;
@@ -452,7 +452,7 @@ namespace Caro
                     DrawSettingForm(settingForm);
                 }
             }
-            else if(temp == "LAN Connection")
+            else if (temp == "LAN Connection")
             {
                 DrawMainForm(this);
                 manager.NewGameHandle(0);
