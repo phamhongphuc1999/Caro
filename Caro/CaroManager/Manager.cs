@@ -51,7 +51,7 @@ namespace Caro.CaroManager
             this.lblTime = lblTime;
             butUndo = new CaroStack<Button>(5);
             butRedo = new CaroStack<Button>(5);
-            checkWinner = new CheckWinner(CONST.numberOfColumn, CONST.numberOfRow);
+            checkWinner = new CheckWinner(CONST.NUMBER_OF_COLUMN, CONST.NUMBER_OF_ROW);
             caroBoard = new Dictionary<KeyValuePair<int, int>, Button>();
             playerList = new List<Player>()
             {
@@ -101,12 +101,12 @@ namespace Caro.CaroManager
         public void NewGameHandle(int player)
         {
             turn = player;
-            if (CONST.gameMode == "LAN" && !CONST.isServer)
+            if (CONST.GAME_MODE == "LAN" && !CONST.IS_SERVER)
             {
                 playerList[0].NamePlayer = CONST.NAME_PLAYER2;
                 playerList[1].NamePlayer = CONST.NAME_PLAYER1;
             }
-            else if(CONST.gameMode == "LAN" && CONST.isServer)
+            else if(CONST.GAME_MODE == "LAN" && CONST.IS_SERVER)
             {
                 playerList[0].NamePlayer = CONST.NAME_PLAYER1;
                 playerList[1].NamePlayer = CONST.NAME_PLAYER2;
@@ -121,8 +121,8 @@ namespace Caro.CaroManager
             checkWinner.NewGameHanlde(player);
             txtPlayer.Text = playerList[player].NamePlayer;
             txtPlayer.BackColor = (player == 0) ? Color.Red : Color.Green;
-            DrawCaroBoard(CONST.numberOfRow, CONST.numberOfColumn);
-            lblTime.Text = CONST.TIME_TURN.ToString();
+            DrawCaroBoard(CONST.NUMBER_OF_ROW, CONST.NUMBER_OF_COLUMN);
+            lblTime.Text = CONST.IS_ON_TIMER ? CONST.TIME_TURN.ToString() : "No Timer";
             newGameEvent(this, new EventArgs());
         }
 
@@ -152,13 +152,13 @@ namespace Caro.CaroManager
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             eventBut.FlatStyle = FlatStyle.Flat;
-            if (CONST.gameMode == "TWO_PLAYER")
+            if (CONST.GAME_MODE == "TWO_PLAYER")
             {
                 MessageBox.Show("The " + playerList[player].NamePlayer + " win", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK) NewGameHandle(player);
             }
-            else if(CONST.gameMode == "LAN" && !CONST.IS_TURN)
+            else if(CONST.GAME_MODE == "LAN" && !CONST.IS_TURN)
             {
                 CONST.IS_LOCK = !CONST.IS_LOCK;
                 CONST.IS_TURN = !CONST.IS_TURN;
@@ -174,7 +174,7 @@ namespace Caro.CaroManager
 
                 }
             }
-            else if(CONST.gameMode == "LAN" && CONST.IS_TURN)
+            else if(CONST.GAME_MODE == "LAN" && CONST.IS_TURN)
             {
                 CONST.IS_LOCK = !CONST.IS_LOCK;
                 CONST.IS_TURN = !CONST.IS_TURN;
@@ -225,15 +225,15 @@ namespace Caro.CaroManager
             int Y = eventBut.Location.Y;
             if (eventBut.Image == null && CONST.IS_LOCK)
             {
-                if (CONST.gameMode == "LAN" && CONST.IS_TURN)
+                if (CONST.GAME_MODE == "LAN" && CONST.IS_TURN)
                 {
                     string sX = X.ToString(), sY = Y.ToString();
                     socketManager.SEND_TCP(EncapsulateData.CreateMessage(101, sX + " " + sY), SocketFlags.None);
                     CONST.IS_TURN = !CONST.IS_TURN;
                     CONST.IS_LOCK = !CONST.IS_LOCK;
                 }
-                else if (CONST.gameMode == "LAN") CONST.IS_TURN = !CONST.IS_TURN;
-                lblTime.Text = CONST.TIME_TURN.ToString();
+                else if (CONST.GAME_MODE == "LAN") CONST.IS_TURN = !CONST.IS_TURN;
+                if(CONST.IS_ON_TIMER) lblTime.Text = CONST.TIME_TURN.ToString();
                 eventBut.FlatStyle = FlatStyle.Flat;
                 if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
                 butUndo.Push(eventBut);

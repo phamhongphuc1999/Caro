@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\AIManager.cs" />
     <Compile Include="CaroManager\CheckWinner.cs" />
     <Compile Include="CaroManager\Manager.cs" />
     <Compile Include="CaroStack.cs" />
@@ -85,9 +86,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Image\caro.ico" />
     <Content Include="Image\green.png" />
     <Content Include="Image\o.png" />
     <Content Include="Image\red.png" />
+    <Content Include="Image\setting.ico" />
     <Content Include="Image\x.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

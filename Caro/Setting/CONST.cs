@@ -2,9 +2,9 @@
 {
     public static class CONST
     {
-        public static string gameMode = "TWO_PLAYER";
-        public static int numberOfRow = 10;
-        public static int numberOfColumn = 10;
+        public static string GAME_MODE = "TWO_PLAYER";
+        public static int NUMBER_OF_ROW = 10;
+        public static int NUMBER_OF_COLUMN = 10;
         public static int WIDTH = 25;
         public static int HEIGHT = 25;
         public static bool IS_ON_TIMER = false;
@@ -16,7 +16,7 @@
         public static string IP = "127.0.0.1";
         public static int PORT = 9999;
         public static int BUFF_SIZE = 10240;
-        public static bool isServer = true;
+        public static bool IS_SERVER = true;
         public static bool IS_TURN = true;
         public static bool IS_LOCK = true;
     }

@@ -69,9 +69,9 @@ namespace Caro
             Form parent = (Form)eventBut.Parent;
             if(parent.Text == "Game Mode")
             {
-                CONST.gameMode = "LAN";
-                CONST.numberOfColumn = 10;
-                CONST.numberOfRow = 10;
+                CONST.GAME_MODE = "LAN";
+                CONST.NUMBER_OF_COLUMN = 10;
+                CONST.NUMBER_OF_ROW = 10;
                 DrawNamePlayerForm(this, "Name Player", "LAN");
             }
             else
@@ -79,7 +79,7 @@ namespace Caro
                 DialogResult result = MessageBox.Show("This action will make a new game\nAre you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if(result == DialogResult.OK)
                 {
-                    CONST.gameMode = "LAN";
+                    CONST.GAME_MODE = "LAN";
                     settingForm.Close();
                     DrawMainForm(this);
                     manager.NewGameHandle(0);
@@ -94,9 +94,9 @@ namespace Caro
             Form parent = (Form)eventBut.Parent;
             if (parent.Text == "Game Mode")
             {
-                CONST.gameMode = "TWO_PLAYER";
-                CONST.numberOfColumn = 10;
-                CONST.numberOfRow = 10;
+                CONST.GAME_MODE = "TWO_PLAYER";
+                CONST.NUMBER_OF_ROW = 10;
+                CONST.NUMBER_OF_COLUMN = 10;
                 DrawNamePlayerForm(this, "Name Player", "TWO_PLAYER");
             }
             else
@@ -104,7 +104,7 @@ namespace Caro
                 DialogResult result = MessageBox.Show("This action will make a new game\nAre you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.OK)
                 {
-                    CONST.gameMode = "TWO_PLAYER";
+                    CONST.GAME_MODE = "TWO_PLAYER";
                     settingForm.Close();
                     DrawMainForm(this);
                     manager.NewGameHandle(0);
@@ -170,12 +170,16 @@ namespace Caro
                 eventBut.Text = "On Timer";
                 txtSTimeTurn.Enabled = false;
                 txtSTimeInterval.Enabled = false;
+                lblSTimeTurn.Enabled = false;
+                lblSTimeInterval.Enabled = false;
             }
             else
             {
                 eventBut.Text = "Off Timer";
                 txtSTimeTurn.Enabled = true;
                 txtSTimeInterval.Enabled = true;
+                lblSTimeTurn.Enabled = true;
+                lblSTimeInterval.Enabled = true;
             }
         }
 
@@ -201,7 +205,7 @@ namespace Caro
                             butConnect.BackColor = Color.Green;
                             butGetIP.Enabled = false;
                             butSave.Enabled = true;
-                            CONST.isServer = true;
+                            CONST.IS_SERVER = true;
                             CONST.IS_TURN = true;
                             CONST.IS_LOCK = true;
                             Thread listenThread = new Thread(() =>
@@ -249,7 +253,7 @@ namespace Caro
                         butConnect.BackColor = Color.Green;
                         butGetIP.Enabled = false;
                         butSave.Enabled = true;
-                        CONST.isServer = false;
+                        CONST.IS_SERVER = false;
                         CONST.IS_TURN = false;
                         CONST.IS_LOCK = false;
                         Thread listenThread = new Thread(() =>
@@ -291,7 +295,9 @@ namespace Caro
             Form parent = (Form)eventBut.Parent;
             string temp = parent.Text;
             if (temp == "Name Player") DrawGameModeForm(this, "Game Mode");
-            else if (temp == "LAN Connection") DrawNamePlayerForm(this, "Name Player", CONST.gameMode);
+            else if (temp == "Name Player Setting" || temp == "Time Setting" || temp == "Game Mode Setting" || temp == "Size Setting") 
+                DrawSettingForm(settingForm);
+            else if (temp == "LAN Connection") DrawNamePlayerForm(this, "Name Player", CONST.GAME_MODE);
         }
 
         private void ButGetIP_Click(object sender, EventArgs e)
@@ -327,9 +333,14 @@ namespace Caro
                         CONST.IS_ON_TIMER = true;
                         CONST.TIME_TURN = timeTurn;
                         CONST.INTERVAL = interval;
+                        lblTime.Text = CONST.TIME_TURN.ToString();
                     }
                 }
-                else CONST.IS_ON_TIMER = false;
+                else
+                {
+                    CONST.IS_ON_TIMER = false;
+                    lblTime.Text = "No Timer";
+                }
                 DrawSettingForm(settingForm);
             }
             else if(temp == "Size Setting")
@@ -340,29 +351,29 @@ namespace Caro
                 if (!check1 || !check2)
                 {
                     MessageBox.Show("Must be enter integer", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtSSizeRow.Text = CONST.numberOfRow.ToString();
-                    txtSSizeColumn.Text = CONST.numberOfColumn.ToString();
+                    txtSSizeRow.Text = CONST.NUMBER_OF_ROW.ToString();
+                    txtSSizeColumn.Text = CONST.NUMBER_OF_COLUMN.ToString();
                 }
                 else if(row > 20 || row < 5 || column > 30 || column < 5)
                 {
                     MessageBox.Show("Number of row is less than 20 and greater than 5\nNumber of column is less than 30 and greater than 5"
                         , "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtSSizeRow.Text = CONST.numberOfRow.ToString();
-                    txtSSizeColumn.Text = CONST.numberOfColumn.ToString();
+                    txtSSizeRow.Text = CONST.NUMBER_OF_ROW.ToString();
+                    txtSSizeColumn.Text = CONST.NUMBER_OF_COLUMN.ToString();
                 }
                 else
                 {
                     DialogResult result = MessageBox.Show("This action will make a new game\nAre you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                     if(result == DialogResult.OK)
                     {
-                        CONST.numberOfRow = row;
-                        CONST.numberOfColumn = column;
+                        CONST.NUMBER_OF_ROW = row;
+                        CONST.NUMBER_OF_COLUMN = column;
                         settingForm.Close();
                         manager.NewGameHandle(manager.Turn);
                     }
                 }
             }
-            else if(temp == "Name Player" && CONST.gameMode == "TWO_PLAYER")
+            else if(temp == "Name Player" && CONST.GAME_MODE == "TWO_PLAYER")
             {
                 string namePlayer1 = txtNamePlayer1.Text;
                 string namePlayer2 = txtNamePlayer2.Text;
@@ -387,7 +398,7 @@ namespace Caro
                     if (CONST.IS_ON_TIMER) timer.Start();
                 }
             }
-            else if(temp == "Name Player" && CONST.gameMode == "LAN")
+            else if(temp == "Name Player" && CONST.GAME_MODE == "LAN")
             {
                 string namePlayer = txtNamePlayer1.Text;
                 if (string.IsNullOrEmpty(namePlayer))

@@ -114,7 +114,7 @@ namespace CaroTest
             {
                 Name = "lblNamePlayer1",
                 Text = "Player 1",
-                Size = new Size(60, 30),
+                Size = new Size(50, 30),
                 Location = new Point(20, 30)
             };
 
@@ -122,7 +122,7 @@ namespace CaroTest
             {
                 Name = "lblNamePlayer2",
                 Text = "Player 2",
-                Size = new Size(60, 30),
+                Size = new Size(50, 30),
                 Location = new Point(20, 80)
             };
 
@@ -130,16 +130,16 @@ namespace CaroTest
             {
                 Name = "txtNamePlayer1",
                 Text = CONST.NAME_PLAYER1,
-                Width = 200,
-                Location = new Point(100, 30)
+                Width = 220,
+                Location = new Point(80, 30)
             };
 
             txtNamePlayer2 = new TextBox()
             {
                 Name = "txtNamePlayer2",
                 Text = CONST.NAME_PLAYER2,
-                Width = 200,
-                Location = new Point(100, 80)
+                Width = 220,
+                Location = new Point(80, 80)
             };
 
             butBack = new Button()
@@ -147,7 +147,7 @@ namespace CaroTest
                 Name = "butBack",
                 Text = "Back",
                 Size = new Size(80, 30),
-                Location = new Point(150, 200)
+                Location = new Point(170, 200)
             };
             butBack.Click += ButBack_Click;
         }
@@ -158,7 +158,7 @@ namespace CaroTest
             {
                 Name = "lblIP",
                 Text = "IP",
-                Size = new Size(60, 30),
+                Size = new Size(40, 30),
                 Location = new Point(20, 30)
             };
 
@@ -166,39 +166,39 @@ namespace CaroTest
             {
                 Name = "lblPort",
                 Text = "Port",
-                Size = new Size(60, 30),
+                Size = new Size(40, 30),
                 Location = new Point(20, 80)
             };
 
             txtIP = new TextBox()
             {
                 Name = "txtIP",
-                Width = 200,
-                Location = new Point(100, 30)
+                Width = 220,
+                Location = new Point(80, 30)
             };
 
             txtPort = new TextBox()
             {
                 Name = "txtPort",
-                Width = 200,
-                Location = new Point(100, 80)
+                Width = 220,
+                Location = new Point(80, 80)
             };
 
             butConnect = new Button()
             {
                 Name = "butConnect",
-                Size = new Size(80, 30),
+                Size = new Size(220, 25),
                 TextAlign = ContentAlignment.MiddleCenter,
-                Location = new Point(150, 150)
+                Location = new Point(80, 110)
             };
 
             butGetIP = new Button()
             {
                 Name = "butGetIP",
                 Text = "Get IP",
-                Size = new Size(80, 30),
+                Size = new Size(70, 20),
                 TextAlign = ContentAlignment.MiddleCenter,
-                Location = new Point(300, 150)
+                Location = new Point(310, 30)
             };
             butConnect.Click += ButConnect_Click;
             butGetIP.Click += ButGetIP_Click;
@@ -235,7 +235,6 @@ namespace CaroTest
             lblTime = new Label()
             {
                 Name = "lblTime",
-                Text = CONST.TIME_TURN.ToString(),
                 Location = new Point(0, 30)
             };
             CreateMainMenu();
@@ -283,7 +282,7 @@ namespace CaroTest
                 Name = "butSave",
                 Text = "Save Change",
                 Size = new Size(80, 30),
-                Location = new Point(300, 200)
+                Location = new Point(270, 200)
             };
             butGameMode.Click += ButGameMode_Click;
             butTimer.Click += ButTimer_Click;
@@ -298,6 +297,7 @@ namespace CaroTest
             {
                 Name = "lblSTimeTurn",
                 Text = "Time Turn",
+                Enabled = CONST.IS_ON_TIMER ? true : false,
                 Size = new Size(60, 30),
                 Location = new Point(20, 30)
             };
@@ -306,6 +306,7 @@ namespace CaroTest
             {
                 Name = "lblSTimeInterval",
                 Text = "Interval",
+                Enabled = CONST.IS_ON_TIMER ? true : false,
                 Size = new Size(60, 30),
                 Location = new Point(20, 80)
             };
@@ -314,24 +315,26 @@ namespace CaroTest
             {
                 Name = "txtSTimeTurn",
                 Text = CONST.TIME_TURN.ToString(),
-                Width = 200,
-                Location = new Point(100, 30)
+                Enabled = CONST.IS_ON_TIMER ? true : false,
+                Width = 220,
+                Location = new Point(80, 30)
             };
 
             txtSTimeInterval = new TextBox()
             {
                 Name = "txtSTimeInterval",
                 Text = CONST.INTERVAL.ToString(),
-                Width = 200,
-                Location = new Point(100, 80)
+                Enabled = CONST.IS_ON_TIMER ? true : false,
+                Width = 220,
+                Location = new Point(80, 80)
             };
 
             butSTimeOnOrOff = new Button()
             {
                 Name = "butSTimeOnOrOff",
                 Text = CONST.IS_ON_TIMER ? "Off Timer" : "On Timer",
-                Size = new Size(60, 30),
-                Location = new Point(150, 200)
+                Size = new Size(80, 30),
+                Location = new Point(70, 200)
             };
             butSTimeOnOrOff.Click += ButSTimeOnOrOff_Click;
         }
@@ -357,17 +360,17 @@ namespace CaroTest
             txtSSizeRow = new TextBox()
             {
                 Name = "txtSSizeRow",
-                Text = CONST.numberOfRow.ToString(),
-                Width = 200,
-                Location = new Point(100, 30)
+                Text = CONST.NUMBER_OF_ROW.ToString(),
+                Width = 220,
+                Location = new Point(80, 30)
             };
 
             txtSSizeColumn = new TextBox()
             {
                 Name = "txtSSizeColumn",
-                Text = CONST.numberOfColumn.ToString(),
-                Width = 200,
-                Location = new Point(100, 80)
+                Text = CONST.NUMBER_OF_COLUMN.ToString(),
+                Width = 220,
+                Location = new Point(80, 80)
             };
         }
         #endregion
@@ -381,6 +384,7 @@ namespace CaroTest
             gameModeForm.ClientSize = new Size(400, 250);
             gameModeForm.Controls.Add(butTwoPlayer);
             gameModeForm.Controls.Add(butModeLan);
+            if (formText == "Game Mode Setting") gameModeForm.Controls.Add(butBack);
         }
 
         private void DrawNamePlayerForm(Form namePlayerForm, string formText, string gameMode = "")
@@ -400,8 +404,9 @@ namespace CaroTest
             namePlayerForm.Controls.Add(txtNamePlayer1);
             namePlayerForm.Controls.Add(butBack);
             namePlayerForm.Controls.Add(butSave);
-            butSave.Text = "Next";
-
+            if (formText == "Name Player") butSave.Text = "Next";
+            else if (formText == "Name Player Setting") butSave.Text = "Save Change";
+            butSave.Enabled = true;
         }
 
         private void DrawLANForm(Form LANForm)
@@ -432,10 +437,10 @@ namespace CaroTest
         {
             mainForm.Controls.Clear();
             mainForm.Text = "Caro";
-            pnlCaroBoard.Size = new Size(CONST.WIDTH * CONST.numberOfColumn, CONST.HEIGHT * CONST.numberOfRow);
+            pnlCaroBoard.Size = new Size(CONST.WIDTH * CONST.NUMBER_OF_COLUMN, CONST.HEIGHT * CONST.NUMBER_OF_ROW);
 
-            mainForm.Width = pnlCaroBoard.Width + CONST.numberOfColumn * 2;
-            mainForm.Height = pnlCaroBoard.Height + CONST.numberOfRow * 4 + 70;
+            mainForm.Width = pnlCaroBoard.Width + CONST.NUMBER_OF_COLUMN * 2;
+            mainForm.Height = pnlCaroBoard.Height + CONST.NUMBER_OF_ROW * 4 + 70;
             butUndo.Location = new Point(mainForm.Width - 150, 30);
             butRedo.Location = new Point(mainForm.Width - 80, 30);
             txtPlayer.Location = new Point(mainForm.Width / 3 + 10, 5);
@@ -465,7 +470,9 @@ namespace CaroTest
             settingForm.Controls.Add(butNamePlayer);
             settingForm.Controls.Add(butSizeBoard);
             settingForm.Controls.Add(butSave);
-            butSave.Text = "Save";
+            butSave.Text = "Save Change";
+            if (CONST.GAME_MODE == "TWO_PLAYER") butTimer.Enabled = true;
+            else if (CONST.GAME_MODE == "LAN") butTimer.Enabled = false;
         }
 
         private void DrawTimeSettingForm(Form timeSettingForm)
@@ -479,8 +486,9 @@ namespace CaroTest
             timeSettingForm.Controls.Add(txtSTimeTurn);
             timeSettingForm.Controls.Add(txtSTimeInterval);
             timeSettingForm.Controls.Add(butSTimeOnOrOff);
+            timeSettingForm.Controls.Add(butBack);
             timeSettingForm.Controls.Add(butSave);
-            butSave.Text = "Save";
+            butSave.Text = "Save Change";
         }
 
         private void DrawSizeSettingForm(Form sizeSettingForm)
@@ -494,7 +502,8 @@ namespace CaroTest
             sizeSettingForm.Controls.Add(txtSSizeColumn);
             sizeSettingForm.Controls.Add(txtSSizeRow);
             sizeSettingForm.Controls.Add(butSave);
-            butSave.Text = "Save";
+            sizeSettingForm.Controls.Add(butBack);
+            butSave.Text = "Save Change";
         }
         #endregion
 
@@ -513,7 +522,9 @@ namespace CaroTest
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "Form1";
             this.Text = "Caro";
+            this.Icon = new Icon("./Image/caro.ico");
             settingForm = new Form();
+            settingForm.Icon = new Icon("./Image/setting.ico");
             timer = new Timer()
             {
                 Interval = CONST.INTERVAL
