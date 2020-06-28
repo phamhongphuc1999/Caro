@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Caro.Setting;
+using System;
 using System.Windows.Forms;
 
 namespace Caro
@@ -13,6 +11,7 @@ namespace Caro
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            CONST.ReadCONST();
             Application.Run(new Form1());
         }
     }

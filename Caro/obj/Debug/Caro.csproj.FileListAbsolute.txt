@@ -7,4 +7,8 @@ D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.csproj.GenerateResource.Cache
 D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.exe
 D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.pdb
 D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.csproj.CoreCompileInputs.cache
-D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.csprojAssemblyReference.cache
+D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Interop.WMPLib.dll
+D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.csproj.ResolveComReference.cache
+D:\Documents\VisualStudio\Caro\Caro\bin\Debug\Newtonsoft.Json.dll
+D:\Documents\VisualStudio\Caro\Caro\bin\Debug\Newtonsoft.Json.xml
+D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.csproj.CopyComplete

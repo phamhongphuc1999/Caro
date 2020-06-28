@@ -1,0 +1,8 @@
+{
+   "numberOfRow": 11,
+   "numberOfColumn": 11,
+   "isOnTime": false,
+   "isPlayMusic": false,
+   "timeTurn": 30,
+   "interval": 1000
+}

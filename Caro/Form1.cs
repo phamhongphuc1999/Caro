@@ -13,12 +13,20 @@ namespace Caro
     {
         private Manager manager;
         private SocketManager socketManager;
+        private SoundManager soundManager;
 
         public Form1()
         {
+            InitializeController();
             InitializeComponent();
             manager = new Manager(txtPlayer, pnlCaroBoard, lblTime);
             socketManager = new SocketManager();
+            //soundManager = new SoundManager("./Sound/su-thanh-hoa.wav");
+            //if (CONST.IS_PLAY_MUSIC)
+            //{
+            //    soundManager.IsLoop = true;
+            //    soundManager.Play();
+            //}
             Manager.socketManager = socketManager;
             manager.NewGameEvent += Manager_NewGameEvent;
             manager.EndGameEvent += Manager_EndGameEvent;
@@ -70,8 +78,6 @@ namespace Caro
             if(parent.Text == "Game Mode")
             {
                 CONST.GAME_MODE = "LAN";
-                CONST.NUMBER_OF_COLUMN = 10;
-                CONST.NUMBER_OF_ROW = 10;
                 DrawNamePlayerForm(this, "Name Player", "LAN");
             }
             else
@@ -95,8 +101,6 @@ namespace Caro
             if (parent.Text == "Game Mode")
             {
                 CONST.GAME_MODE = "TWO_PLAYER";
-                CONST.NUMBER_OF_ROW = 10;
-                CONST.NUMBER_OF_COLUMN = 10;
                 DrawNamePlayerForm(this, "Name Player", "TWO_PLAYER");
             }
             else

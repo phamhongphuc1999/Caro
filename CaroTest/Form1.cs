@@ -16,6 +16,7 @@ namespace CaroTest
 
         public Form1()
         {
+            InitializeController();
             InitializeComponent();
             manager = new Manager(txtPlayer, pnlCaroBoard, lblTime);
             socketManager = new SocketManager();
