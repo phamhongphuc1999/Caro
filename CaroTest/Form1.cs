@@ -154,6 +154,14 @@ namespace CaroTest
             }
         }
 
+        private void ButLoadGame_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void ButSaveGame_Click(object sender, EventArgs e)
+        {
+        }
+
         private void ButUndo_Click(object sender, EventArgs e)
         {
             manager.UndoHandle();
@@ -235,8 +243,8 @@ namespace CaroTest
 
         private void ButConnect_Click(object sender, EventArgs e)
         {
-            string IP = txtIP.Text;
-            string sPort = txtPort.Text;
+            string IP = txtName1Row.Text;
+            string sPort = txtName2Column.Text;
             int port = -1;
             if (Int32.TryParse(sPort, out port))
             {
@@ -248,8 +256,8 @@ namespace CaroTest
                     {
                         if (socketManager.CreateServer())
                         {
-                            txtIP.ReadOnly = true;
-                            txtPort.ReadOnly = true;
+                            txtName1Row.ReadOnly = true;
+                            txtName2Column.ReadOnly = true;
                             butConnect.Enabled = false;
                             butConnect.Text = "Success";
                             butConnect.BackColor = Color.Green;
@@ -272,8 +280,8 @@ namespace CaroTest
                     }
                     else
                     {
-                        txtIP.ReadOnly = true;
-                        txtPort.ReadOnly = true;
+                        txtName1Row.ReadOnly = true;
+                        txtName2Column.ReadOnly = true;
                         butConnect.Enabled = false;
                         butConnect.Text = "Success";
                         butConnect.BackColor = Color.Green;
@@ -306,7 +314,7 @@ namespace CaroTest
 
         private void ButGetIP_Click(object sender, EventArgs e)
         {
-            txtIP.Text = SocketManager.GetIPv4();
+            txtName1Row.Text = SocketManager.GetIPv4();
         }
 
         private void ButSave_Click(object sender, EventArgs e)
@@ -350,20 +358,20 @@ namespace CaroTest
             else if (temp == "Size Setting")
             {
                 int row = 0, column = 0;
-                bool check1 = Int32.TryParse(txtSSizeRow.Text, out row);
-                bool check2 = Int32.TryParse(txtSSizeColumn.Text, out column);
+                bool check1 = Int32.TryParse(txtName1Row.Text, out row);
+                bool check2 = Int32.TryParse(txtName2Column.Text, out column);
                 if (!check1 || !check2)
                 {
                     MessageBox.Show("Must be enter integer", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtSSizeRow.Text = CONST.NUMBER_OF_ROW.ToString();
-                    txtSSizeColumn.Text = CONST.NUMBER_OF_COLUMN.ToString();
+                    txtName1Row.Text = CONST.NUMBER_OF_ROW.ToString();
+                    txtName2Column.Text = CONST.NUMBER_OF_COLUMN.ToString();
                 }
                 else if (row > 20 || row < 5 || column > 30 || column < 5)
                 {
                     MessageBox.Show("Number of row is less than 20 and greater than 5\nNumber of column is less than 30 and greater than 5"
                         , "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtSSizeRow.Text = CONST.NUMBER_OF_ROW.ToString();
-                    txtSSizeColumn.Text = CONST.NUMBER_OF_COLUMN.ToString();
+                    txtName1Row.Text = CONST.NUMBER_OF_ROW.ToString();
+                    txtName2Column.Text = CONST.NUMBER_OF_COLUMN.ToString();
                 }
                 else
                 {
@@ -379,19 +387,19 @@ namespace CaroTest
             }
             else if (temp == "Name Player" && CONST.GAME_MODE == "TWO_PLAYER")
             {
-                string namePlayer1 = txtNamePlayer1.Text;
-                string namePlayer2 = txtNamePlayer2.Text;
+                string namePlayer1 = txtName1Row.Text;
+                string namePlayer2 = txtName2Column.Text;
                 if (string.IsNullOrEmpty(namePlayer1) || string.IsNullOrEmpty(namePlayer2))
                 {
                     MessageBox.Show("Must be enter your name", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtNamePlayer1.Text = CONST.NAME_PLAYER1;
-                    txtNamePlayer2.Text = CONST.NAME_PLAYER2;
+                    txtName1Row.Text = CONST.NAME_PLAYER1;
+                    txtName2Column.Text = CONST.NAME_PLAYER2;
                 }
                 else if (namePlayer1 == namePlayer2)
                 {
                     MessageBox.Show("Wrong", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtNamePlayer1.Text = CONST.NAME_PLAYER1;
-                    txtNamePlayer2.Text = CONST.NAME_PLAYER2;
+                    txtName1Row.Text = CONST.NAME_PLAYER1;
+                    txtName2Column.Text = CONST.NAME_PLAYER2;
                 }
                 else
                 {
@@ -404,11 +412,11 @@ namespace CaroTest
             }
             else if (temp == "Name Player" && CONST.GAME_MODE == "LAN")
             {
-                string namePlayer = txtNamePlayer1.Text;
+                string namePlayer = txtName1Row.Text;
                 if (string.IsNullOrEmpty(namePlayer))
                 {
                     MessageBox.Show("Must be enter your name", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtNamePlayer1.Text = CONST.NAME_PLAYER1;
+                    txtName1Row.Text = CONST.NAME_PLAYER1;
                 }
                 else
                 {
@@ -418,19 +426,19 @@ namespace CaroTest
             }
             else if (temp == "Name Player Setting")
             {
-                string namePlayer1 = txtNamePlayer1.Text;
-                string namePlayer2 = txtNamePlayer2.Text;
+                string namePlayer1 = txtName1Row.Text;
+                string namePlayer2 = txtName2Column.Text;
                 if (string.IsNullOrEmpty(namePlayer1) || string.IsNullOrEmpty(namePlayer2))
                 {
                     MessageBox.Show("Must be enter your name", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtNamePlayer1.Text = CONST.NAME_PLAYER1;
-                    txtNamePlayer2.Text = CONST.NAME_PLAYER2;
+                    txtName1Row.Text = CONST.NAME_PLAYER1;
+                    txtName2Column.Text = CONST.NAME_PLAYER2;
                 }
                 else if (namePlayer1 == namePlayer2)
                 {
                     MessageBox.Show("Wrong", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtNamePlayer1.Text = CONST.NAME_PLAYER1;
-                    txtNamePlayer2.Text = CONST.NAME_PLAYER2;
+                    txtName1Row.Text = CONST.NAME_PLAYER1;
+                    txtName2Column.Text = CONST.NAME_PLAYER2;
                 }
                 else
                 {
