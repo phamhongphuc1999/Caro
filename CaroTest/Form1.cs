@@ -1,6 +1,7 @@
 ﻿using CaroTest.CaroManager;
 using CaroTest.ConnectManager;
 using CaroTest.Setting;
+using DataTransmission;
 using System;
 using System.Drawing;
 using System.Net.Sockets;
@@ -224,25 +225,26 @@ namespace CaroTest
                             CONST.IS_LOCK = true;
                             Thread listenThread = new Thread(() =>
                             {
-                                int odcode = -1; string message = "";
+                                MessageData message = new MessageData(0, "");
                                 while (true)
                                 {
                                     try
                                     {
-                                        socketManager.RECEIVE_TCP(ref odcode, ref message, SocketFlags.None);
-                                        if (odcode == 100)
+                                        socketManager.RECEIVE_TCP(ref message, SocketFlags.None);
+                                        if (message.odcode == 100)
                                         {
-                                            CONST.NAME_PLAYER2 = message;
-                                            socketManager.SEND_TCP(EncapsulateData.CreateMessage(100, CONST.NAME_PLAYER1), SocketFlags.None);
+                                            CONST.NAME_PLAYER2 = message.data;
+                                            message.data = CONST.NAME_PLAYER1;
+                                            socketManager.SEND_TCP(message, SocketFlags.None);
                                         }
-                                        else if (odcode == 101)
+                                        else if (message.odcode == 101)
                                         {
-                                            string[] XY = message.Split(' ');
+                                            string[] XY = message.data.Split(' ');
                                             int X = Int32.Parse(XY[0]);
                                             int Y = Int32.Parse(XY[1]);
                                             manager.LANMovePointHandle(X, Y);
                                         }
-                                        else if (odcode == 112) CrossThread.PerformSafely<int>(manager.pnlCaroBoard, manager.NewGameHandle, manager.Turn);
+                                        else if (message.odcode == 112) CrossThread.PerformSafely<int>(manager.pnlCaroBoard, manager.NewGameHandle, manager.Turn);
                                     }
                                     catch { continue; }
                                 }
@@ -272,31 +274,31 @@ namespace CaroTest
                         CONST.IS_LOCK = false;
                         Thread listenThread = new Thread(() =>
                         {
-                            int odcode = -1; string message = "";
+                            MessageData message = new MessageData(0, "");
                             while (true)
                             {
                                 try
                                 {
-                                    socketManager.RECEIVE_TCP(ref odcode, ref message, SocketFlags.None);
-                                    if (odcode == 100)
+                                    socketManager.RECEIVE_TCP(ref message, SocketFlags.None);
+                                    if (message.odcode == 100)
                                     {
-                                        CONST.NAME_PLAYER2 = message;
+                                        CONST.NAME_PLAYER2 = message.data;
                                     }
-                                    else if (odcode == 101)
+                                    else if (message.odcode == 101)
                                     {
-                                        string[] XY = message.Split(' ');
+                                        string[] XY = message.data.Split(' ');
                                         int X = Int32.Parse(XY[0]);
                                         int Y = Int32.Parse(XY[1]);
                                         manager.LANMovePointHandle(X, Y);
                                     }
-                                    else if (odcode == 112) CrossThread.PerformSafely<int>(manager.pnlCaroBoard, manager.NewGameHandle, manager.Turn);
+                                    else if (message.odcode == 112) CrossThread.PerformSafely<int>(manager.pnlCaroBoard, manager.NewGameHandle, manager.Turn);
                                 }
                                 catch { continue; }
                             }
                         });
                         listenThread.IsBackground = true;
                         listenThread.Start();
-                        socketManager.SEND_TCP(EncapsulateData.CreateMessage(100, CONST.NAME_PLAYER1), SocketFlags.None);
+                        socketManager.SEND_TCP(new MessageData(100, CONST.NAME_PLAYER1), SocketFlags.None);
                     }
                 }
             }

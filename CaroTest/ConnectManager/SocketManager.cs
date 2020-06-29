@@ -1,4 +1,5 @@
 ﻿using CaroTest.Setting;
+using DataTransmission;
 using System;
 using System.Net;
 using System.Net.NetworkInformation;
@@ -53,18 +54,17 @@ namespace CaroTest.ConnectManager
             }
         }
 
-        public int SEND_TCP(string data, SocketFlags flags)
+        public int SEND_TCP(MessageData message, SocketFlags flags)
         {
-            byte[] bData = EncapsulateData.SerializeData(data);
+            byte[] bData = Data.SerializeData(message);
             return client.Send(bData, bData.Length, flags);
         }
 
-        public int RECEIVE_TCP(ref int odcode, ref string message, SocketFlags flags)
+        public int RECEIVE_TCP(ref MessageData message, SocketFlags flags)
         {
             byte[] bData = new byte[CONST.BUFF_SIZE];
             int result = client.Receive(bData, CONST.BUFF_SIZE, flags);
-            string data = (string)EncapsulateData.DeserializeData(bData);
-            EncapsulateData.ReadMessage(data, ref odcode, ref message);
+            message = (MessageData)Data.DeserializeData(bData);
             return result;
         }
         #endregion

@@ -1,10 +1,14 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace CaroTest.ConnectManager
+namespace DataTransmission
 {
+    //100: send name player
+    //101: send point
+    //110: handle undo game
+    //111: handle redo game
+    //112: new game
     [Serializable]
     public struct MessageData
     {
@@ -17,11 +21,8 @@ namespace CaroTest.ConnectManager
             this.data = data;
         }
     };
-
-    class EncapsulateData
+    public class Data
     {
-        public static int SIZE = Marshal.SizeOf(typeof(MessageData));
-
         public static byte[] SerializeData(object data)
         {
             MemoryStream ms = new MemoryStream();
@@ -36,19 +37,6 @@ namespace CaroTest.ConnectManager
             BinaryFormatter bf1 = new BinaryFormatter();
             ms.Position = 0;
             return bf1.Deserialize(ms);
-        }
-
-        public static string CreateMessage(int odcode, string data)
-        {
-            string sOdcode = odcode.ToString();
-            return sOdcode + data;
-        }
-
-        //100: send name player
-        public static void ReadMessage(string data, ref int odcode, ref string message)
-        {
-            odcode = Int32.Parse(data.Substring(0, 3));
-            message = data.Substring(3);
         }
     }
 }

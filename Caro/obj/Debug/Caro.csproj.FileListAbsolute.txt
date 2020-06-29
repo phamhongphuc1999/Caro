@@ -13,3 +13,5 @@ D:\Documents\VisualStudio\Caro\Caro\bin\Debug\Newtonsoft.Json.dll
 D:\Documents\VisualStudio\Caro\Caro\bin\Debug\Newtonsoft.Json.xml
 D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.csproj.CopyComplete
 D:\Documents\VisualStudio\Caro\Caro\obj\Debug\Caro.csprojAssemblyReference.cache
+D:\Documents\VisualStudio\Caro\Caro\bin\Debug\DataTransmission.dll
+D:\Documents\VisualStudio\Caro\Caro\bin\Debug\DataTransmission.pdb

@@ -5,6 +5,7 @@ using System.Drawing;
 using System;
 using Caro.ConnectManager;
 using System.Net.Sockets;
+using DataTransmission;
 
 namespace Caro.CaroManager
 {
@@ -166,7 +167,8 @@ namespace Caro.CaroManager
                 DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK)
                 {
-                    socketManager.SEND_TCP(EncapsulateData.CreateMessage(112, ""), SocketFlags.None);
+                    MessageData message = new MessageData(112, "");
+                    socketManager.SEND_TCP(message, SocketFlags.None);
                     NewGameHandle(player);
                 }
                 else
@@ -228,7 +230,8 @@ namespace Caro.CaroManager
                 if (CONST.GAME_MODE == "LAN" && CONST.IS_TURN)
                 {
                     string sX = X.ToString(), sY = Y.ToString();
-                    socketManager.SEND_TCP(EncapsulateData.CreateMessage(101, sX + " " + sY), SocketFlags.None);
+                    MessageData message = new MessageData(101, sX + " " + sY);
+                    socketManager.SEND_TCP(message, SocketFlags.None);
                     CONST.IS_TURN = !CONST.IS_TURN;
                     CONST.IS_LOCK = !CONST.IS_LOCK;
                 }
