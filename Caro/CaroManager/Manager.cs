@@ -107,11 +107,6 @@ namespace Caro.CaroManager
                 playerList[0].NamePlayer = CONST.NAME_PLAYER2;
                 playerList[1].NamePlayer = CONST.NAME_PLAYER1;
             }
-            else if(CONST.GAME_MODE == "LAN" && CONST.IS_SERVER)
-            {
-                playerList[0].NamePlayer = CONST.NAME_PLAYER1;
-                playerList[1].NamePlayer = CONST.NAME_PLAYER2;
-            }
             else
             {
                 playerList[0].NamePlayer = CONST.NAME_PLAYER1;
@@ -120,8 +115,6 @@ namespace Caro.CaroManager
             txtPlayer.Text = playerList[turn].NamePlayer;
             txtPlayer.BackColor = (turn == 0) ? Color.Red : Color.Green;
             checkWinner.NewGameHanlde(player);
-            txtPlayer.Text = playerList[player].NamePlayer;
-            txtPlayer.BackColor = (player == 0) ? Color.Red : Color.Green;
             DrawCaroBoard(CONST.NUMBER_OF_ROW, CONST.NUMBER_OF_COLUMN);
             lblTime.Text = (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") ? CONST.TIME_TURN.ToString() : "No Timer";
             newGameEvent(this, new EventArgs());
