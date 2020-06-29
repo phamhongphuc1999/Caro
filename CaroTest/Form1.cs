@@ -35,6 +35,37 @@ namespace CaroTest
             DrawGameModeForm(this, "Game Mode");
         }
 
+        private void ListenOtherPlayer()
+        {
+            MessageData message = new MessageData(0, 0, 0, "");
+            while (true)
+            {
+                try
+                {
+                    socketManager.RECEIVE_TCP(ref message, SocketFlags.None);
+                    if (message.odcode == 100)
+                    {
+                        CONST.NAME_PLAYER2 = message.data;
+                        if (!CONST.IS_SERVER)
+                        {
+                            CONST.NUMBER_OF_ROW = message.X;
+                            CONST.NUMBER_OF_COLUMN = message.Y;
+                        }
+                        else
+                        {
+                            message.data = CONST.NAME_PLAYER1;
+                            socketManager.SEND_TCP(message, SocketFlags.None);
+                            Data.AdjustMessage(ref message, 100, CONST.NUMBER_OF_ROW, CONST.NUMBER_OF_COLUMN, "");
+                            socketManager.SEND_TCP(message, SocketFlags.None);
+                        }
+                    }
+                    else if (message.odcode == 101) manager.LANMovePointHandle(message.X, message.Y);
+                    else if (message.odcode == 112) CrossThread.PerformSafely<int>(manager.pnlCaroBoard, manager.NewGameHandle, manager.Turn);
+                }
+                catch { continue; }
+            }
+        }
+
         #region Event Handle
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -223,32 +254,7 @@ namespace CaroTest
                             CONST.IS_SERVER = true;
                             CONST.IS_TURN = true;
                             CONST.IS_LOCK = true;
-                            Thread listenThread = new Thread(() =>
-                            {
-                                MessageData message = new MessageData(0, "");
-                                while (true)
-                                {
-                                    try
-                                    {
-                                        socketManager.RECEIVE_TCP(ref message, SocketFlags.None);
-                                        if (message.odcode == 100)
-                                        {
-                                            CONST.NAME_PLAYER2 = message.data;
-                                            message.data = CONST.NAME_PLAYER1;
-                                            socketManager.SEND_TCP(message, SocketFlags.None);
-                                        }
-                                        else if (message.odcode == 101)
-                                        {
-                                            string[] XY = message.data.Split(' ');
-                                            int X = Int32.Parse(XY[0]);
-                                            int Y = Int32.Parse(XY[1]);
-                                            manager.LANMovePointHandle(X, Y);
-                                        }
-                                        else if (message.odcode == 112) CrossThread.PerformSafely<int>(manager.pnlCaroBoard, manager.NewGameHandle, manager.Turn);
-                                    }
-                                    catch { continue; }
-                                }
-                            });
+                            Thread listenThread = new Thread(ListenOtherPlayer);
                             listenThread.IsBackground = true;
                             listenThread.Start();
                         }
@@ -272,33 +278,10 @@ namespace CaroTest
                         CONST.IS_SERVER = false;
                         CONST.IS_TURN = false;
                         CONST.IS_LOCK = false;
-                        Thread listenThread = new Thread(() =>
-                        {
-                            MessageData message = new MessageData(0, "");
-                            while (true)
-                            {
-                                try
-                                {
-                                    socketManager.RECEIVE_TCP(ref message, SocketFlags.None);
-                                    if (message.odcode == 100)
-                                    {
-                                        CONST.NAME_PLAYER2 = message.data;
-                                    }
-                                    else if (message.odcode == 101)
-                                    {
-                                        string[] XY = message.data.Split(' ');
-                                        int X = Int32.Parse(XY[0]);
-                                        int Y = Int32.Parse(XY[1]);
-                                        manager.LANMovePointHandle(X, Y);
-                                    }
-                                    else if (message.odcode == 112) CrossThread.PerformSafely<int>(manager.pnlCaroBoard, manager.NewGameHandle, manager.Turn);
-                                }
-                                catch { continue; }
-                            }
-                        });
+                        Thread listenThread = new Thread(ListenOtherPlayer);
                         listenThread.IsBackground = true;
                         listenThread.Start();
-                        socketManager.SEND_TCP(new MessageData(100, CONST.NAME_PLAYER1), SocketFlags.None);
+                        socketManager.SEND_TCP(new MessageData(100, 0, 0, CONST.NAME_PLAYER1), SocketFlags.None);
                     }
                 }
             }

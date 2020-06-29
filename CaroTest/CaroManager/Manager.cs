@@ -160,7 +160,7 @@ namespace CaroTest.CaroManager
                 DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK)
                 {
-                    MessageData message = new MessageData(112, "");
+                    MessageData message = new MessageData(112, 0, 0, "");
                     socketManager.SEND_TCP(message, SocketFlags.None);
                     NewGameHandle(player);
                 }
@@ -222,8 +222,7 @@ namespace CaroTest.CaroManager
             {
                 if (CONST.GAME_MODE == "LAN" && CONST.IS_TURN)
                 {
-                    string sX = X.ToString(), sY = Y.ToString();
-                    MessageData message = new MessageData(101, sX + " " + sY);
+                    MessageData message = new MessageData(101, X, Y, "");
                     socketManager.SEND_TCP(message, SocketFlags.None);
                     CONST.IS_TURN = !CONST.IS_TURN;
                     CONST.IS_LOCK = !CONST.IS_LOCK;

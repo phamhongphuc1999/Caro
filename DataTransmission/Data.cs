@@ -13,11 +13,15 @@ namespace DataTransmission
     public struct MessageData
     {
         public int odcode;
+        public int X;
+        public int Y;
         public string data;
 
-        public MessageData(int odcode, string data)
+        public MessageData(int odcode, int X, int Y, string data)
         {
             this.odcode = odcode;
+            this.X = X;
+            this.Y = Y;
             this.data = data;
         }
     };
@@ -37,6 +41,14 @@ namespace DataTransmission
             BinaryFormatter bf1 = new BinaryFormatter();
             ms.Position = 0;
             return bf1.Deserialize(ms);
+        }
+
+        public static void AdjustMessage(ref MessageData message, int odcode, int X, int Y, string data)
+        {
+            message.odcode = odcode;
+            message.X = X;
+            message.Y = Y;
+            message.data = data;
         }
     }
 }

@@ -44,8 +44,11 @@ namespace Caro.Setting
 
         public static void WriteCONST()
         {
-            jsonConst.numberOfRow = NUMBER_OF_ROW.ToString();
-            jsonConst.numberOfColumn = NUMBER_OF_COLUMN.ToString();
+            if(!(CONST.GAME_MODE == "LAN" && !CONST.IS_SERVER))
+            {
+                jsonConst.numberOfColumn = NUMBER_OF_COLUMN.ToString();
+                jsonConst.numberOfRow = NUMBER_OF_ROW.ToString();
+            }
             jsonConst.isOnTime = IS_ON_TIMER;
             jsonConst.isPlayMusic = IS_PLAY_MUSIC;
             jsonConst.timeTurn = TIME_TURN.ToString();
