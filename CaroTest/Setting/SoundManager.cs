@@ -16,6 +16,12 @@ namespace CaroTest.Setting
             set { sound.settings.setMode("loop", value); }
         }
 
+        public int Volume
+        {
+            get { return sound.settings.volume; }
+            set { sound.settings.volume = value; }
+        }
+
         public void Play(string url)
         {
             sound.URL = url;

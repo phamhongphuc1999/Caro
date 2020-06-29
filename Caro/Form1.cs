@@ -26,6 +26,7 @@ namespace Caro
             if (CONST.IS_PLAY_MUSIC)
             {
                 soundManager.IsLoop = true;
+                soundManager.Volume = CONST.VOLUME_SIZE;
                 soundManager.Play("./Sound/su-thanh-hoa.wav");
             }
             Manager.socketManager = socketManager;
@@ -125,9 +126,7 @@ namespace Caro
                 {
                     CONST.GAME_MODE = "LAN";
                     settingForm.Close();
-                    DrawMainForm(this);
-                    manager.NewGameHandle(0);
-                    if (CONST.IS_ON_TIMER) timer.Start();
+                    DrawNamePlayerForm(this, "Name Player", "LAN");
                 }
             }
         }
@@ -206,6 +205,11 @@ namespace Caro
         private void ButGameMode_Click(object sender, EventArgs e)
         {
             DrawGameModeForm(settingForm, "Game Mode Setting");
+        }
+
+        private void ButSound_Click(object sender, EventArgs e)
+        {
+            DrawSoundSettingForm(settingForm);
         }
 
         private void ButSTimeOnOrOff_Click(object sender, EventArgs e)
@@ -294,7 +298,8 @@ namespace Caro
             Form parent = (Form)eventBut.Parent;
             string temp = parent.Text;
             if (temp == "Name Player") DrawGameModeForm(this, "Game Mode");
-            else if (temp == "Name Player Setting" || temp == "Time Setting" || temp == "Game Mode Setting" || temp == "Size Setting")
+            else if (temp == "Name Player Setting" || temp == "Time Setting" || temp == "Game Mode Setting" 
+                || temp == "Size Setting" || temp == "Sound Setting")
                 DrawSettingForm(settingForm);
             else if (temp == "LAN Connection") DrawNamePlayerForm(this, "Name Player", CONST.GAME_MODE);
         }
@@ -441,6 +446,24 @@ namespace Caro
             {
                 DrawMainForm(this);
                 manager.NewGameHandle(0);
+            }
+            else if(temp == "Sound Setting")
+            {
+                CONST.VOLUME_SIZE = (int)numSound.Value;
+                soundManager.Volume = CONST.VOLUME_SIZE;
+                if (CONST.VOLUME_SIZE == 0)
+                {
+                    CONST.IS_PLAY_MUSIC = false;
+                    soundManager.Stop();
+                }
+                else
+                {
+                    CONST.IS_PLAY_MUSIC = true;
+                    soundManager.IsLoop = true;
+                    soundManager.Volume = CONST.VOLUME_SIZE;
+                    soundManager.Play("./Sound/su-thanh-hoa.wav");
+                }
+                DrawSettingForm(settingForm);
             }
         }
         #endregion

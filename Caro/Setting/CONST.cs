@@ -13,6 +13,7 @@ namespace Caro.Setting
         public static int HEIGHT = 25;
         public static bool IS_ON_TIMER;
         public static bool IS_PLAY_MUSIC;
+        public static int VOLUME_SIZE;
         public static int TIME_TURN;
         public static int INTERVAL;
         public static string NAME_PLAYER1 = "";
@@ -32,13 +33,13 @@ namespace Caro.Setting
             {
                 string data = sr.ReadToEnd();
                 jsonConst = JsonConvert.DeserializeObject<JsonConst>(data);
-                NUMBER_OF_ROW = Int32.Parse(jsonConst.numberOfRow);
-                NUMBER_OF_COLUMN = Int32.Parse(jsonConst.numberOfColumn);
+                NUMBER_OF_ROW = jsonConst.numberOfRow;
+                NUMBER_OF_COLUMN = jsonConst.numberOfColumn;
                 IS_ON_TIMER = jsonConst.isOnTime;
                 IS_PLAY_MUSIC = jsonConst.isPlayMusic;
-                TIME_TURN = Int32.Parse(jsonConst.timeTurn);
-                INTERVAL = Int32.Parse(jsonConst.interval);
-
+                TIME_TURN = jsonConst.timeTurn;
+                INTERVAL = jsonConst.interval;
+                VOLUME_SIZE = jsonConst.volumeSize;
             }
         }
 
@@ -46,13 +47,14 @@ namespace Caro.Setting
         {
             if(!(CONST.GAME_MODE == "LAN" && !CONST.IS_SERVER))
             {
-                jsonConst.numberOfColumn = NUMBER_OF_COLUMN.ToString();
-                jsonConst.numberOfRow = NUMBER_OF_ROW.ToString();
+                jsonConst.numberOfColumn = NUMBER_OF_COLUMN;
+                jsonConst.numberOfRow = NUMBER_OF_ROW;
             }
             jsonConst.isOnTime = IS_ON_TIMER;
             jsonConst.isPlayMusic = IS_PLAY_MUSIC;
-            jsonConst.timeTurn = TIME_TURN.ToString();
-            jsonConst.interval = INTERVAL.ToString();
+            jsonConst.timeTurn = TIME_TURN;
+            jsonConst.interval = INTERVAL;
+            jsonConst.volumeSize = VOLUME_SIZE;
             StreamWriter sw = new StreamWriter("./CONST.json");
             string data = JsonConvert.SerializeObject(jsonConst);
             sw.WriteLine(data);

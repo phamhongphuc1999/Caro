@@ -14,3 +14,4 @@ D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\Interop.WMPLib.dll
 D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\CaroTest.csproj.ResolveComReference.cache
 D:\Documents\VisualStudio\Caro\CaroTest\bin\Debug\DataTransmission.dll
 D:\Documents\VisualStudio\Caro\CaroTest\bin\Debug\DataTransmission.pdb
+D:\Documents\VisualStudio\Caro\CaroTest\obj\Debug\CaroTest.Form1.resources

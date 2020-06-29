@@ -10,7 +10,7 @@ namespace CaroTest
 
         private Form settingForm;
         private Button butTwoPlayer, butModeLan, butUndo, butRedo;
-        private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSave;
+        private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave;
         private Button butSTimeOnOrOff, butConnect, butBack, butGetIP;
         private Panel pnlCaroBoard;
         private MenuStrip mainMenu;
@@ -23,7 +23,8 @@ namespace CaroTest
         private Label lblTime, lblSTimeTurn, lblSTimeInterval;
         private Label lblSSizeRow, lblSSizeColumn;
         private Label lblNamePlayer1, lblNamePlayer2;
-        private Label lblPort, lblIP;
+        private Label lblPort, lblIP, lblSSound;
+        private NumericUpDown numSound;
 
         protected override void Dispose(bool disposing)
         {
@@ -249,7 +250,7 @@ namespace CaroTest
             {
                 Name = "butGameMode",
                 Text = "Game Mode",
-                Size = new Size(100, 40),
+                Size = new Size(80, 40),
                 Location = new Point(50, 45)
             };
 
@@ -257,24 +258,32 @@ namespace CaroTest
             {
                 Name = "butTimer",
                 Text = "Time",
-                Size = new Size(100, 40),
-                Location = new Point(250, 45)
+                Size = new Size(80, 40),
+                Location = new Point(160, 45)
             };
 
             butNamePlayer = new Button()
             {
                 Name = "butNamePlayer",
                 Text = "Name Player",
-                Size = new Size(100, 40),
-                Location = new Point(50, 95)
+                Size = new Size(80, 40),
+                Location = new Point(270, 45)
             };
 
             butSizeBoard = new Button()
             {
                 Name = "butSizeBoard",
                 Text = "Size Board",
-                Size = new Size(100, 40),
-                Location = new Point(250, 95)
+                Size = new Size(80, 40),
+                Location = new Point(50, 95)
+            };
+
+            butSound = new Button()
+            {
+                Name = "butSound",
+                Text = "Sound",
+                Size = new Size(80, 40),
+                Location = new Point(160, 95)
             };
 
             butSave = new Button()
@@ -288,6 +297,7 @@ namespace CaroTest
             butTimer.Click += ButTimer_Click;
             butNamePlayer.Click += ButNamePlayer_Click;
             butSizeBoard.Click += ButSizeBoard_Click;
+            butSound.Click += ButSound_Click;
             butSave.Click += ButSave_Click;
         }
 
@@ -371,6 +381,28 @@ namespace CaroTest
                 Text = CONST.NUMBER_OF_COLUMN.ToString(),
                 Width = 220,
                 Location = new Point(80, 80)
+            };
+        }
+
+        private void InitializeSoundSettingController()
+        {
+            lblSSound = new Label()
+            {
+                Name = "lblSSound",
+                Text = "Volume",
+                Size = new Size(60, 30),
+                Location = new Point(20, 90)
+            };
+
+            numSound = new NumericUpDown()
+            {
+                Name = "numSound",
+                Size = new Size(220, 20),
+                Location = new Point(80, 90),
+                Value = new decimal(CONST.VOLUME_SIZE),
+                Maximum = new decimal(100),
+                Minimum = new decimal(0),
+                ThousandsSeparator = true
             };
         }
         #endregion
@@ -469,6 +501,7 @@ namespace CaroTest
             settingForm.Controls.Add(butTimer);
             settingForm.Controls.Add(butNamePlayer);
             settingForm.Controls.Add(butSizeBoard);
+            settingForm.Controls.Add(butSound);
             settingForm.Controls.Add(butSave);
             butSave.Text = "Save Change";
             if (CONST.GAME_MODE == "TWO_PLAYER") butTimer.Enabled = true;
@@ -505,7 +538,20 @@ namespace CaroTest
             sizeSettingForm.Controls.Add(butBack);
             butSave.Text = "Save Change";
         }
+
+        private void DrawSoundSettingForm(Form soundSettingForm)
+        {
+            soundSettingForm.Controls.Clear();
+            soundSettingForm.Text = "Sound Setting";
+            soundSettingForm.AutoScaleDimensions = new SizeF(9F, 20F);
+            soundSettingForm.ClientSize = new Size(400, 250);
+            soundSettingForm.Controls.Add(lblSSound);
+            soundSettingForm.Controls.Add(numSound);
+            soundSettingForm.Controls.Add(butSave);
+            soundSettingForm.Controls.Add(butBack);
+        }
         #endregion
+
         private void InitializeController()
         {
             InitializeGameModeController();
@@ -515,6 +561,7 @@ namespace CaroTest
             InitializeSettingController();
             InitializeTimeSettingController();
             InitializeSizeSettingController();
+            InitializeSoundSettingController();
             this.Icon = new Icon("./Image/caro.ico");
             settingForm = new Form();
             settingForm.FormClosing += SettingForm_FormClosing;
@@ -535,6 +582,7 @@ namespace CaroTest
             this.Name = "Form1";
             this.Text = "Caro";
             this.ResumeLayout(false);
+
         }
         #endregion
     }
