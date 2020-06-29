@@ -470,16 +470,11 @@ namespace Caro
             mainForm.Controls.Clear();
             mainForm.Text = "Caro";
             pnlCaroBoard.Size = new Size(CONST.WIDTH * CONST.NUMBER_OF_COLUMN, CONST.HEIGHT * CONST.NUMBER_OF_ROW);
-
-            mainForm.Width = pnlCaroBoard.Width + CONST.NUMBER_OF_COLUMN * 2;
-            mainForm.Height = pnlCaroBoard.Height + CONST.NUMBER_OF_ROW * 4 + 70;
+            mainForm.Size = new Size(pnlCaroBoard.Width + 3 * CONST.NUMBER_OF_ROW / 2 + 5, pnlCaroBoard.Height + 4 * CONST.NUMBER_OF_COLUMN + 70);
             butUndo.Location = new Point(mainForm.Width - 150, 30);
             butRedo.Location = new Point(mainForm.Width - 80, 30);
-            txtPlayer.Location = new Point(mainForm.Width / 3 + 10, 5);
-            int temp = 2 * mainForm.Width / 3 - 10;
-            if (temp < 200) txtPlayer.Width = temp - 20;
-            else txtPlayer.Width = 200;
-            mainMenu.Size = new Size(mainForm.Width / 3, 20);
+            txtPlayer.Location = new Point(2 * mainForm.Width / 3- 20, 5);
+            txtPlayer.Width = mainForm.Width / 3;
 
             mainForm.Controls.Add(pnlCaroBoard);
             mainForm.Controls.Add(txtPlayer);
@@ -576,9 +571,6 @@ namespace Caro
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Name = "Form1";
             this.Text = "Caro";
             this.ResumeLayout(false);

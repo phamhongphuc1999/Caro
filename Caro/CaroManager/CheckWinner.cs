@@ -57,7 +57,7 @@ namespace Caro.CaroManager
 
         private bool IsWinRow(int X, int Y)
         {
-            int count = 0, player = -1;
+            int count = 0, countEnemy = 0, player = -1;
             for(int i = X - CONST.WIDTH; i >= 0; i = i - CONST.WIDTH)
             {
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, Y);
@@ -67,8 +67,9 @@ namespace Caro.CaroManager
                     {
                         arrRow[count] = temp;
                         count++;
+                        if (i == 0) countEnemy++;
                     }
-                    else break;
+                    else { countEnemy++; break; }
                 }
                 else break;
             }
@@ -82,17 +83,18 @@ namespace Caro.CaroManager
                     {
                         arrRow[count] = temp;
                         count++;
+                        if (i == MAX_X) countEnemy++;
                     }
-                    else break;
+                    else { countEnemy++; break; }
                 }
                 else break;
             }
-            return (count == 4);
+            return (count == 4) && (countEnemy < 2);
         }
 
         private bool IsWinColumn(int X, int Y)
         {
-            int count = 0, player = -1;
+            int count = 0, countEnemy = 0, player = -1;
             for(int i = Y - CONST.HEIGHT; i >= 0; i = i - CONST.HEIGHT)
             {
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(X, i);
@@ -102,8 +104,9 @@ namespace Caro.CaroManager
                     {
                         arrColumn[count] = temp;
                         count++;
+                        if (i == 0) countEnemy++;
                     }
-                    else break;
+                    else { countEnemy++; break; }
                 }
                 else break;
             }
@@ -117,17 +120,18 @@ namespace Caro.CaroManager
                     {
                         arrColumn[count] = temp;
                         count++;
+                        if (i == MAX_Y) countEnemy++;
                     }
-                    else break;
+                    else { countEnemy++; break; }
                 }
                 else break;
             }
-            return (count == 4);
+            return (count == 4) && (countEnemy < 2);
         }
 
         private bool IsWinMainDiagonal(int X, int Y)
         {
-            int count = 0, player = -1;
+            int count = 0, countEnemy = 0, player = -1;
             for (int i = X - CONST.WIDTH, j = Y - CONST.HEIGHT; i >= 0 && j >= 0; i = i - CONST.WIDTH, j = j - CONST.HEIGHT)
             {
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, j);
@@ -137,8 +141,9 @@ namespace Caro.CaroManager
                     {
                         arrMainDiagonal[count] = temp;
                         count++;
+                        if (i == 0 || j == 0) countEnemy++;
                     }
-                    else break;
+                    else { countEnemy++; break; }
                 }
                 else break;
             }
@@ -153,17 +158,18 @@ namespace Caro.CaroManager
                     {
                         arrMainDiagonal[count] = temp;
                         count++;
+                        if (i == MAX_X || j == MAX_Y) countEnemy++;
                     }
-                    else break;
+                    else { countEnemy++; break; }
                 }
                 else break;
             }
-            return (count == 4);
+            return (count == 4) && (countEnemy < 2);
         }
 
         private bool IsWinSubDiagonal(int X, int Y)
         {
-            int count = 0, player = -1;
+            int count = 0, countEnemy = 0, player = -1;
             int MAX_X = numberOfColumn * CONST.WIDTH;
             for (int i = X + CONST.WIDTH, j = Y - CONST.HEIGHT; i <= MAX_X && j >= 0; i = i + CONST.WIDTH, j = j - CONST.HEIGHT)
             {
@@ -174,8 +180,9 @@ namespace Caro.CaroManager
                     {
                         arrSubDiagomal[count] = temp;
                         count++;
+                        if (i == MAX_X || j == 0) countEnemy++;
                     }
-                    else break;
+                    else { countEnemy++; break; }
                 }
                 else break;
             }
@@ -189,12 +196,13 @@ namespace Caro.CaroManager
                     {
                         arrSubDiagomal[count] = temp;
                         count++;
+                        if (i == 0 || j == MAX_Y) countEnemy++;
                     }
-                    else break;
+                    else { countEnemy++; break; }
                 }
                 else break;
             }
-            return (count == 4);
+            return (count == 4) && (countEnemy < 2);
         }
     }
 }
