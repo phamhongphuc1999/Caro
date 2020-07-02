@@ -64,6 +64,9 @@
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SaveGame\GameSave.cs" />
+    <Compile Include="SaveGame\GameSaveData.cs" />
+    <Compile Include="SaveGame\SaveGameHelper.cs" />
     <Compile Include="Setting\CONST.cs" />
     <Compile Include="Setting\JsonConst.cs" />
     <Compile Include="Setting\SoundManager.cs" />

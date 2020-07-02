@@ -104,14 +104,14 @@ namespace Caro
                 Name = "butLoadGame",
                 Text = "Load Game",
                 Size = new Size(120, 40),
-                Location = new Point(140, 180)
+                Location = new Point(140, 140)
             };
             lblOr = new Label()
             {
                 Name = "lblOr",
                 Text = "OR",
                 Size = new Size(60, 20),
-                Location = new Point(170, 110)
+                Location = new Point(180, 100)
             };
             butTwoPlayer.Click += ButTwoPlayer_Click;
             butModeLan.Click += ButModeLan_Click;
@@ -353,12 +353,9 @@ namespace Caro
             gameModeForm.ClientSize = new Size(400, 250);
             gameModeForm.Controls.Add(butTwoPlayer);
             gameModeForm.Controls.Add(butModeLan);
+            gameModeForm.Controls.Add(butLoadGame);
+            gameModeForm.Controls.Add(lblOr);
             if (formText == "Game Mode Setting") gameModeForm.Controls.Add(butBack);
-            else if(formText == "Game Mode")
-            {
-                gameModeForm.Controls.Add(butLoadGame);
-                gameModeForm.Controls.Add(lblOr);
-            }
         }
 
         private void DrawNamePlayerForm(Form namePlayerForm, string formText, string gameMode = "")

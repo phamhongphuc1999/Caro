@@ -81,6 +81,49 @@ namespace Caro.CaroManager
             }
         }
 
+        private void DrawCaroBoard(int numberOfRow, int numberOfColumn, string sCaroBoard)
+        {
+            int index = 0;
+            for(int i = 0; i < numberOfRow; i++)
+            {
+                for(int j = 0; j < numberOfColumn; j++)
+                {
+                    Button but = new Button()
+                    {
+                        Size = new Size(CONST.WIDTH, CONST.HEIGHT),
+                        Location = new Point(CONST.WIDTH * j, CONST.HEIGHT * i)
+                    };
+                    if (sCaroBoard[index] == '1')
+                    {
+                        but.Image = playerList[0].ImagePlayer;
+                        checkWinner.DrawCaroBoard(but.Location, 0);
+                    }
+                    else if (sCaroBoard[index] == '2')
+                    {
+                        but.Image = playerList[1].ImagePlayer;
+                        checkWinner.DrawCaroBoard(but.Location, 1);
+                    }
+                    but.Click += But_Click;
+                    caroBoard.Add(new KeyValuePair<int, int>(CONST.WIDTH * j, CONST.HEIGHT * i), but);
+                    pnlCaroBoard.Controls.Add(but);
+                    index++;
+                }
+            }
+        }
+
+        public string ConvertBoardToString()
+        {
+            string board = "";
+            foreach(KeyValuePair<KeyValuePair<int, int>, Button> item in caroBoard)
+            {
+                Button button = item.Value;
+                if (button.Image == null) board += "0";
+                else if (button.Image == playerList[0].ImagePlayer) board += "1";
+                else board += "2";
+            }
+            return board;
+        }
+
         private void TurnPalyer()
         {
             turn = 1 - turn;
@@ -97,6 +140,15 @@ namespace Caro.CaroManager
                 txtPlayer.BackColor = Color.Green;
                 txtPlayer.Text = playerList[1].NamePlayer;
             }
+        }
+
+        public void LoadSaveGame(int player, string sCaroGame)
+        {
+            turn = player;
+            checkWinner.NewGameHanlde(player);
+            txtPlayer.Text = playerList[turn].NamePlayer;
+            txtPlayer.BackColor = (turn == 0) ? Color.Red : Color.Green;
+            DrawCaroBoard(CONST.NUMBER_OF_ROW, CONST.NUMBER_OF_COLUMN, sCaroGame);
         }
 
         public void NewGameHandle(int player)

@@ -1,5 +1,6 @@
 ﻿using Caro.Setting;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Caro.CaroManager
 {
@@ -40,6 +41,11 @@ namespace Caro.CaroManager
         public void DrawCaroBoard(int X, int Y)
         {
             caroBoard.Add(new KeyValuePair<int, int>(X, Y), turn);
+        }
+
+        public void DrawCaroBoard(Point point, int turn)
+        {
+            caroBoard.Add(new KeyValuePair<int, int>(point.X, point.Y), turn);
         }
 
         public bool IsWiner(int X, int Y)

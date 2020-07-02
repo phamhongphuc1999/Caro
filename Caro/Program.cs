@@ -12,6 +12,7 @@ namespace Caro
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             CONST.ReadCONST();
+            CONST.LoadGame();
             Application.Run(new Form1());
         }
     }

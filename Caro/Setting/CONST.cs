@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using Caro.SaveGame;
+using Newtonsoft.Json;
 using System.IO;
 
 namespace Caro.Setting
@@ -27,6 +27,8 @@ namespace Caro.Setting
         public static bool IS_LOCK = true;
 
         private static JsonConst jsonConst = new JsonConst();
+        public static GameSaveData saveData = new GameSaveData();
+
         public static void ReadCONST()
         {
             using (StreamReader sr = File.OpenText("./CONST.json"))
@@ -57,6 +59,23 @@ namespace Caro.Setting
             jsonConst.volumeSize = VOLUME_SIZE;
             StreamWriter sw = new StreamWriter("./CONST.json");
             string data = JsonConvert.SerializeObject(jsonConst);
+            sw.WriteLine(data);
+            sw.Close();
+        }
+
+        public static void LoadGame()
+        {
+            using (StreamReader sr = File.OpenText("./SaveGame.json"))
+            {
+                string data = sr.ReadToEnd();
+                saveData = JsonConvert.DeserializeObject<GameSaveData>(data);
+            }
+        }
+
+        public static void WriteSaveGame()
+        {
+            StreamWriter sw = new StreamWriter("./SaveGame.json");
+            string data = JsonConvert.SerializeObject(saveData);
             sw.WriteLine(data);
             sw.Close();
         }

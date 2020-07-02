@@ -1,5 +1,6 @@
 ﻿using Caro.CaroManager;
 using Caro.ConnectManager;
+using Caro.SaveGame;
 using Caro.Setting;
 using DataTransmission;
 using System;
@@ -65,6 +66,29 @@ namespace Caro
                 }
                 catch { continue; }
             }
+        }
+
+        private void DrawLoadGame(Form loadForm)
+        {
+            loadForm.Controls.Clear();
+            loadForm.Text = "Load Game";
+            loadForm.AutoScaleDimensions = new SizeF(9F, 20F);
+            int Y = 20, count = 1;
+            foreach(GameSave item in CONST.saveData.GameSaveList)
+            {
+                string butText = count.ToString() + "." + item.PlayerName1 + "/" + item.PlayerName2 + "; row: " 
+                    + item.NumberOfRow + "/column: " + item.NumberOfColumn;
+                Button button = new Button()
+                {
+                    Text = butText,
+                    Size = new Size(200, 30),
+                    Location = new Point(100, Y)
+                };
+                button.Click += Button_Click;
+                loadForm.Controls.Add(button);
+                Y += 40; count++;
+            }
+            loadForm.ClientSize = new Size(400, Y + 10);
         }
 
         #region Event Handle
@@ -154,12 +178,30 @@ namespace Caro
             }
         }
 
+        private void Button_Click(object sender, EventArgs e)
+        {
+            Button eventBut = (Button)sender;
+            int index = eventBut.Text[0] - '0';
+            GameSave gameSave = CONST.saveData.GameSaveList[index - 1];
+            CONST.NAME_PLAYER1 = gameSave.PlayerName1;
+            CONST.NAME_PLAYER2 = gameSave.PlayerName2;
+            CONST.NUMBER_OF_COLUMN = gameSave.NumberOfColumn;
+            CONST.NUMBER_OF_ROW = gameSave.NumberOfRow;
+            manager.LoadSaveGame(gameSave.Turn, gameSave.CaroBoard);
+            DrawMainForm(this);
+        }
+
         private void ButLoadGame_Click(object sender, EventArgs e)
         {
+            DrawLoadGame(this);
         }
 
         private void ButSaveGame_Click(object sender, EventArgs e)
         {
+            SaveGameHelper.caroBoard = manager.ConvertBoardToString();
+            SaveGameHelper.turn = manager.Turn;
+            SaveGameHelper.SaveCurrentGame();
+            CONST.WriteSaveGame();
         }
 
         private void ButUndo_Click(object sender, EventArgs e)
