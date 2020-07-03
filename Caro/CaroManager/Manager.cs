@@ -71,11 +71,11 @@ namespace Caro.CaroManager
                 {
                     Button but = new Button()
                     {
-                        Size = new Size(CONST.WIDTH, CONST.HEIGHT),
-                        Location = new Point(CONST.WIDTH * j, CONST.HEIGHT * i)
+                        Size = new Size(CONST.CHESS_SIZE.Width, CONST.CHESS_SIZE.Height),
+                        Location = new Point(CONST.CHESS_SIZE.Width * j, CONST.CHESS_SIZE.Height * i)
                     };
                     but.Click += But_Click;
-                    caroBoard.Add(new KeyValuePair<int, int>(CONST.WIDTH * j, CONST.HEIGHT * i), but);
+                    caroBoard.Add(new KeyValuePair<int, int>(CONST.CHESS_SIZE.Width * j, CONST.CHESS_SIZE.Height * i), but);
                     pnlCaroBoard.Controls.Add(but);
                 }
             }
@@ -84,14 +84,16 @@ namespace Caro.CaroManager
         private void DrawCaroBoard(int numberOfRow, int numberOfColumn, string sCaroBoard)
         {
             int index = 0;
+            caroBoard.Clear();
+            pnlCaroBoard.Controls.Clear();
             for(int i = 0; i < numberOfRow; i++)
             {
                 for(int j = 0; j < numberOfColumn; j++)
                 {
                     Button but = new Button()
                     {
-                        Size = new Size(CONST.WIDTH, CONST.HEIGHT),
-                        Location = new Point(CONST.WIDTH * j, CONST.HEIGHT * i)
+                        Size = new Size(CONST.CHESS_SIZE.Width, CONST.CHESS_SIZE.Height),
+                        Location = new Point(CONST.CHESS_SIZE.Width * j, CONST.CHESS_SIZE.Height * i)
                     };
                     if (sCaroBoard[index] == '1')
                     {
@@ -106,7 +108,7 @@ namespace Caro.CaroManager
                         butUndo.Push(but);
                     }
                     but.Click += But_Click;
-                    caroBoard.Add(new KeyValuePair<int, int>(CONST.WIDTH * j, CONST.HEIGHT * i), but);
+                    caroBoard.Add(new KeyValuePair<int, int>(CONST.CHESS_SIZE.Width * j, CONST.CHESS_SIZE.Height * i), but);
                     pnlCaroBoard.Controls.Add(but);
                     index++;
                 }
@@ -173,38 +175,45 @@ namespace Caro.CaroManager
             checkWinner.NewGameHanlde(player);
             DrawCaroBoard(CONST.NUMBER_OF_ROW, CONST.NUMBER_OF_COLUMN);
             lblTime.Text = (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") ? CONST.TIME_TURN.ToString() : "No Timer";
+            CONST.IS_OLD_GAME = false;
+            CONST.INDEX_OLD_GAME = -1;
             newGameEvent(this, new EventArgs());
         }
 
-        private void EndGameHandle(int player, Button eventBut)
+        private void EndGameHandle(int player, Button eventBut, int sign = 0)
         {
             endGameEvent(this, new EventArgs());
             pnlCaroBoard.Enabled = true;
-            int[] check = checkWinner.check;
-            if (check[0] == 1)
+            if(sign == 0)
             {
-                foreach (KeyValuePair<int, int> item in checkWinner.arrRow)
-                    caroBoard[item].FlatStyle = FlatStyle.Flat;
+                int[] check = checkWinner.check;
+                if (check[0] == 1)
+                {
+                    foreach (KeyValuePair<int, int> item in checkWinner.arrRow)
+                        caroBoard[item].FlatStyle = FlatStyle.Flat;
+                }
+                if (check[1] == 1)
+                {
+                    foreach (KeyValuePair<int, int> item in checkWinner.arrColumn)
+                        caroBoard[item].FlatStyle = FlatStyle.Flat;
+                }
+                if (check[2] == 1)
+                {
+                    foreach (KeyValuePair<int, int> item in checkWinner.arrMainDiagonal)
+                        caroBoard[item].FlatStyle = FlatStyle.Flat;
+                }
+                if (check[3] == 1)
+                {
+                    foreach (KeyValuePair<int, int> item in checkWinner.arrSubDiagomal)
+                        caroBoard[item].FlatStyle = FlatStyle.Flat;
+                }
+                eventBut.FlatStyle = FlatStyle.Flat;
             }
-            if (check[1] == 1)
-            {
-                foreach (KeyValuePair<int, int> item in checkWinner.arrColumn)
-                    caroBoard[item].FlatStyle = FlatStyle.Flat;
-            }
-            if (check[2] == 1)
-            {
-                foreach (KeyValuePair<int, int> item in checkWinner.arrMainDiagonal)
-                    caroBoard[item].FlatStyle = FlatStyle.Flat;
-            }
-            if (check[3] == 1)
-            {
-                foreach (KeyValuePair<int, int> item in checkWinner.arrSubDiagomal)
-                    caroBoard[item].FlatStyle = FlatStyle.Flat;
-            }
-            eventBut.FlatStyle = FlatStyle.Flat;
+            
             if (CONST.GAME_MODE == "TWO_PLAYER")
             {
-                MessageBox.Show("The " + playerList[player].NamePlayer + " win", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (sign == 0) MessageBox.Show("The " + playerList[player].NamePlayer + " win", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else MessageBox.Show("The Game is ended, no players is winer", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK) NewGameHandle(player);
             }
@@ -212,7 +221,8 @@ namespace Caro.CaroManager
             {
                 CONST.IS_LOCK = !CONST.IS_LOCK;
                 CONST.IS_TURN = !CONST.IS_TURN;
-                MessageBox.Show("You are the winner", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (sign == 0) MessageBox.Show("You are the winner", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else MessageBox.Show("The Game is ended, no players is winer", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK)
                 {
@@ -229,7 +239,8 @@ namespace Caro.CaroManager
             {
                 CONST.IS_LOCK = !CONST.IS_LOCK;
                 CONST.IS_TURN = !CONST.IS_TURN;
-                MessageBox.Show("You are the lost", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (sign == 0) MessageBox.Show("You are the lost", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else MessageBox.Show("The Game is ended, no players is winer", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }   
         }
 
@@ -290,8 +301,8 @@ namespace Caro.CaroManager
                 butUndo.Push(eventBut);
                 checkWinner.Turn = turn;
                 eventBut.Image = playerList[turn].ImagePlayer;
-                bool isWiner = checkWinner.IsWiner(X, Y);
-                if (isWiner) EndGameHandle(turn, eventBut);
+                if (checkWinner.IsWiner(X, Y)) EndGameHandle(turn, eventBut);
+                else if (checkWinner.IsEndGame()) EndGameHandle(turn, eventBut, 1);
                 else
                 {
                     checkWinner.DrawCaroBoard(X, Y);

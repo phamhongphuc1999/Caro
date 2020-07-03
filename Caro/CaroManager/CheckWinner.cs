@@ -14,6 +14,7 @@ namespace Caro.CaroManager
         }
         private int numberOfColumn;
         private int numberOfRow;
+        private int numberOfChess;
         private Dictionary<KeyValuePair<int, int>, int> caroBoard;
         public KeyValuePair<int, int>[] arrRow, arrColumn, arrMainDiagonal, arrSubDiagomal;
         public int[] check;
@@ -22,6 +23,7 @@ namespace Caro.CaroManager
         {
             this.numberOfColumn = numberOfColumn;
             this.numberOfRow = numberOfRow;
+            numberOfChess = numberOfColumn * numberOfRow;
 
             caroBoard = new Dictionary<KeyValuePair<int, int>, int>();
             arrRow = new KeyValuePair<int, int>[4];
@@ -36,6 +38,9 @@ namespace Caro.CaroManager
             this.turn = turn;
             check[0] = check[1] = check[2] = check[3] = 0;
             caroBoard.Clear();
+            numberOfColumn = CONST.NUMBER_OF_COLUMN;
+            numberOfRow = CONST.NUMBER_OF_ROW;
+            numberOfChess = numberOfColumn * numberOfRow;
         }
 
         public void DrawCaroBoard(int X, int Y)
@@ -43,9 +48,19 @@ namespace Caro.CaroManager
             caroBoard.Add(new KeyValuePair<int, int>(X, Y), turn);
         }
 
+        public void DrawCaroBoard(Point point)
+        {
+            caroBoard.Add(new KeyValuePair<int, int>(point.X, point.Y), turn);
+        }
+
         public void DrawCaroBoard(Point point, int turn)
         {
             caroBoard.Add(new KeyValuePair<int, int>(point.X, point.Y), turn);
+        }
+
+        public bool IsEndGame()
+        {
+            return caroBoard.Count == numberOfChess - 1;
         }
 
         public bool IsWiner(int X, int Y)
@@ -64,7 +79,7 @@ namespace Caro.CaroManager
         private bool IsWinRow(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
-            for(int i = X - CONST.WIDTH; i >= 0; i = i - CONST.WIDTH)
+            for(int i = X - CONST.CHESS_SIZE.Width; i >= 0; i = i - CONST.CHESS_SIZE.Width)
             {
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, Y);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -79,8 +94,8 @@ namespace Caro.CaroManager
                 }
                 else break;
             }
-            int MAX_X = numberOfColumn * CONST.WIDTH;
-            for(int i = X + CONST.WIDTH; i <= MAX_X; i = i + CONST.WIDTH)
+            int MAX_X = numberOfColumn * CONST.CHESS_SIZE.Width;
+            for(int i = X + CONST.CHESS_SIZE.Width; i <= MAX_X; i = i + CONST.CHESS_SIZE.Width)
             {
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, Y);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -101,7 +116,7 @@ namespace Caro.CaroManager
         private bool IsWinColumn(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
-            for(int i = Y - CONST.HEIGHT; i >= 0; i = i - CONST.HEIGHT)
+            for(int i = Y - CONST.CHESS_SIZE.Height; i >= 0; i = i - CONST.CHESS_SIZE.Height)
             {
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(X, i);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -116,8 +131,8 @@ namespace Caro.CaroManager
                 }
                 else break;
             }
-            int MAX_Y = numberOfRow * CONST.HEIGHT;
-            for(int i = Y + CONST.HEIGHT; i <= MAX_Y; i = i + CONST.HEIGHT)
+            int MAX_Y = numberOfRow * CONST.CHESS_SIZE.Height;
+            for(int i = Y + CONST.CHESS_SIZE.Height; i <= MAX_Y; i = i + CONST.CHESS_SIZE.Height)
             {
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(X, i);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -138,7 +153,8 @@ namespace Caro.CaroManager
         private bool IsWinMainDiagonal(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
-            for (int i = X - CONST.WIDTH, j = Y - CONST.HEIGHT; i >= 0 && j >= 0; i = i - CONST.WIDTH, j = j - CONST.HEIGHT)
+            for (int i = X - CONST.CHESS_SIZE.Width, j = Y - CONST.CHESS_SIZE.Height; 
+                i >= 0 && j >= 0; i = i - CONST.CHESS_SIZE.Width, j = j - CONST.CHESS_SIZE.Height)
             {
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -153,9 +169,10 @@ namespace Caro.CaroManager
                 }
                 else break;
             }
-            int MAX_X = numberOfColumn * CONST.WIDTH;
-            int MAX_Y = numberOfRow * CONST.HEIGHT;
-            for (int i = X + CONST.WIDTH, j = Y + CONST.HEIGHT; i <= MAX_X && j < MAX_Y; i = i + CONST.WIDTH, j = j + CONST.HEIGHT)
+            int MAX_X = numberOfColumn * CONST.CHESS_SIZE.Width;
+            int MAX_Y = numberOfRow * CONST.CHESS_SIZE.Height;
+            for (int i = X + CONST.CHESS_SIZE.Width, j = Y + CONST.CHESS_SIZE.Height; 
+                i <= MAX_X && j < MAX_Y; i = i + CONST.CHESS_SIZE.Width, j = j + CONST.CHESS_SIZE.Height)
             {
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -176,8 +193,9 @@ namespace Caro.CaroManager
         private bool IsWinSubDiagonal(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
-            int MAX_X = numberOfColumn * CONST.WIDTH;
-            for (int i = X + CONST.WIDTH, j = Y - CONST.HEIGHT; i <= MAX_X && j >= 0; i = i + CONST.WIDTH, j = j - CONST.HEIGHT)
+            int MAX_X = numberOfColumn * CONST.CHESS_SIZE.Width;
+            for (int i = X + CONST.CHESS_SIZE.Width, j = Y - CONST.CHESS_SIZE.Height; 
+                i <= MAX_X && j >= 0; i = i + CONST.CHESS_SIZE.Width, j = j - CONST.CHESS_SIZE.Height)
             {
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -192,8 +210,9 @@ namespace Caro.CaroManager
                 }
                 else break;
             }
-            int MAX_Y = numberOfRow * CONST.HEIGHT;
-            for(int i = X - CONST.WIDTH, j = Y + CONST.HEIGHT; i >= 0 && j <= MAX_Y; i = i - CONST.WIDTH, j = j + CONST.HEIGHT)
+            int MAX_Y = numberOfRow * CONST.CHESS_SIZE.Height;
+            for(int i = X - CONST.CHESS_SIZE.Width, j = Y + CONST.CHESS_SIZE.Height; 
+                i >= 0 && j <= MAX_Y; i = i - CONST.CHESS_SIZE.Width, j = j + CONST.CHESS_SIZE.Height)
             {
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, j);
                 if (caroBoard.TryGetValue(temp, out player))

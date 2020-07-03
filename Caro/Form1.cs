@@ -164,6 +164,7 @@ namespace Caro
         private void Button_Click(object sender, EventArgs e)
         {
             Button eventBut = sender as Button;
+            Form parent = eventBut.Parent as Form;
             int index = eventBut.Text[0] - '0' - 1;
             SaveGameHelper.index = index;
             GameSave gameSave = CONST.saveData.GameSaveList[index];
@@ -172,6 +173,7 @@ namespace Caro
             CONST.NUMBER_OF_COLUMN = gameSave.NumberOfColumn;
             CONST.NUMBER_OF_ROW = gameSave.NumberOfRow;
             manager.LoadSaveGame(gameSave.Turn, gameSave.CaroBoard);
+            if ((int)parent.Tag == 1) parent.Close(); 
             DrawMainForm(this);
         }
 
@@ -187,6 +189,12 @@ namespace Caro
         {
             CONST.IS_LOAD_GAME = true;
             DrawLoadGame(this);
+        }
+
+        private void ButLoadGameSetting_Click(object sender, EventArgs e)
+        {
+            CONST.IS_LOAD_GAME = true;
+            DrawLoadGame(settingForm);
         }
 
         private void ButSaveGame_Click(object sender, EventArgs e)

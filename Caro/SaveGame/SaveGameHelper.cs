@@ -19,6 +19,15 @@ namespace Caro.SaveGame
                 CONST.saveData.GameSaveList[index].CaroBoard = caroBoard;
                 CONST.saveData.GameSaveList[index].Turn = turn;
             }
+            else if (CONST.IS_OLD_GAME)
+            {
+                CONST.saveData.GameSaveList[CONST.INDEX_OLD_GAME].NumberOfColumn = CONST.NUMBER_OF_COLUMN;
+                CONST.saveData.GameSaveList[CONST.INDEX_OLD_GAME].NumberOfRow = CONST.NUMBER_OF_ROW;
+                CONST.saveData.GameSaveList[CONST.INDEX_OLD_GAME].PlayerName1 = CONST.NAME_PLAYER1;
+                CONST.saveData.GameSaveList[CONST.INDEX_OLD_GAME].PlayerName2 = CONST.NAME_PLAYER2;
+                CONST.saveData.GameSaveList[CONST.INDEX_OLD_GAME].CaroBoard = caroBoard;
+                CONST.saveData.GameSaveList[CONST.INDEX_OLD_GAME].Turn = turn;
+            }
             else
             {
                 GameSave gameSave = new GameSave()
@@ -31,6 +40,8 @@ namespace Caro.SaveGame
                     Turn = turn
                 };
                 CONST.saveData.GameSaveList.Add(gameSave);
+                CONST.IS_OLD_GAME = true;
+                CONST.INDEX_OLD_GAME = CONST.saveData.GameSaveList.Count - 1;
             }
         }
 

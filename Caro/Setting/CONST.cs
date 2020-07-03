@@ -1,5 +1,6 @@
 ﻿using Caro.SaveGame;
 using Newtonsoft.Json;
+using System.Drawing;
 using System.IO;
 
 namespace Caro.Setting
@@ -9,8 +10,7 @@ namespace Caro.Setting
         public static string GAME_MODE = "TWO_PLAYER";
         public static int NUMBER_OF_ROW;
         public static int NUMBER_OF_COLUMN;
-        public static int WIDTH = 25;
-        public static int HEIGHT = 25;
+        public static Size CHESS_SIZE = new Size(25, 25);
         public static bool IS_ON_TIMER;
         public static bool IS_PLAY_MUSIC;
         public static int VOLUME_SIZE;
@@ -25,7 +25,10 @@ namespace Caro.Setting
         public static bool IS_SERVER = true;
         public static bool IS_TURN = true;
         public static bool IS_LOCK = true;
+        //const load and save game
         public static bool IS_LOAD_GAME = false;
+        public static bool IS_OLD_GAME = false;
+        public static int INDEX_OLD_GAME = -1;
 
         private static JsonConst jsonConst = new JsonConst();
         public static GameSaveData saveData = new GameSaveData();

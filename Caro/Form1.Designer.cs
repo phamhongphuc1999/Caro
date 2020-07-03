@@ -16,7 +16,7 @@ namespace Caro
         private NumericUpDown numSound;
         private Button butTwoPlayer, butModeLan, butUndo, butRedo, butLoadBack;
         private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave;
-        private Button butSTimeOnOrOff, butConnect, butBack, butGetIP, butLoadGame, butSaveGame;
+        private Button butSTimeOnOrOff, butConnect, butBack, butGetIP, butLoadGame, butLoadGameSetting, butSaveGame;
         private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting;
         private TextBox txtPlayer, txtSTimeTurn, txtSTimeInterval, txtName1Row, txtName2Column;
         private Label lblTime, lblSTimeTurn, lblSTimeInterval, lblName1Row, lblName2Column, lblSSound, lblOr;
@@ -100,13 +100,6 @@ namespace Caro
                 Size = new Size(120, 40),
                 Location = new Point(240, 40)
             };
-            butLoadGame = new Button()
-            {
-                Name = "butLoadGame",
-                Text = "Load Game",
-                Size = new Size(120, 40),
-                Location = new Point(140, 140)
-            };
             lblOr = new Label()
             {
                 Name = "lblOr",
@@ -116,7 +109,6 @@ namespace Caro
             };
             butTwoPlayer.Click += ButTwoPlayer_Click;
             butModeLan.Click += ButModeLan_Click;
-            butLoadGame.Click += ButLoadGame_Click;
             #endregion
 
             #region Name Player
@@ -250,20 +242,12 @@ namespace Caro
                 Size = new Size(80, 30),
                 Location = new Point(270, 200)
             };
-            butSaveGame = new Button()
-            {
-                Name = "butSaveGame",
-                Text = "Save Game",
-                Size = new Size(73, 20),
-                Location = new Point(327, 0)
-            };
             butGameMode.Click += ButGameMode_Click;
             butTimer.Click += ButTimer_Click;
             butNamePlayer.Click += ButNamePlayer_Click;
             butSizeBoard.Click += ButSizeBoard_Click;
             butSound.Click += ButSound_Click;
             butSave.Click += ButSave_Click;
-            butSaveGame.Click += ButSaveGame_Click;
             #endregion
 
             #region Time Setting
@@ -334,6 +318,27 @@ namespace Caro
             #endregion
 
             #region Load And Save Game
+            butLoadGame = new Button()
+            {
+                Name = "butLoadGame",
+                Text = "Load Game",
+                Size = new Size(120, 40),
+                Location = new Point(140, 140)
+            };
+            butSaveGame = new Button()
+            {
+                Name = "butSaveGame",
+                Text = "Save Game",
+                Size = new Size(73, 20),
+                Location = new Point(327, 0)
+            };
+            butLoadGameSetting = new Button()
+            {
+                Name = "butLoadGameSetting",
+                Text = "Load Game",
+                Size = new Size(73, 20),
+                Location = new Point(254, 0)
+            };
             butLoadBack = new Button()
             {
                 Name = "butLoadBack",
@@ -341,10 +346,16 @@ namespace Caro
                 Size = new Size(80, 30)
             };
             butLoadBack.Click += ButLoadBack_Click;
+            butSaveGame.Click += ButSaveGame_Click;
+            butLoadGame.Click += ButLoadGame_Click;
+            butLoadGameSetting.Click += ButLoadGameSetting_Click;
             #endregion
 
             this.Icon = new Icon("./Image/caro.ico");
-            settingForm = new Form();
+            settingForm = new Form()
+            {
+                Tag = 1
+            };
             settingForm.FormClosing += SettingForm_FormClosing;
             settingForm.Icon = new Icon("./Image/setting.ico");
             timer = new Timer()
@@ -364,9 +375,12 @@ namespace Caro
             gameModeForm.ClientSize = new Size(400, 250);
             gameModeForm.Controls.Add(butTwoPlayer);
             gameModeForm.Controls.Add(butModeLan);
-            gameModeForm.Controls.Add(butLoadGame);
-            gameModeForm.Controls.Add(lblOr);
             if (formText == "Game Mode Setting") gameModeForm.Controls.Add(butBack);
+            else
+            {
+                gameModeForm.Controls.Add(butLoadGame);
+                gameModeForm.Controls.Add(lblOr);
+            }
         }
 
         private void DrawNamePlayerForm(Form namePlayerForm, string formText, string gameMode = "")
@@ -425,7 +439,7 @@ namespace Caro
         {
             mainForm.Controls.Clear();
             mainForm.Text = "Caro";
-            pnlCaroBoard.Size = new Size(CONST.WIDTH * CONST.NUMBER_OF_COLUMN, CONST.HEIGHT * CONST.NUMBER_OF_ROW);
+            pnlCaroBoard.Size = new Size(CONST.CHESS_SIZE.Width * CONST.NUMBER_OF_COLUMN, CONST.CHESS_SIZE.Height * CONST.NUMBER_OF_ROW);
             mainForm.Size = new Size(pnlCaroBoard.Width + 3 * CONST.NUMBER_OF_ROW / 2 + 5, pnlCaroBoard.Height + 4 * CONST.NUMBER_OF_COLUMN + 70);
             butUndo.Location = new Point(mainForm.Width - 150, 30);
             butRedo.Location = new Point(mainForm.Width - 80, 30);
@@ -455,6 +469,7 @@ namespace Caro
             settingForm.Controls.Add(butSound);
             settingForm.Controls.Add(butSave);
             settingForm.Controls.Add(butSaveGame);
+            settingForm.Controls.Add(butLoadGameSetting);
             butSave.Text = "Save Change";
             if (CONST.GAME_MODE == "TWO_PLAYER") butTimer.Enabled = true;
             else if (CONST.GAME_MODE == "LAN") butTimer.Enabled = false;
@@ -513,28 +528,43 @@ namespace Caro
             loadForm.Text = "Load Game";
             loadForm.AutoScaleDimensions = new SizeF(9F, 20F);
             int Y = 20, count = 1;
-            foreach (GameSave item in CONST.saveData.GameSaveList)
+            if(CONST.saveData.GameSaveList.Count == 0)
             {
-                string butText = count.ToString() + "." + item.PlayerName1 + "/" + item.PlayerName2 + "; row: "
-                    + item.NumberOfRow + "/column: " + item.NumberOfColumn;
-                Button button = new Button()
+                Label info = new Label()
                 {
-                    Text = butText,
+                    Text = "Nothing To Load",
+                    TextAlign = ContentAlignment.MiddleCenter,
                     Size = new Size(200, 30),
                     Location = new Point(70, Y)
                 };
-                Button buttonDelete = new Button()
+                Y += 40;
+                loadForm.Controls.Add(info);
+            }
+            else
+            {
+                foreach (GameSave item in CONST.saveData.GameSaveList)
                 {
-                    Tag = count,
-                    Text = "X",
-                    Size = new Size(30, 30),
-                    Location = new Point(270, Y)
-                };
-                button.Click += Button_Click;
-                buttonDelete.Click += ButtonDelete_Click;
-                loadForm.Controls.Add(button);
-                loadForm.Controls.Add(buttonDelete);
-                Y += 40; count++;
+                    string butText = count.ToString() + "." + item.PlayerName1 + "/" + item.PlayerName2 + "; row: "
+                        + item.NumberOfRow + "/column: " + item.NumberOfColumn;
+                    Button button = new Button()
+                    {
+                        Text = butText,
+                        Size = new Size(200, 30),
+                        Location = new Point(70, Y)
+                    };
+                    Button buttonDelete = new Button()
+                    {
+                        Tag = count,
+                        Text = "X",
+                        Size = new Size(30, 30),
+                        Location = new Point(270, Y)
+                    };
+                    button.Click += Button_Click;
+                    buttonDelete.Click += ButtonDelete_Click;
+                    loadForm.Controls.Add(button);
+                    loadForm.Controls.Add(buttonDelete);
+                    Y += 40; count++;
+                }
             }
             loadForm.ClientSize = new Size(400, Y + 60);
             butLoadBack.Location = new Point(170, Y + 10);
@@ -547,6 +577,7 @@ namespace Caro
             this.SuspendLayout();
             this.Name = "Form1";
             this.Text = "Caro";
+            this.Tag = 0;
             this.ResumeLayout(false);
         }
         #endregion
