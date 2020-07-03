@@ -353,7 +353,6 @@ namespace Caro
             };
             timer.Tick += Timer_Tick;
         }
-
         #endregion
 
         #region Draw Form
@@ -522,10 +521,19 @@ namespace Caro
                 {
                     Text = butText,
                     Size = new Size(200, 30),
-                    Location = new Point(100, Y)
+                    Location = new Point(70, Y)
+                };
+                Button buttonDelete = new Button()
+                {
+                    Tag = count,
+                    Text = "X",
+                    Size = new Size(30, 30),
+                    Location = new Point(270, Y)
                 };
                 button.Click += Button_Click;
+                buttonDelete.Click += ButtonDelete_Click;
                 loadForm.Controls.Add(button);
+                loadForm.Controls.Add(buttonDelete);
                 Y += 40; count++;
             }
             loadForm.ClientSize = new Size(400, Y + 60);

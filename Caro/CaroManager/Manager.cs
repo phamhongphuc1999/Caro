@@ -97,11 +97,13 @@ namespace Caro.CaroManager
                     {
                         but.Image = playerList[0].ImagePlayer;
                         checkWinner.DrawCaroBoard(but.Location, 0);
+                        butUndo.Push(but);
                     }
                     else if (sCaroBoard[index] == '2')
                     {
                         but.Image = playerList[1].ImagePlayer;
                         checkWinner.DrawCaroBoard(but.Location, 1);
+                        butUndo.Push(but);
                     }
                     but.Click += But_Click;
                     caroBoard.Add(new KeyValuePair<int, int>(CONST.WIDTH * j, CONST.HEIGHT * i), but);
@@ -148,6 +150,8 @@ namespace Caro.CaroManager
             checkWinner.NewGameHanlde(player);
             txtPlayer.Text = playerList[turn].NamePlayer;
             txtPlayer.BackColor = (turn == 0) ? Color.Red : Color.Green;
+            playerList[0].NamePlayer = CONST.NAME_PLAYER1;
+            playerList[1].NamePlayer = CONST.NAME_PLAYER2;
             DrawCaroBoard(CONST.NUMBER_OF_ROW, CONST.NUMBER_OF_COLUMN, sCaroGame);
         }
 

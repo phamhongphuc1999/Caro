@@ -25,6 +25,7 @@ namespace Caro.Setting
         public static bool IS_SERVER = true;
         public static bool IS_TURN = true;
         public static bool IS_LOCK = true;
+        public static bool IS_LOAD_GAME = false;
 
         private static JsonConst jsonConst = new JsonConst();
         public static GameSaveData saveData = new GameSaveData();

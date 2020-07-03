@@ -78,7 +78,11 @@ namespace Caro
                 e.Cancel = true;
                 if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") timer.Start();
             }
-            else CONST.WriteCONST();
+            else
+            {
+                if(!CONST.IS_LOAD_GAME) CONST.WriteCONST();
+                CONST.WriteSaveGame();
+            }
         }
 
         private void SettingForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -118,6 +122,7 @@ namespace Caro
             if (parent.Text == "Game Mode")
             {
                 CONST.GAME_MODE = "LAN";
+                CONST.IS_LOAD_GAME = false;
                 DrawNamePlayerForm(this, "Name Player", "LAN");
             }
             else
@@ -139,6 +144,7 @@ namespace Caro
             if (parent.Text == "Game Mode")
             {
                 CONST.GAME_MODE = "TWO_PLAYER";
+                CONST.IS_LOAD_GAME = false;
                 DrawNamePlayerForm(this, "Name Player", "TWO_PLAYER");
             }
             else
@@ -158,8 +164,9 @@ namespace Caro
         private void Button_Click(object sender, EventArgs e)
         {
             Button eventBut = sender as Button;
-            int index = eventBut.Text[0] - '0';
-            GameSave gameSave = CONST.saveData.GameSaveList[index - 1];
+            int index = eventBut.Text[0] - '0' - 1;
+            SaveGameHelper.index = index;
+            GameSave gameSave = CONST.saveData.GameSaveList[index];
             CONST.NAME_PLAYER1 = gameSave.PlayerName1;
             CONST.NAME_PLAYER2 = gameSave.PlayerName2;
             CONST.NUMBER_OF_COLUMN = gameSave.NumberOfColumn;
@@ -168,8 +175,17 @@ namespace Caro
             DrawMainForm(this);
         }
 
+        private void ButtonDelete_Click(object sender, EventArgs e)
+        {
+            Button eventBut = sender as Button;
+            int index = (int)eventBut.Tag;
+            CONST.saveData.GameSaveList.RemoveAt(index - 1);
+            DrawLoadGame(this);
+        }
+
         private void ButLoadGame_Click(object sender, EventArgs e)
         {
+            CONST.IS_LOAD_GAME = true;
             DrawLoadGame(this);
         }
 
@@ -179,6 +195,7 @@ namespace Caro
             SaveGameHelper.turn = manager.Turn;
             SaveGameHelper.SaveCurrentGame();
             CONST.WriteSaveGame();
+            settingForm.Close();
         }
 
         private void ButUndo_Click(object sender, EventArgs e)
