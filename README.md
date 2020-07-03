@@ -1,7 +1,7 @@
 # Môi trường phát triển: Visual Studio 2019, C# Winform Framework
 ## mô tả solution: có hai project
 - Caro: (Winform project) tạo giao diện và xử lý các chức năng trong trò chơi cờ caro
-- DataTransmission(Console project) chứa định dạng gói tin và các hàm đóng gói, mở gói hỗ trợ chế độ mạng LAN
+- DataTransmission(class library) chứa định dạng gói tin và các hàm đóng gói, mở gói hỗ trợ chế độ mạng LAN
 ## các chế độ chơi
 - chơi trên một máy với 2 người chơi
 - chơi trên hai máy thông qua mạng LAN(giao tiếp bằng tcp socket)
