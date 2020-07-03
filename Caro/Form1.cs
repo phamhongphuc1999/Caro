@@ -68,29 +68,6 @@ namespace Caro
             }
         }
 
-        private void DrawLoadGame(Form loadForm)
-        {
-            loadForm.Controls.Clear();
-            loadForm.Text = "Load Game";
-            loadForm.AutoScaleDimensions = new SizeF(9F, 20F);
-            int Y = 20, count = 1;
-            foreach(GameSave item in CONST.saveData.GameSaveList)
-            {
-                string butText = count.ToString() + "." + item.PlayerName1 + "/" + item.PlayerName2 + "; row: " 
-                    + item.NumberOfRow + "/column: " + item.NumberOfColumn;
-                Button button = new Button()
-                {
-                    Text = butText,
-                    Size = new Size(200, 30),
-                    Location = new Point(100, Y)
-                };
-                button.Click += Button_Click;
-                loadForm.Controls.Add(button);
-                Y += 40; count++;
-            }
-            loadForm.ClientSize = new Size(400, Y + 10);
-        }
-
         #region Event Handle
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -136,7 +113,7 @@ namespace Caro
 
         private void ButModeLan_Click(object sender, EventArgs e)
         {
-            Button eventBut = (Button)sender;
+            Button eventBut = sender as Button;
             Form parent = (Form)eventBut.Parent;
             if (parent.Text == "Game Mode")
             {
@@ -157,7 +134,7 @@ namespace Caro
 
         private void ButTwoPlayer_Click(object sender, EventArgs e)
         {
-            Button eventBut = (Button)sender;
+            Button eventBut = sender as Button;
             Form parent = (Form)eventBut.Parent;
             if (parent.Text == "Game Mode")
             {
@@ -180,7 +157,7 @@ namespace Caro
 
         private void Button_Click(object sender, EventArgs e)
         {
-            Button eventBut = (Button)sender;
+            Button eventBut = sender as Button;
             int index = eventBut.Text[0] - '0';
             GameSave gameSave = CONST.saveData.GameSaveList[index - 1];
             CONST.NAME_PLAYER1 = gameSave.PlayerName1;
@@ -264,7 +241,7 @@ namespace Caro
 
         private void ButSTimeOnOrOff_Click(object sender, EventArgs e)
         {
-            Button eventBut = (Button)sender;
+            Button eventBut = sender as Button;
             if (eventBut.Text == "Off Timer")
             {
                 eventBut.Text = "On Timer";
@@ -344,7 +321,7 @@ namespace Caro
 
         private void ButBack_Click(object sender, EventArgs e)
         {
-            Button eventBut = (Button)sender;
+            Button eventBut = sender as Button;
             Form parent = (Form)eventBut.Parent;
             string temp = parent.Text;
             if (temp == "Name Player") DrawGameModeForm(this, "Game Mode");
@@ -354,6 +331,11 @@ namespace Caro
             else if (temp == "LAN Connection") DrawNamePlayerForm(this, "Name Player", CONST.GAME_MODE);
         }
 
+        private void ButLoadBack_Click(object sender, EventArgs e)
+        {
+            DrawGameModeForm(this, "Game Mode");
+        }
+
         private void ButGetIP_Click(object sender, EventArgs e)
         {
             txtName1Row.Text = SocketManager.GetIPv4();
@@ -361,8 +343,8 @@ namespace Caro
 
         private void ButSave_Click(object sender, EventArgs e)
         {
-            Button eventBut = (Button)sender;
-            Form parent = (Form)eventBut.Parent;
+            Button eventBut = sender as Button;
+            Form parent = eventBut.Parent as Form;
             string temp = parent.Text;
             if (temp == "Setting")
             {

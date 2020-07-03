@@ -267,7 +267,7 @@ namespace Caro.CaroManager
         #region Event handle
         private void But_Click(object sender, EventArgs e)
         {
-            Button eventBut = (Button)sender;
+            Button eventBut = sender as Button;
             int X = eventBut.Location.X;
             int Y = eventBut.Location.Y;
             if (eventBut.Image == null && CONST.IS_LOCK)

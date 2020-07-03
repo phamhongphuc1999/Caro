@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
 using Caro.Setting;
+using Caro.SaveGame;
 
 namespace Caro
 {
@@ -13,7 +14,7 @@ namespace Caro
         private MenuStrip mainMenu;
         private Timer timer;
         private NumericUpDown numSound;
-        private Button butTwoPlayer, butModeLan, butUndo, butRedo;
+        private Button butTwoPlayer, butModeLan, butUndo, butRedo, butLoadBack;
         private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave;
         private Button butSTimeOnOrOff, butConnect, butBack, butGetIP, butLoadGame, butSaveGame;
         private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting;
@@ -134,13 +135,13 @@ namespace Caro
             txtName1Row = new TextBox()
             {
                 Name = "txtName1Row",
-                Width = 270,
+                Width = 220,
                 Location = new Point(80, 30)
             };
             txtName2Column = new TextBox()
             {
                 Name = "txtName2Column",
-                Width = 270,
+                Width = 220,
                 Location = new Point(80, 80)
             };
             butBack = new Button()
@@ -332,6 +333,16 @@ namespace Caro
             };
             #endregion
 
+            #region Load And Save Game
+            butLoadBack = new Button()
+            {
+                Name = "butLoadBack",
+                Text = "Back",
+                Size = new Size(80, 30)
+            };
+            butLoadBack.Click += ButLoadBack_Click;
+            #endregion
+
             this.Icon = new Icon("./Image/caro.ico");
             settingForm = new Form();
             settingForm.FormClosing += SettingForm_FormClosing;
@@ -342,6 +353,7 @@ namespace Caro
             };
             timer.Tick += Timer_Tick;
         }
+
         #endregion
 
         #region Draw Form
@@ -494,6 +506,31 @@ namespace Caro
             soundSettingForm.Controls.Add(numSound);
             soundSettingForm.Controls.Add(butSave);
             soundSettingForm.Controls.Add(butBack);
+        }
+
+        private void DrawLoadGame(Form loadForm)
+        {
+            loadForm.Controls.Clear();
+            loadForm.Text = "Load Game";
+            loadForm.AutoScaleDimensions = new SizeF(9F, 20F);
+            int Y = 20, count = 1;
+            foreach (GameSave item in CONST.saveData.GameSaveList)
+            {
+                string butText = count.ToString() + "." + item.PlayerName1 + "/" + item.PlayerName2 + "; row: "
+                    + item.NumberOfRow + "/column: " + item.NumberOfColumn;
+                Button button = new Button()
+                {
+                    Text = butText,
+                    Size = new Size(200, 30),
+                    Location = new Point(100, Y)
+                };
+                button.Click += Button_Click;
+                loadForm.Controls.Add(button);
+                Y += 40; count++;
+            }
+            loadForm.ClientSize = new Size(400, Y + 60);
+            butLoadBack.Location = new Point(170, Y + 10);
+            loadForm.Controls.Add(butLoadBack);
         }
         #endregion
 
