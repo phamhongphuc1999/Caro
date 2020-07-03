@@ -10,15 +10,16 @@ namespace Caro
         private System.ComponentModel.IContainer components = null;
 
         private Form settingForm;
-        private Panel pnlCaroBoard;
+        private Panel pnlCaroBoard, pnlChat;
         private MenuStrip mainMenu;
+        private RichTextBox rtbChat;
         private Timer timer;
         private NumericUpDown numSound;
         private Button butTwoPlayer, butModeLan, butUndo, butRedo, butLoadBack;
-        private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave;
+        private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave, butChat;
         private Button butSTimeOnOrOff, butConnect, butBack, butGetIP, butLoadGame, butLoadGameSetting, butSaveGame;
-        private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting;
-        private TextBox txtPlayer, txtSTimeTurn, txtSTimeInterval, txtName1Row, txtName2Column;
+        private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting; 
+        private TextBox txtPlayer, txtSTimeTurn, txtSTimeInterval, txtName1Row, txtName2Column, txtChat;
         private Label lblTime, lblSTimeTurn, lblSTimeInterval, lblName1Row, lblName2Column, lblSSound, lblOr;
         
         protected override void Dispose(bool disposing)
@@ -176,27 +177,56 @@ namespace Caro
             {
                 Name = "butUndo",
                 Text = "Undo",
-                Size = new Size(60, 20)
+                Size = new Size(60, 20),
+                //Location = new Point(50, 30)
             };
             butRedo = new Button()
             {
                 Name = "butRedo",
                 Text = "Redo",
-                Size = new Size(60, 20)
+                Size = new Size(60, 20),
+                //Location = new Point(110, 30)
             };
             txtPlayer = new TextBox()
             {
                 Name = "txtPlayer",
+                Size = new Size(180, 20),
                 ReadOnly = true
             };
             lblTime = new Label()
             {
                 Name = "lblTime",
+                Size = new Size(50, 20),
+                TextAlign = ContentAlignment.MiddleCenter,
                 Location = new Point(0, 30)
             };
             CreateMainMenu();
             butRedo.Click += ButRedo_Click;
             butUndo.Click += ButUndo_Click;
+            #endregion
+
+            #region CHAT
+            pnlChat = new Panel()
+            {
+                Name = "pnlChat",
+            };
+            txtChat = new TextBox()
+            {
+                Name = "txtChat",
+                Multiline = true,
+                Size = new Size(260, 40),
+            };
+            butChat = new Button()
+            {
+                Name = "butChat",
+                Text = "Send",
+                Size = new Size(40, 40)
+            };
+            rtbChat = new RichTextBox()
+            {
+                Name = "rbtChat"
+            };
+            butChat.Click += ButChat_Click;
             #endregion
 
             #region Setting
@@ -354,7 +384,8 @@ namespace Caro
             this.Icon = new Icon("./Image/caro.ico");
             settingForm = new Form()
             {
-                Tag = 1
+                Tag = 1,
+                StartPosition = FormStartPosition.CenterScreen
             };
             settingForm.FormClosing += SettingForm_FormClosing;
             settingForm.Icon = new Icon("./Image/setting.ico");
@@ -439,21 +470,31 @@ namespace Caro
         {
             mainForm.Controls.Clear();
             mainForm.Text = "Caro";
-            pnlCaroBoard.Size = new Size(CONST.CHESS_SIZE.Width * CONST.NUMBER_OF_COLUMN, CONST.CHESS_SIZE.Height * CONST.NUMBER_OF_ROW);
-            mainForm.Size = new Size(pnlCaroBoard.Width + 3 * CONST.NUMBER_OF_ROW / 2 + 5, pnlCaroBoard.Height + 4 * CONST.NUMBER_OF_COLUMN + 70);
-            butUndo.Location = new Point(mainForm.Width - 150, 30);
-            butRedo.Location = new Point(mainForm.Width - 80, 30);
-            txtPlayer.Location = new Point(2 * mainForm.Width / 3- 20, 5);
-            txtPlayer.Width = mainForm.Width / 3;
-
+            pnlCaroBoard.Size = new Size(CONST.NUMBER_OF_COLUMN * CONST.CHESS_SIZE.Width, CONST.NUMBER_OF_ROW * CONST.CHESS_SIZE.Height);
+            txtPlayer.Location = new Point(pnlCaroBoard.Width - 180, 0);
+            butUndo.Location = new Point(pnlCaroBoard.Width - 60, 30);
+            butRedo.Location = new Point(pnlCaroBoard.Width - 120, 30);
+            mainForm.AutoSize = true;
+            if (CONST.GAME_MODE == "LAN")
+            {
+                pnlChat.Size = new Size(300, pnlCaroBoard.Height + 70);
+                pnlChat.Location = new Point(pnlCaroBoard.Width, 0);
+                txtChat.Location = new Point(0, pnlChat.Height - 40);
+                butChat.Location = new Point(260, pnlChat.Height - 40);
+                rtbChat.Size = new Size(300, pnlChat.Height - 40);
+                rtbChat.Location = new Point(0, 0);
+                pnlChat.Controls.Add(txtChat);
+                pnlChat.Controls.Add(butChat);
+                pnlChat.Controls.Add(rtbChat);
+                mainForm.Controls.Add(pnlChat);
+            }
+            mainForm.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             mainForm.Controls.Add(pnlCaroBoard);
             mainForm.Controls.Add(txtPlayer);
             mainForm.Controls.Add(butRedo);
             mainForm.Controls.Add(butUndo);
             mainForm.Controls.Add(lblTime);
             mainForm.Controls.Add(mainMenu);
-            mainMenu.ResumeLayout(false);
-            mainMenu.PerformLayout();
         }
 
         private void DrawSettingForm(Form settingForm)
@@ -575,6 +616,7 @@ namespace Caro
         private void InitializeComponent()
         {
             this.SuspendLayout();
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.Name = "Form1";
             this.Text = "Caro";
             this.Tag = 0;

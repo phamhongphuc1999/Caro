@@ -6,6 +6,7 @@ using DataTransmission;
 using System;
 using System.Drawing;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -63,6 +64,7 @@ namespace Caro
                     }
                     else if (message.odcode == 101) manager.LANMovePointHandle(message.X, message.Y);
                     else if (message.odcode == 112) CrossThread.PerformSafely<int>(manager.pnlCaroBoard, manager.NewGameHandle, manager.Turn);
+                    else if (message.odcode == 120) rtbChat.Text += "Enemy: " + message.data + "\n";
                 }
                 catch { continue; }
             }
@@ -415,9 +417,9 @@ namespace Caro
                     txtName1Row.Text = CONST.NUMBER_OF_ROW.ToString();
                     txtName2Column.Text = CONST.NUMBER_OF_COLUMN.ToString();
                 }
-                else if (row > 20 || row < 5 || column > 30 || column < 5)
+                else if (row > 20 || row < 10 || column > 30 || column < 10)
                 {
-                    MessageBox.Show("Number of row is less than 20 and greater than 5\nNumber of column is less than 30 and greater than 5"
+                    MessageBox.Show("Number of row is less than 20 and greater than 10\nNumber of column is less than 30 and greater than 10"
                         , "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtName1Row.Text = CONST.NUMBER_OF_ROW.ToString();
                     txtName2Column.Text = CONST.NUMBER_OF_COLUMN.ToString();
@@ -522,6 +524,15 @@ namespace Caro
                 }
                 DrawSettingForm(settingForm);
             }
+        }
+
+        private void ButChat_Click(object sender, EventArgs e)
+        {
+            string data = txtChat.Text;
+            rtbChat.Text += "You: " + data + "\n";
+            txtChat.Text = "";
+            MessageData message = new MessageData(120, 0, 0, data);
+            socketManager.SEND_TCP(message, SocketFlags.None);
         }
         #endregion
     }

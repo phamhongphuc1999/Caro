@@ -9,6 +9,7 @@ namespace DataTransmission
     //110: handle undo game
     //111: handle redo game
     //112: new game
+    //120: send chat
     [Serializable]
     public struct MessageData
     {
