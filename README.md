@@ -10,9 +10,8 @@
 - chức năng tính giờ
 - chức năng lưu trò chơi
 - chương trình có thể lưu một số thông số(số hàng, cột, các cài đặt về nhạc, đếm giờ) ngay cả khi đã tắt trò chơi(lưu vào file)
-## các tính năng sẽ có trong tương lai
-- thiết lập tài khoản, tính điểm người chơi
-- thêm khung chát trong chế độ mạng LAN
+- thiết lập khung chat trong chế độ mạng LAN
+- (tính năng trong tương lai): thiết lập tài khoản, tính điểm người chơi
 ## Tài liệu tham khảo
 - https://stackoverflow.com/questions/10775367/cross-thread-operation-not-valid-control-textbox1-accessed-from-a-thread-othe
 - https://codegym.vn/blog/2020/05/27/doc-va-ghi-file-json-su-dung-jsonconvert-trong-c/
