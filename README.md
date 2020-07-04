@@ -6,6 +6,31 @@
 - chơi trên một máy với 2 người chơi
 - chơi trên hai máy thông qua mạng LAN(giao tiếp bằng tcp socket)
 - (thêm chế độ người chơi với máy)
+## khuân dạng gói tin trong chế độ mạng LAN
+<pre>
+    [Serializable]
+    public struct MessageData
+    {
+        public int odcode;
+        public int X;
+        public int Y;
+        public string data;
+
+        public MessageData(int odcode, int X, int Y, string data)
+        {
+            this.odcode = odcode;
+            this.X = X;
+            this.Y = Y;
+            this.data = data;
+        }
+    };
+</pre>
+#### odcode: định nghĩa chức năng cần thực hiện
+- 101: gửi tọa độ quân cờ cho đối thủ
+- 110: xử lý undo game
+- 111: xử lý redo game
+- 112: xử lý new game
+- 120: truyền đoạn chat đến đối thủ
 ## các chức năng của chương trình
 - kiểm tra thắng thua
 - chức năng phát nhạc
