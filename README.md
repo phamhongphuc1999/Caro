@@ -40,6 +40,10 @@
 - chương trình có thể lưu một số thông số(số hàng, cột, các cài đặt về nhạc, đếm giờ) ngay cả khi đã tắt trò chơi(lưu vào file)
 - thiết lập khung chat trong chế độ mạng LAN
 - (tính năng trong tương lai): thiết lập tài khoản, tính điểm người chơi
+## một số lưu ý
+- thêm project DataTransmission vào Caro(bấm chuột phải vào References, chọn Add References/Project)
+- thêm thư viện WMPLib vào Caro(bấm chuột phải vào References, chọn Add References, bấm nút Browse ở dưới, tìm đến đường dẫn c:/Windows/System32/wmp.dll)
+- tải thêm thư viện Newtonsoft vào Caro
 ## Tài liệu tham khảo
 - https://stackoverflow.com/questions/10775367/cross-thread-operation-not-valid-control-textbox1-accessed-from-a-thread-othe
 - https://codegym.vn/blog/2020/05/27/doc-va-ghi-file-json-su-dung-jsonconvert-trong-c/
