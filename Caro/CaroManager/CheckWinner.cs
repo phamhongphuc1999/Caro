@@ -58,6 +58,18 @@ namespace Caro.CaroManager
             caroBoard.Add(new KeyValuePair<int, int>(point.X, point.Y), turn);
         }
 
+        public void UndoHandle(int X, int Y)
+        {
+            caroBoard.Remove(new KeyValuePair<int, int>(X, Y));
+            turn = 1 - turn;
+        }
+
+        public void RedoHandle(int X, int Y)
+        {
+            caroBoard.Add(new KeyValuePair<int, int>(X, Y), turn);
+            turn = 1 - turn;
+        }
+
         public bool IsEndGame()
         {
             return caroBoard.Count == numberOfChess - 1;

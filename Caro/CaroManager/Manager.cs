@@ -248,11 +248,13 @@ namespace Caro.CaroManager
         {
             if (butUndo.Count() > 0)
             {
-                lblTime.Text = CONST.TIME_TURN.ToString();
+                if (CONST.IS_ON_TIMER) lblTime.Text = CONST.TIME_TURN.ToString();
+                else lblTime.Text = "No Timer";
                 Button but = butUndo.Pop();
                 butRedo.Push(but);
                 but.Image = null;
                 but.FlatStyle = FlatStyle.Standard;
+                checkWinner.UndoHandle(but.Location.X, but.Location.Y);
                 if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Flat;
                 TurnPalyer();
             }
@@ -262,12 +264,14 @@ namespace Caro.CaroManager
         {
             if (butRedo.Count() > 0)
             {
-                lblTime.Text = CONST.TIME_TURN.ToString();
+                if (CONST.IS_ON_TIMER) lblTime.Text = CONST.TIME_TURN.ToString();
+                else lblTime.Text = "No Timer";
                 Button but = butRedo.Pop();
                 if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
                 butUndo.Push(but);
                 but.Image = playerList[turn].ImagePlayer;
                 but.FlatStyle = FlatStyle.Flat;
+                checkWinner.RedoHandle(but.Location.X, but.Location.Y);
                 TurnPalyer();
             }
         }
