@@ -2,6 +2,14 @@
 ## mô tả solution: có hai project
 - Caro: (Winform framework project) tạo giao diện và xử lý các chức năng trong trò chơi cờ caro
 - DataTransmission(class library framework) chứa định dạng gói tin và các hàm đóng gói, mở gói hỗ trợ chế độ mạng LAN
+<pre>
+tại sao định dạng gói tin phải để ra hẳn một project riêng mà không gộp luôn vào project Caro
+- do việc Serializable và Deserializable trong C# sẽ có lỗi nếu token của object không khớp, ví dụ class Add trong 
+project A1 khác hoàn toàn class Add trong project A2, không thể serializable kể cả khi chúng hoàn toàn giống nhau 
+về nội dung
+- việc tách thành project riêng lý do chính là để dễ dàng hơn trong việc kiểm thử, debug, hoàn toàn có thể gộp 
+DataTransmission vào project Caro
+</pre>
 ## các chế độ chơi
 - chơi trên một máy với 2 người chơi
 - chơi trên hai máy thông qua mạng LAN(giao tiếp bằng tcp socket)
@@ -36,7 +44,8 @@
 - chức năng phát nhạc
 - chức năng thay đổi thông số kích thức, tên người chơi
 - chức năng tính giờ
-- chức năng lưu trò chơi
+- chức năng undo game, redo game(vẫn còn lỗi chưa sửa)
+- chức năng lưu trò chơi(vẫn còn một số lỗi chưa sửa)
 - chương trình có thể lưu một số thông số(số hàng, cột, các cài đặt về nhạc, đếm giờ) ngay cả khi đã tắt trò chơi(lưu vào file)
 - thiết lập khung chat trong chế độ mạng LAN
 - (tính năng trong tương lai): thiết lập tài khoản, tính điểm người chơi
