@@ -247,7 +247,7 @@ namespace Caro
             butNamePlayer = new Button()
             {
                 Name = "butNamePlayer",
-                Text = "Name Player",
+                Text = "Player",
                 Size = new Size(80, 40),
                 Location = new Point(270, 45)
             };
@@ -576,7 +576,7 @@ namespace Caro
                     Text = "Nothing To Load",
                     TextAlign = ContentAlignment.MiddleCenter,
                     Size = new Size(200, 30),
-                    Location = new Point(70, Y)
+                    Location = new Point(120, Y)
                 };
                 Y += 40;
                 loadForm.Controls.Add(info);

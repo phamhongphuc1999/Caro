@@ -86,9 +86,9 @@ namespace Caro.CaroManager
             int index = 0;
             caroBoard.Clear();
             pnlCaroBoard.Controls.Clear();
-            for(int i = 0; i < numberOfRow; i++)
+            for (int i = 0; i < numberOfRow; i++)
             {
-                for(int j = 0; j < numberOfColumn; j++)
+                for (int j = 0; j < numberOfColumn; j++)
                 {
                     Button but = new Button()
                     {
@@ -118,7 +118,7 @@ namespace Caro.CaroManager
         public string ConvertBoardToString()
         {
             string board = "";
-            foreach(KeyValuePair<KeyValuePair<int, int>, Button> item in caroBoard)
+            foreach (KeyValuePair<KeyValuePair<int, int>, Button> item in caroBoard)
             {
                 Button button = item.Value;
                 if (button.Image == null) board += "0";
@@ -135,7 +135,7 @@ namespace Caro.CaroManager
             playerList[1 - turn].IsTurn = 0;
             if (turn == 0)
             {
-                
+
                 txtPlayer.BackColor = Color.Red;
                 txtPlayer.Text = playerList[0].NamePlayer;
             }
@@ -184,7 +184,7 @@ namespace Caro.CaroManager
         {
             endGameEvent(this, new EventArgs());
             pnlCaroBoard.Enabled = true;
-            if(sign == 0)
+            if (sign == 0)
             {
                 int[] check = checkWinner.check;
                 if (check[0] == 1)
@@ -209,7 +209,7 @@ namespace Caro.CaroManager
                 }
                 eventBut.FlatStyle = FlatStyle.Flat;
             }
-            
+
             if (CONST.GAME_MODE == "TWO_PLAYER")
             {
                 if (sign == 0) MessageBox.Show("The " + playerList[player].NamePlayer + " win", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -217,7 +217,7 @@ namespace Caro.CaroManager
                 DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK) NewGameHandle(player);
             }
-            else if(CONST.GAME_MODE == "LAN" && !CONST.IS_TURN)
+            else if (CONST.GAME_MODE == "LAN" && !CONST.IS_TURN)
             {
                 CONST.IS_LOCK = !CONST.IS_LOCK;
                 CONST.IS_TURN = !CONST.IS_TURN;
@@ -235,13 +235,13 @@ namespace Caro.CaroManager
 
                 }
             }
-            else if(CONST.GAME_MODE == "LAN" && CONST.IS_TURN)
+            else if (CONST.GAME_MODE == "LAN" && CONST.IS_TURN)
             {
                 CONST.IS_LOCK = !CONST.IS_LOCK;
                 CONST.IS_TURN = !CONST.IS_TURN;
                 if (sign == 0) MessageBox.Show("You are the lost", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else MessageBox.Show("The Game is ended, no players is winer", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }   
+            }
         }
 
         public void UndoHandle()
@@ -266,13 +266,20 @@ namespace Caro.CaroManager
             {
                 if (CONST.IS_ON_TIMER) lblTime.Text = CONST.TIME_TURN.ToString();
                 else lblTime.Text = "No Timer";
-                Button but = butRedo.Pop();
-                if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
-                butUndo.Push(but);
-                but.Image = playerList[turn].ImagePlayer;
-                but.FlatStyle = FlatStyle.Flat;
-                checkWinner.RedoHandle(but.Location.X, but.Location.Y);
-                TurnPalyer();
+                try
+                {
+                    Button but = butRedo.Pop();
+                    if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
+                    butUndo.Push(but);
+                    but.Image = playerList[turn].ImagePlayer;
+                    but.FlatStyle = FlatStyle.Flat;
+                    checkWinner.RedoHandle(but.Location.X, but.Location.Y);
+                    TurnPalyer();
+                }
+                catch(NullReferenceException e)
+                {
+                    MessageBox.Show("Can Not Redo Game", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -283,7 +290,6 @@ namespace Caro.CaroManager
             But_Click(eventBut, new EventArgs());
         }
 
-        #region Event handle
         private void But_Click(object sender, EventArgs e)
         {
             Button eventBut = sender as Button;
@@ -299,7 +305,7 @@ namespace Caro.CaroManager
                     CONST.IS_LOCK = !CONST.IS_LOCK;
                 }
                 else if (CONST.GAME_MODE == "LAN") CONST.IS_TURN = !CONST.IS_TURN;
-                if(CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") lblTime.Text = CONST.TIME_TURN.ToString();
+                if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") lblTime.Text = CONST.TIME_TURN.ToString();
                 eventBut.FlatStyle = FlatStyle.Flat;
                 if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
                 butUndo.Push(eventBut);
@@ -314,6 +320,5 @@ namespace Caro.CaroManager
                 }
             }
         }
-        #endregion
     }
 }
