@@ -173,6 +173,8 @@ namespace Caro
             CONST.NAME_PLAYER2 = gameSave.PlayerName2;
             CONST.NUMBER_OF_COLUMN = gameSave.NumberOfColumn;
             CONST.NUMBER_OF_ROW = gameSave.NumberOfRow;
+            manager.PlayerList[0].NamePlayer = CONST.NAME_PLAYER1;
+            manager.PlayerList[1].NamePlayer = CONST.NAME_PLAYER2;
             manager.LoadSaveGame(gameSave.Turn, gameSave.CaroBoard);
             if ((int)parent.Tag == 1) parent.Close(); 
             DrawMainForm(this);

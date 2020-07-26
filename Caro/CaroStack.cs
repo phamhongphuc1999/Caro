@@ -34,13 +34,13 @@ namespace Caro
                 count--;
                 return save.Pop();
             }
-            else throw new NullReferenceException();
+            else throw new Exception();
         }
 
         public T Peek()
         {
             if (save.Count > 0) return save.Peek();
-            else throw new NullReferenceException();
+            else throw new Exception();
         }
     }
 }

@@ -150,8 +150,8 @@ namespace Caro.CaroManager
         {
             turn = player;
             checkWinner.NewGameHanlde(player);
-            txtPlayer.Text = playerList[turn].NamePlayer;
             txtPlayer.BackColor = (turn == 0) ? Color.Red : Color.Green;
+            txtPlayer.Text = playerList[turn].NamePlayer;
             playerList[0].NamePlayer = CONST.NAME_PLAYER1;
             playerList[1].NamePlayer = CONST.NAME_PLAYER2;
             DrawCaroBoard(CONST.NUMBER_OF_ROW, CONST.NUMBER_OF_COLUMN, sCaroGame);
@@ -276,7 +276,7 @@ namespace Caro.CaroManager
                     checkWinner.RedoHandle(but.Location.X, but.Location.Y);
                     TurnPalyer();
                 }
-                catch(NullReferenceException e)
+                catch
                 {
                     MessageBox.Show("Can Not Redo Game", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

@@ -585,8 +585,8 @@ namespace Caro
             {
                 foreach (GameSave item in CONST.saveData.GameSaveList)
                 {
-                    string butText = count.ToString() + "." + item.PlayerName1 + "/" + item.PlayerName2 + "; row: "
-                        + item.NumberOfRow + "/column: " + item.NumberOfColumn;
+                    string butText = count.ToString() + "." + item.PlayerName1 + " vs " + item.PlayerName2 + "; row: "
+                        + item.NumberOfRow + "/ column: " + item.NumberOfColumn;
                     Button button = new Button()
                     {
                         Text = butText,

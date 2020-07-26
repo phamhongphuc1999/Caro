@@ -1,5 +1,6 @@
 ﻿using Caro.Setting;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Drawing;
 
 namespace Caro.CaroManager
@@ -77,10 +78,16 @@ namespace Caro.CaroManager
 
         public bool IsWiner(int X, int Y)
         {
-            bool row = IsWinRow(X, Y);
-            bool collumn = IsWinColumn(X, Y);
-            bool mainDiagonal = IsWinMainDiagonal(X, Y);
-            bool subDiagonal = IsWinSubDiagonal(X, Y);
+            Task<bool> task = IsWinerAsync(X, Y);
+            return task.Result;
+        }
+
+        private async Task<bool> IsWinerAsync(int X, int Y)
+        {
+            bool row = await IsWinRow(X, Y);
+            bool collumn = await IsWinColumn(X, Y);
+            bool mainDiagonal = await IsWinMainDiagonal(X, Y);
+            bool subDiagonal = await IsWinSubDiagonal(X, Y);
             if (row) check[0] = 1;
             if (collumn) check[1] = 1;
             if (mainDiagonal) check[2] = 1;
@@ -88,7 +95,7 @@ namespace Caro.CaroManager
             return row || collumn || mainDiagonal || subDiagonal;
         }
 
-        private bool IsWinRow(int X, int Y)
+        private async Task<bool> IsWinRow(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
             for(int i = X - CONST.CHESS_SIZE.Width; i >= 0; i = i - CONST.CHESS_SIZE.Width)
@@ -125,7 +132,7 @@ namespace Caro.CaroManager
             return (count == 4) && (countEnemy < 2);
         }
 
-        private bool IsWinColumn(int X, int Y)
+        private async Task<bool> IsWinColumn(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
             for(int i = Y - CONST.CHESS_SIZE.Height; i >= 0; i = i - CONST.CHESS_SIZE.Height)
@@ -162,7 +169,7 @@ namespace Caro.CaroManager
             return (count == 4) && (countEnemy < 2);
         }
 
-        private bool IsWinMainDiagonal(int X, int Y)
+        private async Task<bool> IsWinMainDiagonal(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
             for (int i = X - CONST.CHESS_SIZE.Width, j = Y - CONST.CHESS_SIZE.Height; 
@@ -202,7 +209,7 @@ namespace Caro.CaroManager
             return (count == 4) && (countEnemy < 2);
         }
 
-        private bool IsWinSubDiagonal(int X, int Y)
+        private async Task<bool> IsWinSubDiagonal(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
             int MAX_X = numberOfColumn * CONST.CHESS_SIZE.Width;
