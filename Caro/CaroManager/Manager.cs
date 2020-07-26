@@ -311,7 +311,7 @@ namespace Caro.CaroManager
                 butUndo.Push(eventBut);
                 checkWinner.Turn = turn;
                 eventBut.Image = playerList[turn].ImagePlayer;
-                if (checkWinner.IsWiner(X, Y)) EndGameHandle(turn, eventBut);
+                if (checkWinner.IsWiner(X, Y).Result) EndGameHandle(turn, eventBut);
                 else if (checkWinner.IsEndGame()) EndGameHandle(turn, eventBut, 1);
                 else
                 {

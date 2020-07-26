@@ -76,13 +76,7 @@ namespace Caro.CaroManager
             return caroBoard.Count == numberOfChess - 1;
         }
 
-        public bool IsWiner(int X, int Y)
-        {
-            Task<bool> task = IsWinerAsync(X, Y);
-            return task.Result;
-        }
-
-        private async Task<bool> IsWinerAsync(int X, int Y)
+        public async Task<bool> IsWiner(int X, int Y)
         {
             bool row = await IsWinRow(X, Y);
             bool collumn = await IsWinColumn(X, Y);
