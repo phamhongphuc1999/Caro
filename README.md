@@ -13,7 +13,6 @@ toàn có thể gộp DataTransmission vào project Caro
 ## các chế độ chơi
 - chơi trên một máy với 2 người chơi
 - chơi trên hai máy thông qua mạng LAN(giao tiếp bằng tcp socket)
-- (thêm chế độ người chơi với máy)
 ## khuân dạng gói tin trong chế độ mạng LAN
 <pre>
     [Serializable]
@@ -45,14 +44,19 @@ toàn có thể gộp DataTransmission vào project Caro
 - chức năng thay đổi thông số kích thức, tên người chơi
 - chức năng tính giờ
 - chức năng undo game, redo game(vẫn còn lỗi chưa sửa)
-- chức năng lưu trò chơi(vẫn còn một số lỗi chưa sửa)
+- chức năng lưu trò chơi
 - chương trình có thể lưu một số thông số(số hàng, cột, các cài đặt về nhạc, đếm giờ) ngay cả khi đã tắt trò chơi(lưu vào file)
 - thiết lập khung chat trong chế độ mạng LAN
-- (tính năng trong tương lai): thiết lập tài khoản, tính điểm người chơi
 ## một số lưu ý
 - thêm project DataTransmission vào Caro(bấm chuột phải vào References, chọn Add References/Project)
 - thêm thư viện WMPLib vào Caro(bấm chuột phải vào References, chọn Add References, bấm nút Browse ở dưới, tìm đến đường dẫn c:/Windows/System32/wmp.dll)
 - tải thêm thư viện Newtonsoft vào Caro
+## gợi ý phát triển trong tương lai
+- thêm chế độ một người chơi(người chơi với máy)
+- đối tượng hóa các form giao diện(thay vì phải vẽ đi vẽ lại các form thì ta sẽ tạo sẵn các class kế thừa từ Form, khi cần chỉ việc gọi)
+- tăng tốc độ vẽ bàn cờ
+- thêm tính năng thiết lập tài khoản, tính điểm người chơi
+- cho tùy chỉnh màu sắc quân cờ, hiệu ứng khi chiến thắng
 ## Tài liệu tham khảo
 - https://stackoverflow.com/questions/10775367/cross-thread-operation-not-valid-control-textbox1-accessed-from-a-thread-othe
 - https://codegym.vn/blog/2020/05/27/doc-va-ghi-file-json-su-dung-jsonconvert-trong-c/
