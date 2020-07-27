@@ -12,13 +12,13 @@ namespace Caro
         private Form settingForm;
         private Panel pnlCaroBoard, pnlChat;
         private MenuStrip mainMenu;
-        private RichTextBox rtbChat;
+        private RichTextBox rtbChat, rtbAbout;
         private Timer timer;
         private NumericUpDown numSound;
         private Button butTwoPlayer, butModeLan, butUndo, butRedo, butLoadBack;
         private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave, butChat;
         private Button butSTimeOnOrOff, butConnect, butBack, butGetIP, butLoadGame, butLoadGameSetting, butSaveGame;
-        private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting; 
+        private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting, toolItemAbout;
         private TextBox txtPlayer, txtSTimeTurn, txtSTimeInterval, txtName1Row, txtName2Column, txtChat;
         private Label lblTime, lblSTimeTurn, lblSTimeInterval, lblName1Row, lblName2Column, lblSSound, lblOr;
         
@@ -53,6 +53,12 @@ namespace Caro
                 Text = "Quick Game"
             };
 
+            toolItemAbout = new ToolStripMenuItem()
+            {
+                Name = "About",
+                Text = "About"
+            };
+
             toolItemMain = new ToolStripMenuItem()
             {
                 Name = "Main",
@@ -62,11 +68,13 @@ namespace Caro
             {
                 toolItemNewGame,
                 toolItemSetting,
-                toolItemQuick
+                toolItemQuick,
+                toolItemAbout
             });
             toolItemNewGame.Click += ToolItemNewGame_Click;
             toolItemQuick.Click += ToolItemQuick_Click;
             toolItemSetting.Click += ToolItemSetting_Click;
+            toolItemAbout.Click += ToolItemAbout_Click;
 
             mainMenu = new MenuStrip()
             {
@@ -381,11 +389,26 @@ namespace Caro
             butLoadGameSetting.Click += ButLoadGameSetting_Click;
             #endregion
 
+            rtbAbout = new RichTextBox()
+            {
+                Name = "rtbAbout",
+                Text = "\n\n" +
+                "          Devepoler: Phạm Hồng Phúc\n" +
+                "          Country: Việt Nam\n" +
+                "          Game: Caro Game\n" +
+                "          Version: v1",
+                Size = new Size(400, 250),
+                Location = new Point(0, 0),
+                Enabled = false
+            };
+
             this.Icon = new Icon("./Image/caro.ico");
             settingForm = new Form()
             {
                 Tag = 1,
-                StartPosition = FormStartPosition.CenterScreen
+                StartPosition = FormStartPosition.CenterScreen,
+                MaximizeBox = false,
+                MinimizeBox = false
             };
             settingForm.FormClosing += SettingForm_FormClosing;
             settingForm.Icon = new Icon("./Image/setting.ico");
@@ -500,7 +523,7 @@ namespace Caro
         private void DrawSettingForm(Form settingForm)
         {
             settingForm.Controls.Clear();
-            settingForm.Text = "Setting";
+            settingForm.Text = "About";
             settingForm.AutoScaleDimensions = new SizeF(9F, 20F);
             settingForm.ClientSize = new Size(400, 250);
             settingForm.Controls.Add(butGameMode);
@@ -611,12 +634,23 @@ namespace Caro
             butLoadBack.Location = new Point(170, Y + 10);
             loadForm.Controls.Add(butLoadBack);
         }
+
+        private void DrawAboutGame(Form aboutForm)
+        {
+            aboutForm.Controls.Clear();
+            aboutForm.Text = "About";
+            aboutForm.AutoScaleDimensions = new SizeF(9F, 20F);
+            aboutForm.ClientSize = new Size(210, 120);
+            aboutForm.Controls.Add(rtbAbout);
+        }
         #endregion
 
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            this.StartPosition = FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.ClientSize = new System.Drawing.Size(298, 197);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Caro";
             this.Tag = 0;

@@ -1,13 +1,14 @@
-﻿using Caro.CaroManager;
-using Caro.ConnectManager;
-using Caro.SaveGame;
-using Caro.Setting;
-using DataTransmission;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
+using Caro.CaroManager;
+using Caro.ConnectManager;
+using Caro.SaveGame;
+using Caro.Setting;
+using DataTransmission;
+
 
 namespace Caro
 {
@@ -240,6 +241,13 @@ namespace Caro
             {
                 if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") timer.Start();
             }
+        }
+
+        private void ToolItemAbout_Click(object sender, EventArgs e)
+        {
+            timer.Stop();
+            DrawAboutGame(settingForm);
+            settingForm.ShowDialog();
         }
 
         private void ButSizeBoard_Click(object sender, EventArgs e)
