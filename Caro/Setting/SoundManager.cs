@@ -43,14 +43,5 @@ namespace Caro.Setting
             if (sound.status == "Paused")
                 sound.controls.play();
         }
-
-        public void TEST()
-        {
-            while(sound.status == "Start")
-            {
-                sound.URL = ".Sound/intro.wav";
-                sound.controls.play();
-            }
-        }
     }
 }
