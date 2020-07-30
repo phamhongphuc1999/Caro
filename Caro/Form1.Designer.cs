@@ -411,7 +411,6 @@ namespace Caro
                 MinimizeBox = false
             };
             settingForm.FormClosing += SettingForm_FormClosing;
-            settingForm.Icon = new Icon("./Image/setting.ico");
             timer = new Timer()
             {
                 Interval = CONST.INTERVAL
@@ -523,7 +522,8 @@ namespace Caro
         private void DrawSettingForm(Form settingForm)
         {
             settingForm.Controls.Clear();
-            settingForm.Text = "About";
+            settingForm.Text = "Setting";
+            settingForm.Icon = new Icon("./Image/setting.ico");
             settingForm.AutoScaleDimensions = new SizeF(9F, 20F);
             settingForm.ClientSize = new Size(400, 250);
             settingForm.Controls.Add(butGameMode);
@@ -639,6 +639,7 @@ namespace Caro
         {
             aboutForm.Controls.Clear();
             aboutForm.Text = "About";
+            aboutForm.Icon = new Icon("./Image/about.ico");
             aboutForm.AutoScaleDimensions = new SizeF(9F, 20F);
             aboutForm.ClientSize = new Size(210, 120);
             aboutForm.Controls.Add(rtbAbout);
