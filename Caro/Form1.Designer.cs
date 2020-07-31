@@ -15,7 +15,7 @@ namespace Caro
         private RichTextBox rtbChat, rtbAbout;
         private Timer timer;
         private NumericUpDown numSound;
-        private Button butTwoPlayer, butModeLan, butUndo, butRedo, butLoadBack;
+        private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butLoadBack;
         private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave, butChat;
         private Button butSTimeOnOrOff, butConnect, butBack, butGetIP, butLoadGame, butLoadGameSetting, butSaveGame;
         private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting, toolItemAbout;
@@ -99,15 +99,22 @@ namespace Caro
             {
                 Name = "butMode",
                 Text = "Two Player",
-                Size = new Size(120, 40),
-                Location = new Point(40, 40)
+                Size = new Size(100, 40),
+                Location = new Point(25, 40)
             };
             butModeLan = new Button()
             {
                 Name = "butModeLan",
                 Text = "LAN Mode",
-                Size = new Size(120, 40),
-                Location = new Point(240, 40)
+                Size = new Size(100, 40),
+                Location = new Point(150, 40)
+            };
+            butModeAI = new Button()
+            {
+                Name = "butModeAI",
+                Text = "One Player",
+                Size = new Size(100, 40),
+                Location = new Point(275, 40)
             };
             lblOr = new Label()
             {
@@ -118,6 +125,7 @@ namespace Caro
             };
             butTwoPlayer.Click += ButTwoPlayer_Click;
             butModeLan.Click += ButModeLan_Click;
+            butModeAI.Click +=   ButModeAI_Click;
             #endregion
 
             #region Name Player
@@ -428,6 +436,7 @@ namespace Caro
             gameModeForm.ClientSize = new Size(400, 250);
             gameModeForm.Controls.Add(butTwoPlayer);
             gameModeForm.Controls.Add(butModeLan);
+            gameModeForm.Controls.Add(butModeAI);
             if (formText == "Game Mode Setting") gameModeForm.Controls.Add(butBack);
             else
             {

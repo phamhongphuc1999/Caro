@@ -95,12 +95,16 @@ namespace Caro
         private void Manager_EndGameEvent(object sender, EventArgs e)
         {
             if (CONST.IS_ON_TIMER) timer.Stop();
+            butUndo.Enabled = false;
+            butRedo.Enabled = false;
         }
 
         private void Manager_NewGameEvent(object sender, EventArgs e)
         {
             DrawMainForm(this);
             if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") timer.Start();
+            butUndo.Enabled = true;
+            butRedo.Enabled = true;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -161,6 +165,11 @@ namespace Caro
                     if (CONST.IS_ON_TIMER) timer.Start();
                 }
             }
+        }
+
+        private void ButModeAI_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Chế độ này chưa được thiết lập\nChọn chế độ khác", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Hand);
         }
 
         private void Button_Click(object sender, EventArgs e)

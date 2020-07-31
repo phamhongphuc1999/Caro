@@ -18,17 +18,17 @@ namespace Caro
             set { isTurn = value; }
         }
 
-        private Image imagePlayer;
-        public Image ImagePlayer
+        private Color colorPlayer;
+        public Color ColorPlayer
         {
-            get { return imagePlayer; }
-            set { imagePlayer = value; }
+            get { return colorPlayer; }
+            set { colorPlayer = value; }
         }
 
-        public Player(string namePlayer, Image imagePlayer, int isTurn)
+        public Player(string namePlayer, Color colorPlayer, int isTurn)
         {
             this.namePlayer = namePlayer;
-            this.imagePlayer = imagePlayer;
+            this.colorPlayer = colorPlayer;
             this.isTurn = isTurn;
         }
     }
