@@ -3,4 +3,3 @@ D:\Documents\VisualStudio\Caro\DataTransmission\bin\Debug\DataTransmission.pdb
 D:\Documents\VisualStudio\Caro\DataTransmission\obj\Debug\DataTransmission.csproj.CoreCompileInputs.cache
 D:\Documents\VisualStudio\Caro\DataTransmission\obj\Debug\DataTransmission.dll
 D:\Documents\VisualStudio\Caro\DataTransmission\obj\Debug\DataTransmission.pdb
-D:\Documents\VisualStudio\Caro\DataTransmission\obj\Debug\DataTransmission.csprojAssemblyReference.cache

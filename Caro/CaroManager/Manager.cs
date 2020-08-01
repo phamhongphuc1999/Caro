@@ -133,17 +133,8 @@ namespace Caro.CaroManager
             turn = 1 - turn;
             playerList[turn].IsTurn = 1;
             playerList[1 - turn].IsTurn = 0;
-            if (turn == 0)
-            {
-
-                txtPlayer.BackColor = Color.Red;
-                txtPlayer.Text = playerList[0].NamePlayer;
-            }
-            else
-            {
-                txtPlayer.BackColor = Color.Green;
-                txtPlayer.Text = playerList[1].NamePlayer;
-            }
+            txtPlayer.BackColor = playerList[turn].ColorPlayer;
+            txtPlayer.Text = playerList[turn].NamePlayer;
         }
 
         public void LoadSaveGame(int player, string sCaroGame)
@@ -164,12 +155,16 @@ namespace Caro.CaroManager
             if (CONST.GAME_MODE == "LAN" && !CONST.IS_SERVER)
             {
                 playerList[0].NamePlayer = CONST.NAME_PLAYER2;
+                playerList[0].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER2);
                 playerList[1].NamePlayer = CONST.NAME_PLAYER1;
+                playerList[1].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER1);
             }
             else
             {
                 playerList[0].NamePlayer = CONST.NAME_PLAYER1;
+                playerList[0].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER1);
                 playerList[1].NamePlayer = CONST.NAME_PLAYER2;
+                playerList[1].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER2);
             }
             txtPlayer.Text = playerList[turn].NamePlayer;
             txtPlayer.BackColor = playerList[turn].ColorPlayer;

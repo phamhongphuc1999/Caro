@@ -8,13 +8,13 @@ namespace Caro
     partial class Form1
     {
         private System.ComponentModel.IContainer components = null;
-
-        private Form settingForm;
-        private Panel pnlCaroBoard, pnlChat;
-        private MenuStrip mainMenu;
-        private RichTextBox rtbChat, rtbAbout;
         private Timer timer;
+        private Form settingForm;
+        private MenuStrip mainMenu;
         private NumericUpDown numSound;
+        private RichTextBox rtbChat, rtbAbout;
+        private Panel pnlCaroBoard, pnlChat;
+        private Button butColorPlayer1, butColorPlayer2;
         private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butLoadBack;
         private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave, butChat;
         private Button butSTimeOnOrOff, butConnect, butBack, butGetIP, butLoadGame, butLoadGameSetting, butSaveGame;
@@ -128,30 +128,46 @@ namespace Caro
             butModeAI.Click +=   ButModeAI_Click;
             #endregion
 
-            #region Name Player
+            #region Player Infomation
             lblName1Row = new Label()
             {
                 Name = "lblName1Row",
                 Size = new Size(50, 30),
-                Location = new Point(20, 30)
+                Location = new Point(20, 43)
             };
             lblName2Column = new Label()
             {
                 Name = "lblName2Column",
                 Size = new Size(50, 30),
-                Location = new Point(20, 80)
+                Location = new Point(20, 93)
             };
             txtName1Row = new TextBox()
             {
                 Name = "txtName1Row",
                 Width = 220,
-                Location = new Point(80, 30)
+                Location = new Point(80, 40)
             };
             txtName2Column = new TextBox()
             {
                 Name = "txtName2Column",
                 Width = 220,
-                Location = new Point(80, 80)
+                Location = new Point(80, 90)
+            };
+            butColorPlayer1 = new Button()
+            {
+                Name = "butColorPlayer1",
+                Text = "Red",
+                Size = new Size(80, 20),
+                Location = new Point(302, 40),
+                BackColor = Color.Red
+            };
+            butColorPlayer2 = new Button()
+            {
+                Name = "butColorPlayer2",
+                Text = "Green",
+                Size = new Size(80, 20),
+                Location = new Point(302, 90),
+                BackColor = Color.Green
             };
             butBack = new Button()
             {
@@ -160,10 +176,12 @@ namespace Caro
                 Size = new Size(80, 30),
                 Location = new Point(170, 200)
             };
+            butColorPlayer1.Click += ButColorPlayer1_Click;
+            butColorPlayer2.Click += ButColorPlayer2_Click;
             butBack.Click += ButBack_Click;
             #endregion
 
-            #region LAN
+            #region LAN Mode
             butConnect = new Button()
             {
                 Name = "butConnect",
@@ -183,7 +201,7 @@ namespace Caro
             butGetIP.Click += ButGetIP_Click;
             #endregion
 
-            #region Main
+            #region Main Game
             pnlCaroBoard = new Panel()
             {
                 Name = "pnlCaroBoard",
@@ -193,15 +211,13 @@ namespace Caro
             {
                 Name = "butUndo",
                 Text = "Undo",
-                Size = new Size(60, 20),
-                //Location = new Point(50, 30)
+                Size = new Size(60, 20)
             };
             butRedo = new Button()
             {
                 Name = "butRedo",
                 Text = "Redo",
-                Size = new Size(60, 20),
-                //Location = new Point(110, 30)
+                Size = new Size(60, 20)
             };
             txtPlayer = new TextBox()
             {
@@ -221,7 +237,7 @@ namespace Caro
             butUndo.Click += ButUndo_Click;
             #endregion
 
-            #region CHAT
+            #region CHAT Form in LAN Mode
             pnlChat = new Panel()
             {
                 Name = "pnlChat",
@@ -245,7 +261,7 @@ namespace Caro
             butChat.Click += ButChat_Click;
             #endregion
 
-            #region Setting
+            #region Common Setting
             butGameMode = new Button()
             {
                 Name = "butGameMode",
@@ -445,12 +461,12 @@ namespace Caro
             }
         }
 
-        private void DrawNamePlayerForm(Form namePlayerForm, string formText, string gameMode = "")
+        private void DrawPlayerForm(Form playerForm, string formText, string gameMode = "")
         {
-            namePlayerForm.Controls.Clear();
-            namePlayerForm.Text = formText;
-            namePlayerForm.AutoScaleDimensions = new SizeF(9F, 20F);
-            namePlayerForm.ClientSize = new Size(400, 250);
+            playerForm.Controls.Clear();
+            playerForm.Text = formText;
+            playerForm.AutoScaleDimensions = new SizeF(9F, 20F);
+            playerForm.ClientSize = new Size(400, 250);
             txtName1Row.Text = CONST.NAME_PLAYER1;
             txtName2Column.Text = CONST.NAME_PLAYER2;
             if (gameMode == "LAN") lblName1Row.Text = "Player";
@@ -458,13 +474,16 @@ namespace Caro
             {
                 lblName1Row.Text = "Player 1";
                 lblName2Column.Text = "Player 2";
-                namePlayerForm.Controls.Add(lblName2Column);
-                namePlayerForm.Controls.Add(txtName2Column);
+                playerForm.Controls.Add(lblName2Column);
+                playerForm.Controls.Add(txtName2Column);
+                playerForm.Controls.Add(butColorPlayer2);
+
             }
-            namePlayerForm.Controls.Add(lblName1Row);
-            namePlayerForm.Controls.Add(txtName1Row);
-            namePlayerForm.Controls.Add(butBack);
-            namePlayerForm.Controls.Add(butSave);
+            playerForm.Controls.Add(lblName1Row);
+            playerForm.Controls.Add(txtName1Row);
+            playerForm.Controls.Add(butColorPlayer1);
+            playerForm.Controls.Add(butBack);
+            playerForm.Controls.Add(butSave);
             if (formText == "Name Player") butSave.Text = "Next";
             else if (formText == "Name Player Setting") butSave.Text = "Save Change";
             butSave.Enabled = true;
@@ -658,12 +677,12 @@ namespace Caro
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ClientSize = new System.Drawing.Size(298, 197);
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Caro";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Tag = 0;
+            this.Text = "Caro";
             this.ResumeLayout(false);
         }
         #endregion

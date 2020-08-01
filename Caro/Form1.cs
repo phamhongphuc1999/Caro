@@ -9,7 +9,6 @@ using Caro.SaveGame;
 using Caro.Setting;
 using DataTransmission;
 
-
 namespace Caro
 {
     public partial class Form1 : Form
@@ -129,7 +128,7 @@ namespace Caro
             {
                 CONST.GAME_MODE = "LAN";
                 CONST.IS_LOAD_GAME = false;
-                DrawNamePlayerForm(this, "Name Player", "LAN");
+                DrawPlayerForm(this, "Name Player", "LAN");
             }
             else
             {
@@ -138,7 +137,7 @@ namespace Caro
                 {
                     CONST.GAME_MODE = "LAN";
                     settingForm.Close();
-                    DrawNamePlayerForm(this, "Name Player", "LAN");
+                    DrawPlayerForm(this, "Name Player", "LAN");
                 }
             }
         }
@@ -151,7 +150,7 @@ namespace Caro
             {
                 CONST.GAME_MODE = "TWO_PLAYER";
                 CONST.IS_LOAD_GAME = false;
-                DrawNamePlayerForm(this, "Name Player", "TWO_PLAYER");
+                DrawPlayerForm(this, "Name Player", "TWO_PLAYER");
             }
             else
             {
@@ -266,7 +265,35 @@ namespace Caro
 
         private void ButNamePlayer_Click(object sender, EventArgs e)
         {
-            DrawNamePlayerForm(settingForm, "Name Player Setting");
+            DrawPlayerForm(settingForm, "Name Player Setting");
+        }
+
+        private void ButColorPlayer2_Click(object sender, EventArgs e)
+        {
+            ColorDialog playerColor = new ColorDialog();
+            DialogResult result = playerColor.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string color = playerColor.Color.Name;
+                if (color != "Black") butColorPlayer2.ForeColor = Color.Black;
+                else butColorPlayer2.ForeColor = Color.White;
+                butColorPlayer2.Text = playerColor.Color.Name;
+                butColorPlayer2.BackColor = playerColor.Color;
+            }
+        }
+
+        private void ButColorPlayer1_Click(object sender, EventArgs e)
+        {
+            ColorDialog playerColor = new ColorDialog();
+            DialogResult result = playerColor.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string color = playerColor.Color.Name;
+                if (color != "Black") butColorPlayer1.ForeColor = Color.Black;
+                else butColorPlayer1.ForeColor = Color.White;
+                butColorPlayer1.Text = playerColor.Color.Name;
+                butColorPlayer1.BackColor = playerColor.Color;
+            }
         }
 
         private void ButTimer_Click(object sender, EventArgs e)
@@ -373,7 +400,7 @@ namespace Caro
             else if (temp == "Name Player Setting" || temp == "Time Setting" || temp == "Game Mode Setting" 
                 || temp == "Size Setting" || temp == "Sound Setting")
                 DrawSettingForm(settingForm);
-            else if (temp == "LAN Connection") DrawNamePlayerForm(this, "Name Player", CONST.GAME_MODE);
+            else if (temp == "LAN Connection") DrawPlayerForm(this, "Name Player", CONST.GAME_MODE);
         }
 
         private void ButLoadBack_Click(object sender, EventArgs e)
@@ -464,7 +491,7 @@ namespace Caro
                     txtName1Row.Text = CONST.NAME_PLAYER1;
                     txtName2Column.Text = CONST.NAME_PLAYER2;
                 }
-                else if (namePlayer1 == namePlayer2)
+                else if (namePlayer1 == namePlayer2 || butColorPlayer1.BackColor == butColorPlayer2.BackColor)
                 {
                     MessageBox.Show("Wrong", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtName1Row.Text = CONST.NAME_PLAYER1;
@@ -474,6 +501,8 @@ namespace Caro
                 {
                     CONST.NAME_PLAYER1 = namePlayer1;
                     CONST.NAME_PLAYER2 = namePlayer2;
+                    CONST.COLOR_PLAYER1 = butColorPlayer1.BackColor.Name;
+                    CONST.COLOR_PLAYER2 = butColorPlayer2.BackColor.Name;
                     manager.NewGameHandle(0);
                     DrawMainForm(this);
                     if (CONST.IS_ON_TIMER) timer.Start();

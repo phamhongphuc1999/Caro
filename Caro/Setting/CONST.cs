@@ -18,6 +18,8 @@ namespace Caro.Setting
         public static int INTERVAL;
         public static string NAME_PLAYER1 = "";
         public static string NAME_PLAYER2 = "";
+        public static string COLOR_PLAYER1 = "";
+        public static string COLOR_PLAYER2 = "";
 
         public static string IP = "127.0.0.1";
         public static int PORT = 9999;
