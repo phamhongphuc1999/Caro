@@ -11,24 +11,14 @@ namespace Caro.CaroManager
 {
     class Manager
     {
-        private int turn;
-        public int Turn
-        {
-            get { return turn; }
-            set { turn = value; }
-        }
+        public int Turn { get; set; }
         public Panel pnlCaroBoard;
         private TextBox txtPlayer;
         private Label lblTime;
         private static CheckWinner checkWinner;
         public static SocketManager socketManager;
         private Dictionary<KeyValuePair<int, int>, Button> caroBoard;
-        private List<Player> playerList;
-        public List<Player> PlayerList
-        {
-            get { return playerList; }
-            set { playerList = value; }
-        }
+        public List<Player> PlayerList { get; set; }
         private CaroStack<Button> butUndo, butRedo;
 
         private event EventHandler newGameEvent;
@@ -54,7 +44,7 @@ namespace Caro.CaroManager
             butRedo = new CaroStack<Button>(5);
             checkWinner = new CheckWinner(CONST.NUMBER_OF_COLUMN, CONST.NUMBER_OF_ROW);
             caroBoard = new Dictionary<KeyValuePair<int, int>, Button>();
-            playerList = new List<Player>()
+            PlayerList = new List<Player>()
             {
                 new Player("", Color.Red, 0),
                 new Player("", Color.Green, 1)
@@ -97,13 +87,13 @@ namespace Caro.CaroManager
                     };
                     if (sCaroBoard[index] == '1')
                     {
-                        but.BackColor = playerList[0].ColorPlayer;
+                        but.BackColor = PlayerList[0].ColorPlayer;
                         checkWinner.DrawCaroBoard(but.Location, 0);
                         butUndo.Push(but);
                     }
                     else if (sCaroBoard[index] == '2')
                     {
-                        but.BackColor = playerList[1].ColorPlayer;
+                        but.BackColor = PlayerList[1].ColorPlayer;
                         checkWinner.DrawCaroBoard(but.Location, 1);
                         butUndo.Push(but);
                     }
@@ -122,7 +112,7 @@ namespace Caro.CaroManager
             {
                 Button button = item.Value;
                 if (button.BackColor == null) board += "0";
-                else if (button.BackColor == playerList[0].ColorPlayer) board += "1";
+                else if (button.BackColor == PlayerList[0].ColorPlayer) board += "1";
                 else board += "2";
             }
             return board;
@@ -130,44 +120,44 @@ namespace Caro.CaroManager
 
         private void TurnPalyer()
         {
-            turn = 1 - turn;
-            playerList[turn].IsTurn = 1;
-            playerList[1 - turn].IsTurn = 0;
-            txtPlayer.BackColor = playerList[turn].ColorPlayer;
-            txtPlayer.Text = playerList[turn].NamePlayer;
+            Turn = 1 - Turn;
+            PlayerList[Turn].IsTurn = 1;
+            PlayerList[1 - Turn].IsTurn = 0;
+            txtPlayer.BackColor = PlayerList[Turn].ColorPlayer;
+            txtPlayer.Text = PlayerList[Turn].NamePlayer;
         }
 
         public void LoadSaveGame(int player, string sCaroGame)
         {
-            turn = player;
+            Turn = player;
             checkWinner.NewGameHanlde(player);
-            txtPlayer.BackColor = (turn == 0) ? Color.Red : Color.Green;
-            txtPlayer.Text = playerList[turn].NamePlayer;
-            playerList[0].NamePlayer = CONST.NAME_PLAYER1;
-            playerList[1].NamePlayer = CONST.NAME_PLAYER2;
+            txtPlayer.BackColor = (Turn == 0) ? Color.Red : Color.Green;
+            txtPlayer.Text = PlayerList[Turn].NamePlayer;
+            PlayerList[0].NamePlayer = CONST.NAME_PLAYER1;
+            PlayerList[1].NamePlayer = CONST.NAME_PLAYER2;
             DrawCaroBoard(CONST.NUMBER_OF_ROW, CONST.NUMBER_OF_COLUMN, sCaroGame);
         }
 
         public void NewGameHandle(int player)
         {
-            turn = player;
+            Turn = player;
             pnlCaroBoard.Enabled = true;
             if (CONST.GAME_MODE == "LAN" && !CONST.IS_SERVER)
             {
-                playerList[0].NamePlayer = CONST.NAME_PLAYER2;
-                playerList[0].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER2);
-                playerList[1].NamePlayer = CONST.NAME_PLAYER1;
-                playerList[1].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER1);
+                PlayerList[0].NamePlayer = CONST.NAME_PLAYER2;
+                PlayerList[0].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER2);
+                PlayerList[1].NamePlayer = CONST.NAME_PLAYER1;
+                PlayerList[1].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER1);
             }
             else
             {
-                playerList[0].NamePlayer = CONST.NAME_PLAYER1;
-                playerList[0].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER1);
-                playerList[1].NamePlayer = CONST.NAME_PLAYER2;
-                playerList[1].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER2);
+                PlayerList[0].NamePlayer = CONST.NAME_PLAYER1;
+                PlayerList[0].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER1);
+                PlayerList[1].NamePlayer = CONST.NAME_PLAYER2;
+                PlayerList[1].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER2);
             }
-            txtPlayer.Text = playerList[turn].NamePlayer;
-            txtPlayer.BackColor = playerList[turn].ColorPlayer;
+            txtPlayer.Text = PlayerList[Turn].NamePlayer;
+            txtPlayer.BackColor = PlayerList[Turn].ColorPlayer;
             checkWinner.NewGameHanlde(player);
             DrawCaroBoard(CONST.NUMBER_OF_ROW, CONST.NUMBER_OF_COLUMN);
             lblTime.Text = (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") ? CONST.TIME_TURN.ToString() : "No Timer";
@@ -208,7 +198,7 @@ namespace Caro.CaroManager
 
             if (CONST.GAME_MODE == "TWO_PLAYER")
             {
-                if (sign == 0) MessageBox.Show("The " + playerList[player].NamePlayer + " win", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (sign == 0) MessageBox.Show("The " + PlayerList[player].NamePlayer + " win", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else MessageBox.Show("The Game is ended, no players is winer", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK) NewGameHandle(player);
@@ -267,7 +257,7 @@ namespace Caro.CaroManager
                     Button but = butRedo.Pop();
                     if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
                     butUndo.Push(but);
-                    but.BackColor = playerList[turn].ColorPlayer;
+                    but.BackColor = PlayerList[Turn].ColorPlayer;
                     but.FlatStyle = FlatStyle.Flat;
                     checkWinner.RedoHandle(but.Location.X, but.Location.Y);
                     TurnPalyer();
@@ -305,10 +295,10 @@ namespace Caro.CaroManager
                 eventBut.FlatStyle = FlatStyle.Flat;
                 if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
                 butUndo.Push(eventBut);
-                checkWinner.Turn = turn;
-                eventBut.BackColor = playerList[turn].ColorPlayer;
-                if (checkWinner.IsWiner(X, Y).Result) EndGameHandle(turn, eventBut);
-                else if (checkWinner.IsEndGame()) EndGameHandle(turn, eventBut, 1);
+                checkWinner.Turn = Turn;
+                eventBut.BackColor = PlayerList[Turn].ColorPlayer;
+                if (checkWinner.IsWiner(X, Y).Result) EndGameHandle(Turn, eventBut);
+                else if (checkWinner.IsEndGame()) EndGameHandle(Turn, eventBut, 1);
                 else
                 {
                     checkWinner.DrawCaroBoard(X, Y);
