@@ -1,4 +1,4 @@
-﻿using Caro.Setting;
+﻿using Caro.Config;
 
 namespace Caro.SaveGame
 {

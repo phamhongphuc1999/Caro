@@ -67,9 +67,9 @@
     <Compile Include="SaveGame\GameSave.cs" />
     <Compile Include="SaveGame\GameSaveData.cs" />
     <Compile Include="SaveGame\SaveGameHelper.cs" />
-    <Compile Include="Setting\CONST.cs" />
-    <Compile Include="Setting\JsonConst.cs" />
-    <Compile Include="Setting\SoundManager.cs" />
+    <Compile Include="Config\CONST.cs" />
+    <Compile Include="Config\JsonConst.cs" />
+    <Compile Include="SoundManager.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

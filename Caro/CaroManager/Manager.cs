@@ -1,4 +1,4 @@
-﻿using Caro.Setting;
+﻿using Caro.Config;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Drawing;

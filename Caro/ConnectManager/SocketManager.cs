@@ -1,4 +1,4 @@
-﻿using Caro.Setting;
+﻿using Caro.Config;
 using DataTransmission;
 using System;
 using System.Net;

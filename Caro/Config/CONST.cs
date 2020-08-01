@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.Drawing;
 using System.IO;
 
-namespace Caro.Setting
+namespace Caro.Config
 {
     public static class CONST
     {

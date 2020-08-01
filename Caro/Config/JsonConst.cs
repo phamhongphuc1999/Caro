@@ -1,4 +1,4 @@
-﻿namespace Caro.Setting
+﻿namespace Caro.Config
 {
     class JsonConst
     {

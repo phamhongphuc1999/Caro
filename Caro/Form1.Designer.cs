@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Drawing;
-using Caro.Setting;
+using Caro.Config;
 using Caro.SaveGame;
 
 namespace Caro

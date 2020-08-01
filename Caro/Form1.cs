@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using Caro.CaroManager;
 using Caro.ConnectManager;
 using Caro.SaveGame;
-using Caro.Setting;
+using Caro.Config;
 using DataTransmission;
 
 namespace Caro
