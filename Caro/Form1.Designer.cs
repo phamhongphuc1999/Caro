@@ -437,7 +437,7 @@ namespace Caro
             settingForm.FormClosing += SettingForm_FormClosing;
             timer = new Timer()
             {
-                Interval = CONST.INTERVAL
+                Interval = CONST.INTERVAL * 1000
             };
             timer.Tick += Timer_Tick;
         }
@@ -484,8 +484,8 @@ namespace Caro
             playerForm.Controls.Add(butColorPlayer1);
             playerForm.Controls.Add(butBack);
             playerForm.Controls.Add(butSave);
-            if (formText == "Name Player") butSave.Text = "Next";
-            else if (formText == "Name Player Setting") butSave.Text = "Save Change";
+            if (formText == "Player") butSave.Text = "Next";
+            else if (formText == "Player Setting") butSave.Text = "Save Change";
             butSave.Enabled = true;
         }
 

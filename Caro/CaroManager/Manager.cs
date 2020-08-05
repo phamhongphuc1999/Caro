@@ -238,7 +238,7 @@ namespace Caro.CaroManager
                 else lblTime.Text = "No Timer";
                 Button but = butUndo.Pop();
                 butRedo.Push(but);
-                but.Image = null;
+                but.BackColor = Color.Transparent;
                 but.FlatStyle = FlatStyle.Standard;
                 checkWinner.UndoHandle(but.Location.X, but.Location.Y);
                 if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Flat;
