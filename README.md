@@ -4,8 +4,8 @@
 - DataTransmission(class library framework) chứa định dạng gói tin và các hàm đóng gói, mở gói hỗ trợ chế độ mạng LAN
 
 ##### tại sao định dạng gói tin phải để ra hẳn một project riêng mà không gộp luôn vào project Caro
-    Do việc Serializable và Deserializable trong C# sẽ có lỗi nếu token của object không khớp, ví dụ class Add trong project A1 khác hoàn toàn class Add trong project A2, không thể serializable kể cả khi chúng hoàn toàn giống nhau về nội dung
-    Việc tách thành project riêng lý do chính là để dễ dàng hơn trong việc kiểm thử, debug, hoàn toàn có thể gộp DataTransmission vào project Caro
+- Do việc Serializable và Deserializable trong C# sẽ có lỗi nếu token của object không khớp, ví dụ class Add trong project A1 khác hoàn toàn class Add trong project A2, không thể serializable kể cả khi chúng hoàn toàn giống nhau về nội dung
+- Việc tách thành project riêng lý do chính là để dễ dàng hơn trong việc kiểm thử, debug, hoàn toàn có thể gộp DataTransmission vào project Caro
 
 ### các chế độ chơi
 - chơi trên một máy với 2 người chơi
