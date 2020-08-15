@@ -1,7 +1,7 @@
 ### Môi trường phát triển: Visual Studio 2019, C# Core
 ### mô tả solution: có hai project
-- CaroGame: (Winform Core project) tạo giao diện và xử lý các chức năng trong trò chơi cờ caro
-- DataTransmission(class library Core) chứa định dạng gói tin và các hàm đóng gói, mở gói hỗ trợ chế độ mạng LAN
+    CaroGame: (Winform Core Project) tạo giao diện và xử lý các chức năng trong trò chơi cờ caro
+    DataTransmission(Class Library Core) chứa định dạng gói tin và các hàm đóng gói, mở gói hỗ trợ chế độ mạng LAN
 
 ### các chế độ chơi
 - chơi trên một máy với 2 người chơi
@@ -33,16 +33,19 @@
 - 111: xử lý redo game
 - 112: xử lý new game
 - 120: truyền đoạn chat đến đối thủ
+
 ### các chức năng của chương trình
 - thiết lập khung chat trong chế độ mạng LAN
 - chức năng phát nhạc, tính giờ, lưu trò chơi
 - chức năng undo game, redo game(vẫn còn lỗi chưa sửa)
 - chức năng tùy chỉnh kích thức, tên người chơi, màu sắc quân cờ(còn lỗi chưa sửa) 
 - chương trình có thể lưu một số thông số(số hàng, cột, các cài đặt về nhạc, đếm giờ) ngay cả khi đã tắt trò chơi(lưu vào file theo định dạng json)
+
 ### một số lưu ý
 - thêm project DataTransmission vào CaroGame(bấm chuột phải vào References, chọn Add References/Project)
 - thêm thư viện WMPLib vào CaroGame(bấm chuột phải vào Dependencies, chọn Add Project References, bấm nút Browse ở dưới, tìm đến đường dẫn c:/Windows/System32/wmp.dll và thêm nó vào project CaroGame)
-- tải thêm thư viện Newtonsoft vào Caro
+- tải thêm thư viện Newtonsoft vào CaroGame
+
 ### gợi ý phát triển trong tương lai
 - thêm chế độ một người chơi(người chơi với máy)
 - đối tượng hóa các form giao diện(thay vì phải vẽ đi vẽ lại các form thì ta sẽ tạo sẵn các class kế thừa từ Form, khi cần chỉ việc gọi)
