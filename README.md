@@ -1,7 +1,7 @@
 ### Môi trường phát triển: Visual Studio 2019, C# Core
 ### mô tả solution: có hai project
-    CaroGame: (Winform Core Project) tạo giao diện và xử lý các chức năng trong trò chơi cờ caro
-    DataTransmission(Class Library Core) chứa định dạng gói tin và các hàm đóng gói, mở gói hỗ trợ chế độ mạng LAN
+- CaroGame: (Winform Core Project) tạo giao diện và xử lý các chức năng trong trò chơi cờ caro
+- DataTransmission(Class Library Core) chứa định dạng gói tin và các hàm đóng gói, mở gói hỗ trợ chế độ mạng LAN
 
 ### các chế độ chơi
 - chơi trên một máy với 2 người chơi
