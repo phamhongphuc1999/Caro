@@ -26,6 +26,7 @@ namespace DataTransmission
             this.data = data;
         }
     };
+
     public class Data
     {
         public static byte[] SerializeData(object data)
