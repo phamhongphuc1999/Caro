@@ -1,11 +1,7 @@
-### Môi trường phát triển: Visual Studio 2019, C# Winform Framework
+### Môi trường phát triển: Visual Studio 2019, C# Core
 ### mô tả solution: có hai project
-- Caro: (Winform framework project) tạo giao diện và xử lý các chức năng trong trò chơi cờ caro
-- DataTransmission(class library framework) chứa định dạng gói tin và các hàm đóng gói, mở gói hỗ trợ chế độ mạng LAN
-
-##### tại sao định dạng gói tin phải để ra hẳn một project riêng mà không gộp luôn vào project Caro
-- Do việc Serializable và Deserializable trong C# sẽ có lỗi nếu token của object không khớp, ví dụ class Add trong project A1 khác hoàn toàn class Add trong project A2, không thể serializable kể cả khi chúng hoàn toàn giống nhau về nội dung
-- Việc tách thành project riêng lý do chính là để dễ dàng hơn trong việc kiểm thử, debug, hoàn toàn có thể gộp DataTransmission vào project Caro
+- CaroGame: (Winform Core project) tạo giao diện và xử lý các chức năng trong trò chơi cờ caro
+- DataTransmission(class library Core) chứa định dạng gói tin và các hàm đóng gói, mở gói hỗ trợ chế độ mạng LAN
 
 ### các chế độ chơi
 - chơi trên một máy với 2 người chơi
@@ -44,8 +40,8 @@
 - chức năng tùy chỉnh kích thức, tên người chơi, màu sắc quân cờ(còn lỗi chưa sửa) 
 - chương trình có thể lưu một số thông số(số hàng, cột, các cài đặt về nhạc, đếm giờ) ngay cả khi đã tắt trò chơi(lưu vào file theo định dạng json)
 ### một số lưu ý
-- thêm project DataTransmission vào Caro(bấm chuột phải vào References, chọn Add References/Project)
-- thêm thư viện WMPLib vào Caro(bấm chuột phải vào References, chọn Add References, bấm nút Browse ở dưới, tìm đến đường dẫn c:/Windows/System32/wmp.dll)
+- thêm project DataTransmission vào CaroGame(bấm chuột phải vào References, chọn Add References/Project)
+- thêm thư viện WMPLib vào CaroGame(bấm chuột phải vào Dependencies, chọn Add Project References, bấm nút Browse ở dưới, tìm đến đường dẫn c:/Windows/System32/wmp.dll và thêm nó vào project CaroGame)
 - tải thêm thư viện Newtonsoft vào Caro
 ### gợi ý phát triển trong tương lai
 - thêm chế độ một người chơi(người chơi với máy)

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "bPHttoXT82+6Acp1OO2Tfy/Y9LoJlOHH8qaE5K38cq+d/xLHB+noVYLhCqDKyX14itbGV7exjwh09m56N5PH5g==",
+  "success": true,
+  "projectFilePath": "D:\\Documents\\VisualStudio\\CaroGame\\CaroGame\\CaroGame.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\phamh\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
