@@ -73,11 +73,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Documents\\VisualStudio\\CaroGame\\CaroGame\\CaroGame.csproj",
+      "projectUniqueName": "D:\\Documents\\VisualStudio\\Caro\\CaroGame\\CaroGame.csproj",
       "projectName": "CaroGame",
-      "projectPath": "D:\\Documents\\VisualStudio\\CaroGame\\CaroGame\\CaroGame.csproj",
+      "projectPath": "D:\\Documents\\VisualStudio\\Caro\\CaroGame\\CaroGame.csproj",
       "packagesPath": "C:\\Users\\phamh\\.nuget\\packages\\",
-      "outputPath": "D:\\Documents\\VisualStudio\\CaroGame\\CaroGame\\obj\\",
+      "outputPath": "D:\\Documents\\VisualStudio\\Caro\\CaroGame\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\phamh\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -93,8 +93,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\Documents\\VisualStudio\\CaroGame\\DataTransmission\\DataTransmission.csproj": {
-              "projectPath": "D:\\Documents\\VisualStudio\\CaroGame\\DataTransmission\\DataTransmission.csproj"
+            "D:\\Documents\\VisualStudio\\Caro\\DataTransmission\\DataTransmission.csproj": {
+              "projectPath": "D:\\Documents\\VisualStudio\\Caro\\DataTransmission\\DataTransmission.csproj"
             }
           }
         }

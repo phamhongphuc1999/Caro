@@ -10,7 +10,7 @@ namespace CaroGame.Config
         public static string GAME_MODE = "TWO_PLAYER";
         public static int NUMBER_OF_ROW;
         public static int NUMBER_OF_COLUMN;
-        public static Size CHESS_SIZE = new Size(25, 25);
+        public static Size CHESS_SIZE = new Size(40, 40);
         public static bool IS_ON_TIMER;
         public static bool IS_PLAY_MUSIC;
         public static int VOLUME_SIZE;

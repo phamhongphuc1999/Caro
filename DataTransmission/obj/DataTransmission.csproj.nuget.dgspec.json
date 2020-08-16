@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documents\\VisualStudio\\CaroGame\\DataTransmission\\DataTransmission.csproj": {}
+    "D:\\Documents\\VisualStudio\\Caro\\DataTransmission\\DataTransmission.csproj": {}
   },
   "projects": {
-    "D:\\Documents\\VisualStudio\\CaroGame\\DataTransmission\\DataTransmission.csproj": {
+    "D:\\Documents\\VisualStudio\\Caro\\DataTransmission\\DataTransmission.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documents\\VisualStudio\\CaroGame\\DataTransmission\\DataTransmission.csproj",
+        "projectUniqueName": "D:\\Documents\\VisualStudio\\Caro\\DataTransmission\\DataTransmission.csproj",
         "projectName": "DataTransmission",
-        "projectPath": "D:\\Documents\\VisualStudio\\CaroGame\\DataTransmission\\DataTransmission.csproj",
+        "projectPath": "D:\\Documents\\VisualStudio\\Caro\\DataTransmission\\DataTransmission.csproj",
         "packagesPath": "C:\\Users\\phamh\\.nuget\\packages\\",
-        "outputPath": "D:\\Documents\\VisualStudio\\CaroGame\\DataTransmission\\obj\\",
+        "outputPath": "D:\\Documents\\VisualStudio\\Caro\\DataTransmission\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\phamh\\AppData\\Roaming\\NuGet\\NuGet.Config",

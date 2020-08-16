@@ -1,6 +1,5 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
-using System;
 using CaroGame.Config;
 using CaroGame.SaveGameManagement;
 
@@ -99,28 +98,28 @@ namespace CaroGame
             butTwoPlayer = new Button()
             {
                 Text = "Two Player",
-                Size = new Size(100, 40),
-                Location = new Point(25, 40)
+                Size = new Size(144, 55),
+                Location = new Point(42, 70)
             };
             butModeLan = new Button()
             {
                 Text = "LAN Mode",
-                Size = new Size(100, 40),
-                Location = new Point(150, 40)
+                Size = new Size(144, 55),
+                Location = new Point(228, 70)
             };
             butModeAI = new Button()
             {
                 Name = "butModeAI",
                 Text = "One Player",
-                Size = new Size(100, 40),
-                Location = new Point(275, 40)
+                Size = new Size(144, 55),
+                Location = new Point(414, 70)
             };
             lblOr = new Label()
             {
                 Name = "lblOr",
                 Text = "OR",
                 Size = new Size(60, 20),
-                Location = new Point(180, 100)
+                Location = new Point(270, 177)
             };
             butTwoPlayer.Click += ButTwoPlayer_Click;
             butModeLan.Click += ButModeLan_Click;
@@ -130,43 +129,43 @@ namespace CaroGame
             #region Player Infomation
             lblName1Row = new Label()
             {
-                Size = new Size(50, 30),
-                Location = new Point(20, 43)
+                Size = new Size(80, 45),
+                Location = new Point(30, 85)
             };
             lblName2Column = new Label()
             {
-                Size = new Size(50, 30),
-                Location = new Point(20, 93)
+                Size = new Size(80, 45),
+                Location = new Point(30, 170)
             };
             txtName1Row = new TextBox()
             {
-                Width = 220,
-                Location = new Point(80, 40)
+                Width = 360,
+                Location = new Point(120, 85)
             };
             txtName2Column = new TextBox()
             {
-                Width = 220,
-                Location = new Point(80, 90)
+                Width = 360,
+                Location = new Point(120, 170)
             };
             butColorPlayer1 = new Button()
             {
                 Text = "Red",
-                Size = new Size(80, 20),
-                Location = new Point(302, 40),
+                Size = new Size(80, 35),
+                Location = new Point(490, 80),
                 BackColor = Color.Red
             };
             butColorPlayer2 = new Button()
             {
                 Text = "Green",
-                Size = new Size(80, 20),
-                Location = new Point(302, 90),
+                Size = new Size(80, 35),
+                Location = new Point(490, 165),
                 BackColor = Color.Green
             };
             butBack = new Button()
             {
                 Text = "Back",
-                Size = new Size(80, 30),
-                Location = new Point(170, 200)
+                Size = new Size(90, 40),
+                Location = new Point(370, 280)
             };
             butColorPlayer1.Click += ButColorPlayer1_Click;
             butColorPlayer2.Click += ButColorPlayer2_Click;
@@ -176,16 +175,16 @@ namespace CaroGame
             #region LAN Mode
             butConnect = new Button()
             {
-                Size = new Size(220, 25),
+                Size = new Size(360, 35),
                 TextAlign = ContentAlignment.MiddleCenter,
-                Location = new Point(80, 110)
+                Location = new Point(120, 205)
             };
             butGetIP = new Button()
             {
                 Text = "Get IP",
-                Size = new Size(70, 20),
+                Size = new Size(80, 35),
                 TextAlign = ContentAlignment.MiddleCenter,
-                Location = new Point(310, 30)
+                Location = new Point(490, 80)
             };
             butConnect.Click += ButConnect_Click;
             butGetIP.Click += ButGetIP_Click;
@@ -199,23 +198,23 @@ namespace CaroGame
             butUndo = new Button()
             {
                 Text = "Undo",
-                Size = new Size(60, 20)
+                Size = new Size(120, 30)
             };
             butRedo = new Button()
             {
                 Text = "Redo",
-                Size = new Size(60, 20)
+                Size = new Size(120, 30)
             };
             txtPlayer = new TextBox()
             {
-                Size = new Size(180, 20),
+                Width = 240,
                 ReadOnly = true
             };
             lblTime = new Label()
             {
-                Size = new Size(50, 20),
+                Size = new Size(90, 30),
                 TextAlign = ContentAlignment.MiddleCenter,
-                Location = new Point(0, 30)
+                Location = new Point(0, 35)
             };
             CreateMainMenu();
             butRedo.Click += ButRedo_Click;
@@ -242,38 +241,38 @@ namespace CaroGame
             butGameMode = new Button()
             {
                 Text = "Game Mode",
-                Size = new Size(80, 40),
-                Location = new Point(50, 45)
+                Size = new Size(144, 55),
+                Location = new Point(42, 70)
             };
             butTimer = new Button()
             {
                 Text = "Time",
-                Size = new Size(80, 40),
-                Location = new Point(160, 45)
+                Size = new Size(144, 55),
+                Location = new Point(228, 70)
             };
             butNamePlayer = new Button()
             {
                 Text = "Player",
-                Size = new Size(80, 40),
-                Location = new Point(270, 45)
+                Size = new Size(144, 55),
+                Location = new Point(414, 70)
             };
             butSizeBoard = new Button()
             {
                 Text = "Size Board",
-                Size = new Size(80, 40),
-                Location = new Point(50, 95)
+                Size = new Size(144, 55),
+                Location = new Point(42, 145)
             };
             butSound = new Button()
             {
                 Text = "Sound",
-                Size = new Size(80, 40),
-                Location = new Point(160, 95)
+                Size = new Size(144, 55),
+                Location = new Point(228, 145)
             };
             butSave = new Button()
             {
                 Text = "Save Change",
-                Size = new Size(80, 30),
-                Location = new Point(270, 200)
+                Size = new Size(90, 40),
+                Location = new Point(490, 280)
             };
             butGameMode.Click += ButGameMode_Click;
             butTimer.Click += ButTimer_Click;
@@ -288,39 +287,39 @@ namespace CaroGame
             {
                 Text = "Time Turn",
                 Enabled = CONST.IS_ON_TIMER ? true : false,
-                Size = new Size(60, 30),
-                Location = new Point(20, 30)
+                Size = new Size(80, 40),
+                Location = new Point(30, 80)
             };
 
             lblSTimeInterval = new Label()
             {
                 Text = "Interval",
                 Enabled = CONST.IS_ON_TIMER ? true : false,
-                Size = new Size(60, 30),
-                Location = new Point(20, 80)
+                Size = new Size(80, 40),
+                Location = new Point(30, 170)
             };
 
             txtSTimeTurn = new TextBox()
             {
                 Text = CONST.TIME_TURN.ToString(),
                 Enabled = CONST.IS_ON_TIMER ? true : false,
-                Width = 220,
-                Location = new Point(80, 30)
+                Width = 360,
+                Location = new Point(120, 85)
             };
 
             txtSTimeInterval = new TextBox()
             {
                 Text = CONST.INTERVAL.ToString(),
                 Enabled = CONST.IS_ON_TIMER ? true : false,
-                Width = 220,
-                Location = new Point(80, 80)
+                Width = 360,
+                Location = new Point(120, 170)
             };
 
             butSTimeOnOrOff = new Button()
             {
                 Text = CONST.IS_ON_TIMER ? "Off Timer" : "On Timer",
-                Size = new Size(80, 30),
-                Location = new Point(70, 200)
+                Size = new Size(90, 40),
+                Location = new Point(250, 280)
             };
             butSTimeOnOrOff.Click += ButSTimeOnOrOff_Click;
             #endregion
@@ -329,13 +328,13 @@ namespace CaroGame
             lblSSound = new Label()
             {
                 Text = "Volume",
-                Size = new Size(60, 30),
-                Location = new Point(20, 90)
+                Size = new Size(80, 40),
+                Location = new Point(40, 100)
             };
             numSound = new NumericUpDown()
             {
-                Size = new Size(220, 20),
-                Location = new Point(80, 90),
+                Size = new Size(350, 30),
+                Location = new Point(130, 100),
                 Value = new decimal(CONST.VOLUME_SIZE),
                 Maximum = new decimal(100),
                 Minimum = new decimal(0),
@@ -347,20 +346,20 @@ namespace CaroGame
             butLoadGame = new Button()
             {
                 Text = "Load Game",
-                Size = new Size(120, 40),
-                Location = new Point(140, 140)
+                Size = new Size(150, 55),
+                Location = new Point(225, 250)
             };
             butSaveGame = new Button()
             {
                 Text = "Save Game",
-                Size = new Size(73, 20),
-                Location = new Point(327, 0)
+                Size = new Size(110, 40),
+                Location = new Point(485, 0)
             };
             butLoadGameSetting = new Button()
             {
                 Text = "Load Game",
-                Size = new Size(73, 20),
-                Location = new Point(254, 0)
+                Size = new Size(110, 40),
+                Location = new Point(370, 0)
             };
             butLoadBack = new Button()
             {
@@ -404,7 +403,7 @@ namespace CaroGame
         #endregion
 
         #region Draw Form
-        private void DrawCommonForm(ref Form form, string formText, int width = 400, int height = 250)
+        private void DrawCommonForm(ref Form form, string formText, int width = 600, int height = 375)
         {
             form.Controls.Clear();
             form.Text = formText;
@@ -479,10 +478,11 @@ namespace CaroGame
         {
             int width = CONST.NUMBER_OF_COLUMN * CONST.CHESS_SIZE.Width;
             int height = CONST.NUMBER_OF_ROW * CONST.CHESS_SIZE.Height;
+            pnlCaroBoard.Size = new Size(width, height);
             DrawCommonForm(ref mainForm, "Caro", width, height);
-            txtPlayer.Location = new Point(pnlCaroBoard.Width - 180, 0);
-            butUndo.Location = new Point(pnlCaroBoard.Width - 60, 30);
-            butRedo.Location = new Point(pnlCaroBoard.Width - 120, 30);
+            txtPlayer.Location = new Point(pnlCaroBoard.Width - 240, 0);
+            butUndo.Location = new Point(pnlCaroBoard.Width - 120, 30);
+            butRedo.Location = new Point(pnlCaroBoard.Width - 240, 30);
             mainForm.AutoSize = true;
             if (CONST.GAME_MODE == "LAN")
             {
@@ -610,7 +610,7 @@ namespace CaroGame
 
         private void DrawAboutGame(Form aboutForm)
         {
-            DrawCommonForm(ref aboutForm, "About", 210, 120);
+            DrawCommonForm(ref aboutForm, "About", 400, 250);
             aboutForm.Icon = new Icon("./Image/about.ico");
             aboutForm.Controls.Add(rtbAbout);
         }
