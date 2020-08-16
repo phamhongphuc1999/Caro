@@ -237,7 +237,6 @@ namespace CaroGame
                 CONST.COLOR_PLAYER1 = butColorPlayer1.BackColor.Name;
                 CONST.COLOR_PLAYER2 = butColorPlayer2.BackColor.Name;
                 caroManager.NewGameHandle(0);
-                DrawMainForm(this);
                 if (CONST.IS_ON_TIMER) timer.Start();
             }
             else if (temp == "Player" && CONST.GAME_MODE == "LAN")
@@ -277,11 +276,7 @@ namespace CaroGame
                 txtPlayer.Text = caroManager.PlayerList[caroManager.Turn].NamePlayer;
                 DrawSettingForm(settingForm);
             }
-            else if (temp == "LAN Connection")
-            {
-                DrawMainForm(this);
-                caroManager.NewGameHandle(0);
-            }
+            else if (temp == "LAN Connection") caroManager.NewGameHandle(0);
             else if (temp == "Sound Setting")
             {
                 CONST.VOLUME_SIZE = (int)numSound.Value;

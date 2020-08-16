@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Net.Sockets;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CaroGame.CaroManagement
@@ -70,6 +72,7 @@ namespace CaroGame.CaroManagement
                     pnlCaroBoard.Controls.Add(but);
                 }
             }
+            //return true;
         }
 
         private void DrawCaroBoard(int numberOfRow, int numberOfColumn, string sCaroBoard)
