@@ -39,7 +39,7 @@ namespace CaroGame.CaroManagement
         {
             this.turn = turn;
             check[0] = check[1] = check[2] = check[3] = 0;
-            caroBoard.Clear();
+            while(caroBoard.Count >  0) caroBoard.Clear();
             numberOfColumn = CONST.NUMBER_OF_COLUMN;
             numberOfRow = CONST.NUMBER_OF_ROW;
             numberOfChess = numberOfColumn * numberOfRow;

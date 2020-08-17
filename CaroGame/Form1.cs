@@ -111,34 +111,6 @@ namespace CaroGame
                 DrawSettingForm(settingForm);
             else if (temp == "LAN Connection") DrawPlayerForm(this, "Player", CONST.GAME_MODE);
         }
-
-        private void ButColorPlayer2_Click(object sender, EventArgs e)
-        {
-            ColorDialog playerColor = new ColorDialog();
-            DialogResult result = playerColor.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                string color = playerColor.Color.Name;
-                if (color != "Black") butColorPlayer2.ForeColor = Color.Black;
-                else butColorPlayer2.ForeColor = Color.White;
-                butColorPlayer2.Text = playerColor.Color.Name;
-                butColorPlayer2.BackColor = playerColor.Color;
-            }
-        }
-
-        private void ButColorPlayer1_Click(object sender, EventArgs e)
-        {
-            ColorDialog playerColor = new ColorDialog();
-            DialogResult result = playerColor.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                string color = playerColor.Color.Name;
-                if (color != "Black") butColorPlayer1.ForeColor = Color.Black;
-                else butColorPlayer1.ForeColor = Color.White;
-                butColorPlayer1.Text = playerColor.Color.Name;
-                butColorPlayer1.BackColor = playerColor.Color;
-            }
-        }
         #endregion
 
         #region Event Common Setting Handler
@@ -225,7 +197,7 @@ namespace CaroGame
                     txtName2Column.Text = CONST.NAME_PLAYER2;
                     return;
                 }
-                if (namePlayer1 == namePlayer2 || butColorPlayer1.BackColor == butColorPlayer2.BackColor)
+                if (namePlayer1 == namePlayer2)
                 {
                     MessageBox.Show("Wrong", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtName1Row.Text = CONST.NAME_PLAYER1;
@@ -234,8 +206,6 @@ namespace CaroGame
                 }
                 CONST.NAME_PLAYER1 = namePlayer1;
                 CONST.NAME_PLAYER2 = namePlayer2;
-                CONST.COLOR_PLAYER1 = butColorPlayer1.BackColor.Name;
-                CONST.COLOR_PLAYER2 = butColorPlayer2.BackColor.Name;
                 caroManager.NewGameHandle(0);
                 if (CONST.IS_ON_TIMER) timer.Start();
             }

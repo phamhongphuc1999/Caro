@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Net.Sockets;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CaroGame.CaroManagement
@@ -72,7 +70,6 @@ namespace CaroGame.CaroManagement
                     pnlCaroBoard.Controls.Add(but);
                 }
             }
-            //return true;
         }
 
         private void DrawCaroBoard(int numberOfRow, int numberOfColumn, string sCaroBoard)
@@ -149,16 +146,12 @@ namespace CaroGame.CaroManagement
             if (CONST.GAME_MODE == "LAN" && !CONST.IS_SERVER)
             {
                 PlayerList[0].NamePlayer = CONST.NAME_PLAYER2;
-                PlayerList[0].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER2);
                 PlayerList[1].NamePlayer = CONST.NAME_PLAYER1;
-                PlayerList[1].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER1);
             }
             else
             {
                 PlayerList[0].NamePlayer = CONST.NAME_PLAYER1;
-                PlayerList[0].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER1);
                 PlayerList[1].NamePlayer = CONST.NAME_PLAYER2;
-                PlayerList[1].ColorPlayer = Color.FromName(CONST.COLOR_PLAYER2);
             }
             txtPlayer.Text = PlayerList[Turn].NamePlayer;
             txtPlayer.BackColor = PlayerList[Turn].ColorPlayer;
@@ -170,36 +163,37 @@ namespace CaroGame.CaroManagement
             newGameEvent(this, new EventArgs());
         }
 
+        private void ChangeFlatStypeWhenEndGame(Button eventBut)
+        {
+            int[] check = winManager.check;
+            if (check[0] == 1)
+            {
+                foreach (KeyValuePair<int, int> item in winManager.arrRow)
+                    caroBoard[item].FlatStyle = FlatStyle.Flat;
+            }
+            if (check[1] == 1)
+            {
+                foreach (KeyValuePair<int, int> item in winManager.arrColumn)
+                    caroBoard[item].FlatStyle = FlatStyle.Flat;
+            }
+            if (check[2] == 1)
+            {
+                foreach (KeyValuePair<int, int> item in winManager.arrMainDiagonal)
+                    caroBoard[item].FlatStyle = FlatStyle.Flat;
+            }
+            if (check[3] == 1)
+            {
+                foreach (KeyValuePair<int, int> item in winManager.arrSubDiagomal)
+                    caroBoard[item].FlatStyle = FlatStyle.Flat;
+            }
+            eventBut.FlatStyle = FlatStyle.Flat;
+        }
+
         private void EndGameHandle(int player, Button eventBut, int sign = 0)
         {
             endGameEvent(this, new EventArgs());
             pnlCaroBoard.Enabled = false;
-            if (sign == 0)
-            {
-                int[] check = winManager.check;
-                if (check[0] == 1)
-                {
-                    foreach (KeyValuePair<int, int> item in winManager.arrRow)
-                        caroBoard[item].FlatStyle = FlatStyle.Flat;
-                }
-                if (check[1] == 1)
-                {
-                    foreach (KeyValuePair<int, int> item in winManager.arrColumn)
-                        caroBoard[item].FlatStyle = FlatStyle.Flat;
-                }
-                if (check[2] == 1)
-                {
-                    foreach (KeyValuePair<int, int> item in winManager.arrMainDiagonal)
-                        caroBoard[item].FlatStyle = FlatStyle.Flat;
-                }
-                if (check[3] == 1)
-                {
-                    foreach (KeyValuePair<int, int> item in winManager.arrSubDiagomal)
-                        caroBoard[item].FlatStyle = FlatStyle.Flat;
-                }
-                eventBut.FlatStyle = FlatStyle.Flat;
-            }
-
+            if (sign == 0) ChangeFlatStypeWhenEndGame(eventBut);
             if (CONST.GAME_MODE == "TWO_PLAYER")
             {
                 if (sign == 0) MessageBox.Show("The " + PlayerList[player].NamePlayer + " win", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);

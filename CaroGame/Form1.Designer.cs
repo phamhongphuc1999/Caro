@@ -14,7 +14,6 @@ namespace CaroGame
         private NumericUpDown numSound;
         private RichTextBox rtbChat, rtbAbout;
         private Panel pnlCaroBoard, pnlChat;
-        private Button butColorPlayer1, butColorPlayer2;
         private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butLoadBack;
         private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave, butChat;
         private Button butSTimeOnOrOff, butConnect, butBack, butGetIP, butLoadGame, butLoadGameSetting, butSaveGame;
@@ -147,28 +146,12 @@ namespace CaroGame
                 Width = 360,
                 Location = new Point(120, 170)
             };
-            butColorPlayer1 = new Button()
-            {
-                Text = "Red",
-                Size = new Size(80, 35),
-                Location = new Point(490, 80),
-                BackColor = Color.Red
-            };
-            butColorPlayer2 = new Button()
-            {
-                Text = "Green",
-                Size = new Size(80, 35),
-                Location = new Point(490, 165),
-                BackColor = Color.Green
-            };
             butBack = new Button()
             {
                 Text = "Back",
                 Size = new Size(90, 40),
                 Location = new Point(370, 280)
             };
-            butColorPlayer1.Click += ButColorPlayer1_Click;
-            butColorPlayer2.Click += ButColorPlayer2_Click;
             butBack.Click += ButBack_Click;
             #endregion
 
@@ -184,7 +167,7 @@ namespace CaroGame
                 Text = "Get IP",
                 Size = new Size(80, 35),
                 TextAlign = ContentAlignment.MiddleCenter,
-                Location = new Point(490, 80)
+                Location = new Point(490, 85)
             };
             butConnect.Click += ButConnect_Click;
             butGetIP.Click += ButGetIP_Click;
@@ -221,7 +204,7 @@ namespace CaroGame
             butUndo.Click += ButUndo_Click;
             #endregion
 
-            #region CHAT Form in LAN Mode
+            #region CHAT Form In LAN Mode
             pnlChat = new Panel();
             txtChat = new TextBox()
             {
@@ -231,7 +214,7 @@ namespace CaroGame
             butChat = new Button()
             {
                 Text = "Send",
-                Size = new Size(40, 40)
+                Size = new Size(60, 40)
             };
             rtbChat = new RichTextBox();
             butChat.Click += ButChat_Click;
@@ -437,12 +420,10 @@ namespace CaroGame
                 lblName2Column.Text = "Player 2";
                 playerForm.Controls.Add(lblName2Column);
                 playerForm.Controls.Add(txtName2Column);
-                playerForm.Controls.Add(butColorPlayer2);
 
             }
             playerForm.Controls.Add(lblName1Row);
             playerForm.Controls.Add(txtName1Row);
-            playerForm.Controls.Add(butColorPlayer1);
             playerForm.Controls.Add(butBack);
             playerForm.Controls.Add(butSave);
             if (formText == "Player") butSave.Text = "Next";
