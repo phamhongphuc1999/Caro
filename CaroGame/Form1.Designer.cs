@@ -209,12 +209,12 @@ namespace CaroGame
             txtChat = new TextBox()
             {
                 Multiline = true,
-                Size = new Size(260, 40),
+                Size = new Size(330, 50),
             };
             butChat = new Button()
             {
                 Text = "Send",
-                Size = new Size(60, 40)
+                Size = new Size(70, 50)
             };
             rtbChat = new RichTextBox();
             butChat.Click += ButChat_Click;
@@ -467,11 +467,11 @@ namespace CaroGame
             mainForm.AutoSize = true;
             if (CONST.GAME_MODE == "LAN")
             {
-                pnlChat.Size = new Size(300, pnlCaroBoard.Height + 70);
+                pnlChat.Size = new Size(400, pnlCaroBoard.Height + 70);
                 pnlChat.Location = new Point(pnlCaroBoard.Width, 0);
-                txtChat.Location = new Point(0, pnlChat.Height - 40);
-                butChat.Location = new Point(260, pnlChat.Height - 40);
-                rtbChat.Size = new Size(300, pnlChat.Height - 40);
+                txtChat.Location = new Point(0, pnlChat.Height - 50);
+                butChat.Location = new Point(330, pnlChat.Height - 50);
+                rtbChat.Size = new Size(400, pnlChat.Height - 50);
                 rtbChat.Location = new Point(0, 0);
                 pnlChat.Controls.Add(txtChat);
                 pnlChat.Controls.Add(butChat);
@@ -603,7 +603,6 @@ namespace CaroGame
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Text = "Form1";
         }
-
         #endregion
     }
 }

@@ -38,11 +38,11 @@
 - thiết lập khung chat trong chế độ mạng LAN
 - chức năng phát nhạc, tính giờ, lưu trò chơi
 - chức năng undo game, redo game(vẫn còn lỗi chưa sửa)
-- chức năng tùy chỉnh kích thức, tên người chơi, màu sắc quân cờ(còn lỗi chưa sửa) 
+- chức năng tùy chỉnh kích thức, tên người chơi
 - chương trình có thể lưu một số thông số(số hàng, cột, các cài đặt về nhạc, đếm giờ) ngay cả khi đã tắt trò chơi(lưu vào file theo định dạng json)
 
 ### một số lưu ý
-- thêm project DataTransmission vào CaroGame(bấm chuột phải vào References, chọn Add References/Project)
+- thêm project DataTransmission vào CaroGame(bấm chuột phải vào Dependencies, chọn Add References/Project)
 - thêm thư viện WMPLib vào CaroGame(bấm chuột phải vào Dependencies, chọn Add Project References, bấm nút Browse ở dưới, tìm đến đường dẫn c:/Windows/System32/wmp.dll và thêm nó vào project CaroGame)
 - tải thêm thư viện Newtonsoft vào CaroGame
 
