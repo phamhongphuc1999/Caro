@@ -347,7 +347,7 @@ namespace CaroGame
             butLoadBack = new Button()
             {
                 Text = "Back",
-                Size = new Size(80, 30)
+                Size = new Size(90, 50)
             };
             butLoadBack.Click += ButLoadBack_Click;
             butSaveGame.Click += ButSaveGame_Click;
@@ -367,7 +367,6 @@ namespace CaroGame
                 Location = new Point(0, 0),
                 Enabled = false
             };
-
             this.Icon = new Icon("./Image/caro.ico");
             settingForm = new Form()
             {
@@ -544,7 +543,7 @@ namespace CaroGame
 
         private void DrawLoadGame(Form loadForm)
         {
-            int Y = 20, count = 1;
+            int Y = 40, count = 1;
             if (CONST.saveData.GameSaveList.Count == 0)
             {
                 Label info = new Label()
@@ -554,7 +553,7 @@ namespace CaroGame
                     Size = new Size(200, 30),
                     Location = new Point(120, Y)
                 };
-                Y += 40;
+                Y += 60;
                 loadForm.Controls.Add(info);
             }
             else
@@ -580,11 +579,10 @@ namespace CaroGame
                     buttonDelete.Click += ButtonDelete_Click;
                     loadForm.Controls.Add(button);
                     loadForm.Controls.Add(buttonDelete);
-                    Y += 40; count++;
+                    Y += 50; count++;
                 }
             }
-            //loadForm.ClientSize = new Size(400, Y + 60);
-            DrawCommonForm(ref loadForm, "Load Game", 400, Y + 60);
+            DrawCommonForm(ref loadForm, "Load Game", 400, Y + 90);
             butLoadBack.Location = new Point(170, Y + 10);
             loadForm.Controls.Add(butLoadBack);
         }

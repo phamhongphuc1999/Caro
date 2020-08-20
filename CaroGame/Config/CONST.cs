@@ -72,7 +72,7 @@ namespace CaroGame.Config
             using (StreamReader sr = File.OpenText("./SaveGame.json"))
             {
                 string data = sr.ReadToEnd();
-                saveData = JsonConvert.DeserializeObject<GameSaveData>(data);
+                if (data.Length > 0) saveData = JsonConvert.DeserializeObject<GameSaveData>(data);
             }
         }
 

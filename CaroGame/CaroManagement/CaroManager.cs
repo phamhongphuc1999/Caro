@@ -112,9 +112,9 @@ namespace CaroGame.CaroManagement
             foreach (KeyValuePair<KeyValuePair<int, int>, Button> item in caroBoard)
             {
                 Button button = item.Value;
-                if (button.BackColor == null) board += "0";
-                else if (button.BackColor == PlayerList[0].ColorPlayer) board += "1";
-                else board += "2";
+                if (button.BackColor == PlayerList[0].ColorPlayer) board += "1";
+                else if (button.BackColor == PlayerList[1].ColorPlayer) board += "2";
+                else board += "0";
             }
             return board;
         }
@@ -196,7 +196,7 @@ namespace CaroGame.CaroManagement
             if (sign == 0) ChangeFlatStypeWhenEndGame(eventBut);
             if (CONST.GAME_MODE == "TWO_PLAYER")
             {
-                if (sign == 0) MessageBox.Show("The " + PlayerList[player].NamePlayer + " win", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (sign == 0) MessageBox.Show(String.Format("The {0} win", PlayerList[player].NamePlayer), "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else MessageBox.Show("The Game is ended, no players is winer", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK) NewGameHandle(player);
