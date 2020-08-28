@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 using System.Drawing;
 using System.IO;
 
-namespace CaroGame.Config
+namespace CaroGame.Configuration
 {
-    public static class CONST
+    public static class Config
     {
         public static string GAME_MODE = "TWO_PLAYER";
         public static int NUMBER_OF_ROW;
@@ -30,7 +30,7 @@ namespace CaroGame.Config
         public static bool IS_OLD_GAME = false;
         public static int INDEX_OLD_GAME = -1;
 
-        private static JsonConst jsonConst = new JsonConst();
+        private static EntityConfig jsonConst = new EntityConfig();
         public static GameSaveData saveData = new GameSaveData();
 
         public static void ReadCONST()
@@ -38,7 +38,7 @@ namespace CaroGame.Config
             using (StreamReader sr = File.OpenText("./CONST.json"))
             {
                 string data = sr.ReadToEnd();
-                jsonConst = JsonConvert.DeserializeObject<JsonConst>(data);
+                jsonConst = JsonConvert.DeserializeObject<EntityConfig>(data);
                 NUMBER_OF_ROW = jsonConst.numberOfRow;
                 NUMBER_OF_COLUMN = jsonConst.numberOfColumn;
                 IS_ON_TIMER = jsonConst.isOnTime;
@@ -51,7 +51,7 @@ namespace CaroGame.Config
 
         public static void WriteCONST()
         {
-            if (!(CONST.GAME_MODE == "LAN" && !CONST.IS_SERVER))
+            if (!(Config.GAME_MODE == "LAN" && !Config.IS_SERVER))
             {
                 jsonConst.numberOfColumn = NUMBER_OF_COLUMN;
                 jsonConst.numberOfRow = NUMBER_OF_ROW;

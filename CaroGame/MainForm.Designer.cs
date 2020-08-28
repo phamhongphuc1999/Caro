@@ -1,11 +1,11 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
-using CaroGame.Config;
+using CaroGame.Configuration;
 using CaroGame.SaveGameManagement;
 
 namespace CaroGame
 {
-    partial class Form1
+    partial class MainForm
     {
         private System.ComponentModel.IContainer components = null;
         private Timer timer;
@@ -269,7 +269,7 @@ namespace CaroGame
             lblSTimeTurn = new Label()
             {
                 Text = "Time Turn",
-                Enabled = CONST.IS_ON_TIMER ? true : false,
+                Enabled = Config.IS_ON_TIMER ? true : false,
                 Size = new Size(80, 40),
                 Location = new Point(30, 80)
             };
@@ -277,30 +277,30 @@ namespace CaroGame
             lblSTimeInterval = new Label()
             {
                 Text = "Interval",
-                Enabled = CONST.IS_ON_TIMER ? true : false,
+                Enabled = Config.IS_ON_TIMER ? true : false,
                 Size = new Size(80, 40),
                 Location = new Point(30, 170)
             };
 
             txtSTimeTurn = new TextBox()
             {
-                Text = CONST.TIME_TURN.ToString(),
-                Enabled = CONST.IS_ON_TIMER ? true : false,
+                Text = Config.TIME_TURN.ToString(),
+                Enabled = Config.IS_ON_TIMER ? true : false,
                 Width = 360,
                 Location = new Point(120, 85)
             };
 
             txtSTimeInterval = new TextBox()
             {
-                Text = CONST.INTERVAL.ToString(),
-                Enabled = CONST.IS_ON_TIMER ? true : false,
+                Text = Config.INTERVAL.ToString(),
+                Enabled = Config.IS_ON_TIMER ? true : false,
                 Width = 360,
                 Location = new Point(120, 170)
             };
 
             butSTimeOnOrOff = new Button()
             {
-                Text = CONST.IS_ON_TIMER ? "Off Timer" : "On Timer",
+                Text = Config.IS_ON_TIMER ? "Off Timer" : "On Timer",
                 Size = new Size(90, 40),
                 Location = new Point(250, 280)
             };
@@ -318,7 +318,7 @@ namespace CaroGame
             {
                 Size = new Size(350, 30),
                 Location = new Point(130, 100),
-                Value = new decimal(CONST.VOLUME_SIZE),
+                Value = new decimal(Config.VOLUME_SIZE),
                 Maximum = new decimal(100),
                 Minimum = new decimal(0),
                 ThousandsSeparator = true
@@ -378,7 +378,7 @@ namespace CaroGame
             settingForm.FormClosing += SettingForm_FormClosing;
             timer = new Timer()
             {
-                Interval = CONST.INTERVAL * 1000
+                Interval = Config.INTERVAL * 1000
             };
             timer.Tick += Timer_Tick;
         }
@@ -410,8 +410,8 @@ namespace CaroGame
         private void DrawPlayerForm(Form playerForm, string formText, string gameMode = "")
         {
             DrawCommonForm(ref playerForm, formText);
-            txtName1Row.Text = CONST.NAME_PLAYER1;
-            txtName2Column.Text = CONST.NAME_PLAYER2;
+            txtName1Row.Text = Config.NAME_PLAYER1;
+            txtName2Column.Text = Config.NAME_PLAYER2;
             if (gameMode == "LAN") lblName1Row.Text = "Player";
             else
             {
@@ -456,15 +456,15 @@ namespace CaroGame
 
         private void DrawMainForm(Form mainForm)
         {
-            int width = CONST.NUMBER_OF_COLUMN * CONST.CHESS_SIZE.Width;
-            int height = CONST.NUMBER_OF_ROW * CONST.CHESS_SIZE.Height;
+            int width = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
+            int height = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
             pnlCaroBoard.Size = new Size(width, height);
             DrawCommonForm(ref mainForm, "Caro", width, height);
             txtPlayer.Location = new Point(pnlCaroBoard.Width - 240, 0);
             butUndo.Location = new Point(pnlCaroBoard.Width - 120, 30);
             butRedo.Location = new Point(pnlCaroBoard.Width - 240, 30);
             mainForm.AutoSize = true;
-            if (CONST.GAME_MODE == "LAN")
+            if (Config.GAME_MODE == "LAN")
             {
                 pnlChat.Size = new Size(400, pnlCaroBoard.Height + 70);
                 pnlChat.Location = new Point(pnlCaroBoard.Width, 0);
@@ -499,8 +499,8 @@ namespace CaroGame
             settingForm.Controls.Add(butSaveGame);
             settingForm.Controls.Add(butLoadGameSetting);
             butSave.Text = "Save Change";
-            if (CONST.GAME_MODE == "TWO_PLAYER") butTimer.Enabled = true;
-            else if (CONST.GAME_MODE == "LAN") butTimer.Enabled = false;
+            if (Config.GAME_MODE == "TWO_PLAYER") butTimer.Enabled = true;
+            else if (Config.GAME_MODE == "LAN") butTimer.Enabled = false;
         }
 
         private void DrawTimeSettingForm(Form timeSettingForm)
@@ -521,8 +521,8 @@ namespace CaroGame
             DrawCommonForm(ref sizeSettingForm, "Size Setting");
             lblName1Row.Text = "Row";
             lblName2Column.Text = "Column";
-            txtName1Row.Text = CONST.NUMBER_OF_ROW.ToString();
-            txtName2Column.Text = CONST.NUMBER_OF_COLUMN.ToString();
+            txtName1Row.Text = Config.NUMBER_OF_ROW.ToString();
+            txtName2Column.Text = Config.NUMBER_OF_COLUMN.ToString();
             sizeSettingForm.Controls.Add(lblName1Row);
             sizeSettingForm.Controls.Add(lblName2Column);
             sizeSettingForm.Controls.Add(txtName1Row);
@@ -544,7 +544,7 @@ namespace CaroGame
         private void DrawLoadGame(Form loadForm)
         {
             int Y = 40, count = 1;
-            if (CONST.saveData.GameSaveList.Count == 0)
+            if (Config.saveData.GameSaveList.Count == 0)
             {
                 Label info = new Label()
                 {
@@ -558,7 +558,7 @@ namespace CaroGame
             }
             else
             {
-                foreach (GameSave item in CONST.saveData.GameSaveList)
+                foreach (GameSave item in Config.saveData.GameSaveList)
                 {
                     string butText = count.ToString() + "." + item.PlayerName1 + " vs " + item.PlayerName2 + "; row: "
                         + item.NumberOfRow + "/ column: " + item.NumberOfColumn;
@@ -599,7 +599,7 @@ namespace CaroGame
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Text = "MainForm";
         }
         #endregion
     }
