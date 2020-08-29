@@ -38,3 +38,5 @@ D:\Documents\VisualStudio\Caro\CaroGame\obj\Debug\netcoreapp3.1\CaroGame.csproj.
 D:\Documents\VisualStudio\Caro\CaroGame\obj\Debug\netcoreapp3.1\CaroGame.dll
 D:\Documents\VisualStudio\Caro\CaroGame\obj\Debug\netcoreapp3.1\CaroGame.pdb
 D:\Documents\VisualStudio\Caro\CaroGame\obj\Debug\netcoreapp3.1\CaroGame.genruntimeconfig.cache
+D:\Documents\VisualStudio\Caro\CaroGame\obj\Debug\netcoreapp3.1\CaroGame.MainForm.resources
+D:\Documents\VisualStudio\Caro\CaroGame\obj\Debug\netcoreapp3.1\CaroGame.csproj.GenerateResource.cache

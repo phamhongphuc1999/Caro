@@ -1,4 +1,4 @@
-﻿using CaroGame.Config;
+﻿using CaroGame.Configuration;
 
 namespace CaroGame.SaveGameManagement
 {
@@ -10,47 +10,47 @@ namespace CaroGame.SaveGameManagement
 
         public static void SaveCurrentGame()
         {
-            if (CONST.IS_LOAD_GAME)
+            if (Config.IS_LOAD_GAME)
             {
-                CONST.saveData.GameSaveList[index].NumberOfColumn = CONST.NUMBER_OF_COLUMN;
-                CONST.saveData.GameSaveList[index].NumberOfRow = CONST.NUMBER_OF_ROW;
-                CONST.saveData.GameSaveList[index].PlayerName1 = CONST.NAME_PLAYER1;
-                CONST.saveData.GameSaveList[index].PlayerName2 = CONST.NAME_PLAYER2;
-                CONST.saveData.GameSaveList[index].CaroBoard = caroBoard;
-                CONST.saveData.GameSaveList[index].Turn = turn;
+                Config.saveData.GameSaveList[index].NumberOfColumn = Config.NUMBER_OF_COLUMN;
+                Config.saveData.GameSaveList[index].NumberOfRow = Config.NUMBER_OF_ROW;
+                Config.saveData.GameSaveList[index].PlayerName1 = Config.NAME_PLAYER1;
+                Config.saveData.GameSaveList[index].PlayerName2 = Config.NAME_PLAYER2;
+                Config.saveData.GameSaveList[index].CaroBoard = caroBoard;
+                Config.saveData.GameSaveList[index].Turn = turn;
             }
-            else if (CONST.IS_OLD_GAME)
+            else if (Config.IS_OLD_GAME)
             {
-                CONST.saveData.GameSaveList[CONST.INDEX_OLD_GAME].NumberOfColumn = CONST.NUMBER_OF_COLUMN;
-                CONST.saveData.GameSaveList[CONST.INDEX_OLD_GAME].NumberOfRow = CONST.NUMBER_OF_ROW;
-                CONST.saveData.GameSaveList[CONST.INDEX_OLD_GAME].PlayerName1 = CONST.NAME_PLAYER1;
-                CONST.saveData.GameSaveList[CONST.INDEX_OLD_GAME].PlayerName2 = CONST.NAME_PLAYER2;
-                CONST.saveData.GameSaveList[CONST.INDEX_OLD_GAME].CaroBoard = caroBoard;
-                CONST.saveData.GameSaveList[CONST.INDEX_OLD_GAME].Turn = turn;
+                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].NumberOfColumn = Config.NUMBER_OF_COLUMN;
+                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].NumberOfRow = Config.NUMBER_OF_ROW;
+                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].PlayerName1 = Config.NAME_PLAYER1;
+                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].PlayerName2 = Config.NAME_PLAYER2;
+                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].CaroBoard = caroBoard;
+                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].Turn = turn;
             }
             else
             {
                 GameSave gameSave = new GameSave()
                 {
-                    NumberOfColumn = CONST.NUMBER_OF_COLUMN,
-                    NumberOfRow = CONST.NUMBER_OF_ROW,
-                    PlayerName1 = CONST.NAME_PLAYER1,
-                    PlayerName2 = CONST.NAME_PLAYER2,
+                    NumberOfColumn = Config.NUMBER_OF_COLUMN,
+                    NumberOfRow = Config.NUMBER_OF_ROW,
+                    PlayerName1 = Config.NAME_PLAYER1,
+                    PlayerName2 = Config.NAME_PLAYER2,
                     CaroBoard = caroBoard,
                     Turn = turn
                 };
-                CONST.saveData.GameSaveList.Add(gameSave);
-                CONST.IS_OLD_GAME = true;
-                CONST.INDEX_OLD_GAME = CONST.saveData.GameSaveList.Count - 1;
+                Config.saveData.GameSaveList.Add(gameSave);
+                Config.IS_OLD_GAME = true;
+                Config.INDEX_OLD_GAME = Config.saveData.GameSaveList.Count - 1;
             }
         }
 
         public static void DrawSaveGame(GameSave gameSave)
         {
-            CONST.NAME_PLAYER1 = gameSave.PlayerName1;
-            CONST.NAME_PLAYER2 = gameSave.PlayerName2;
-            CONST.NUMBER_OF_COLUMN = gameSave.NumberOfColumn;
-            CONST.NUMBER_OF_ROW = gameSave.NumberOfRow;
+            Config.NAME_PLAYER1 = gameSave.PlayerName1;
+            Config.NAME_PLAYER2 = gameSave.PlayerName2;
+            Config.NUMBER_OF_COLUMN = gameSave.NumberOfColumn;
+            Config.NUMBER_OF_ROW = gameSave.NumberOfRow;
         }
     }
 }

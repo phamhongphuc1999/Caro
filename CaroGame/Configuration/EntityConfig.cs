@@ -1,6 +1,6 @@
-﻿namespace CaroGame.Config
+﻿namespace CaroGame.Configuration
 {
-    class JsonConst
+    class EntityConfig
     {
         public int numberOfRow { get; set; }
         public int numberOfColumn { get; set; }

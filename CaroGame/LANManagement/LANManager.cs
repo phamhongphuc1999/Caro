@@ -1,4 +1,4 @@
-﻿using CaroGame.Config;
+﻿using CaroGame.Configuration;
 using DataTransmission;
 using System;
 using System.Net;
@@ -62,8 +62,8 @@ namespace CaroGame.LANManagement
 
         public int RECEIVE_TCP(ref MessageData message, SocketFlags flags)
         {
-            byte[] bData = new byte[CONST.BUFF_SIZE];
-            int result = client.Receive(bData, CONST.BUFF_SIZE, flags);
+            byte[] bData = new byte[Config.BUFF_SIZE];
+            int result = client.Receive(bData, Config.BUFF_SIZE, flags);
             message = (MessageData)Data.DeserializeData(bData);
             return result;
         }
@@ -72,7 +72,7 @@ namespace CaroGame.LANManagement
         #region CLIENT
         public bool ConnectServer()
         {
-            IPEndPoint iep = new IPEndPoint(IPAddress.Parse(CONST.IP), CONST.PORT);
+            IPEndPoint iep = new IPEndPoint(IPAddress.Parse(Config.IP), Config.PORT);
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
             {
@@ -91,7 +91,7 @@ namespace CaroGame.LANManagement
         {
             try
             {
-                IPEndPoint iep = new IPEndPoint(IPAddress.Parse(CONST.IP), CONST.PORT);
+                IPEndPoint iep = new IPEndPoint(IPAddress.Parse(Config.IP), Config.PORT);
                 server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 server.Bind(iep);
                 server.Listen(10);

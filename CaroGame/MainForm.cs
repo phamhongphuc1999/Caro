@@ -1,5 +1,5 @@
 ﻿using CaroGame.CaroManagement;
-using CaroGame.Config;
+using CaroGame.Configuration;
 using CaroGame.LANManagement;
 using CaroGame.SaveGameManagement;
 using CaroGame.SoundManagement;
@@ -12,23 +12,23 @@ using System.Windows.Forms;
 
 namespace CaroGame
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private CaroManager caroManager;
         private LANManager lanManager;
         private SoundManager soundManager;
 
-        public Form1()
+        public MainForm()
         {
             InitializeController();
             InitializeComponent();
             caroManager = new CaroManager(txtPlayer, pnlCaroBoard, lblTime);
             lanManager = new LANManager();
             soundManager = new SoundManager();
-            if (CONST.IS_PLAY_MUSIC)
+            if (Config.IS_PLAY_MUSIC)
             {
                 soundManager.IsLoop = true;
-                soundManager.Volume = CONST.VOLUME_SIZE;
+                soundManager.Volume = Config.VOLUME_SIZE;
                 soundManager.Play("./Sound/su-thanh-hoa.wav");
             }
             CaroManager.lanManager = lanManager;
@@ -48,17 +48,17 @@ namespace CaroGame
                     lanManager.RECEIVE_TCP(ref message, SocketFlags.None);
                     if (message.odcode == 100)
                     {
-                        CONST.NAME_PLAYER2 = message.data;
-                        if (!CONST.IS_SERVER)
+                        Config.NAME_PLAYER2 = message.data;
+                        if (!Config.IS_SERVER)
                         {
-                            CONST.NUMBER_OF_ROW = message.X;
-                            CONST.NUMBER_OF_COLUMN = message.Y;
+                            Config.NUMBER_OF_ROW = message.X;
+                            Config.NUMBER_OF_COLUMN = message.Y;
                         }
                         else
                         {
-                            message.data = CONST.NAME_PLAYER1;
+                            message.data = Config.NAME_PLAYER1;
                             lanManager.SEND_TCP(message, SocketFlags.None);
-                            Data.AdjustMessage(ref message, 100, CONST.NUMBER_OF_ROW, CONST.NUMBER_OF_COLUMN, "");
+                            Data.AdjustMessage(ref message, 100, Config.NUMBER_OF_ROW, Config.NUMBER_OF_COLUMN, "");
                             lanManager.SEND_TCP(message, SocketFlags.None);
                         }
                     }
@@ -74,13 +74,13 @@ namespace CaroGame
         #region Event Load And Save Game Handler
         private void ButLoadGameSetting_Click(object sender, EventArgs e)
         {
-            CONST.IS_LOAD_GAME = true;
+            Config.IS_LOAD_GAME = true;
             DrawLoadGame(settingForm);
         }
 
         private void ButLoadGame_Click(object sender, EventArgs e)
         {
-            CONST.IS_LOAD_GAME = true;
+            Config.IS_LOAD_GAME = true;
             DrawLoadGame(this);
         }
 
@@ -89,7 +89,7 @@ namespace CaroGame
             SaveGameHelper.caroBoard = caroManager.ConvertBoardToString();
             SaveGameHelper.turn = caroManager.Turn;
             SaveGameHelper.SaveCurrentGame();
-            CONST.WriteSaveGame();
+            Config.WriteSaveGame();
             settingForm.Close();
         }
 
@@ -109,7 +109,7 @@ namespace CaroGame
             else if (temp == "Player Setting" || temp == "Time Setting" || temp == "Game Mode Setting"
                 || temp == "Size Setting" || temp == "Sound Setting")
                 DrawSettingForm(settingForm);
-            else if (temp == "LAN Connection") DrawPlayerForm(this, "Player", CONST.GAME_MODE);
+            else if (temp == "LAN Connection") DrawPlayerForm(this, "Player", Config.GAME_MODE);
         }
         #endregion
 
@@ -122,7 +122,7 @@ namespace CaroGame
             if (temp == "Setting")
             {
                 settingForm.Close();
-                if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") timer.Start();
+                if (Config.IS_ON_TIMER && Config.GAME_MODE != "LAN") timer.Start();
             }
             else if (temp == "Time Setting")
             {
@@ -134,25 +134,25 @@ namespace CaroGame
                     if (!check1 || !check2)
                     {
                         MessageBox.Show("Must be enter integer", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtSTimeTurn.Text = CONST.TIME_TURN.ToString();
-                        txtSTimeInterval.Text = CONST.INTERVAL.ToString();
+                        txtSTimeTurn.Text = Config.TIME_TURN.ToString();
+                        txtSTimeInterval.Text = Config.INTERVAL.ToString();
                         return;
                     }
                     if (timeTurn <= 0 || timeTurn < interval || timeTurn > 30)
                     {
                         MessageBox.Show("time turn is the integer within 0 and 30 and less than interval", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtSTimeTurn.Text = CONST.TIME_TURN.ToString();
-                        txtSTimeInterval.Text = CONST.INTERVAL.ToString();
+                        txtSTimeTurn.Text = Config.TIME_TURN.ToString();
+                        txtSTimeInterval.Text = Config.INTERVAL.ToString();
                         return;
                     }
-                    CONST.IS_ON_TIMER = true;
-                    CONST.TIME_TURN = timeTurn;
-                    CONST.INTERVAL = interval;
-                    lblTime.Text = CONST.TIME_TURN.ToString();
+                    Config.IS_ON_TIMER = true;
+                    Config.TIME_TURN = timeTurn;
+                    Config.INTERVAL = interval;
+                    lblTime.Text = Config.TIME_TURN.ToString();
                 }
                 else
                 {
-                    CONST.IS_ON_TIMER = false;
+                    Config.IS_ON_TIMER = false;
                     lblTime.Text = "No Timer";
                 }
                 DrawSettingForm(settingForm);
@@ -165,60 +165,60 @@ namespace CaroGame
                 if (!check1 || !check2)
                 {
                     MessageBox.Show("Must be enter integer", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtName1Row.Text = CONST.NUMBER_OF_ROW.ToString();
-                    txtName2Column.Text = CONST.NUMBER_OF_COLUMN.ToString();
+                    txtName1Row.Text = Config.NUMBER_OF_ROW.ToString();
+                    txtName2Column.Text = Config.NUMBER_OF_COLUMN.ToString();
                     return;
                 }
                 if (row > 20 || row < 10 || column > 30 || column < 10)
                 {
                     MessageBox.Show("Number of row is less than 20 and greater than 10\nNumber of column is less than 30 and greater than 10"
                         , "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtName1Row.Text = CONST.NUMBER_OF_ROW.ToString();
-                    txtName2Column.Text = CONST.NUMBER_OF_COLUMN.ToString();
+                    txtName1Row.Text = Config.NUMBER_OF_ROW.ToString();
+                    txtName2Column.Text = Config.NUMBER_OF_COLUMN.ToString();
                     return;
                 }
                 DialogResult result = MessageBox.Show("This action will make a new game\nAre you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK)
                 {
-                    CONST.NUMBER_OF_ROW = row;
-                    CONST.NUMBER_OF_COLUMN = column;
+                    Config.NUMBER_OF_ROW = row;
+                    Config.NUMBER_OF_COLUMN = column;
                     settingForm.Close();
                     caroManager.NewGameHandle(caroManager.Turn);
                 }
             }
-            else if (temp == "Player" && CONST.GAME_MODE == "TWO_PLAYER")
+            else if (temp == "Player" && Config.GAME_MODE == "TWO_PLAYER")
             {
                 string namePlayer1 = txtName1Row.Text;
                 string namePlayer2 = txtName2Column.Text;
                 if (string.IsNullOrEmpty(namePlayer1) || string.IsNullOrEmpty(namePlayer2))
                 {
                     MessageBox.Show("Must be enter your name", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtName1Row.Text = CONST.NAME_PLAYER1;
-                    txtName2Column.Text = CONST.NAME_PLAYER2;
+                    txtName1Row.Text = Config.NAME_PLAYER1;
+                    txtName2Column.Text = Config.NAME_PLAYER2;
                     return;
                 }
                 if (namePlayer1 == namePlayer2)
                 {
                     MessageBox.Show("Wrong", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtName1Row.Text = CONST.NAME_PLAYER1;
-                    txtName2Column.Text = CONST.NAME_PLAYER2;
+                    txtName1Row.Text = Config.NAME_PLAYER1;
+                    txtName2Column.Text = Config.NAME_PLAYER2;
                     return;
                 }
-                CONST.NAME_PLAYER1 = namePlayer1;
-                CONST.NAME_PLAYER2 = namePlayer2;
+                Config.NAME_PLAYER1 = namePlayer1;
+                Config.NAME_PLAYER2 = namePlayer2;
                 caroManager.NewGameHandle(0);
-                if (CONST.IS_ON_TIMER) timer.Start();
+                if (Config.IS_ON_TIMER) timer.Start();
             }
-            else if (temp == "Player" && CONST.GAME_MODE == "LAN")
+            else if (temp == "Player" && Config.GAME_MODE == "LAN")
             {
                 string namePlayer = txtName1Row.Text;
                 if (string.IsNullOrEmpty(namePlayer))
                 {
                     MessageBox.Show("Must be enter your name", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtName1Row.Text = CONST.NAME_PLAYER1;
+                    txtName1Row.Text = Config.NAME_PLAYER1;
                     return;
                 }
-                CONST.NAME_PLAYER1 = namePlayer;
+                Config.NAME_PLAYER1 = namePlayer;
                 DrawLANForm(this);
             }
             else if (temp == "Player Setting")
@@ -228,39 +228,39 @@ namespace CaroGame
                 if (string.IsNullOrEmpty(namePlayer1) || string.IsNullOrEmpty(namePlayer2))
                 {
                     MessageBox.Show("Must be enter your name", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtName1Row.Text = CONST.NAME_PLAYER1;
-                    txtName2Column.Text = CONST.NAME_PLAYER2;
+                    txtName1Row.Text = Config.NAME_PLAYER1;
+                    txtName2Column.Text = Config.NAME_PLAYER2;
                     return;
                 }
                 if (namePlayer1 == namePlayer2)
                 {
                     MessageBox.Show("Wrong", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtName1Row.Text = CONST.NAME_PLAYER1;
-                    txtName2Column.Text = CONST.NAME_PLAYER2;
+                    txtName1Row.Text = Config.NAME_PLAYER1;
+                    txtName2Column.Text = Config.NAME_PLAYER2;
                     return;
                 }
-                CONST.NAME_PLAYER1 = namePlayer1;
-                CONST.NAME_PLAYER2 = namePlayer2;
-                caroManager.PlayerList[0].NamePlayer = CONST.NAME_PLAYER1;
-                caroManager.PlayerList[1].NamePlayer = CONST.NAME_PLAYER2;
+                Config.NAME_PLAYER1 = namePlayer1;
+                Config.NAME_PLAYER2 = namePlayer2;
+                caroManager.PlayerList[0].NamePlayer = Config.NAME_PLAYER1;
+                caroManager.PlayerList[1].NamePlayer = Config.NAME_PLAYER2;
                 txtPlayer.Text = caroManager.PlayerList[caroManager.Turn].NamePlayer;
                 DrawSettingForm(settingForm);
             }
             else if (temp == "LAN Connection") caroManager.NewGameHandle(0);
             else if (temp == "Sound Setting")
             {
-                CONST.VOLUME_SIZE = (int)numSound.Value;
-                soundManager.Volume = CONST.VOLUME_SIZE;
-                if (CONST.VOLUME_SIZE == 0)
+                Config.VOLUME_SIZE = (int)numSound.Value;
+                soundManager.Volume = Config.VOLUME_SIZE;
+                if (Config.VOLUME_SIZE == 0)
                 {
-                    CONST.IS_PLAY_MUSIC = false;
+                    Config.IS_PLAY_MUSIC = false;
                     soundManager.Stop();
                 }
                 else
                 {
-                    CONST.IS_PLAY_MUSIC = true;
+                    Config.IS_PLAY_MUSIC = true;
                     soundManager.IsLoop = true;
-                    soundManager.Volume = CONST.VOLUME_SIZE;
+                    soundManager.Volume = Config.VOLUME_SIZE;
                     soundManager.Play("./Sound/su-thanh-hoa.wav");
                 }
                 DrawSettingForm(settingForm);
@@ -296,7 +296,7 @@ namespace CaroGame
         #region Event Caro Manager Handler
         private void CaroManager_EndGameEvent(object sender, EventArgs e)
         {
-            if (CONST.IS_ON_TIMER) timer.Stop();
+            if (Config.IS_ON_TIMER) timer.Stop();
             butUndo.Enabled = false;
             butRedo.Enabled = false;
         }
@@ -304,7 +304,7 @@ namespace CaroGame
         private void CaroManager_NewGameEvent(object sender, EventArgs e)
         {
             DrawMainForm(this);
-            if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") timer.Start();
+            if (Config.IS_ON_TIMER && Config.GAME_MODE != "LAN") timer.Start();
             butUndo.Enabled = true;
             butRedo.Enabled = true;
         }
@@ -322,8 +322,8 @@ namespace CaroGame
             Form parent = (Form)eventBut.Parent;
             if (parent.Text == "Game Mode")
             {
-                CONST.GAME_MODE = "LAN";
-                CONST.IS_LOAD_GAME = false;
+                Config.GAME_MODE = "LAN";
+                Config.IS_LOAD_GAME = false;
                 DrawPlayerForm(this, "Player", "LAN");
             }
             else
@@ -331,7 +331,7 @@ namespace CaroGame
                 DialogResult result = MessageBox.Show("This action will make a new game\nAre you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.OK)
                 {
-                    CONST.GAME_MODE = "LAN";
+                    Config.GAME_MODE = "LAN";
                     settingForm.Close();
                     DrawPlayerForm(this, "Player", "LAN");
                 }
@@ -344,8 +344,8 @@ namespace CaroGame
             Form parent = (Form)eventBut.Parent;
             if (parent.Text == "Game Mode")
             {
-                CONST.GAME_MODE = "TWO_PLAYER";
-                CONST.IS_LOAD_GAME = false;
+                Config.GAME_MODE = "TWO_PLAYER";
+                Config.IS_LOAD_GAME = false;
                 DrawPlayerForm(this, "Player", "TWO_PLAYER");
             }
             else
@@ -353,11 +353,11 @@ namespace CaroGame
                 DialogResult result = MessageBox.Show("This action will make a new game\nAre you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.OK)
                 {
-                    CONST.GAME_MODE = "TWO_PLAYER";
+                    Config.GAME_MODE = "TWO_PLAYER";
                     settingForm.Close();
                     DrawMainForm(this);
                     caroManager.NewGameHandle(0);
-                    if (CONST.IS_ON_TIMER) timer.Start();
+                    if (Config.IS_ON_TIMER) timer.Start();
                 }
             }
         }
@@ -390,7 +390,7 @@ namespace CaroGame
             if (result == DialogResult.OK) caroManager.NewGameHandle(caroManager.Turn);
             else
             {
-                if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") timer.Start();
+                if (Config.IS_ON_TIMER && Config.GAME_MODE != "LAN") timer.Start();
             }
         }
         #endregion
@@ -400,7 +400,7 @@ namespace CaroGame
         {
             Button eventBut = sender as Button;
             int index = (int)eventBut.Tag;
-            CONST.saveData.GameSaveList.RemoveAt(index - 1);
+            Config.saveData.GameSaveList.RemoveAt(index - 1);
             DrawLoadGame(this);
         }
 
@@ -410,13 +410,13 @@ namespace CaroGame
             Form parent = eventBut.Parent as Form;
             int index = eventBut.Text[0] - '0' - 1;
             SaveGameHelper.index = index;
-            GameSave gameSave = CONST.saveData.GameSaveList[index];
-            CONST.NAME_PLAYER1 = gameSave.PlayerName1;
-            CONST.NAME_PLAYER2 = gameSave.PlayerName2;
-            CONST.NUMBER_OF_COLUMN = gameSave.NumberOfColumn;
-            CONST.NUMBER_OF_ROW = gameSave.NumberOfRow;
-            caroManager.PlayerList[0].NamePlayer = CONST.NAME_PLAYER1;
-            caroManager.PlayerList[1].NamePlayer = CONST.NAME_PLAYER2;
+            GameSave gameSave = Config.saveData.GameSaveList[index];
+            Config.NAME_PLAYER1 = gameSave.PlayerName1;
+            Config.NAME_PLAYER2 = gameSave.PlayerName2;
+            Config.NUMBER_OF_COLUMN = gameSave.NumberOfColumn;
+            Config.NUMBER_OF_ROW = gameSave.NumberOfRow;
+            caroManager.PlayerList[0].NamePlayer = Config.NAME_PLAYER1;
+            caroManager.PlayerList[1].NamePlayer = Config.NAME_PLAYER2;
             caroManager.LoadSaveGame(gameSave.Turn, gameSave.CaroBoard);
             if ((int)parent.Tag == 1) parent.Close();
             DrawMainForm(this);
@@ -484,7 +484,7 @@ namespace CaroGame
             {
                 if (LANManager.CheckIP(IP) && (port > 0) && (port < 99999))
                 {
-                    CONST.IP = IP; CONST.PORT = port;
+                    Config.IP = IP; Config.PORT = port;
                 node:
                     if (!lanManager.ConnectServer())
                     {
@@ -497,9 +497,9 @@ namespace CaroGame
                             butConnect.BackColor = Color.Green;
                             butGetIP.Enabled = false;
                             butSave.Enabled = true;
-                            CONST.IS_SERVER = true;
-                            CONST.IS_TURN = true;
-                            CONST.IS_LOCK = true;
+                            Config.IS_SERVER = true;
+                            Config.IS_TURN = true;
+                            Config.IS_LOCK = true;
                             Thread listenThread = new Thread(ListenOtherPlayer);
                             listenThread.IsBackground = true;
                             listenThread.Start();
@@ -521,13 +521,13 @@ namespace CaroGame
                         butConnect.BackColor = Color.Green;
                         butGetIP.Enabled = false;
                         butSave.Enabled = true;
-                        CONST.IS_SERVER = false;
-                        CONST.IS_TURN = false;
-                        CONST.IS_LOCK = false;
+                        Config.IS_SERVER = false;
+                        Config.IS_TURN = false;
+                        Config.IS_LOCK = false;
                         Thread listenThread = new Thread(ListenOtherPlayer);
                         listenThread.IsBackground = true;
                         listenThread.Start();
-                        lanManager.SEND_TCP(new MessageData(100, 0, 0, CONST.NAME_PLAYER1), SocketFlags.None);
+                        lanManager.SEND_TCP(new MessageData(100, 0, 0, Config.NAME_PLAYER1), SocketFlags.None);
                     }
                 }
             }
@@ -542,18 +542,18 @@ namespace CaroGame
             if (result == DialogResult.Cancel)
             {
                 e.Cancel = true;
-                if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") timer.Start();
+                if (Config.IS_ON_TIMER && Config.GAME_MODE != "LAN") timer.Start();
             }
             else
             {
-                if (!CONST.IS_LOAD_GAME) CONST.WriteCONST();
-                CONST.WriteSaveGame();
+                if (!Config.IS_LOAD_GAME) Config.WriteCONST();
+                Config.WriteSaveGame();
             }
         }
 
         private void SettingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (CONST.IS_ON_TIMER && CONST.GAME_MODE != "LAN") timer.Start();
+            if (Config.IS_ON_TIMER && Config.GAME_MODE != "LAN") timer.Start();
         }
 
         private void Timer_Tick(object sender, EventArgs e)
