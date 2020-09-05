@@ -143,7 +143,7 @@ namespace CaroGame.CaroManagement
         {
             Turn = player;
             pnlCaroBoard.Enabled = true;
-            if (Config.GAME_MODE == "LAN" && !Config.IS_SERVER)
+            if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN && !Config.IS_SERVER)
             {
                 PlayerList[0].NamePlayer = Config.NAME_PLAYER2;
                 PlayerList[1].NamePlayer = Config.NAME_PLAYER1;
@@ -157,7 +157,8 @@ namespace CaroGame.CaroManagement
             txtPlayer.BackColor = PlayerList[Turn].ColorPlayer;
             winManager.NewGameHanlde(player);
             DrawCaroBoard(Config.NUMBER_OF_ROW, Config.NUMBER_OF_COLUMN);
-            lblTime.Text = (Config.IS_ON_TIMER && Config.GAME_MODE != "LAN") ? Config.TIME_TURN.ToString() : "No Timer";
+            lblTime.Text = (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) ? 
+                Config.TIME_TURN.ToString() : "No Timer";
             Config.IS_OLD_GAME = false;
             Config.INDEX_OLD_GAME = -1;
             newGameEvent(this, new EventArgs());
@@ -194,14 +195,14 @@ namespace CaroGame.CaroManagement
             endGameEvent(this, new EventArgs());
             pnlCaroBoard.Enabled = false;
             if (sign == 0) ChangeFlatStypeWhenEndGame(eventBut);
-            if (Config.GAME_MODE == "TWO_PLAYER")
+            if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.TWO_PLAYER)
             {
                 if (sign == 0) MessageBox.Show(String.Format("The {0} win", PlayerList[player].NamePlayer), "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else MessageBox.Show("The Game is ended, no players is winer", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK) NewGameHandle(player);
             }
-            else if (Config.GAME_MODE == "LAN" && !Config.IS_TURN)
+            else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN && !Config.IS_TURN)
             {
                 Config.IS_LOCK = !Config.IS_LOCK;
                 Config.IS_TURN = !Config.IS_TURN;
@@ -219,7 +220,7 @@ namespace CaroGame.CaroManagement
 
                 }
             }
-            else if (Config.GAME_MODE == "LAN" && Config.IS_TURN)
+            else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN && Config.IS_TURN)
             {
                 Config.IS_LOCK = !Config.IS_LOCK;
                 Config.IS_TURN = !Config.IS_TURN;
@@ -230,40 +231,40 @@ namespace CaroGame.CaroManagement
 
         public void UndoHandle()
         {
-            if (butUndo.Count() > 0)
+            if (butUndo.Count > 0)
             {
-                if (Config.IS_ON_TIMER) lblTime.Text = Config.TIME_TURN.ToString();
-                else lblTime.Text = "No Timer";
-                Button but = butUndo.Pop();
-                butRedo.Push(but);
-                but.BackColor = Color.Transparent;
-                but.FlatStyle = FlatStyle.Standard;
-                winManager.UndoHandle(but.Location.X, but.Location.Y);
-                if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Flat;
-                TurnPalyer();
+                try
+                {
+                    if (Config.IS_ON_TIMER) lblTime.Text = Config.TIME_TURN.ToString();
+                    else lblTime.Text = "No Timer";
+                    Button but = butUndo.Pop();
+                    butRedo.Push(but);
+                    but.BackColor = Color.Transparent;
+                    but.FlatStyle = FlatStyle.Standard;
+                    winManager.UndoHandle(but.Location.X, but.Location.Y);
+                    if (butUndo.Count > 0) butUndo.Peek().FlatStyle = FlatStyle.Flat;
+                    TurnPalyer();
+                }
+                catch
+                {
+                    MessageBox.Show("Do not undo game", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
         public void RedoHandle()
         {
-            if (butRedo.Count() > 0)
+            if (butRedo.Count > 0)
             {
                 if (Config.IS_ON_TIMER) lblTime.Text = Config.TIME_TURN.ToString();
                 else lblTime.Text = "No Timer";
-                try
-                {
-                    Button but = butRedo.Pop();
-                    if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
-                    butUndo.Push(but);
-                    but.BackColor = PlayerList[Turn].ColorPlayer;
-                    but.FlatStyle = FlatStyle.Flat;
-                    winManager.RedoHandle(but.Location.X, but.Location.Y);
-                    TurnPalyer();
-                }
-                catch
-                {
-                    MessageBox.Show("Can Not Redo Game", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                Button but = butRedo.Pop();
+                if (butUndo.Count > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
+                butUndo.Push(but);
+                but.BackColor = PlayerList[Turn].ColorPlayer;
+                but.FlatStyle = FlatStyle.Flat;
+                winManager.RedoHandle(but.Location.X, but.Location.Y);
+                TurnPalyer();
             }
         }
 
@@ -281,17 +282,18 @@ namespace CaroGame.CaroManagement
             int Y = eventBut.Location.Y;
             if (eventBut.Image == null && Config.IS_LOCK)
             {
-                if (Config.GAME_MODE == "LAN" && Config.IS_TURN)
+                if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN && Config.IS_TURN)
                 {
                     MessageData message = new MessageData(101, X, Y, "");
                     lanManager.SEND_TCP(message, SocketFlags.None);
                     Config.IS_TURN = !Config.IS_TURN;
                     Config.IS_LOCK = !Config.IS_LOCK;
                 }
-                else if (Config.GAME_MODE == "LAN") Config.IS_TURN = !Config.IS_TURN;
-                if (Config.IS_ON_TIMER && Config.GAME_MODE != "LAN") lblTime.Text = Config.TIME_TURN.ToString();
+                else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN) Config.IS_TURN = !Config.IS_TURN;
+                if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) 
+                    lblTime.Text = Config.TIME_TURN.ToString();
                 eventBut.FlatStyle = FlatStyle.Flat;
-                if (butUndo.Count() > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
+                if (butUndo.Count > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
                 butUndo.Push(eventBut);
                 winManager.Turn = Turn;
                 eventBut.BackColor = PlayerList[Turn].ColorPlayer;

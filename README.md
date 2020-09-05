@@ -37,7 +37,7 @@
 ### các chức năng của chương trình
 - thiết lập khung chat trong chế độ mạng LAN
 - chức năng phát nhạc, tính giờ, lưu trò chơi
-- chức năng undo game, redo game(vẫn còn lỗi chưa sửa)
+- chức năng undo game, redo game
 - chức năng tùy chỉnh kích thức, tên người chơi
 - chương trình có thể lưu một số thông số(số hàng, cột, các cài đặt về nhạc, đếm giờ) ngay cả khi đã tắt trò chơi(lưu vào file theo định dạng json)
 

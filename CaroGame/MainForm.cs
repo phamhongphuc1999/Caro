@@ -35,7 +35,8 @@ namespace CaroGame
             caroManager.NewGameEvent += CaroManager_NewGameEvent;
             caroManager.EndGameEvent += CaroManager_EndGameEvent;
             this.FormClosing += Form1_FormClosing;
-            DrawGameModeForm(this, "Game Mode");
+            DrawGameModeForm(this, Config.NAME.GAME_MODE);
+            Config.caroFlow.Push(Config.NAME.GAME_MODE);
         }
 
         private void ListenOtherPlayer()
@@ -95,7 +96,7 @@ namespace CaroGame
 
         private void ButLoadBack_Click(object sender, EventArgs e)
         {
-            DrawGameModeForm(this, "Game Mode");
+            DrawGameModeForm(this, Config.NAME.GAME_MODE);
         }
         #endregion
 
@@ -105,11 +106,11 @@ namespace CaroGame
             Button eventBut = sender as Button;
             Form parent = (Form)eventBut.Parent;
             string temp = parent.Text;
-            if (temp == "Player") DrawGameModeForm(this, "Game Mode");
+            if (temp == "Player") DrawGameModeForm(this, Config.NAME.GAME_MODE);
             else if (temp == "Player Setting" || temp == "Time Setting" || temp == "Game Mode Setting"
                 || temp == "Size Setting" || temp == "Sound Setting")
                 DrawSettingForm(settingForm);
-            else if (temp == "LAN Connection") DrawPlayerForm(this, "Player", Config.GAME_MODE);
+            else if (temp == "LAN Connection") DrawPlayerForm(this, "Player", Config.GAME_MODE.CurrentGameMode);
         }
         #endregion
 
@@ -122,7 +123,7 @@ namespace CaroGame
             if (temp == "Setting")
             {
                 settingForm.Close();
-                if (Config.IS_ON_TIMER && Config.GAME_MODE != "LAN") timer.Start();
+                if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
             }
             else if (temp == "Time Setting")
             {
@@ -186,7 +187,7 @@ namespace CaroGame
                     caroManager.NewGameHandle(caroManager.Turn);
                 }
             }
-            else if (temp == "Player" && Config.GAME_MODE == "TWO_PLAYER")
+            else if (temp == "Player" && Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.TWO_PLAYER)
             {
                 string namePlayer1 = txtName1Row.Text;
                 string namePlayer2 = txtName2Column.Text;
@@ -209,7 +210,7 @@ namespace CaroGame
                 caroManager.NewGameHandle(0);
                 if (Config.IS_ON_TIMER) timer.Start();
             }
-            else if (temp == "Player" && Config.GAME_MODE == "LAN")
+            else if (temp == "Player" && Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN)
             {
                 string namePlayer = txtName1Row.Text;
                 if (string.IsNullOrEmpty(namePlayer))
@@ -289,7 +290,7 @@ namespace CaroGame
 
         private void ButGameMode_Click(object sender, EventArgs e)
         {
-            DrawGameModeForm(settingForm, "Game Mode Setting");
+            DrawGameModeForm(settingForm, Config.NAME.GAME_MODE_SETTING);
         }
         #endregion
 
@@ -304,7 +305,7 @@ namespace CaroGame
         private void CaroManager_NewGameEvent(object sender, EventArgs e)
         {
             DrawMainForm(this);
-            if (Config.IS_ON_TIMER && Config.GAME_MODE != "LAN") timer.Start();
+            if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
             butUndo.Enabled = true;
             butRedo.Enabled = true;
         }
@@ -318,44 +319,46 @@ namespace CaroGame
 
         private void ButModeLan_Click(object sender, EventArgs e)
         {
-            Button eventBut = sender as Button;
-            Form parent = (Form)eventBut.Parent;
-            if (parent.Text == "Game Mode")
+            string prevForm = Config.caroFlow.Peek();
+            if (prevForm == Config.NAME.GAME_MODE)
             {
-                Config.GAME_MODE = "LAN";
+                Config.GAME_MODE.CurrentGameMode = Config.GAME_MODE.LAN;
                 Config.IS_LOAD_GAME = false;
-                DrawPlayerForm(this, "Player", "LAN");
+                DrawPlayerForm(this, Config.NAME.PLAYER, Config.GAME_MODE.LAN);
+                Config.caroFlow.Push(Config.NAME.PLAYER);
             }
-            else
+            else if(prevForm == Config.NAME.GAME_MODE_SETTING)
             {
                 DialogResult result = MessageBox.Show("This action will make a new game\nAre you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.OK)
                 {
-                    Config.GAME_MODE = "LAN";
+                    Config.GAME_MODE.CurrentGameMode = Config.GAME_MODE.LAN;
                     settingForm.Close();
-                    DrawPlayerForm(this, "Player", "LAN");
+                    DrawPlayerForm(this, Config.NAME.PLAYER, Config.GAME_MODE.LAN);
+                    Config.caroFlow.Push(Config.NAME.PLAYER);
                 }
             }
         }
 
         private void ButTwoPlayer_Click(object sender, EventArgs e)
         {
-            Button eventBut = sender as Button;
-            Form parent = (Form)eventBut.Parent;
-            if (parent.Text == "Game Mode")
+            string prevForm = Config.caroFlow.Peek();
+            if (prevForm == Config.NAME.GAME_MODE)
             {
-                Config.GAME_MODE = "TWO_PLAYER";
+                Config.GAME_MODE.CurrentGameMode = Config.GAME_MODE.TWO_PLAYER;
                 Config.IS_LOAD_GAME = false;
-                DrawPlayerForm(this, "Player", "TWO_PLAYER");
+                DrawPlayerForm(this, Config.NAME.PLAYER, Config.GAME_MODE.TWO_PLAYER);
+                Config.caroFlow.Push(Config.NAME.PLAYER);
             }
-            else
+            else if(prevForm == Config.NAME.GAME_MODE_SETTING)
             {
                 DialogResult result = MessageBox.Show("This action will make a new game\nAre you sure?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.OK)
                 {
-                    Config.GAME_MODE = "TWO_PLAYER";
+                    Config.GAME_MODE.CurrentGameMode = Config.GAME_MODE.TWO_PLAYER;
                     settingForm.Close();
                     DrawMainForm(this);
+                    Config.caroFlow.Push(Config.NAME.CARO);
                     caroManager.NewGameHandle(0);
                     if (Config.IS_ON_TIMER) timer.Start();
                 }
@@ -390,7 +393,7 @@ namespace CaroGame
             if (result == DialogResult.OK) caroManager.NewGameHandle(caroManager.Turn);
             else
             {
-                if (Config.IS_ON_TIMER && Config.GAME_MODE != "LAN") timer.Start();
+                if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
             }
         }
         #endregion
@@ -542,7 +545,7 @@ namespace CaroGame
             if (result == DialogResult.Cancel)
             {
                 e.Cancel = true;
-                if (Config.IS_ON_TIMER && Config.GAME_MODE != "LAN") timer.Start();
+                if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
             }
             else
             {
@@ -553,7 +556,7 @@ namespace CaroGame
 
         private void SettingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Config.IS_ON_TIMER && Config.GAME_MODE != "LAN") timer.Start();
+            if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
         }
 
         private void Timer_Tick(object sender, EventArgs e)

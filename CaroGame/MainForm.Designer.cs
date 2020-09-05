@@ -399,7 +399,7 @@ namespace CaroGame
             gameModeForm.Controls.Add(butTwoPlayer);
             gameModeForm.Controls.Add(butModeLan);
             gameModeForm.Controls.Add(butModeAI);
-            if (formText == "Game Mode Setting") gameModeForm.Controls.Add(butBack);
+            if (formText == Config.NAME.GAME_MODE_SETTING) gameModeForm.Controls.Add(butBack);
             else
             {
                 gameModeForm.Controls.Add(butLoadGame);
@@ -426,7 +426,7 @@ namespace CaroGame
             playerForm.Controls.Add(butBack);
             playerForm.Controls.Add(butSave);
             if (formText == "Player") butSave.Text = "Next";
-            else if (formText == "Player Setting") butSave.Text = "Save Change";
+            else if (formText == Config.NAME.PLAYER_SETTING) butSave.Text = "Save Change";
             butSave.Enabled = true;
         }
 
@@ -443,7 +443,7 @@ namespace CaroGame
             txtName1Row.Text = "";
             lblName1Row.Text = "IP";
             lblName2Column.Text = "Port";
-            DrawCommonForm(ref LANForm, "LAN Connection");
+            DrawCommonForm(ref LANForm, Config.NAME.LAN_CONNECTION);
             LANForm.Controls.Add(lblName1Row);
             LANForm.Controls.Add(lblName2Column);
             LANForm.Controls.Add(txtName1Row);
@@ -459,12 +459,12 @@ namespace CaroGame
             int width = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
             int height = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
             pnlCaroBoard.Size = new Size(width, height);
-            DrawCommonForm(ref mainForm, "Caro", width, height);
+            DrawCommonForm(ref mainForm, Config.NAME.CARO, width, height);
             txtPlayer.Location = new Point(pnlCaroBoard.Width - 240, 0);
             butUndo.Location = new Point(pnlCaroBoard.Width - 120, 30);
             butRedo.Location = new Point(pnlCaroBoard.Width - 240, 30);
             mainForm.AutoSize = true;
-            if (Config.GAME_MODE == "LAN")
+            if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN)
             {
                 pnlChat.Size = new Size(400, pnlCaroBoard.Height + 70);
                 pnlChat.Location = new Point(pnlCaroBoard.Width, 0);
@@ -488,7 +488,7 @@ namespace CaroGame
 
         private void DrawSettingForm(Form settingForm)
         {
-            DrawCommonForm(ref settingForm, "Setting");
+            DrawCommonForm(ref settingForm, Config.NAME.SETTING);
             settingForm.Icon = new Icon("./Image/setting.ico");
             settingForm.Controls.Add(butGameMode);
             settingForm.Controls.Add(butTimer);
@@ -499,13 +499,13 @@ namespace CaroGame
             settingForm.Controls.Add(butSaveGame);
             settingForm.Controls.Add(butLoadGameSetting);
             butSave.Text = "Save Change";
-            if (Config.GAME_MODE == "TWO_PLAYER") butTimer.Enabled = true;
-            else if (Config.GAME_MODE == "LAN") butTimer.Enabled = false;
+            if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.TWO_PLAYER) butTimer.Enabled = true;
+            else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN) butTimer.Enabled = false;
         }
 
         private void DrawTimeSettingForm(Form timeSettingForm)
         {
-            DrawCommonForm(ref timeSettingForm, "Time Setting");
+            DrawCommonForm(ref timeSettingForm, Config.NAME.TIME_SETTING);
             timeSettingForm.Controls.Add(lblSTimeTurn);
             timeSettingForm.Controls.Add(lblSTimeInterval);
             timeSettingForm.Controls.Add(txtSTimeTurn);
@@ -518,7 +518,7 @@ namespace CaroGame
 
         private void DrawSizeSettingForm(Form sizeSettingForm)
         {
-            DrawCommonForm(ref sizeSettingForm, "Size Setting");
+            DrawCommonForm(ref sizeSettingForm, Config.NAME.SIZE_SETTING);
             lblName1Row.Text = "Row";
             lblName2Column.Text = "Column";
             txtName1Row.Text = Config.NUMBER_OF_ROW.ToString();
@@ -534,7 +534,7 @@ namespace CaroGame
 
         private void DrawSoundSettingForm(Form soundSettingForm)
         {
-            DrawCommonForm(ref soundSettingForm, "Sound Setting");
+            DrawCommonForm(ref soundSettingForm, Config.NAME.SOUND_SETTING);
             soundSettingForm.Controls.Add(lblSSound);
             soundSettingForm.Controls.Add(numSound);
             soundSettingForm.Controls.Add(butSave);
@@ -582,7 +582,7 @@ namespace CaroGame
                     Y += 50; count++;
                 }
             }
-            DrawCommonForm(ref loadForm, "Load Game", 400, Y + 90);
+            DrawCommonForm(ref loadForm, Config.NAME.LOAD_GAME, 400, Y + 90);
             butLoadBack.Location = new Point(170, Y + 10);
             loadForm.Controls.Add(butLoadBack);
         }
