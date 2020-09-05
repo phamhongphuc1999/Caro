@@ -385,12 +385,13 @@ namespace CaroGame
         #endregion
 
         #region Draw Form
-        private void DrawCommonForm(ref Form form, string formText, int width = 600, int height = 375)
+        private void DrawCommonForm(ref Form form, string formText, int width = 600, int height = 375, bool isClear = true)
         {
-            form.Controls.Clear();
+            if(isClear) form.Controls.Clear();
             form.Text = formText;
             form.AutoScaleDimensions = new SizeF(9F, 20F);
             form.ClientSize = new Size(width, height);
+            Config.caroFlow.Push(formText);
         }
 
         private void DrawGameModeForm(Form gameModeForm, string formText)
@@ -412,7 +413,7 @@ namespace CaroGame
             DrawCommonForm(ref playerForm, formText);
             txtName1Row.Text = Config.NAME_PLAYER1;
             txtName2Column.Text = Config.NAME_PLAYER2;
-            if (gameMode == "LAN") lblName1Row.Text = "Player";
+            if (gameMode == Config.GAME_MODE.LAN) lblName1Row.Text = "Player";
             else
             {
                 lblName1Row.Text = "Player 1";
@@ -544,6 +545,7 @@ namespace CaroGame
         private void DrawLoadGame(Form loadForm)
         {
             int Y = 40, count = 1;
+            loadForm.Controls.Clear();
             if (Config.saveData.GameSaveList.Count == 0)
             {
                 Label info = new Label()
@@ -565,31 +567,31 @@ namespace CaroGame
                     Button button = new Button()
                     {
                         Text = butText,
-                        Size = new Size(200, 30),
+                        Size = new Size(200, 40),
                         Location = new Point(70, Y)
                     };
                     Button buttonDelete = new Button()
                     {
                         Tag = count,
                         Text = "X",
-                        Size = new Size(30, 30),
+                        Size = new Size(40, 40),
                         Location = new Point(270, Y)
                     };
                     button.Click += Button_Click;
                     buttonDelete.Click += ButtonDelete_Click;
                     loadForm.Controls.Add(button);
                     loadForm.Controls.Add(buttonDelete);
-                    Y += 50; count++;
+                    Y += 60; count++;
                 }
             }
-            DrawCommonForm(ref loadForm, Config.NAME.LOAD_GAME, 400, Y + 90);
-            butLoadBack.Location = new Point(170, Y + 10);
+            DrawCommonForm(ref loadForm, Config.NAME.LOAD_GAME, 400, Y + 110, false);
+            butLoadBack.Location = new Point(170, Y + 30);
             loadForm.Controls.Add(butLoadBack);
         }
 
         private void DrawAboutGame(Form aboutForm)
         {
-            DrawCommonForm(ref aboutForm, "About", 400, 250);
+            DrawCommonForm(ref aboutForm, Config.NAME.ABOUT, 400, 250);
             aboutForm.Icon = new Icon("./Image/about.ico");
             aboutForm.Controls.Add(rtbAbout);
         }

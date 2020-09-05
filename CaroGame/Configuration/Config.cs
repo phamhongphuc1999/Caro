@@ -52,7 +52,7 @@ namespace CaroGame.Configuration
 
         public static void WriteCONST()
         {
-            if (!(Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN && !Config.IS_SERVER))
+            if (!(GAME_MODE.CurrentGameMode == GAME_MODE.LAN && !Config.IS_SERVER))
             {
                 jsonConst.numberOfColumn = NUMBER_OF_COLUMN;
                 jsonConst.numberOfRow = NUMBER_OF_ROW;

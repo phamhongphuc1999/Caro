@@ -36,7 +36,6 @@ namespace CaroGame
             caroManager.EndGameEvent += CaroManager_EndGameEvent;
             this.FormClosing += Form1_FormClosing;
             DrawGameModeForm(this, Config.NAME.GAME_MODE);
-            Config.caroFlow.Push(Config.NAME.GAME_MODE);
         }
 
         private void ListenOtherPlayer()
@@ -96,36 +95,33 @@ namespace CaroGame
 
         private void ButLoadBack_Click(object sender, EventArgs e)
         {
-            DrawGameModeForm(this, Config.NAME.GAME_MODE);
+            Config.caroFlow.Pop();
+            string prevForm = Config.caroFlow.Peek();
+            if (prevForm == Config.NAME.GAME_MODE) DrawGameModeForm(this, Config.NAME.GAME_MODE);
+            else if (prevForm == Config.NAME.SETTING) DrawSettingForm(settingForm);
         }
         #endregion
 
         #region Event Player Infomation Handler
         private void ButBack_Click(object sender, EventArgs e)
         {
-            Button eventBut = sender as Button;
-            Form parent = (Form)eventBut.Parent;
-            string temp = parent.Text;
-            if (temp == "Player") DrawGameModeForm(this, Config.NAME.GAME_MODE);
-            else if (temp == "Player Setting" || temp == "Time Setting" || temp == "Game Mode Setting"
-                || temp == "Size Setting" || temp == "Sound Setting")
-                DrawSettingForm(settingForm);
-            else if (temp == "LAN Connection") DrawPlayerForm(this, "Player", Config.GAME_MODE.CurrentGameMode);
+            string currentFrom = Config.caroFlow.Peek();
+            if (currentFrom == Config.NAME.PLAYER) DrawGameModeForm(this, Config.NAME.GAME_MODE);
+            else if (currentFrom == Config.NAME.LAN_CONNECTION) DrawPlayerForm(this, Config.NAME.PLAYER, Config.GAME_MODE.CurrentGameMode);
+            else DrawSettingForm(settingForm);
         }
         #endregion
 
         #region Event Common Setting Handler
         private void ButSave_Click(object sender, EventArgs e)
         {
-            Button eventBut = sender as Button;
-            Form parent = eventBut.Parent as Form;
-            string temp = parent.Text;
-            if (temp == "Setting")
+            string currentForm = Config.caroFlow.Peek();
+            if (currentForm == Config.NAME.SETTING)
             {
                 settingForm.Close();
                 if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
             }
-            else if (temp == "Time Setting")
+            else if (currentForm == Config.NAME.TIME_SETTING)
             {
                 if (butSTimeOnOrOff.Text == "Off Timer")
                 {
@@ -158,7 +154,7 @@ namespace CaroGame
                 }
                 DrawSettingForm(settingForm);
             }
-            else if (temp == "Size Setting")
+            else if (currentForm == Config.NAME.SIZE_SETTING)
             {
                 int row = 0, column = 0;
                 bool check1 = Int32.TryParse(txtName1Row.Text, out row);
@@ -187,7 +183,7 @@ namespace CaroGame
                     caroManager.NewGameHandle(caroManager.Turn);
                 }
             }
-            else if (temp == "Player" && Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.TWO_PLAYER)
+            else if (currentForm == Config.NAME.PLAYER && Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.TWO_PLAYER)
             {
                 string namePlayer1 = txtName1Row.Text;
                 string namePlayer2 = txtName2Column.Text;
@@ -210,7 +206,7 @@ namespace CaroGame
                 caroManager.NewGameHandle(0);
                 if (Config.IS_ON_TIMER) timer.Start();
             }
-            else if (temp == "Player" && Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN)
+            else if (currentForm == Config.NAME.PLAYER && Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN)
             {
                 string namePlayer = txtName1Row.Text;
                 if (string.IsNullOrEmpty(namePlayer))
@@ -222,7 +218,7 @@ namespace CaroGame
                 Config.NAME_PLAYER1 = namePlayer;
                 DrawLANForm(this);
             }
-            else if (temp == "Player Setting")
+            else if (currentForm == Config.NAME.PLAYER_SETTING)
             {
                 string namePlayer1 = txtName1Row.Text;
                 string namePlayer2 = txtName2Column.Text;
@@ -247,8 +243,8 @@ namespace CaroGame
                 txtPlayer.Text = caroManager.PlayerList[caroManager.Turn].NamePlayer;
                 DrawSettingForm(settingForm);
             }
-            else if (temp == "LAN Connection") caroManager.NewGameHandle(0);
-            else if (temp == "Sound Setting")
+            else if (currentForm == Config.NAME.LAN_CONNECTION) caroManager.NewGameHandle(0);
+            else if (currentForm == Config.NAME.SOUND_SETTING)
             {
                 Config.VOLUME_SIZE = (int)numSound.Value;
                 soundManager.Volume = Config.VOLUME_SIZE;
@@ -280,7 +276,7 @@ namespace CaroGame
 
         private void ButNamePlayer_Click(object sender, EventArgs e)
         {
-            DrawPlayerForm(settingForm, "Player Setting");
+            DrawPlayerForm(settingForm, Config.NAME.PLAYER_SETTING);
         }
 
         private void ButTimer_Click(object sender, EventArgs e)
@@ -325,7 +321,6 @@ namespace CaroGame
                 Config.GAME_MODE.CurrentGameMode = Config.GAME_MODE.LAN;
                 Config.IS_LOAD_GAME = false;
                 DrawPlayerForm(this, Config.NAME.PLAYER, Config.GAME_MODE.LAN);
-                Config.caroFlow.Push(Config.NAME.PLAYER);
             }
             else if(prevForm == Config.NAME.GAME_MODE_SETTING)
             {
@@ -335,7 +330,6 @@ namespace CaroGame
                     Config.GAME_MODE.CurrentGameMode = Config.GAME_MODE.LAN;
                     settingForm.Close();
                     DrawPlayerForm(this, Config.NAME.PLAYER, Config.GAME_MODE.LAN);
-                    Config.caroFlow.Push(Config.NAME.PLAYER);
                 }
             }
         }
@@ -348,7 +342,6 @@ namespace CaroGame
                 Config.GAME_MODE.CurrentGameMode = Config.GAME_MODE.TWO_PLAYER;
                 Config.IS_LOAD_GAME = false;
                 DrawPlayerForm(this, Config.NAME.PLAYER, Config.GAME_MODE.TWO_PLAYER);
-                Config.caroFlow.Push(Config.NAME.PLAYER);
             }
             else if(prevForm == Config.NAME.GAME_MODE_SETTING)
             {
@@ -358,7 +351,6 @@ namespace CaroGame
                     Config.GAME_MODE.CurrentGameMode = Config.GAME_MODE.TWO_PLAYER;
                     settingForm.Close();
                     DrawMainForm(this);
-                    Config.caroFlow.Push(Config.NAME.CARO);
                     caroManager.NewGameHandle(0);
                     if (Config.IS_ON_TIMER) timer.Start();
                 }
@@ -410,6 +402,8 @@ namespace CaroGame
         private void Button_Click(object sender, EventArgs e)
         {
             Button eventBut = sender as Button;
+            Config.caroFlow.Pop();
+            string prevForm = Config.caroFlow.Peek();
             Form parent = eventBut.Parent as Form;
             int index = eventBut.Text[0] - '0' - 1;
             SaveGameHelper.index = index;
@@ -421,7 +415,7 @@ namespace CaroGame
             caroManager.PlayerList[0].NamePlayer = Config.NAME_PLAYER1;
             caroManager.PlayerList[1].NamePlayer = Config.NAME_PLAYER2;
             caroManager.LoadSaveGame(gameSave.Turn, gameSave.CaroBoard);
-            if ((int)parent.Tag == 1) parent.Close();
+            if (prevForm == Config.NAME.SETTING) parent.Close();
             DrawMainForm(this);
         }
         #endregion
