@@ -16,9 +16,15 @@ namespace CaroGame.CaroManagement
             count = maxReturn;
         }
 
-        public int Count()
+        public int Count
         {
-            return save.Count;
+            get { return save.Count; }
+        }
+
+        public int MaxReturn
+        {
+            get { return maxReturn; }
+            set { maxReturn = value; }
         }
 
         public void Push(T item)

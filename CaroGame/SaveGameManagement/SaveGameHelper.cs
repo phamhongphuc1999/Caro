@@ -17,6 +17,7 @@ namespace CaroGame.SaveGameManagement
                 Config.saveData.GameSaveList[index].PlayerName1 = Config.NAME_PLAYER1;
                 Config.saveData.GameSaveList[index].PlayerName2 = Config.NAME_PLAYER2;
                 Config.saveData.GameSaveList[index].CaroBoard = caroBoard;
+                Config.saveData.GameSaveList[index].GameMode = Config.GAME_MODE.CurrentGameMode;
                 Config.saveData.GameSaveList[index].Turn = turn;
             }
             else if (Config.IS_OLD_GAME)
@@ -26,6 +27,7 @@ namespace CaroGame.SaveGameManagement
                 Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].PlayerName1 = Config.NAME_PLAYER1;
                 Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].PlayerName2 = Config.NAME_PLAYER2;
                 Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].CaroBoard = caroBoard;
+                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].GameMode = Config.GAME_MODE.CurrentGameMode;
                 Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].Turn = turn;
             }
             else
@@ -37,6 +39,7 @@ namespace CaroGame.SaveGameManagement
                     PlayerName1 = Config.NAME_PLAYER1,
                     PlayerName2 = Config.NAME_PLAYER2,
                     CaroBoard = caroBoard,
+                    GameMode = Config.GAME_MODE.CurrentGameMode,
                     Turn = turn
                 };
                 Config.saveData.GameSaveList.Add(gameSave);
@@ -51,6 +54,7 @@ namespace CaroGame.SaveGameManagement
             Config.NAME_PLAYER2 = gameSave.PlayerName2;
             Config.NUMBER_OF_COLUMN = gameSave.NumberOfColumn;
             Config.NUMBER_OF_ROW = gameSave.NumberOfRow;
+            Config.GAME_MODE.CurrentGameMode = gameSave.GameMode;
         }
     }
 }

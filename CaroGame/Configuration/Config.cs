@@ -1,5 +1,6 @@
 ﻿using CaroGame.SaveGameManagement;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
@@ -7,7 +8,6 @@ namespace CaroGame.Configuration
 {
     public static class Config
     {
-        public static string GAME_MODE = "TWO_PLAYER";
         public static int NUMBER_OF_ROW;
         public static int NUMBER_OF_COLUMN;
         public static Size CHESS_SIZE = new Size(40, 40);
@@ -32,6 +32,7 @@ namespace CaroGame.Configuration
 
         private static EntityConfig jsonConst = new EntityConfig();
         public static GameSaveData saveData = new GameSaveData();
+        public static Stack<string> caroFlow = new Stack<string>();
 
         public static void ReadCONST()
         {
@@ -51,7 +52,7 @@ namespace CaroGame.Configuration
 
         public static void WriteCONST()
         {
-            if (!(Config.GAME_MODE == "LAN" && !Config.IS_SERVER))
+            if (!(GAME_MODE.CurrentGameMode == GAME_MODE.LAN && !Config.IS_SERVER))
             {
                 jsonConst.numberOfColumn = NUMBER_OF_COLUMN;
                 jsonConst.numberOfRow = NUMBER_OF_ROW;
@@ -82,6 +83,31 @@ namespace CaroGame.Configuration
             string data = JsonConvert.SerializeObject(saveData);
             sw.WriteLine(data);
             sw.Close();
+        }
+
+        public static class NAME
+        {
+            public const string GAME_MODE_SETTING = "Game Mode Setting";
+            public const string GAME_MODE = "Game Mode";
+            public const string PLAYER_SETTING = "Player_SETTING";
+            public const string PLAYER = "Player";
+            public const string LAN_CONNECTION = "LAN COnnection";
+            public const string CARO = "Caro";
+            public const string SETTING = "Setting";
+            public const string TIME_SETTING = "Time Setting";
+            public const string SIZE_SETTING = "Size Setting";
+            public const string SOUND_SETTING = "Sound Setting";
+            public const string LOAD_GAME = "Load Game";
+            public const string ABOUT = "About";
+        }
+
+        public static class GAME_MODE
+        {
+            public const string TWO_PLAYER = "TWO PLAYER";
+            public const string ONE_PLAYER = "ONE PLAYER";
+            public const string LAN = "LAN";
+
+            public static string CurrentGameMode { get; set; }
         }
     }
 }
