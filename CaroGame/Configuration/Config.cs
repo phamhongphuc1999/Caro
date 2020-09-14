@@ -36,7 +36,7 @@ namespace CaroGame.Configuration
 
         public static void ReadCONST()
         {
-            using (StreamReader sr = File.OpenText("./CONST.json"))
+            using (StreamReader sr = File.OpenText("../../../Resources/CONST.json"))
             {
                 string data = sr.ReadToEnd();
                 jsonConst = JsonConvert.DeserializeObject<EntityConfig>(data);
@@ -62,7 +62,7 @@ namespace CaroGame.Configuration
             jsonConst.timeTurn = TIME_TURN;
             jsonConst.interval = INTERVAL;
             jsonConst.volumeSize = VOLUME_SIZE;
-            StreamWriter sw = new StreamWriter("./CONST.json");
+            StreamWriter sw = new StreamWriter("../../../Resources/CONST.json");
             string data = JsonConvert.SerializeObject(jsonConst);
             sw.WriteLine(data);
             sw.Close();
@@ -70,7 +70,7 @@ namespace CaroGame.Configuration
 
         public static void LoadGame()
         {
-            using (StreamReader sr = File.OpenText("./SaveGame.json"))
+            using (StreamReader sr = File.OpenText("../../../Resources/SaveGame.json"))
             {
                 string data = sr.ReadToEnd();
                 if (data.Length > 0) saveData = JsonConvert.DeserializeObject<GameSaveData>(data);
@@ -79,7 +79,7 @@ namespace CaroGame.Configuration
 
         public static void WriteSaveGame()
         {
-            StreamWriter sw = new StreamWriter("./SaveGame.json");
+            StreamWriter sw = new StreamWriter("../../../Resources/SaveGame.json");
             string data = JsonConvert.SerializeObject(saveData);
             sw.WriteLine(data);
             sw.Close();

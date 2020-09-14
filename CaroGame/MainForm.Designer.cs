@@ -8,19 +8,7 @@ namespace CaroGame
     partial class MainForm
     {
         private System.ComponentModel.IContainer components = null;
-        private Timer timer;
-        private Form settingForm;
-        private MenuStrip mainMenu;
-        private NumericUpDown numSound;
-        private RichTextBox rtbChat, rtbAbout;
-        private Panel pnlCaroBoard, pnlChat;
-        private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butLoadBack;
-        private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave, butChat;
-        private Button butSTimeOnOrOff, butConnect, butBack, butGetIP, butLoadGame, butLoadGameSetting, butSaveGame;
-        private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting, toolItemAbout;
-        private TextBox txtPlayer, txtSTimeTurn, txtSTimeInterval, txtName1Row, txtName2Column, txtChat;
-        private Label lblTime, lblSTimeTurn, lblSTimeInterval, lblName1Row, lblName2Column, lblSSound, lblOr;
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -37,13 +25,15 @@ namespace CaroGame
             toolItemSetting = new ToolStripMenuItem()
             {
                 Name = "Setting",
-                Text = "Setting"
+                Text = "Setting",
+                ShortcutKeys = (Keys)Shortcut.CtrlS
             };
 
             toolItemNewGame = new ToolStripMenuItem()
             {
                 Name = "NewGame",
-                Text = "New Game"
+                Text = "New Game",
+                ShortcutKeys = (Keys)Shortcut.CtrlN
             };
 
             toolItemQuick = new ToolStripMenuItem()
@@ -181,7 +171,7 @@ namespace CaroGame
             butUndo = new Button()
             {
                 Text = "Undo",
-                Size = new Size(120, 30)
+                Size = new Size(120, 30),
             };
             butRedo = new Button()
             {
@@ -367,7 +357,7 @@ namespace CaroGame
                 Location = new Point(0, 0),
                 Enabled = false
             };
-            this.Icon = new Icon("./Image/caro.ico");
+            
             settingForm = new Form()
             {
                 Tag = 1,
@@ -596,13 +586,28 @@ namespace CaroGame
             aboutForm.Controls.Add(rtbAbout);
         }
         #endregion
+
         private void InitializeComponent()
         {
+            this.Icon = new Icon("../../../Resources/Image/caro.ico");
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Text = "MainForm";
         }
         #endregion
+
+        private Timer timer;
+        private Form settingForm;
+        private MenuStrip mainMenu;
+        private NumericUpDown numSound;
+        private RichTextBox rtbChat, rtbAbout;
+        private Panel pnlCaroBoard, pnlChat;
+        private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butLoadBack;
+        private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave, butChat;
+        private Button butSTimeOnOrOff, butConnect, butBack, butGetIP, butLoadGame, butLoadGameSetting, butSaveGame;
+        private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting, toolItemAbout;
+        private TextBox txtPlayer, txtSTimeTurn, txtSTimeInterval, txtName1Row, txtName2Column, txtChat;
+        private Label lblTime, lblSTimeTurn, lblSTimeInterval, lblName1Row, lblName2Column, lblSSound, lblOr;
     }
 }
