@@ -75,38 +75,6 @@ namespace CaroGame
             });
         }
 
-        private void CreateMainContextMenu()
-        {
-            toolUndoContext = new ToolStripMenuItem()
-            {
-                Text = "Undo",
-                ShortcutKeys = (Keys)Shortcut.CtrlZ
-            };
-            toolRedoContext = new ToolStripMenuItem()
-            {
-                Text = "Redo",
-                ShortcutKeys = (Keys)Shortcut.CtrlR
-            };
-            bottomRedoContextSeparator = new ToolStripSeparator();
-            toolNewGameContext = new ToolStripMenuItem()
-            {
-                Text = "New Game"
-            };
-            toolQuickContext = new ToolStripMenuItem()
-            {
-                Text = "Quick Game"
-            };
-            mainContextMenu = new ContextMenuStrip();
-            mainContextMenu.Items.AddRange(new ToolStripItem[]
-            {
-                toolUndoContext,
-                toolRedoContext,
-                bottomRedoContextSeparator,
-                toolNewGameContext,
-                toolQuickContext
-            });
-        }
-
         private void InitializeController()
         {
             #region Game Mode
@@ -353,7 +321,6 @@ namespace CaroGame
             butLoadGame.Click += ButLoadGame_Click;
             #endregion
 
-            CreateMainContextMenu();
             rtbAbout = new RichTextBox()
             {
                 Name = "rtbAbout",
@@ -492,9 +459,7 @@ namespace CaroGame
             mainForm.Controls.Add(butUndo);
             mainForm.Controls.Add(lblTime);
             mainForm.Controls.Add(mainMenu);
-            mainForm.Controls.Add(mainContextMenu);
             mainForm.MainMenuStrip = mainMenu;
-            mainForm.ContextMenuStrip = mainContextMenu;
         }
 
         private void DrawSettingForm(Form settingForm)
@@ -630,8 +595,7 @@ namespace CaroGame
         private NumericUpDown numSound;
         private RichTextBox rtbChat, rtbAbout;
         private Panel pnlCaroBoard, pnlChat;
-        private ContextMenuStrip mainContextMenu;
-        private ToolStripSeparator bottomQuickSeparator, bottomRedoContextSeparator;
+        private ToolStripSeparator bottomQuickSeparator;
         private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butSaveGame;
         private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave;
         private Button butStatusTime, butConnect, butCancel, butGetIP, butLoadGame, butChat;
