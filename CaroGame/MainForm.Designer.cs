@@ -24,33 +24,26 @@ namespace CaroGame
         {
             toolItemSetting = new ToolStripMenuItem()
             {
-                Name = "Setting",
-                Text = "Setting",
-                ShortcutKeys = (Keys)Shortcut.CtrlS
+                Text = "Setting Game",
+                ShortcutKeys = (Keys)Shortcut.CtrlShiftS
             };
-
             toolItemNewGame = new ToolStripMenuItem()
             {
-                Name = "NewGame",
                 Text = "New Game",
                 ShortcutKeys = (Keys)Shortcut.CtrlN
             };
-
             toolItemQuick = new ToolStripMenuItem()
             {
-                Name = "Quick",
-                Text = "Quick Game"
+                Text = "Quick Game",
+                ShortcutKeys = (Keys)Shortcut.CtrlQ
             };
-
+            bottomQuickSeparator = new ToolStripSeparator();
             toolItemAbout = new ToolStripMenuItem()
             {
-                Name = "About",
                 Text = "About"
             };
-
             toolItemMain = new ToolStripMenuItem()
             {
-                Name = "Main",
                 Text = "Menu"
             };
             toolItemMain.DropDownItems.AddRange(new ToolStripItem[]
@@ -58,6 +51,7 @@ namespace CaroGame
                 toolItemNewGame,
                 toolItemSetting,
                 toolItemQuick,
+                bottomQuickSeparator,
                 toolItemAbout
             });
             toolItemNewGame.Click += ToolItemNewGame_Click;
@@ -78,6 +72,38 @@ namespace CaroGame
             mainMenu.Items.AddRange(new ToolStripItem[]
             {
                 toolItemMain
+            });
+        }
+
+        private void CreateMainContextMenu()
+        {
+            toolUndoContext = new ToolStripMenuItem()
+            {
+                Text = "Undo",
+                ShortcutKeys = (Keys)Shortcut.CtrlZ
+            };
+            toolRedoContext = new ToolStripMenuItem()
+            {
+                Text = "Redo",
+                ShortcutKeys = (Keys)Shortcut.CtrlR
+            };
+            bottomRedoContextSeparator = new ToolStripSeparator();
+            toolNewGameContext = new ToolStripMenuItem()
+            {
+                Text = "New Game"
+            };
+            toolQuickContext = new ToolStripMenuItem()
+            {
+                Text = "Quick Game"
+            };
+            mainContextMenu = new ContextMenuStrip();
+            mainContextMenu.Items.AddRange(new ToolStripItem[]
+            {
+                toolUndoContext,
+                toolRedoContext,
+                bottomRedoContextSeparator,
+                toolNewGameContext,
+                toolQuickContext
             });
         }
 
@@ -315,29 +341,19 @@ namespace CaroGame
             #endregion
 
             #region Load And Save Game
-            butLoadGame = new Button()
-            {
-                Text = "Load Game",
-                Size = new Size(150, 55),
-                Location = new Point(225, 250)
-            };
+            butLoadGame = new Button();
+            butLoadGame.Text = "Load Game";
             butSaveGame = new Button()
             {
                 Text = "Save Game",
                 Size = new Size(110, 40),
                 Location = new Point(485, 0)
             };
-            butLoadGameSetting = new Button()
-            {
-                Text = "Load Game",
-                Size = new Size(110, 40),
-                Location = new Point(370, 0)
-            };
             butSaveGame.Click += ButSaveGame_Click;
             butLoadGame.Click += ButLoadGame_Click;
-            butLoadGameSetting.Click += ButLoadGameSetting_Click;
             #endregion
 
+            CreateMainContextMenu();
             rtbAbout = new RichTextBox()
             {
                 Name = "rtbAbout",
@@ -380,6 +396,8 @@ namespace CaroGame
         private void DrawGameModeForm(Form gameModeForm, string formText)
         {
             DrawCommonForm(ref gameModeForm, formText);
+            butLoadGame.Location = new Point(225, 250);
+            butLoadGame.Size = new Size(150, 55);
             gameModeForm.Controls.Add(butTwoPlayer);
             gameModeForm.Controls.Add(butModeLan);
             gameModeForm.Controls.Add(butModeAI);
@@ -474,12 +492,17 @@ namespace CaroGame
             mainForm.Controls.Add(butUndo);
             mainForm.Controls.Add(lblTime);
             mainForm.Controls.Add(mainMenu);
+            mainForm.Controls.Add(mainContextMenu);
+            mainForm.MainMenuStrip = mainMenu;
+            mainForm.ContextMenuStrip = mainContextMenu;
         }
 
         private void DrawSettingForm(Form settingForm)
         {
             DrawCommonForm(ref settingForm, Config.NAME.SETTING);
             settingForm.Icon = new Icon("../../../Resources/Image/setting.ico");
+            butLoadGame.Size = new Size(110, 40);
+            butLoadGame.Location = new Point(370, 0);
             butCancel.Location = new Point(370, 280);
             settingForm.Controls.Add(butGameMode);
             settingForm.Controls.Add(butTimer);
@@ -489,7 +512,7 @@ namespace CaroGame
             settingForm.Controls.Add(butSave);
             settingForm.Controls.Add(butCancel);
             settingForm.Controls.Add(butSaveGame);
-            settingForm.Controls.Add(butLoadGameSetting);
+            settingForm.Controls.Add(butLoadGame);
             butSave.Text = "Save Change";
             if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.TWO_PLAYER) butTimer.Enabled = true;
             else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN) butTimer.Enabled = false;
@@ -607,10 +630,13 @@ namespace CaroGame
         private NumericUpDown numSound;
         private RichTextBox rtbChat, rtbAbout;
         private Panel pnlCaroBoard, pnlChat;
+        private ContextMenuStrip mainContextMenu;
+        private ToolStripSeparator bottomQuickSeparator, bottomRedoContextSeparator;
         private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butSaveGame;
-        private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave, butChat;
-        private Button butStatusTime, butConnect, butCancel, butGetIP, butLoadGame, butLoadGameSetting;
+        private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave;
+        private Button butStatusTime, butConnect, butCancel, butGetIP, butLoadGame, butChat;
         private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting, toolItemAbout;
+        private ToolStripMenuItem toolUndoContext, toolRedoContext, toolNewGameContext, toolQuickContext;
         private TextBox txtPlayer, txtSTimeTurn, txtSTimeInterval, txtName1Row, txtName2Column, txtChat;
         private Label lblTime, lblSTimeTurn, lblSTimeInterval, lblName1Row, lblName2Column, lblSSound, lblOr;
     }

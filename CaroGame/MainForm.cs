@@ -72,16 +72,12 @@ namespace CaroGame
 
         #region Event Handler
         #region Event Load And Save Game Handler
-        private void ButLoadGameSetting_Click(object sender, EventArgs e)
-        {
-            Config.IS_LOAD_GAME = true;
-            DrawLoadGame(settingForm);
-        }
-
         private void ButLoadGame_Click(object sender, EventArgs e)
         {
+            string prevForm = Config.caroFlow.Peek();
+            if (prevForm == Config.NAME.GAME_MODE) DrawLoadGame(this);
+            else DrawLoadGame(settingForm);
             Config.IS_LOAD_GAME = true;
-            DrawLoadGame(this);
         }
 
         private void ButSaveGame_Click(object sender, EventArgs e)
