@@ -136,13 +136,12 @@ namespace CaroGame
                 Width = 360,
                 Location = new Point(120, 170)
             };
-            butBack = new Button()
+            butCancel = new Button()
             {
                 Text = "Back",
-                Size = new Size(90, 40),
-                Location = new Point(370, 280)
+                Size = new Size(90, 40)
             };
-            butBack.Click += ButBack_Click;
+            butCancel.Click += ButCancel_Click;
             #endregion
 
             #region LAN Mode
@@ -288,13 +287,13 @@ namespace CaroGame
                 Location = new Point(120, 170)
             };
 
-            butSTimeOnOrOff = new Button()
+            butStatusTime = new Button()
             {
                 Text = Config.IS_ON_TIMER ? "Off Timer" : "On Timer",
                 Size = new Size(90, 40),
                 Location = new Point(250, 280)
             };
-            butSTimeOnOrOff.Click += ButSTimeOnOrOff_Click;
+            butStatusTime.Click += ButStatusTime_Click;
             #endregion
 
             #region Sound Setting
@@ -334,12 +333,6 @@ namespace CaroGame
                 Size = new Size(110, 40),
                 Location = new Point(370, 0)
             };
-            butLoadBack = new Button()
-            {
-                Text = "Back",
-                Size = new Size(90, 50)
-            };
-            butLoadBack.Click += ButLoadBack_Click;
             butSaveGame.Click += ButSaveGame_Click;
             butLoadGame.Click += ButLoadGame_Click;
             butLoadGameSetting.Click += ButLoadGameSetting_Click;
@@ -390,7 +383,11 @@ namespace CaroGame
             gameModeForm.Controls.Add(butTwoPlayer);
             gameModeForm.Controls.Add(butModeLan);
             gameModeForm.Controls.Add(butModeAI);
-            if (formText == Config.NAME.GAME_MODE_SETTING) gameModeForm.Controls.Add(butBack);
+            if (formText == Config.NAME.GAME_MODE_SETTING)
+            {
+                butCancel.Location = new Point(370, 280);
+                gameModeForm.Controls.Add(butCancel);
+            }
             else
             {
                 gameModeForm.Controls.Add(butLoadGame);
@@ -414,7 +411,8 @@ namespace CaroGame
             }
             playerForm.Controls.Add(lblName1Row);
             playerForm.Controls.Add(txtName1Row);
-            playerForm.Controls.Add(butBack);
+            butCancel.Location = new Point(370, 280);
+            playerForm.Controls.Add(butCancel);
             playerForm.Controls.Add(butSave);
             if (formText == "Player") butSave.Text = "Next";
             else if (formText == Config.NAME.PLAYER_SETTING) butSave.Text = "Save Change";
@@ -434,6 +432,7 @@ namespace CaroGame
             txtName1Row.Text = "";
             lblName1Row.Text = "IP";
             lblName2Column.Text = "Port";
+            butCancel.Location = new Point(370, 280);
             DrawCommonForm(ref LANForm, Config.NAME.LAN_CONNECTION);
             LANForm.Controls.Add(lblName1Row);
             LANForm.Controls.Add(lblName2Column);
@@ -441,7 +440,7 @@ namespace CaroGame
             LANForm.Controls.Add(txtName2Column);
             LANForm.Controls.Add(butSave);
             LANForm.Controls.Add(butConnect);
-            LANForm.Controls.Add(butBack);
+            LANForm.Controls.Add(butCancel);
             LANForm.Controls.Add(butGetIP);
         }
 
@@ -480,13 +479,15 @@ namespace CaroGame
         private void DrawSettingForm(Form settingForm)
         {
             DrawCommonForm(ref settingForm, Config.NAME.SETTING);
-            settingForm.Icon = new Icon("./Image/setting.ico");
+            settingForm.Icon = new Icon("../../../Resources/Image/setting.ico");
+            butCancel.Location = new Point(370, 280);
             settingForm.Controls.Add(butGameMode);
             settingForm.Controls.Add(butTimer);
             settingForm.Controls.Add(butNamePlayer);
             settingForm.Controls.Add(butSizeBoard);
             settingForm.Controls.Add(butSound);
             settingForm.Controls.Add(butSave);
+            settingForm.Controls.Add(butCancel);
             settingForm.Controls.Add(butSaveGame);
             settingForm.Controls.Add(butLoadGameSetting);
             butSave.Text = "Save Change";
@@ -497,12 +498,13 @@ namespace CaroGame
         private void DrawTimeSettingForm(Form timeSettingForm)
         {
             DrawCommonForm(ref timeSettingForm, Config.NAME.TIME_SETTING);
+            butCancel.Location = new Point(370, 280);
             timeSettingForm.Controls.Add(lblSTimeTurn);
             timeSettingForm.Controls.Add(lblSTimeInterval);
             timeSettingForm.Controls.Add(txtSTimeTurn);
             timeSettingForm.Controls.Add(txtSTimeInterval);
-            timeSettingForm.Controls.Add(butSTimeOnOrOff);
-            timeSettingForm.Controls.Add(butBack);
+            timeSettingForm.Controls.Add(butStatusTime);
+            timeSettingForm.Controls.Add(butCancel);
             timeSettingForm.Controls.Add(butSave);
             butSave.Text = "Save Change";
         }
@@ -510,6 +512,7 @@ namespace CaroGame
         private void DrawSizeSettingForm(Form sizeSettingForm)
         {
             DrawCommonForm(ref sizeSettingForm, Config.NAME.SIZE_SETTING);
+            butCancel.Location = new Point(370, 280);
             lblName1Row.Text = "Row";
             lblName2Column.Text = "Column";
             txtName1Row.Text = Config.NUMBER_OF_ROW.ToString();
@@ -519,17 +522,18 @@ namespace CaroGame
             sizeSettingForm.Controls.Add(txtName1Row);
             sizeSettingForm.Controls.Add(txtName2Column);
             sizeSettingForm.Controls.Add(butSave);
-            sizeSettingForm.Controls.Add(butBack);
+            sizeSettingForm.Controls.Add(butCancel);
             butSave.Text = "Save Change";
         }
 
         private void DrawSoundSettingForm(Form soundSettingForm)
         {
             DrawCommonForm(ref soundSettingForm, Config.NAME.SOUND_SETTING);
+            butCancel.Location = new Point(370, 280);
             soundSettingForm.Controls.Add(lblSSound);
             soundSettingForm.Controls.Add(numSound);
             soundSettingForm.Controls.Add(butSave);
-            soundSettingForm.Controls.Add(butBack);
+            soundSettingForm.Controls.Add(butCancel);
         }
 
         private void DrawLoadGame(Form loadForm)
@@ -575,14 +579,14 @@ namespace CaroGame
                 }
             }
             DrawCommonForm(ref loadForm, Config.NAME.LOAD_GAME, 400, Y + 110, false);
-            butLoadBack.Location = new Point(170, Y + 30);
-            loadForm.Controls.Add(butLoadBack);
+            butCancel.Location = new Point(170, Y + 30);
+            loadForm.Controls.Add(butCancel);
         }
 
         private void DrawAboutGame(Form aboutForm)
         {
             DrawCommonForm(ref aboutForm, Config.NAME.ABOUT, 400, 250);
-            aboutForm.Icon = new Icon("./Image/about.ico");
+            aboutForm.Icon = new Icon("../../../Resources/Image/about.ico");
             aboutForm.Controls.Add(rtbAbout);
         }
         #endregion
@@ -603,9 +607,9 @@ namespace CaroGame
         private NumericUpDown numSound;
         private RichTextBox rtbChat, rtbAbout;
         private Panel pnlCaroBoard, pnlChat;
-        private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butLoadBack;
+        private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butSaveGame;
         private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave, butChat;
-        private Button butSTimeOnOrOff, butConnect, butBack, butGetIP, butLoadGame, butLoadGameSetting, butSaveGame;
+        private Button butStatusTime, butConnect, butCancel, butGetIP, butLoadGame, butLoadGameSetting;
         private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting, toolItemAbout;
         private TextBox txtPlayer, txtSTimeTurn, txtSTimeInterval, txtName1Row, txtName2Column, txtChat;
         private Label lblTime, lblSTimeTurn, lblSTimeInterval, lblName1Row, lblName2Column, lblSSound, lblOr;
