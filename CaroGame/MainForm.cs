@@ -72,16 +72,12 @@ namespace CaroGame
 
         #region Event Handler
         #region Event Load And Save Game Handler
-        private void ButLoadGameSetting_Click(object sender, EventArgs e)
-        {
-            Config.IS_LOAD_GAME = true;
-            DrawLoadGame(settingForm);
-        }
-
         private void ButLoadGame_Click(object sender, EventArgs e)
         {
+            string prevForm = Config.caroFlow.Peek();
+            if (prevForm == Config.NAME.GAME_MODE) DrawLoadGame(this);
+            else DrawLoadGame(settingForm);
             Config.IS_LOAD_GAME = true;
-            DrawLoadGame(this);
         }
 
         private void ButSaveGame_Click(object sender, EventArgs e)
@@ -92,22 +88,17 @@ namespace CaroGame
             Config.WriteSaveGame();
             settingForm.Close();
         }
-
-        private void ButLoadBack_Click(object sender, EventArgs e)
-        {
-            Config.caroFlow.Pop();
-            string prevForm = Config.caroFlow.Peek();
-            if (prevForm == Config.NAME.GAME_MODE) DrawGameModeForm(this, Config.NAME.GAME_MODE);
-            else if (prevForm == Config.NAME.SETTING) DrawSettingForm(settingForm);
-        }
         #endregion
 
         #region Event Player Infomation Handler
-        private void ButBack_Click(object sender, EventArgs e)
+        private void ButCancel_Click(object sender, EventArgs e)
         {
-            string currentFrom = Config.caroFlow.Peek();
+            string currentFrom = Config.caroFlow.Pop();
+            string prevForm = Config.caroFlow.Peek();
             if (currentFrom == Config.NAME.PLAYER) DrawGameModeForm(this, Config.NAME.GAME_MODE);
+            else if (currentFrom == Config.NAME.SETTING) settingForm.Close();
             else if (currentFrom == Config.NAME.LAN_CONNECTION) DrawPlayerForm(this, Config.NAME.PLAYER, Config.GAME_MODE.CurrentGameMode);
+            else if (currentFrom == Config.NAME.LOAD_GAME && prevForm == Config.NAME.GAME_MODE) DrawGameModeForm(this, Config.NAME.GAME_MODE);
             else DrawSettingForm(settingForm);
         }
         #endregion
@@ -123,7 +114,7 @@ namespace CaroGame
             }
             else if (currentForm == Config.NAME.TIME_SETTING)
             {
-                if (butSTimeOnOrOff.Text == "Off Timer")
+                if (butStatusTime.Text == "Off Timer")
                 {
                     int timeTurn = 0, interval = 0;
                     bool check1 = Int32.TryParse(txtSTimeTurn.Text, out timeTurn);
@@ -444,7 +435,7 @@ namespace CaroGame
         #endregion
 
         #region Event Time Handler
-        private void ButSTimeOnOrOff_Click(object sender, EventArgs e)
+        private void ButStatusTime_Click(object sender, EventArgs e)
         {
             Button eventBut = sender as Button;
             if (eventBut.Text == "Off Timer")
