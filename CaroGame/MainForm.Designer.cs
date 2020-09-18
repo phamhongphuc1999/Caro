@@ -81,14 +81,14 @@ namespace CaroGame
             butNewGame = new Button()
             {
                 Text = "New Game",
-                Size = new Size(150, 60),
-                Location = new Point(228, 70)
+                Size = new Size(150, 65),
+                Location = new Point(100, 155)
             };
             butGuide = new Button()
             {
                 Text = "Guide",
-                Size = new Size(150, 60),
-                Location = new Point(414, 70)
+                Size = new Size(150, 65),
+                Location = new Point(350, 155)
             };
             butNewGame.Click += ButNewGame_Click;
             butGuide.Click += ButGuide_Click;
@@ -609,6 +609,8 @@ namespace CaroGame
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.Opacity = 1;
             this.Text = "MainForm";
         }
         #endregion
