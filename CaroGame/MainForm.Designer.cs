@@ -77,6 +77,23 @@ namespace CaroGame
 
         private void InitializeController()
         {
+            #region Overview
+            butNewGame = new Button()
+            {
+                Text = "New Game",
+                Size = new Size(150, 60),
+                Location = new Point(228, 70)
+            };
+            butGuide = new Button()
+            {
+                Text = "Guide",
+                Size = new Size(150, 60),
+                Location = new Point(414, 70)
+            };
+            butNewGame.Click += ButNewGame_Click;
+            butGuide.Click += ButGuide_Click;
+            #endregion
+
             #region Game Mode
             butTwoPlayer = new Button()
             {
@@ -360,6 +377,13 @@ namespace CaroGame
             Config.caroFlow.Push(formText);
         }
 
+        private void DrawOverviewForm(Form overviewForm, string formText)
+        {
+            DrawCommonForm(ref overviewForm, formText);
+            overviewForm.Controls.Add(butNewGame);
+            overviewForm.Controls.Add(butGuide);
+        }
+
         private void DrawGameModeForm(Form gameModeForm, string formText)
         {
             DrawCommonForm(ref gameModeForm, formText);
@@ -596,11 +620,10 @@ namespace CaroGame
         private RichTextBox rtbChat, rtbAbout;
         private Panel pnlCaroBoard, pnlChat;
         private ToolStripSeparator bottomQuickSeparator;
-        private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butSaveGame;
-        private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave;
+        private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butSaveGame, butNewGame;
+        private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave, butGuide;
         private Button butStatusTime, butConnect, butCancel, butGetIP, butLoadGame, butChat;
         private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting, toolItemAbout;
-        private ToolStripMenuItem toolUndoContext, toolRedoContext, toolNewGameContext, toolQuickContext;
         private TextBox txtPlayer, txtSTimeTurn, txtSTimeInterval, txtName1Row, txtName2Column, txtChat;
         private Label lblTime, lblSTimeTurn, lblSTimeInterval, lblName1Row, lblName2Column, lblSSound, lblOr;
     }

@@ -35,7 +35,8 @@ namespace CaroGame
             caroManager.NewGameEvent += CaroManager_NewGameEvent;
             caroManager.EndGameEvent += CaroManager_EndGameEvent;
             this.FormClosing += Form1_FormClosing;
-            DrawGameModeForm(this, Config.NAME.GAME_MODE);
+            //DrawGameModeForm(this, Config.NAME.GAME_MODE);
+            DrawOverviewForm(this, Config.NAME.OVERVIEW);
         }
 
         private void ListenOtherPlayer()
@@ -408,6 +409,16 @@ namespace CaroGame
             caroManager.LoadSaveGame(gameSave.Turn, gameSave.CaroBoard);
             if (prevForm == Config.NAME.SETTING) parent.Close();
             DrawMainForm(this);
+        }
+        #endregion
+
+        #region Event Overview Handler
+        private void ButGuide_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void ButNewGame_Click(object sender, EventArgs e)
+        {
         }
         #endregion
 

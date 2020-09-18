@@ -1,6 +1,7 @@
 ﻿using CaroGame.SaveGameManagement;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Configuration.Internal;
 using System.Drawing;
 using System.IO;
 
@@ -87,6 +88,7 @@ namespace CaroGame.Configuration
 
         public static class NAME
         {
+            public const string OVERVIEW = "Overview";
             public const string GAME_MODE_SETTING = "Game Mode Setting";
             public const string GAME_MODE = "Game Mode";
             public const string PLAYER_SETTING = "Player_SETTING";
