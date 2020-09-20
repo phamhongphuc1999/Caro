@@ -1,7 +1,6 @@
 ﻿using CaroGame.SaveGameManagement;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Configuration.Internal;
 using System.Drawing;
 using System.IO;
 
@@ -37,7 +36,7 @@ namespace CaroGame.Configuration
 
         public static void ReadCONST()
         {
-            using (StreamReader sr = File.OpenText("../../../Resources/CONST.json"))
+            using (StreamReader sr = File.OpenText("../../../Configuration/Config.json"))
             {
                 string data = sr.ReadToEnd();
                 jsonConst = JsonConvert.DeserializeObject<EntityConfig>(data);
@@ -63,7 +62,7 @@ namespace CaroGame.Configuration
             jsonConst.timeTurn = TIME_TURN;
             jsonConst.interval = INTERVAL;
             jsonConst.volumeSize = VOLUME_SIZE;
-            StreamWriter sw = new StreamWriter("../../../Resources/CONST.json");
+            StreamWriter sw = new StreamWriter("../../../Configuration/Config.json");
             string data = JsonConvert.SerializeObject(jsonConst);
             sw.WriteLine(data);
             sw.Close();

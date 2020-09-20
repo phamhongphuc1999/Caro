@@ -52,13 +52,14 @@ namespace CaroGame.CaroManagement
             };
         }
 
-        private void DrawCaroBoard(int numberOfRow, int numberOfColumn)
+        /// <summary>Draw caro board with number of row and column in Config</summary>
+        private void DrawCaroBoard()
         {
             pnlCaroBoard.Controls.Clear();
             caroBoard.Clear();
-            for (int i = 0; i < numberOfRow; i++)
+            for (int i = 0; i < Config.NUMBER_OF_ROW; i++)
             {
-                for (int j = 0; j < numberOfColumn; j++)
+                for (int j = 0; j < Config.NUMBER_OF_COLUMN; j++)
                 {
                     Button but = new Button()
                     {
@@ -72,6 +73,48 @@ namespace CaroGame.CaroManagement
             }
         }
 
+        /// <summary>Draw caro board with specified number of row and column</summary>
+        /// <param name="numberOfRow">the number of row</param>
+        /// <param name="numberOfColumn">the number of column</param>
+        private void DrawCaroBoard(int numberOfRow, int numberOfColumn)
+        {
+            if(pnlCaroBoard.Controls.Count == 0)
+            {
+                for (int i = 0; i < numberOfRow; i++)
+                {
+                    for (int j = 0; j < numberOfColumn; j++)
+                    {
+                        Button but = new Button()
+                        {
+                            Size = new Size(Config.CHESS_SIZE.Width, Config.CHESS_SIZE.Height),
+                            Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i),
+                            FlatStyle = FlatStyle.Standard
+                        };
+                        but.Click += But_Click;
+                        caroBoard.Add(new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
+                        pnlCaroBoard.Controls.Add(but);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < numberOfRow; i++)
+                {
+                    for (int j = 0; j < numberOfColumn; j++)
+                    {
+                        Button but = caroBoard[new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i)];
+                        but.BackColor = Color.Empty;
+                        but.FlatStyle = FlatStyle.Standard;
+                    }
+                        
+                }
+            }
+        }
+
+        /// <summary>Draw caro board with specified number of row and column and secified SCaroBoard</summary>
+        /// <param name="numberOfRow">the number of row</param>
+        /// <param name="numberOfColumn">the number of column</param>
+        /// <param name="sCaroBoard">the specified caro board in save game</param>
         private void DrawCaroBoard(int numberOfRow, int numberOfColumn, string sCaroBoard)
         {
             int index = 0;
@@ -84,7 +127,8 @@ namespace CaroGame.CaroManagement
                     Button but = new Button()
                     {
                         Size = new Size(Config.CHESS_SIZE.Width, Config.CHESS_SIZE.Height),
-                        Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i)
+                        Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i),
+                        FlatStyle = FlatStyle.Standard
                     };
                     if (sCaroBoard[index] == '1')
                     {
@@ -156,7 +200,8 @@ namespace CaroGame.CaroManagement
             txtPlayer.Text = PlayerList[Turn].NamePlayer;
             txtPlayer.BackColor = PlayerList[Turn].ColorPlayer;
             winManager.NewGameHanlde(player);
-            DrawCaroBoard(Config.NUMBER_OF_ROW, Config.NUMBER_OF_COLUMN);
+            if (Config.caroFlow.Peek() == Config.NAME.SIZE_SETTING) DrawCaroBoard();
+            else DrawCaroBoard(Config.NUMBER_OF_ROW, Config.NUMBER_OF_COLUMN);
             lblTime.Text = (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) ? 
                 Config.TIME_TURN.ToString() : "No Timer";
             Config.IS_OLD_GAME = false;

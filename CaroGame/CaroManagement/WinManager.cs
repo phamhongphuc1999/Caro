@@ -90,6 +90,7 @@ namespace CaroGame.CaroManagement
             return row || collumn || mainDiagonal || subDiagonal;
         }
 
+#pragma warning disable CS1998
         private async Task<bool> IsWinRow(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;

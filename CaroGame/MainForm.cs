@@ -538,7 +538,7 @@ namespace CaroGame
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             timer.Stop();
-            DialogResult result = MessageBox.Show("Are you sure?", "WARNING", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show("Do you want to exit this game?", "WARNING", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             if (result == DialogResult.Cancel)
             {
                 e.Cancel = true;
