@@ -31,7 +31,7 @@ namespace CaroGame.Configuration
         public static int INDEX_OLD_GAME = -1;
 
         private static EntityConfig jsonConst = new EntityConfig();
-        public static GameSaveData saveData = new GameSaveData();
+        public static GameSaveModel saveData = new GameSaveModel();
         public static Stack<string> caroFlow = new Stack<string>();
 
         public static void ReadCONST()
@@ -73,7 +73,7 @@ namespace CaroGame.Configuration
             using (StreamReader sr = File.OpenText("../../../Resources/SaveGame.json"))
             {
                 string data = sr.ReadToEnd();
-                if (data.Length > 0) saveData = JsonConvert.DeserializeObject<GameSaveData>(data);
+                if (data.Length > 0) saveData = JsonConvert.DeserializeObject<GameSaveModel>(data);
             }
         }
 

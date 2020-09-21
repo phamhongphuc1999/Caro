@@ -1,6 +1,8 @@
-﻿namespace CaroGame.SaveGameManagement
+﻿using System.Collections.Generic;
+
+namespace CaroGame.SaveGameManagement
 {
-    public class GameSave
+    public class GameSaveData
     {
         public int NumberOfRow { get; set; }
         public int NumberOfColumn { get; set; }
@@ -9,5 +11,15 @@
         public string GameMode { get; set; }
         public int Turn { get; set; }
         public string CaroBoard { get; set; }
+    }
+
+    public class GameSaveModel
+    {
+        public List<GameSaveData> GameSaveList { get; set; }
+
+        public GameSaveModel()
+        {
+            GameSaveList = new List<GameSaveData>();
+        }
     }
 }

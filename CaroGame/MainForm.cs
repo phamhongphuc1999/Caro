@@ -398,7 +398,7 @@ namespace CaroGame
             Form parent = eventBut.Parent as Form;
             int index = eventBut.Text[0] - '0' - 1;
             SaveGameHelper.index = index;
-            GameSave gameSave = Config.saveData.GameSaveList[index];
+            GameSaveData gameSave = Config.saveData.GameSaveList[index];
             Config.NAME_PLAYER1 = gameSave.PlayerName1;
             Config.NAME_PLAYER2 = gameSave.PlayerName2;
             Config.NUMBER_OF_COLUMN = gameSave.NumberOfColumn;

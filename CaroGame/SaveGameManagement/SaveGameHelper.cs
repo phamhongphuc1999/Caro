@@ -32,7 +32,7 @@ namespace CaroGame.SaveGameManagement
             }
             else
             {
-                GameSave gameSave = new GameSave()
+                GameSaveData gameSave = new GameSaveData()
                 {
                     NumberOfColumn = Config.NUMBER_OF_COLUMN,
                     NumberOfRow = Config.NUMBER_OF_ROW,
@@ -48,7 +48,7 @@ namespace CaroGame.SaveGameManagement
             }
         }
 
-        public static void DrawSaveGame(GameSave gameSave)
+        public static void DrawSaveGame(GameSaveData gameSave)
         {
             Config.NAME_PLAYER1 = gameSave.PlayerName1;
             Config.NAME_PLAYER2 = gameSave.PlayerName2;
