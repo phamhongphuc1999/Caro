@@ -22,9 +22,9 @@ namespace CaroGame.SoundManagement
             set { sound.settings.volume = value; }
         }
 
-        public void Play(string url)
+        public void Play(string nameMusic)
         {
-            sound.URL = url;
+            sound.URL = string.Format("../../Resources/Sounds/{0}", nameMusic);
             sound.controls.play();
         }
 

@@ -10,19 +10,21 @@ namespace CaroGame.SaveGameManagement
         public static int turn = -1;
         public static int index = -1;
 
+        public static GameSaveModel saveData = new GameSaveModel();
+
         public static void LoadGame()
         {
-            using (StreamReader sr = File.OpenText("../../../Resources/SaveGame.json"))
+            using (StreamReader sr = File.OpenText("../../../SaveGameManagement/SaveGame.json"))
             {
                 string data = sr.ReadToEnd();
-                if (data.Length > 0) Config.saveData = JsonConvert.DeserializeObject<GameSaveModel>(data);
+                if (data.Length > 0) saveData = JsonConvert.DeserializeObject<GameSaveModel>(data);
             }
         }
 
         public static void SaveGameToFile()
         {
-            StreamWriter sw = new StreamWriter("../../../Resources/SaveGame.json");
-            string data = JsonConvert.SerializeObject(Config.saveData);
+            StreamWriter sw = new StreamWriter("../../../SaveGameManagement/SaveGame.json");
+            string data = JsonConvert.SerializeObject(saveData);
             sw.WriteLine(data);
             sw.Close();
         }
@@ -31,23 +33,23 @@ namespace CaroGame.SaveGameManagement
         {
             if (Config.IS_LOAD_GAME)
             {
-                Config.saveData.GameSaveList[index].NumberOfColumn = Config.NUMBER_OF_COLUMN;
-                Config.saveData.GameSaveList[index].NumberOfRow = Config.NUMBER_OF_ROW;
-                Config.saveData.GameSaveList[index].PlayerName1 = Config.NAME_PLAYER1;
-                Config.saveData.GameSaveList[index].PlayerName2 = Config.NAME_PLAYER2;
-                Config.saveData.GameSaveList[index].CaroBoard = caroBoard;
-                Config.saveData.GameSaveList[index].GameMode = Config.GAME_MODE.CurrentGameMode;
-                Config.saveData.GameSaveList[index].Turn = turn;
+                saveData.GameSaveList[index].NumberOfColumn = Config.NUMBER_OF_COLUMN;
+                saveData.GameSaveList[index].NumberOfRow = Config.NUMBER_OF_ROW;
+                saveData.GameSaveList[index].PlayerName1 = Config.NAME_PLAYER1;
+                saveData.GameSaveList[index].PlayerName2 = Config.NAME_PLAYER2;
+                saveData.GameSaveList[index].CaroBoard = caroBoard;
+                saveData.GameSaveList[index].GameMode = Config.GAME_MODE.CurrentGameMode;
+                saveData.GameSaveList[index].Turn = turn;
             }
             else if (Config.IS_OLD_GAME)
             {
-                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].NumberOfColumn = Config.NUMBER_OF_COLUMN;
-                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].NumberOfRow = Config.NUMBER_OF_ROW;
-                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].PlayerName1 = Config.NAME_PLAYER1;
-                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].PlayerName2 = Config.NAME_PLAYER2;
-                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].CaroBoard = caroBoard;
-                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].GameMode = Config.GAME_MODE.CurrentGameMode;
-                Config.saveData.GameSaveList[Config.INDEX_OLD_GAME].Turn = turn;
+                saveData.GameSaveList[Config.INDEX_OLD_GAME].NumberOfColumn = Config.NUMBER_OF_COLUMN;
+                saveData.GameSaveList[Config.INDEX_OLD_GAME].NumberOfRow = Config.NUMBER_OF_ROW;
+                saveData.GameSaveList[Config.INDEX_OLD_GAME].PlayerName1 = Config.NAME_PLAYER1;
+                saveData.GameSaveList[Config.INDEX_OLD_GAME].PlayerName2 = Config.NAME_PLAYER2;
+                saveData.GameSaveList[Config.INDEX_OLD_GAME].CaroBoard = caroBoard;
+                saveData.GameSaveList[Config.INDEX_OLD_GAME].GameMode = Config.GAME_MODE.CurrentGameMode;
+                saveData.GameSaveList[Config.INDEX_OLD_GAME].Turn = turn;
             }
             else
             {
@@ -61,9 +63,9 @@ namespace CaroGame.SaveGameManagement
                     GameMode = Config.GAME_MODE.CurrentGameMode,
                     Turn = turn
                 };
-                Config.saveData.GameSaveList.Add(gameSave);
+                saveData.GameSaveList.Add(gameSave);
                 Config.IS_OLD_GAME = true;
-                Config.INDEX_OLD_GAME = Config.saveData.GameSaveList.Count - 1;
+                Config.INDEX_OLD_GAME = saveData.GameSaveList.Count - 1;
             }
         }
 

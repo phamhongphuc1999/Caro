@@ -1,5 +1,4 @@
-﻿using CaroGame.SaveGameManagement;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -31,13 +30,11 @@ namespace CaroGame.Configuration
         public static int INDEX_OLD_GAME = -1;
 
         private static EntityConfig jsonConst;
-        public static GameSaveModel saveData;
         public static Stack<string> caroFlow;
 
         public static void InitializeConfiguration()
         {
             jsonConst = new EntityConfig();
-            saveData = new GameSaveModel();
             caroFlow = new Stack<string>();
             using (StreamReader sr = File.OpenText("../../../Configuration/Config.json"))
             {

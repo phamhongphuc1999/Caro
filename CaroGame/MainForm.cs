@@ -29,7 +29,7 @@ namespace CaroGame
             {
                 soundManager.IsLoop = true;
                 soundManager.Volume = Config.VOLUME_SIZE;
-                soundManager.Play("./Sound/su-thanh-hoa.wav");
+                soundManager.Play("su-thanh-hoa.wav");
             }
             CaroManager.lanManager = lanManager;
             caroManager.NewGameEvent += CaroManager_NewGameEvent;
@@ -249,7 +249,7 @@ namespace CaroGame
                     Config.IS_PLAY_MUSIC = true;
                     soundManager.IsLoop = true;
                     soundManager.Volume = Config.VOLUME_SIZE;
-                    soundManager.Play("./Sound/su-thanh-hoa.wav");
+                    soundManager.Play("su-thanh-hoa.wav");
                 }
                 DrawSettingForm(settingForm);
             }
@@ -386,7 +386,7 @@ namespace CaroGame
         {
             Button eventBut = sender as Button;
             int index = (int)eventBut.Tag;
-            Config.saveData.GameSaveList.RemoveAt(index - 1);
+            SaveGameHelper.saveData.GameSaveList.RemoveAt(index - 1);
             DrawLoadGame(this);
         }
 
@@ -398,7 +398,7 @@ namespace CaroGame
             Form parent = eventBut.Parent as Form;
             int index = eventBut.Text[0] - '0' - 1;
             SaveGameHelper.index = index;
-            GameSaveData gameSave = Config.saveData.GameSaveList[index];
+            GameSaveData gameSave = SaveGameHelper.saveData.GameSaveList[index];
             Config.NAME_PLAYER1 = gameSave.PlayerName1;
             Config.NAME_PLAYER2 = gameSave.PlayerName2;
             Config.NUMBER_OF_COLUMN = gameSave.NumberOfColumn;

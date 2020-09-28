@@ -552,7 +552,7 @@ namespace CaroGame
         {
             int Y = 40, count = 1;
             loadForm.Controls.Clear();
-            if (Config.saveData.GameSaveList.Count == 0)
+            if (SaveGameHelper.saveData.GameSaveList.Count == 0)
             {
                 Label info = new Label()
                 {
@@ -566,7 +566,7 @@ namespace CaroGame
             }
             else
             {
-                foreach (GameSaveData item in Config.saveData.GameSaveList)
+                foreach (GameSaveData item in SaveGameHelper.saveData.GameSaveList)
                 {
                     string butText = count.ToString() + "." + item.PlayerName1 + " vs " + item.PlayerName2 + "; row: "
                         + item.NumberOfRow + "/ column: " + item.NumberOfColumn;
