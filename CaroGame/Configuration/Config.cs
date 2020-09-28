@@ -30,12 +30,15 @@ namespace CaroGame.Configuration
         public static bool IS_OLD_GAME = false;
         public static int INDEX_OLD_GAME = -1;
 
-        private static EntityConfig jsonConst = new EntityConfig();
-        public static GameSaveModel saveData = new GameSaveModel();
-        public static Stack<string> caroFlow = new Stack<string>();
+        private static EntityConfig jsonConst;
+        public static GameSaveModel saveData;
+        public static Stack<string> caroFlow;
 
-        public static void ReadCONST()
+        public static void InitializeConfiguration()
         {
+            jsonConst = new EntityConfig();
+            saveData = new GameSaveModel();
+            caroFlow = new Stack<string>();
             using (StreamReader sr = File.OpenText("../../../Configuration/Config.json"))
             {
                 string data = sr.ReadToEnd();
@@ -50,7 +53,7 @@ namespace CaroGame.Configuration
             }
         }
 
-        public static void WriteCONST()
+        public static void SaveConfiguration()
         {
             if (!(GAME_MODE.CurrentGameMode == GAME_MODE.LAN && !Config.IS_SERVER))
             {
@@ -64,23 +67,6 @@ namespace CaroGame.Configuration
             jsonConst.volumeSize = VOLUME_SIZE;
             StreamWriter sw = new StreamWriter("../../../Configuration/Config.json");
             string data = JsonConvert.SerializeObject(jsonConst);
-            sw.WriteLine(data);
-            sw.Close();
-        }
-
-        public static void LoadGame()
-        {
-            using (StreamReader sr = File.OpenText("../../../Resources/SaveGame.json"))
-            {
-                string data = sr.ReadToEnd();
-                if (data.Length > 0) saveData = JsonConvert.DeserializeObject<GameSaveModel>(data);
-            }
-        }
-
-        public static void WriteSaveGame()
-        {
-            StreamWriter sw = new StreamWriter("../../../Resources/SaveGame.json");
-            string data = JsonConvert.SerializeObject(saveData);
             sw.WriteLine(data);
             sw.Close();
         }

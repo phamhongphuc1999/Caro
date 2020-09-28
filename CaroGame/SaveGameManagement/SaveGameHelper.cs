@@ -1,4 +1,6 @@
 ﻿using CaroGame.Configuration;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace CaroGame.SaveGameManagement
 {
@@ -7,6 +9,23 @@ namespace CaroGame.SaveGameManagement
         public static string caroBoard = "";
         public static int turn = -1;
         public static int index = -1;
+
+        public static void LoadGame()
+        {
+            using (StreamReader sr = File.OpenText("../../../Resources/SaveGame.json"))
+            {
+                string data = sr.ReadToEnd();
+                if (data.Length > 0) Config.saveData = JsonConvert.DeserializeObject<GameSaveModel>(data);
+            }
+        }
+
+        public static void SaveGameToFile()
+        {
+            StreamWriter sw = new StreamWriter("../../../Resources/SaveGame.json");
+            string data = JsonConvert.SerializeObject(Config.saveData);
+            sw.WriteLine(data);
+            sw.Close();
+        }
 
         public static void SaveCurrentGame()
         {

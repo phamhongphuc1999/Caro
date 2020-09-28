@@ -85,7 +85,7 @@ namespace CaroGame
             SaveGameHelper.caroBoard = caroManager.ConvertBoardToString();
             SaveGameHelper.turn = caroManager.Turn;
             SaveGameHelper.SaveCurrentGame();
-            Config.WriteSaveGame();
+            SaveGameHelper.SaveGameToFile();
             settingForm.Close();
         }
         #endregion
@@ -546,8 +546,8 @@ namespace CaroGame
             }
             else
             {
-                if (!Config.IS_LOAD_GAME) Config.WriteCONST();
-                Config.WriteSaveGame();
+                if (!Config.IS_LOAD_GAME) Config.SaveConfiguration();
+                SaveGameHelper.SaveGameToFile();
             }
         }
 

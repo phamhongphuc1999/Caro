@@ -1,4 +1,5 @@
 using CaroGame.Configuration;
+using CaroGame.SaveGameManagement;
 using System;
 using System.Windows.Forms;
 
@@ -12,8 +13,8 @@ namespace CaroGame
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Config.ReadCONST();
-            Config.LoadGame();
+            Config.InitializeConfiguration();
+            SaveGameHelper.LoadGame();
             Application.Run(new MainForm());
         }
     }
