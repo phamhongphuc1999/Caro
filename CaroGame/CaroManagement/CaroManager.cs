@@ -64,7 +64,8 @@ namespace CaroGame.CaroManagement
                     Button but = new Button()
                     {
                         Size = new Size(Config.CHESS_SIZE.Width, Config.CHESS_SIZE.Height),
-                        Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i)
+                        Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i),
+                        FlatStyle = FlatStyle.Standard
                     };
                     but.Click += But_Click;
                     caroBoard.Add(new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);

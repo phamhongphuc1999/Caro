@@ -1,9 +1,0 @@
-version: "2.1"
-
-services:
-  carogame:
-    container_name: caro
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: always
