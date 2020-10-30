@@ -3,6 +3,12 @@
 - CaroGame: (Winform Core Project) tạo giao diện và xử lý các chức năng trong trò chơi cờ caro
 - DataTransmission(Class Library Core) chứa định dạng gói tin và các hàm đóng gói, mở gói hỗ trợ chế độ mạng LAN
 
+### Các thư viện dùng trong project
+- Newtonsoft.Json version 12.0.3
+- NUnit version 3.12.0
+- NUnit3TestAdapter version 3.17.0
+- Microsoft.NET.Test.Sdk 16.7.1
+
 ### các chế độ chơi
 - chơi trên một máy với 2 người chơi
 - chơi trên hai máy thông qua mạng LAN(giao tiếp bằng tcp socket)
@@ -55,3 +61,5 @@
 - https://stackoverflow.com/questions/10775367/cross-thread-operation-not-valid-control-textbox1-accessed-from-a-thread-othe
 - https://codegym.vn/blog/2020/05/27/doc-va-ghi-file-json-su-dung-jsonconvert-trong-c/
 - https://csharpcanban.com/c-huong-dan-su-dung-color-dialog.html#.XyVUxCgzbSF
+- https://toidicodedao.com/2015/08/25/tutorial-viet-unit-test-trong-c-voi-nunit/
+- https://docs.microsoft.com/en-us/visualstudio/test/walkthrough-creating-and-running-unit-tests-for-managed-code?view=vs-2019
