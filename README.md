@@ -63,3 +63,4 @@
 - https://csharpcanban.com/c-huong-dan-su-dung-color-dialog.html#.XyVUxCgzbSF
 - https://toidicodedao.com/2015/08/25/tutorial-viet-unit-test-trong-c-voi-nunit/
 - https://docs.microsoft.com/en-us/visualstudio/test/walkthrough-creating-and-running-unit-tests-for-managed-code?view=vs-2019
+- https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference

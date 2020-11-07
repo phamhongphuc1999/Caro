@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using System;
 
 namespace CaroTest
 {
@@ -8,19 +7,12 @@ namespace CaroTest
         [SetUp]
         public void Setup()
         {
-            Console.Write("AAA");
         }
 
         [Test]
-        public void Test1()
+        public void Test()
         {
-            Assert.Fail();
-        }
-
-        [Test]
-        public void TTT()
-        {
-            Assert.Pass();
+            
         }
     }
 }

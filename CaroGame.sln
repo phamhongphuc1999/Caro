@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaroGame", "CaroGame\CaroGa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransmission", "DataTransmission\DataTransmission.csproj", "{F5104BA8-7C97-4670-AD10-1706E3D1E38F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaroTest", "CaroTest\CaroTest.csproj", "{178AF677-EE59-4996-AA09-1AF95865FD77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaroTest", "CaroTest\CaroTest.csproj", "{178AF677-EE59-4996-AA09-1AF95865FD77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
