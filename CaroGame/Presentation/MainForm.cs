@@ -10,7 +10,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace CaroGame
+namespace CaroGame.Presentaion
 {
     public partial class MainForm : Form
     {

@@ -2,6 +2,7 @@ using CaroGame.Configuration;
 using CaroGame.SaveGameManagement;
 using System;
 using System.Windows.Forms;
+using CaroGame.Presentaion;
 
 namespace CaroGame
 {
@@ -15,7 +16,8 @@ namespace CaroGame
             Application.SetCompatibleTextRenderingDefault(false);
             Config.InitializeConfiguration();
             SaveGameHelper.LoadGame();
-            Application.Run(new MainForm());
+            MainForm mainForm = new MainForm();
+            Application.Run(mainForm);
         }
     }
 }
