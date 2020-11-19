@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿// Copyright (c) Microsoft. All Rights Reserved.
+//  License under the Apache License, Version 2.0.
+//  Owner: Pham Hong Phuc
+
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -32,6 +36,9 @@ namespace CaroGame.Configuration
         private static EntityConfig jsonConst;
         public static Stack<string> caroFlow;
 
+        /// <summary>
+        /// Initialized configuration when the program begin
+        /// </summary>
         public static void InitializeConfiguration()
         {
             jsonConst = new EntityConfig();
@@ -50,6 +57,9 @@ namespace CaroGame.Configuration
             }
         }
 
+        /// <summary>
+        /// Save configuration in file
+        /// </summary>
         public static void SaveConfiguration()
         {
             if (!(GAME_MODE.CurrentGameMode == GAME_MODE.LAN && !Config.IS_SERVER))

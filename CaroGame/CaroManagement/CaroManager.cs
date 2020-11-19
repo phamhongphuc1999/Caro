@@ -1,4 +1,8 @@
-﻿using CaroGame.Configuration;
+﻿// Copyright (c) Microsoft. All Rights Reserved.
+//  License under the Apache License, Version 2.0.
+//  Owner: Pham Hong Phuc
+
+using CaroGame.Configuration;
 using CaroGame.LANManagement;
 using CaroGame.PlayerManagement;
 using DataTransmission;
@@ -52,7 +56,9 @@ namespace CaroGame.CaroManagement
             };
         }
 
-        /// <summary>Draw caro board with number of row and column in Config</summary>
+        /// <summary>
+        /// Draw caro board with number of row and column in Config
+        /// </summary>
         private void DrawCaroBoard()
         {
             pnlCaroBoard.Controls.Clear();
@@ -74,7 +80,9 @@ namespace CaroGame.CaroManagement
             }
         }
 
-        /// <summary>Draw caro board with specified number of row and column</summary>
+        /// <summary>
+        /// Draw caro board with specified number of row and column
+        /// </summary>
         /// <param name="numberOfRow">the number of row</param>
         /// <param name="numberOfColumn">the number of column</param>
         private void DrawCaroBoard(int numberOfRow, int numberOfColumn)
@@ -151,6 +159,10 @@ namespace CaroGame.CaroManagement
             }
         }
 
+        /// <summary>
+        /// Create the instance of string to represent the current board
+        /// </summary>
+        /// <returns>Return the string to represent the current board</returns>
         public string ConvertBoardToString()
         {
             string board = "";
@@ -164,6 +176,9 @@ namespace CaroGame.CaroManagement
             return board;
         }
 
+        /// <summary>
+        /// change player's turn
+        /// </summary>
         private void TurnPalyer()
         {
             Turn = 1 - Turn;
@@ -173,6 +188,11 @@ namespace CaroGame.CaroManagement
             txtPlayer.Text = PlayerList[Turn].NamePlayer;
         }
 
+        /// <summary>
+        /// Render save game
+        /// </summary>
+        /// <param name="player">The current player</param>
+        /// <param name="sCaroGame">The string representing the board</param>
         public void LoadSaveGame(int player, string sCaroGame)
         {
             Turn = player;
@@ -184,6 +204,10 @@ namespace CaroGame.CaroManagement
             DrawCaroBoard(Config.NUMBER_OF_ROW, Config.NUMBER_OF_COLUMN, sCaroGame);
         }
 
+        /// <summary>
+        /// Handle the action of create the new game
+        /// </summary>
+        /// <param name="player">The player will be given the lead in the new game</param>
         public void NewGameHandle(int player)
         {
             Turn = player;
@@ -210,6 +234,10 @@ namespace CaroGame.CaroManagement
             newGameEvent(this, new EventArgs());
         }
 
+        /// <summary>
+        /// Change the stype of buttons when game over
+        /// </summary>
+        /// <param name="eventBut">The button make the end game</param>
         private void ChangeFlatStypeWhenEndGame(Button eventBut)
         {
             int[] check = winManager.check;
@@ -236,6 +264,12 @@ namespace CaroGame.CaroManagement
             eventBut.FlatStyle = FlatStyle.Flat;
         }
 
+        /// <summary>
+        /// Handle the action of end game
+        /// </summary>
+        /// <param name="player">The winer</param>
+        /// <param name="eventBut">The button make the end game</param>
+        /// <param name="sign">A symbol that identifies how the game ended. Zero when one of players winned and other when nobody winned</param>
         private void EndGameHandle(int player, Button eventBut, int sign = 0)
         {
             endGameEvent(this, new EventArgs());
@@ -275,6 +309,9 @@ namespace CaroGame.CaroManagement
             }
         }
 
+        /// <summary>
+        /// Handle the action of undo game
+        /// </summary>
         public void UndoHandle()
         {
             if (butUndo.Count > 0)
@@ -298,6 +335,9 @@ namespace CaroGame.CaroManagement
             }
         }
 
+        /// <summary>
+        /// Handle the action of redo game
+        /// </summary>
         public void RedoHandle()
         {
             if (butRedo.Count > 0)
@@ -314,6 +354,11 @@ namespace CaroGame.CaroManagement
             }
         }
 
+        /// <summary>
+        /// Send the location to move chess base on socket with LAN network
+        /// </summary>
+        /// <param name="X">X-coordinate</param>
+        /// <param name="Y">Y-coordinate</param>
         public void LANMovePointHandle(int X, int Y)
         {
             Config.IS_LOCK = true;

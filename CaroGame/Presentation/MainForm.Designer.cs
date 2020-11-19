@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using CaroGame.Configuration;
 using CaroGame.SaveGameManagement;
 
-namespace CaroGame
+namespace CaroGame.Presentaion
 {
     partial class MainForm
     {
@@ -82,13 +82,16 @@ namespace CaroGame
             {
                 Text = "New Game",
                 Size = new Size(150, 65),
-                Location = new Point(100, 155)
+                Location = new Point(100, 155),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = ColorTranslator.FromHtml("#8BC4FC")
             };
             butGuide = new Button()
             {
                 Text = "Guide",
                 Size = new Size(150, 65),
-                Location = new Point(350, 155)
+                Location = new Point(350, 155),
+                BackColor = ColorTranslator.FromHtml("#8BC4FC")
             };
             butNewGame.Click += ButNewGame_Click;
             butGuide.Click += ButGuide_Click;
@@ -99,20 +102,23 @@ namespace CaroGame
             {
                 Text = "Two Player",
                 Size = new Size(144, 55),
-                Location = new Point(42, 70)
+                Location = new Point(42, 70),
+                BackColor = ColorTranslator.FromHtml("#8BC4FC")
             };
             butModeLan = new Button()
             {
                 Text = "LAN Mode",
                 Size = new Size(144, 55),
-                Location = new Point(228, 70)
+                Location = new Point(228, 70),
+                BackColor = ColorTranslator.FromHtml("#8BC4FC")
             };
             butModeAI = new Button()
             {
                 Name = "butModeAI",
                 Text = "One Player",
                 Size = new Size(144, 55),
-                Location = new Point(414, 70)
+                Location = new Point(414, 70),
+                BackColor = ColorTranslator.FromHtml("#8BC4FC")
             };
             lblOr = new Label()
             {

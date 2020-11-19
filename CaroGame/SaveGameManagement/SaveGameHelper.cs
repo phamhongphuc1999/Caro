@@ -1,4 +1,8 @@
-﻿using CaroGame.Configuration;
+﻿// Copyright (c) Microsoft. All Rights Reserved.
+//  License under the Apache License, Version 2.0.
+//  Owner: Pham Hong Phuc
+
+using CaroGame.Configuration;
 using Newtonsoft.Json;
 using System.IO;
 
@@ -12,6 +16,9 @@ namespace CaroGame.SaveGameManagement
 
         public static GameSaveModel saveData = new GameSaveModel();
 
+        /// <summary>
+        /// Load save game from file json
+        /// </summary>
         public static void LoadGame()
         {
             using (StreamReader sr = File.OpenText("../../../SaveGameManagement/SaveGame.json"))
@@ -21,6 +28,9 @@ namespace CaroGame.SaveGameManagement
             }
         }
 
+        /// <summary>
+        /// Save current game to file json
+        /// </summary>
         public static void SaveGameToFile()
         {
             StreamWriter sw = new StreamWriter("../../../SaveGameManagement/SaveGame.json");
@@ -29,6 +39,9 @@ namespace CaroGame.SaveGameManagement
             sw.Close();
         }
 
+        /// <summary>
+        /// Update data of current game to temporary list game
+        /// </summary>
         public static void SaveCurrentGame()
         {
             if (Config.IS_LOAD_GAME)
@@ -69,6 +82,10 @@ namespace CaroGame.SaveGameManagement
             }
         }
 
+        /// <summary>
+        /// Initialized save game config
+        /// </summary>
+        /// <param name="gameSave"></param>
         public static void DrawSaveGame(GameSaveData gameSave)
         {
             Config.NAME_PLAYER1 = gameSave.PlayerName1;
