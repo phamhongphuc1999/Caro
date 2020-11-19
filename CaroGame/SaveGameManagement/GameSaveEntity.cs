@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) Microsoft. All Rights Reserved.
+//  License under the Apache License, Version 2.0.
+//  Owner: Pham Hong Phuc
+
+using System.Collections.Generic;
 
 namespace CaroGame.SaveGameManagement
 {

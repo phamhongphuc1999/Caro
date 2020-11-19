@@ -1,4 +1,8 @@
-﻿using CaroGame.Configuration;
+﻿// Copyright (c) Microsoft. All Rights Reserved.
+//  License under the Apache License, Version 2.0.
+//  Owner: Pham Hong Phuc
+
+using CaroGame.Configuration;
 using DataTransmission;
 using System;
 using System.Net;
@@ -13,6 +17,11 @@ namespace CaroGame.LANManagement
         #region both
         public Socket client, server;
 
+        /// <summary>
+        /// Return the IP of network
+        /// </summary>
+        /// <param name="_type">The specified network interface type</param>
+        /// <returns>The string represent of IP</returns>
         private static string GetLocalIPv4(NetworkInterfaceType _type)
         {
             string output = "";
@@ -30,6 +39,10 @@ namespace CaroGame.LANManagement
             return output;
         }
 
+        /// <summary>
+        /// Return the IP of network
+        /// </summary>
+        /// <returns>The string represent of IP</returns>
         public static string GetIPv4()
         {
             string result = LANManager.GetLocalIPv4(NetworkInterfaceType.Wireless80211);

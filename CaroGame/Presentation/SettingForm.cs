@@ -1,4 +1,8 @@
-﻿using System;
+﻿// Copyright (c) Microsoft. All Rights Reserved.
+//  License under the Apache License, Version 2.0.
+//  Owner: Pham Hong Phuc
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
