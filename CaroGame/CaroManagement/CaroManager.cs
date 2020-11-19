@@ -56,7 +56,9 @@ namespace CaroGame.CaroManagement
             };
         }
 
-        /// <summary>Draw caro board with number of row and column in Config</summary>
+        /// <summary>
+        /// Draw caro board with number of row and column in Config
+        /// </summary>
         private void DrawCaroBoard()
         {
             pnlCaroBoard.Controls.Clear();
@@ -78,7 +80,9 @@ namespace CaroGame.CaroManagement
             }
         }
 
-        /// <summary>Draw caro board with specified number of row and column</summary>
+        /// <summary>
+        /// Draw caro board with specified number of row and column
+        /// </summary>
         /// <param name="numberOfRow">the number of row</param>
         /// <param name="numberOfColumn">the number of column</param>
         private void DrawCaroBoard(int numberOfRow, int numberOfColumn)

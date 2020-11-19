@@ -104,7 +104,7 @@ namespace CaroGame.CaroManagement
         }
 
         /// <summary>
-        /// Check
+        /// 
         /// </summary>
         /// <returns>True if ended game or False when game is continning</returns>
         public bool IsEndGame()
@@ -175,6 +175,12 @@ namespace CaroGame.CaroManagement
             return (count == 4) && (countEnemy < 2);
         }
 
+        /// <summary>
+        /// check end game base on column
+        /// </summary>
+        /// <param name="X">X-continue of event button</param>
+        /// <param name="Y">Y-continue of event button</param>
+        /// <returns>True if one of players wined base on column or False when nobody wined</returns>
         private async Task<bool> IsWinColumn(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
@@ -212,6 +218,12 @@ namespace CaroGame.CaroManagement
             return (count == 4) && (countEnemy < 2);
         }
 
+        /// <summary>
+        /// check end game base on main diagonal
+        /// </summary>
+        /// <param name="X">X-continue of event button</param>
+        /// <param name="Y">Y-continue of event button</param>
+        /// <returns>True if one of players wined base on main diagonal or False when nobody wined</returns>
         private async Task<bool> IsWinMainDiagonal(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
@@ -252,6 +264,12 @@ namespace CaroGame.CaroManagement
             return (count == 4) && (countEnemy < 2);
         }
 
+        /// <summary>
+        /// check end game base on sub diagonal
+        /// </summary>
+        /// <param name="X">X-continue of event button</param>
+        /// <param name="Y">Y-continue of event button</param>
+        /// <returns>True if one of players wined base on sub diagonal or False when nobody wined</returns>
         private async Task<bool> IsWinSubDiagonal(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;

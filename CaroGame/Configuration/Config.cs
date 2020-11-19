@@ -36,6 +36,9 @@ namespace CaroGame.Configuration
         private static EntityConfig jsonConst;
         public static Stack<string> caroFlow;
 
+        /// <summary>
+        /// Initialized configuration when the program begin
+        /// </summary>
         public static void InitializeConfiguration()
         {
             jsonConst = new EntityConfig();
@@ -54,6 +57,9 @@ namespace CaroGame.Configuration
             }
         }
 
+        /// <summary>
+        /// Save configuration in file
+        /// </summary>
         public static void SaveConfiguration()
         {
             if (!(GAME_MODE.CurrentGameMode == GAME_MODE.LAN && !Config.IS_SERVER))
