@@ -42,6 +42,9 @@ namespace CaroGame.Presentaion
             DrawOverviewForm(this, Config.NAME.OVERVIEW);
         }
 
+        /// <summary>
+        /// Listen response or request from other payer in LAN GAME MODE
+        /// </summary>
         private void ListenOtherPlayer()
         {
             MessageData message = new MessageData(0, 0, 0, "");

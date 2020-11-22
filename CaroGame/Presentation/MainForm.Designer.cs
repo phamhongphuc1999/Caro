@@ -20,6 +20,9 @@ namespace CaroGame.Presentaion
 
         #region Windows Form Designer generated code
         #region Initialize Controller
+        /// <summary>
+        /// Create main menu
+        /// </summary>
         private void CreateMainMenu()
         {
             toolItemSetting = new ToolStripMenuItem()
@@ -75,6 +78,9 @@ namespace CaroGame.Presentaion
             });
         }
 
+        /// <summary>
+        /// Initialized the program's controls
+        /// </summary>
         private void InitializeController()
         {
             #region Overview
@@ -374,6 +380,14 @@ namespace CaroGame.Presentaion
         #endregion
 
         #region Draw Form
+        /// <summary>
+        /// Draw base form
+        /// </summary>
+        /// <param name="form">The specified form is drawed</param>
+        /// <param name="formText">The specified form's name is named specified form</param>
+        /// <param name="width">The specified form's width is assigned to specified form</param>
+        /// <param name="height">The specified form's width is assigned to specified form</param>
+        /// <param name="isClear">If true, all of controls in specified form is cleaned</param>
         private void DrawCommonForm(ref Form form, string formText, int width = 600, int height = 375, bool isClear = true)
         {
             if(isClear) form.Controls.Clear();
@@ -383,6 +397,11 @@ namespace CaroGame.Presentaion
             Config.caroFlow.Push(formText);
         }
 
+        /// <summary>
+        /// Draw OverviewForm
+        /// </summary>
+        /// <param name="overviewForm">The overview form</param>
+        /// <param name="formText">The form's name is named overview form</param>
         private void DrawOverviewForm(Form overviewForm, string formText)
         {
             DrawCommonForm(ref overviewForm, formText);
@@ -390,6 +409,11 @@ namespace CaroGame.Presentaion
             overviewForm.Controls.Add(butGuide);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gameModeForm"></param>
+        /// <param name="formText"></param>
         private void DrawGameModeForm(Form gameModeForm, string formText)
         {
             DrawCommonForm(ref gameModeForm, formText);
@@ -410,6 +434,12 @@ namespace CaroGame.Presentaion
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="playerForm"></param>
+        /// <param name="formText"></param>
+        /// <param name="gameMode"></param>
         private void DrawPlayerForm(Form playerForm, string formText, string gameMode = "")
         {
             DrawCommonForm(ref playerForm, formText);
@@ -434,6 +464,10 @@ namespace CaroGame.Presentaion
             butSave.Enabled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="LANForm"></param>
         private void DrawLANForm(Form LANForm)
         {
             butSave.Text = "Next";
@@ -459,6 +493,10 @@ namespace CaroGame.Presentaion
             LANForm.Controls.Add(butGetIP);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mainForm"></param>
         private void DrawMainForm(Form mainForm)
         {
             int width = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
@@ -492,6 +530,10 @@ namespace CaroGame.Presentaion
             mainForm.MainMenuStrip = mainMenu;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="settingForm"></param>
         private void DrawSettingForm(Form settingForm)
         {
             DrawCommonForm(ref settingForm, Config.NAME.SETTING);
@@ -513,6 +555,10 @@ namespace CaroGame.Presentaion
             else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN) butTimer.Enabled = false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="timeSettingForm"></param>
         private void DrawTimeSettingForm(Form timeSettingForm)
         {
             DrawCommonForm(ref timeSettingForm, Config.NAME.TIME_SETTING);
@@ -527,6 +573,10 @@ namespace CaroGame.Presentaion
             butSave.Text = "Save Change";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sizeSettingForm"></param>
         private void DrawSizeSettingForm(Form sizeSettingForm)
         {
             DrawCommonForm(ref sizeSettingForm, Config.NAME.SIZE_SETTING);
@@ -544,6 +594,10 @@ namespace CaroGame.Presentaion
             butSave.Text = "Save Change";
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="soundSettingForm"></param>
         private void DrawSoundSettingForm(Form soundSettingForm)
         {
             DrawCommonForm(ref soundSettingForm, Config.NAME.SOUND_SETTING);
@@ -554,6 +608,10 @@ namespace CaroGame.Presentaion
             soundSettingForm.Controls.Add(butCancel);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loadForm"></param>
         private void DrawLoadGame(Form loadForm)
         {
             int Y = 40, count = 1;
@@ -601,6 +659,10 @@ namespace CaroGame.Presentaion
             loadForm.Controls.Add(butCancel);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aboutForm"></param>
         private void DrawAboutGame(Form aboutForm)
         {
             DrawCommonForm(ref aboutForm, Config.NAME.ABOUT, 400, 250);
