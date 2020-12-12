@@ -2,41 +2,26 @@
 //  License under the Apache License, Version 2.0.
 //  Owner: Pham Hong Phuc
 
-using CaroGame.CaroManagement;
 using CaroGame.Configuration;
 using CaroGame.LANManagement;
 using CaroGame.Presentation;
 using CaroGame.SaveGameManagement;
-using CaroGame.SoundManagement;
 using DataTransmission;
 using System;
 using System.Drawing;
 using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
+using static CaroGame.Program;
 
 namespace CaroGame.Presentaion
 {
     public partial class MainForm : BaseForm
     {
-        private CaroManager caroManager;
-        private LANManager lanManager;
-        private SoundManager soundManager;
-
         public MainForm()
         {
             InitializeController();
             InitializeComponent();
-            caroManager = new CaroManager(txtPlayer, pnlCaroBoard, lblTime);
-            lanManager = new LANManager();
-            soundManager = new SoundManager();
-            if (Config.IS_PLAY_MUSIC)
-            {
-                soundManager.IsLoop = true;
-                soundManager.Volume = Config.VOLUME_SIZE;
-                soundManager.Play("su-thanh-hoa.wav");
-            }
-            CaroManager.lanManager = lanManager;
             caroManager.NewGameEvent += CaroManager_NewGameEvent;
             caroManager.EndGameEvent += CaroManager_EndGameEvent;
             this.FormClosing += Form1_FormClosing;

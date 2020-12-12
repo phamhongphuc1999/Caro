@@ -660,13 +660,16 @@ namespace CaroGame.Presentaion
         private MenuStrip mainMenu;
         private NumericUpDown numSound;
         private RichTextBox rtbChat, rtbAbout;
-        private Panel pnlCaroBoard, pnlChat;
+        private Panel pnlChat;
+        public Panel pnlCaroBoard;
         private ToolStripSeparator bottomQuickSeparator;
         private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butSaveGame, butNewGame;
         private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave, butGuide;
         private Button butStatusTime, butConnect, butCancel, butGetIP, butLoadGame, butChat;
         private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting, toolItemAbout;
-        private TextBox txtPlayer, txtSTimeTurn, txtSTimeInterval, txtName1Row, txtName2Column, txtChat;
-        private Label lblTime, lblSTimeTurn, lblSTimeInterval, lblName1Row, lblName2Column, lblSSound, lblOr;
+        private TextBox txtSTimeTurn, txtSTimeInterval, txtName1Row, txtName2Column, txtChat;
+        public TextBox txtPlayer;
+        private Label lblSTimeTurn, lblSTimeInterval, lblName1Row, lblName2Column, lblSSound, lblOr;
+        public Label lblTime;
     }
 }
