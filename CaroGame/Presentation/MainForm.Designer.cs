@@ -7,17 +7,6 @@ namespace CaroGame.Presentaion
 {
     partial class MainForm
     {
-        private System.ComponentModel.IContainer components = null;
-        
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
         #region Windows Form Designer generated code
         #region Initialize Controller
         /// <summary>
@@ -380,23 +369,6 @@ namespace CaroGame.Presentaion
         #endregion
 
         #region Draw Form
-        /// <summary>
-        /// Draw base form
-        /// </summary>
-        /// <param name="form">The specified form is drawed</param>
-        /// <param name="formText">The specified form's name is named specified form</param>
-        /// <param name="width">The specified form's width is assigned to specified form</param>
-        /// <param name="height">The specified form's width is assigned to specified form</param>
-        /// <param name="isClear">If true, all of controls in specified form is cleaned</param>
-        private void DrawCommonForm(ref Form form, string formText, int width = 600, int height = 375, bool isClear = true)
-        {
-            if(isClear) form.Controls.Clear();
-            form.Text = formText;
-            form.AutoScaleDimensions = new SizeF(9F, 20F);
-            form.ClientSize = new Size(width, height);
-            Config.caroFlow.Push(formText);
-        }
-
         /// <summary>
         /// Draw OverviewForm
         /// </summary>

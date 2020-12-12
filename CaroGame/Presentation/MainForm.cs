@@ -5,6 +5,7 @@
 using CaroGame.CaroManagement;
 using CaroGame.Configuration;
 using CaroGame.LANManagement;
+using CaroGame.Presentation;
 using CaroGame.SaveGameManagement;
 using CaroGame.SoundManagement;
 using DataTransmission;
@@ -16,7 +17,7 @@ using System.Windows.Forms;
 
 namespace CaroGame.Presentaion
 {
-    public partial class MainForm : Form
+    public partial class MainForm : BaseForm
     {
         private CaroManager caroManager;
         private LANManager lanManager;

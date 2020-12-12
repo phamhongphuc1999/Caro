@@ -7,11 +7,15 @@ using CaroGame.SaveGameManagement;
 using System;
 using System.Windows.Forms;
 using CaroGame.Presentaion;
+using CaroGame.Presentation;
 
 namespace CaroGame
 {
     static class Program
     {
+        public static MainForm mainForm;
+        public static SettingForm settingForm;
+
         [STAThread]
         static void Main()
         {
@@ -19,9 +23,15 @@ namespace CaroGame
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Config.InitializeConfiguration();
+
+            //load save game
             SaveGameHelper.LoadGame();
-            MainForm mainForm = new MainForm();
-            Application.Run(mainForm);
+
+            //init screen
+            mainForm = new MainForm();
+            settingForm = new SettingForm();
+
+            Application.Run(settingForm);
         }
     }
 }
