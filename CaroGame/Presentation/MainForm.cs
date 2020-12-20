@@ -18,10 +18,9 @@ namespace CaroGame.Presentaion
 {
     public partial class MainForm : BaseForm
     {
-        public MainForm()
+        public MainForm(string formText, Icon icon): base(formText, icon)
         {
             InitializeController();
-            InitializeComponent();
             caroManager.NewGameEvent += CaroManager_NewGameEvent;
             caroManager.EndGameEvent += CaroManager_EndGameEvent;
             this.FormClosing += Form1_FormClosing;
@@ -92,7 +91,7 @@ namespace CaroGame.Presentaion
             else if (currentFrom == Config.NAME.SETTING) settingForm.Close();
             else if (currentFrom == Config.NAME.LAN_CONNECTION) DrawPlayerForm(this, Config.NAME.PLAYER, Config.GAME_MODE.CurrentGameMode);
             else if (currentFrom == Config.NAME.LOAD_GAME && prevForm == Config.NAME.GAME_MODE) DrawGameModeForm(this, Config.NAME.GAME_MODE);
-            else DrawSettingForm(settingForm);
+            else settingForm.DrawSettingForm(settingForm);
         }
         #endregion
 
@@ -107,23 +106,23 @@ namespace CaroGame.Presentaion
             }
             else if (currentForm == Config.NAME.TIME_SETTING)
             {
-                if (butStatusTime.Text == "Off Timer")
+                if (settingForm.butStatusTime.Text == "Off Timer")
                 {
                     int timeTurn = 0, interval = 0;
-                    bool check1 = Int32.TryParse(txtSTimeTurn.Text, out timeTurn);
-                    bool check2 = Int32.TryParse(txtSTimeInterval.Text, out interval);
+                    bool check1 = Int32.TryParse(settingForm.txtSTimeTurn.Text, out timeTurn);
+                    bool check2 = Int32.TryParse(settingForm.txtSTimeInterval.Text, out interval);
                     if (!check1 || !check2)
                     {
                         MessageBox.Show("Must be enter integer", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtSTimeTurn.Text = Config.TIME_TURN.ToString();
-                        txtSTimeInterval.Text = Config.INTERVAL.ToString();
+                        settingForm.txtSTimeTurn.Text = Config.TIME_TURN.ToString();
+                        settingForm.txtSTimeInterval.Text = Config.INTERVAL.ToString();
                         return;
                     }
                     if (timeTurn <= 0 || timeTurn < interval || timeTurn > 30)
                     {
                         MessageBox.Show("time turn is the integer within 0 and 30 and less than interval", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtSTimeTurn.Text = Config.TIME_TURN.ToString();
-                        txtSTimeInterval.Text = Config.INTERVAL.ToString();
+                        settingForm.txtSTimeTurn.Text = Config.TIME_TURN.ToString();
+                        settingForm.txtSTimeInterval.Text = Config.INTERVAL.ToString();
                         return;
                     }
                     Config.IS_ON_TIMER = true;
@@ -136,7 +135,7 @@ namespace CaroGame.Presentaion
                     Config.IS_ON_TIMER = false;
                     lblTime.Text = "No Timer";
                 }
-                DrawSettingForm(settingForm);
+                settingForm.DrawSettingForm(settingForm);
             }
             else if (currentForm == Config.NAME.SIZE_SETTING)
             {
@@ -225,7 +224,7 @@ namespace CaroGame.Presentaion
                 caroManager.PlayerList[0].NamePlayer = Config.NAME_PLAYER1;
                 caroManager.PlayerList[1].NamePlayer = Config.NAME_PLAYER2;
                 txtPlayer.Text = caroManager.PlayerList[caroManager.Turn].NamePlayer;
-                DrawSettingForm(settingForm);
+                settingForm.DrawSettingForm(settingForm);
             }
             else if (currentForm == Config.NAME.LAN_CONNECTION) caroManager.NewGameHandle(0);
             else if (currentForm == Config.NAME.SOUND_SETTING)
@@ -244,7 +243,7 @@ namespace CaroGame.Presentaion
                     soundManager.Volume = Config.VOLUME_SIZE;
                     soundManager.Play("su-thanh-hoa.wav");
                 }
-                DrawSettingForm(settingForm);
+                settingForm.DrawSettingForm(settingForm);
             }
         }
 
@@ -265,7 +264,7 @@ namespace CaroGame.Presentaion
 
         private void ButTimer_Click(object sender, EventArgs e)
         {
-            DrawTimeSettingForm(settingForm);
+            settingForm.DrawTimeSettingForm(settingForm);
         }
 
         private void ButGameMode_Click(object sender, EventArgs e)
@@ -353,7 +352,7 @@ namespace CaroGame.Presentaion
         private void ToolItemSetting_Click(object sender, EventArgs e)
         {
             timer.Stop();
-            DrawSettingForm(settingForm);
+            settingForm.DrawSettingForm(settingForm);
             settingForm.ShowDialog();
         }
 
@@ -439,29 +438,6 @@ namespace CaroGame.Presentaion
         }
         #endregion
 
-        #region Event Time Handler
-        private void ButStatusTime_Click(object sender, EventArgs e)
-        {
-            Button eventBut = sender as Button;
-            if (eventBut.Text == "Off Timer")
-            {
-                eventBut.Text = "On Timer";
-                txtSTimeTurn.Enabled = false;
-                txtSTimeInterval.Enabled = false;
-                lblSTimeTurn.Enabled = false;
-                lblSTimeInterval.Enabled = false;
-            }
-            else
-            {
-                eventBut.Text = "Off Timer";
-                txtSTimeTurn.Enabled = true;
-                txtSTimeInterval.Enabled = true;
-                lblSTimeTurn.Enabled = true;
-                lblSTimeInterval.Enabled = true;
-            }
-        }
-        #endregion
-
         #region Event Lan Handler
         private void ButGetIP_Click(object sender, EventArgs e)
         {
@@ -542,11 +518,6 @@ namespace CaroGame.Presentaion
                 if (!Config.IS_LOAD_GAME) Config.SaveConfiguration();
                 SaveGameHelper.SaveGameToFile();
             }
-        }
-
-        private void SettingForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
         }
 
         private void Timer_Tick(object sender, EventArgs e)

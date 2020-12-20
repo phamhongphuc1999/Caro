@@ -11,6 +11,7 @@ using CaroGame.Presentation;
 using CaroGame.CaroManagement;
 using CaroGame.LANManagement;
 using CaroGame.SoundManagement;
+using System.Drawing;
 
 namespace CaroGame
 {
@@ -31,12 +32,8 @@ namespace CaroGame
             Application.SetCompatibleTextRenderingDefault(false);
             Config.InitializeConfiguration();
 
-            //init screen
-            mainForm = new MainForm();
-            settingForm = new SettingForm();
-
-            //init  manager
-            caroManager = new CaroManager(mainForm.txtPlayer, mainForm.pnlCaroBoard, mainForm.lblTime);
+            //init manager
+            caroManager = new CaroManager();
             lanManager = new LANManager();
             soundManager = new SoundManager();
             if (Config.IS_PLAY_MUSIC)
@@ -50,7 +47,16 @@ namespace CaroGame
             //load save game
             SaveGameHelper.LoadGame();
 
-            Application.Run(settingForm);
+            //init screen
+            Icon mainIcon = new Icon("../../../Resources/Image/caro.ico");
+            Icon settingIcon = new Icon("../../../Resources/Image/setting.ico");
+            mainForm = new MainForm(Config.NAME.GAME_MODE, mainIcon);
+            settingForm = new SettingForm("Setting", settingIcon);
+
+            caroManager.txtPlayer = mainForm.txtPlayer;
+            caroManager.pnlCaroBoard = mainForm.pnlCaroBoard;
+            caroManager.lblTime = mainForm.lblTime;
+            Application.Run(mainForm);
         }
     }
 }

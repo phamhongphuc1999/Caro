@@ -266,48 +266,6 @@ namespace CaroGame.Presentaion
             butSave.Click += ButSave_Click;
             #endregion
 
-            #region Time Setting
-            lblSTimeTurn = new Label()
-            {
-                Text = "Time Turn",
-                Enabled = Config.IS_ON_TIMER ? true : false,
-                Size = new Size(80, 40),
-                Location = new Point(30, 80)
-            };
-
-            lblSTimeInterval = new Label()
-            {
-                Text = "Interval",
-                Enabled = Config.IS_ON_TIMER ? true : false,
-                Size = new Size(80, 40),
-                Location = new Point(30, 170)
-            };
-
-            txtSTimeTurn = new TextBox()
-            {
-                Text = Config.TIME_TURN.ToString(),
-                Enabled = Config.IS_ON_TIMER ? true : false,
-                Width = 360,
-                Location = new Point(120, 85)
-            };
-
-            txtSTimeInterval = new TextBox()
-            {
-                Text = Config.INTERVAL.ToString(),
-                Enabled = Config.IS_ON_TIMER ? true : false,
-                Width = 360,
-                Location = new Point(120, 170)
-            };
-
-            butStatusTime = new Button()
-            {
-                Text = Config.IS_ON_TIMER ? "Off Timer" : "On Timer",
-                Size = new Size(90, 40),
-                Location = new Point(250, 280)
-            };
-            butStatusTime.Click += ButStatusTime_Click;
-            #endregion
-
             #region Sound Setting
             lblSSound = new Label()
             {
@@ -351,15 +309,6 @@ namespace CaroGame.Presentaion
                 Location = new Point(0, 0),
                 Enabled = false
             };
-            
-            settingForm = new Form()
-            {
-                Tag = 1,
-                StartPosition = FormStartPosition.CenterScreen,
-                MaximizeBox = false,
-                MinimizeBox = false
-            };
-            settingForm.FormClosing += SettingForm_FormClosing;
             timer = new Timer()
             {
                 Interval = Config.INTERVAL * 1000
@@ -505,49 +454,6 @@ namespace CaroGame.Presentaion
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="settingForm"></param>
-        private void DrawSettingForm(Form settingForm)
-        {
-            DrawCommonForm(ref settingForm, Config.NAME.SETTING);
-            settingForm.Icon = new Icon("../../../Resources/Image/setting.ico");
-            butLoadGame.Size = new Size(110, 40);
-            butLoadGame.Location = new Point(370, 0);
-            butCancel.Location = new Point(370, 280);
-            settingForm.Controls.Add(butGameMode);
-            settingForm.Controls.Add(butTimer);
-            settingForm.Controls.Add(butNamePlayer);
-            settingForm.Controls.Add(butSizeBoard);
-            settingForm.Controls.Add(butSound);
-            settingForm.Controls.Add(butSave);
-            settingForm.Controls.Add(butCancel);
-            settingForm.Controls.Add(butSaveGame);
-            settingForm.Controls.Add(butLoadGame);
-            butSave.Text = "Save Change";
-            if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.TWO_PLAYER) butTimer.Enabled = true;
-            else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN) butTimer.Enabled = false;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="timeSettingForm"></param>
-        private void DrawTimeSettingForm(Form timeSettingForm)
-        {
-            DrawCommonForm(ref timeSettingForm, Config.NAME.TIME_SETTING);
-            butCancel.Location = new Point(370, 280);
-            timeSettingForm.Controls.Add(lblSTimeTurn);
-            timeSettingForm.Controls.Add(lblSTimeInterval);
-            timeSettingForm.Controls.Add(txtSTimeTurn);
-            timeSettingForm.Controls.Add(txtSTimeInterval);
-            timeSettingForm.Controls.Add(butStatusTime);
-            timeSettingForm.Controls.Add(butCancel);
-            timeSettingForm.Controls.Add(butSave);
-            butSave.Text = "Save Change";
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="sizeSettingForm"></param>
         private void DrawSizeSettingForm(Form sizeSettingForm)
         {
@@ -642,21 +548,9 @@ namespace CaroGame.Presentaion
             aboutForm.Controls.Add(rtbAbout);
         }
         #endregion
-
-        private void InitializeComponent()
-        {
-            this.Icon = new Icon("../../../Resources/Image/caro.ico");
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.Opacity = 1;
-            this.Text = "MainForm";
-        }
         #endregion
 
         private Timer timer;
-        private Form settingForm;
         private MenuStrip mainMenu;
         private NumericUpDown numSound;
         private RichTextBox rtbChat, rtbAbout;
@@ -665,11 +559,11 @@ namespace CaroGame.Presentaion
         private ToolStripSeparator bottomQuickSeparator;
         private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butSaveGame, butNewGame;
         private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave, butGuide;
-        private Button butStatusTime, butConnect, butCancel, butGetIP, butLoadGame, butChat;
+        private Button butConnect, butCancel, butGetIP, butLoadGame, butChat;
         private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting, toolItemAbout;
-        private TextBox txtSTimeTurn, txtSTimeInterval, txtName1Row, txtName2Column, txtChat;
+        private TextBox txtName1Row, txtName2Column, txtChat;
         public TextBox txtPlayer;
-        private Label lblSTimeTurn, lblSTimeInterval, lblName1Row, lblName2Column, lblSSound, lblOr;
+        private Label lblName1Row, lblName2Column, lblSSound, lblOr;
         public Label lblTime;
     }
 }
