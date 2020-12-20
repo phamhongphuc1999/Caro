@@ -5,6 +5,15 @@
     <Compile Update="Presentation\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Presentation\CustomMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Presentation\CustomPanel\PlayerPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Presentation\CustomPanel\SizePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Presentation\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

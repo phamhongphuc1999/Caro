@@ -1,6 +1,8 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using CaroGame.Configuration;
+using CaroGame.Presentation;
+using CaroGame.Presentation.CustomPanel;
 using CaroGame.SaveGameManagement;
 
 namespace CaroGame.Presentaion
@@ -9,67 +11,7 @@ namespace CaroGame.Presentaion
     {
         #region Windows Form Designer generated code
         #region Initialize Controller
-        /// <summary>
-        /// Create main menu
-        /// </summary>
-        private void CreateMainMenu()
-        {
-            toolItemSetting = new ToolStripMenuItem()
-            {
-                Text = "Setting Game",
-                ShortcutKeys = (Keys)Shortcut.CtrlShiftS
-            };
-            toolItemNewGame = new ToolStripMenuItem()
-            {
-                Text = "New Game",
-                ShortcutKeys = (Keys)Shortcut.CtrlN
-            };
-            toolItemQuick = new ToolStripMenuItem()
-            {
-                Text = "Quick Game",
-                ShortcutKeys = (Keys)Shortcut.CtrlQ
-            };
-            bottomQuickSeparator = new ToolStripSeparator();
-            toolItemAbout = new ToolStripMenuItem()
-            {
-                Text = "About"
-            };
-            toolItemMain = new ToolStripMenuItem()
-            {
-                Text = "Menu"
-            };
-            toolItemMain.DropDownItems.AddRange(new ToolStripItem[]
-            {
-                toolItemNewGame,
-                toolItemSetting,
-                toolItemQuick,
-                bottomQuickSeparator,
-                toolItemAbout
-            });
-            toolItemNewGame.Click += ToolItemNewGame_Click;
-            toolItemQuick.Click += ToolItemQuick_Click;
-            toolItemSetting.Click += ToolItemSetting_Click;
-            toolItemAbout.Click += ToolItemAbout_Click;
 
-            mainMenu = new MenuStrip()
-            {
-                Name = "mainMenu",
-                Text = "Menu",
-                GripMargin = new Padding(2, 2, 0, 2),
-                ImageScalingSize = new Size(24, 24),
-                Location = new Point(0, 0),
-                TabIndex = 0
-            };
-
-            mainMenu.Items.AddRange(new ToolStripItem[]
-            {
-                toolItemMain
-            });
-        }
-
-        /// <summary>
-        /// Initialized the program's controls
-        /// </summary>
         private void InitializeController()
         {
             #region Overview
@@ -127,34 +69,12 @@ namespace CaroGame.Presentaion
             butModeAI.Click += ButModeAI_Click;
             #endregion
 
-            #region Player Infomation
-            lblName1Row = new Label()
-            {
-                Size = new Size(80, 45),
-                Location = new Point(30, 85)
-            };
-            lblName2Column = new Label()
-            {
-                Size = new Size(80, 45),
-                Location = new Point(30, 170)
-            };
-            txtName1Row = new TextBox()
-            {
-                Width = 360,
-                Location = new Point(120, 85)
-            };
-            txtName2Column = new TextBox()
-            {
-                Width = 360,
-                Location = new Point(120, 170)
-            };
             butCancel = new Button()
             {
                 Text = "Back",
                 Size = new Size(90, 40)
             };
             butCancel.Click += ButCancel_Click;
-            #endregion
 
             #region LAN Mode
             butConnect = new Button()
@@ -200,7 +120,19 @@ namespace CaroGame.Presentaion
                 TextAlign = ContentAlignment.MiddleCenter,
                 Location = new Point(0, 35)
             };
-            CreateMainMenu();
+            mainMenu = new CustomMenu
+            {
+                Name = "mainMenu",
+                Text = "Menu",
+                GripMargin = new Padding(2, 2, 0, 2),
+                ImageScalingSize = new Size(24, 24),
+                Location = new Point(0, 0),
+                TabIndex = 0
+            };
+            mainMenu.toolItemAbout.Click += ToolItemAbout_Click;
+            mainMenu.toolItemSetting.Click += ToolItemSetting_Click;
+            mainMenu.toolItemQuick.Click += ToolItemQuick_Click;
+            mainMenu.toolItemNewGame.Click += ToolItemNewGame_Click;
             butRedo.Click += ButRedo_Click;
             butUndo.Click += ButUndo_Click;
             #endregion
@@ -221,68 +153,13 @@ namespace CaroGame.Presentaion
             butChat.Click += ButChat_Click;
             #endregion
 
-            #region Common Setting
-            butGameMode = new Button()
-            {
-                Text = "Game Mode",
-                Size = new Size(144, 55),
-                Location = new Point(42, 70)
-            };
-            butTimer = new Button()
-            {
-                Text = "Time",
-                Size = new Size(144, 55),
-                Location = new Point(228, 70)
-            };
-            butNamePlayer = new Button()
-            {
-                Text = "Player",
-                Size = new Size(144, 55),
-                Location = new Point(414, 70)
-            };
-            butSizeBoard = new Button()
-            {
-                Text = "Size Board",
-                Size = new Size(144, 55),
-                Location = new Point(42, 145)
-            };
-            butSound = new Button()
-            {
-                Text = "Sound",
-                Size = new Size(144, 55),
-                Location = new Point(228, 145)
-            };
             butSave = new Button()
             {
                 Text = "Save Change",
                 Size = new Size(90, 40),
                 Location = new Point(490, 280)
             };
-            butGameMode.Click += ButGameMode_Click;
-            butTimer.Click += ButTimer_Click;
-            butNamePlayer.Click += ButNamePlayer_Click;
-            butSizeBoard.Click += ButSizeBoard_Click;
-            butSound.Click += ButSound_Click;
-            butSave.Click += ButSave_Click;
-            #endregion
-
-            #region Sound Setting
-            lblSSound = new Label()
-            {
-                Text = "Volume",
-                Size = new Size(80, 40),
-                Location = new Point(40, 100)
-            };
-            numSound = new NumericUpDown()
-            {
-                Size = new Size(350, 30),
-                Location = new Point(130, 100),
-                Value = new decimal(Config.VOLUME_SIZE),
-                Maximum = new decimal(100),
-                Minimum = new decimal(0),
-                ThousandsSeparator = true
-            };
-            #endregion
+            //butSave.Click += ButSave_Click;
 
             #region Load And Save Game
             butLoadGame = new Button();
@@ -296,6 +173,15 @@ namespace CaroGame.Presentaion
             butSaveGame.Click += ButSaveGame_Click;
             butLoadGame.Click += ButLoadGame_Click;
             #endregion
+
+            playerPanel = new PlayerPanel()
+            {
+                Location = new Point(0, 0)
+            };
+            sizePanel = new SizePanel()
+            {
+                Location = new Point(0, 0)
+            };
 
             rtbAbout = new RichTextBox()
             {
@@ -318,11 +204,6 @@ namespace CaroGame.Presentaion
         #endregion
 
         #region Draw Form
-        /// <summary>
-        /// Draw OverviewForm
-        /// </summary>
-        /// <param name="overviewForm">The overview form</param>
-        /// <param name="formText">The form's name is named overview form</param>
         private void DrawOverviewForm(Form overviewForm, string formText)
         {
             DrawCommonForm(ref overviewForm, formText);
@@ -330,11 +211,6 @@ namespace CaroGame.Presentaion
             overviewForm.Controls.Add(butGuide);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="gameModeForm"></param>
-        /// <param name="formText"></param>
         private void DrawGameModeForm(Form gameModeForm, string formText)
         {
             DrawCommonForm(ref gameModeForm, formText);
@@ -355,40 +231,12 @@ namespace CaroGame.Presentaion
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="playerForm"></param>
-        /// <param name="formText"></param>
-        /// <param name="gameMode"></param>
         private void DrawPlayerForm(Form playerForm, string formText, string gameMode = "")
         {
-            DrawCommonForm(ref playerForm, formText);
-            txtName1Row.Text = Config.NAME_PLAYER1;
-            txtName2Column.Text = Config.NAME_PLAYER2;
-            if (gameMode == Config.GAME_MODE.LAN) lblName1Row.Text = "Player";
-            else
-            {
-                lblName1Row.Text = "Player 1";
-                lblName2Column.Text = "Player 2";
-                playerForm.Controls.Add(lblName2Column);
-                playerForm.Controls.Add(txtName2Column);
-
-            }
-            playerForm.Controls.Add(lblName1Row);
-            playerForm.Controls.Add(txtName1Row);
-            butCancel.Location = new Point(370, 280);
-            playerForm.Controls.Add(butCancel);
-            playerForm.Controls.Add(butSave);
-            if (formText == "Player") butSave.Text = "Next";
-            else if (formText == Config.NAME.PLAYER_SETTING) butSave.Text = "Save Change";
-            butSave.Enabled = true;
+            DrawCommonForm(ref playerForm, Config.NAME.PLAYER);
+            playerForm.Controls.Add(playerPanel);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="LANForm"></param>
         private void DrawLANForm(Form LANForm)
         {
             butSave.Text = "Next";
@@ -397,27 +245,23 @@ namespace CaroGame.Presentaion
             butConnect.BackColor = Color.White;
             butConnect.Enabled = true;
             butGetIP.Enabled = true;
-            txtName2Column.ReadOnly = false;
-            txtName1Row.ReadOnly = false;
-            txtName1Row.Text = "";
-            lblName1Row.Text = "IP";
-            lblName2Column.Text = "Port";
+            //txtName2Column.ReadOnly = false;
+            //txtName1Row.ReadOnly = false;
+            //txtName1Row.Text = "";
+            //lblName1Row.Text = "IP";
+            //lblName2Column.Text = "Port";
             butCancel.Location = new Point(370, 280);
             DrawCommonForm(ref LANForm, Config.NAME.LAN_CONNECTION);
-            LANForm.Controls.Add(lblName1Row);
-            LANForm.Controls.Add(lblName2Column);
-            LANForm.Controls.Add(txtName1Row);
-            LANForm.Controls.Add(txtName2Column);
+            //LANForm.Controls.Add(lblName1Row);
+            //LANForm.Controls.Add(lblName2Column);
+            //LANForm.Controls.Add(txtName1Row);
+            //LANForm.Controls.Add(txtName2Column);
             LANForm.Controls.Add(butSave);
             LANForm.Controls.Add(butConnect);
             LANForm.Controls.Add(butCancel);
             LANForm.Controls.Add(butGetIP);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mainForm"></param>
         private void DrawMainForm(Form mainForm)
         {
             int width = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
@@ -451,45 +295,6 @@ namespace CaroGame.Presentaion
             mainForm.MainMenuStrip = mainMenu;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sizeSettingForm"></param>
-        private void DrawSizeSettingForm(Form sizeSettingForm)
-        {
-            DrawCommonForm(ref sizeSettingForm, Config.NAME.SIZE_SETTING);
-            butCancel.Location = new Point(370, 280);
-            lblName1Row.Text = "Row";
-            lblName2Column.Text = "Column";
-            txtName1Row.Text = Config.NUMBER_OF_ROW.ToString();
-            txtName2Column.Text = Config.NUMBER_OF_COLUMN.ToString();
-            sizeSettingForm.Controls.Add(lblName1Row);
-            sizeSettingForm.Controls.Add(lblName2Column);
-            sizeSettingForm.Controls.Add(txtName1Row);
-            sizeSettingForm.Controls.Add(txtName2Column);
-            sizeSettingForm.Controls.Add(butSave);
-            sizeSettingForm.Controls.Add(butCancel);
-            butSave.Text = "Save Change";
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="soundSettingForm"></param>
-        private void DrawSoundSettingForm(Form soundSettingForm)
-        {
-            DrawCommonForm(ref soundSettingForm, Config.NAME.SOUND_SETTING);
-            butCancel.Location = new Point(370, 280);
-            soundSettingForm.Controls.Add(lblSSound);
-            soundSettingForm.Controls.Add(numSound);
-            soundSettingForm.Controls.Add(butSave);
-            soundSettingForm.Controls.Add(butCancel);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="loadForm"></param>
         private void DrawLoadGame(Form loadForm)
         {
             int Y = 40, count = 1;
@@ -550,20 +355,16 @@ namespace CaroGame.Presentaion
         #endregion
         #endregion
 
-        private Timer timer;
-        private MenuStrip mainMenu;
-        private NumericUpDown numSound;
-        private RichTextBox rtbChat, rtbAbout;
-        private Panel pnlChat;
-        public Panel pnlCaroBoard;
-        private ToolStripSeparator bottomQuickSeparator;
-        private Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo, butSaveGame, butNewGame;
-        private Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butSave, butGuide;
-        private Button butConnect, butCancel, butGetIP, butLoadGame, butChat;
-        private ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting, toolItemAbout;
-        private TextBox txtName1Row, txtName2Column, txtChat;
-        public TextBox txtPlayer;
-        private Label lblName1Row, lblName2Column, lblSSound, lblOr;
-        public Label lblTime;
+        public Timer timer;
+        public RichTextBox rtbChat, rtbAbout;
+        public Panel pnlChat, pnlCaroBoard;
+        public Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo;
+        public Button butSave, butGuide, butSaveGame, butNewGame;
+        public Button butConnect, butCancel, butGetIP, butLoadGame, butChat;
+        public TextBox txtChat, txtPlayer;
+        public Label lblOr, lblTime;
+        public PlayerPanel playerPanel;
+        public SizePanel sizePanel;
+        public CustomMenu mainMenu;
     }
 }
