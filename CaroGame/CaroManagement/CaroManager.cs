@@ -17,9 +17,9 @@ namespace CaroGame.CaroManagement
     class CaroManager
     {
         public int Turn { get; set; }
-        public Panel pnlCaroBoard;
-        private TextBox txtPlayer;
-        private Label lblTime;
+        public Panel pnlCaroBoard { get; set; }
+        public TextBox txtPlayer { get; set; }
+        public Label lblTime { get; set; }
         private static WinManager winManager;
         public static LANManager lanManager;
         private Dictionary<KeyValuePair<int, int>, Button> caroBoard;
@@ -40,11 +40,8 @@ namespace CaroGame.CaroManagement
             remove { endGameEvent += value; }
         }
 
-        public CaroManager(TextBox txtPlayer, Panel pnlCaroBoard, Label lblTime)
+        public CaroManager()
         {
-            this.txtPlayer = txtPlayer;
-            this.pnlCaroBoard = pnlCaroBoard;
-            this.lblTime = lblTime;
             butUndo = new CaroStack<Button>(5);
             butRedo = new CaroStack<Button>(5);
             winManager = new WinManager(Config.NUMBER_OF_COLUMN, Config.NUMBER_OF_ROW);
