@@ -37,6 +37,17 @@ namespace CaroGame.Configuration
         public static Stack<string> caroFlow;
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player1"></param>
+        /// <param name="player2"></param>
+        public static void InitializePlayereName(string player1, string player2)
+        {
+            NAME_PLAYER1 = player1;
+            NAME_PLAYER2 = player2;
+        }
+
+        /// <summary>
         /// Initialized configuration when the program begin
         /// </summary>
         public static void InitializeConfiguration()

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using CaroGame.Configuration;
 using CaroGame.Presentation;
@@ -9,73 +10,25 @@ namespace CaroGame.Presentaion
 {
     partial class MainForm
     {
+        public Timer timer;
+        public RichTextBox rtbChat, rtbAbout;
+        public Panel pnlChat, pnlCaroBoard;
+        public Button butUndo, butRedo;
+        public Button butSaveGame;
+        public Button butConnect, butGetIP, butChat;
+        public TextBox txtChat, txtPlayer;
+        public Label lblTime;
+        public PlayerPanel playerPanel;
+        public SizePanel sizePanel;
+        public OverviewPanel overviewPanel;
+        public GameModePanel gameModePanel;
+        public CustomMenu mainMenu;
+
         #region Windows Form Designer generated code
         #region Initialize Controller
 
         private void InitializeController()
         {
-            #region Overview
-            butNewGame = new Button()
-            {
-                Text = "New Game",
-                Size = new Size(150, 65),
-                Location = new Point(100, 155),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = ColorTranslator.FromHtml("#8BC4FC")
-            };
-            butGuide = new Button()
-            {
-                Text = "Guide",
-                Size = new Size(150, 65),
-                Location = new Point(350, 155),
-                BackColor = ColorTranslator.FromHtml("#8BC4FC")
-            };
-            butNewGame.Click += ButNewGame_Click;
-            butGuide.Click += ButGuide_Click;
-            #endregion
-
-            #region Game Mode
-            butTwoPlayer = new Button()
-            {
-                Text = "Two Player",
-                Size = new Size(144, 55),
-                Location = new Point(42, 70),
-                BackColor = ColorTranslator.FromHtml("#8BC4FC")
-            };
-            butModeLan = new Button()
-            {
-                Text = "LAN Mode",
-                Size = new Size(144, 55),
-                Location = new Point(228, 70),
-                BackColor = ColorTranslator.FromHtml("#8BC4FC")
-            };
-            butModeAI = new Button()
-            {
-                Name = "butModeAI",
-                Text = "One Player",
-                Size = new Size(144, 55),
-                Location = new Point(414, 70),
-                BackColor = ColorTranslator.FromHtml("#8BC4FC")
-            };
-            lblOr = new Label()
-            {
-                Name = "lblOr",
-                Text = "OR",
-                Size = new Size(60, 20),
-                Location = new Point(270, 177)
-            };
-            butTwoPlayer.Click += ButTwoPlayer_Click;
-            butModeLan.Click += ButModeLan_Click;
-            butModeAI.Click += ButModeAI_Click;
-            #endregion
-
-            butCancel = new Button()
-            {
-                Text = "Back",
-                Size = new Size(90, 40)
-            };
-            butCancel.Click += ButCancel_Click;
-
             #region LAN Mode
             butConnect = new Button()
             {
@@ -153,17 +106,6 @@ namespace CaroGame.Presentaion
             butChat.Click += ButChat_Click;
             #endregion
 
-            butNext = new Button()
-            {
-                Text = "Next",
-                Size = new Size(90, 40),
-                Location = new Point(490, 280)
-            };
-            butNext.Click += ButNext_Click;
-
-            #region Load And Save Game
-            butLoadGame = new Button();
-            butLoadGame.Text = "Load Game";
             butSaveGame = new Button()
             {
                 Text = "Save Game",
@@ -171,17 +113,32 @@ namespace CaroGame.Presentaion
                 Location = new Point(485, 0)
             };
             butSaveGame.Click += ButSaveGame_Click;
-            butLoadGame.Click += ButLoadGame_Click;
-            #endregion
 
             playerPanel = new PlayerPanel()
             {
                 Location = new Point(0, 0)
             };
+            playerPanel.routePnl.cancelActionBut.Click += PlayerPanel_CancelActionBut_Click;
+            playerPanel.routePnl.nextActionBut.Click += PlayerPanel_NextActionBut_Click;
             sizePanel = new SizePanel()
             {
                 Location = new Point(0, 0)
             };
+            overviewPanel = new OverviewPanel()
+            {
+                Location = new Point(0, 0)
+            };
+            overviewPanel.butNewGame.Click += ButNewGame_Click;
+            overviewPanel.butGuide.Click += ButGuide_Click;
+            gameModePanel = new GameModePanel()
+            {
+                Location = new Point(0, 0)
+            };
+            gameModePanel.butTwoPlayer.Click += ButTwoPlayer_Click;
+            gameModePanel.butModeLan.Click += ButModeLan_Click;
+            gameModePanel.butModeAI.Click += ButModeAI_Click;
+            gameModePanel.routePanel.cancelActionBut.Click += ButCancel_Click;
+            gameModePanel.butLoadGame.Click += ButLoadGame_Click;
 
             rtbAbout = new RichTextBox()
             {
@@ -201,50 +158,30 @@ namespace CaroGame.Presentaion
             };
             timer.Tick += Timer_Tick;
         }
-
-        private void ButNext_Click(object sender, System.EventArgs e)
-        {
-        }
         #endregion
 
         #region Draw Form
         private void DrawOverviewForm(Form overviewForm, string formText)
         {
             DrawCommonForm(ref overviewForm, formText);
-            overviewForm.Controls.Add(butNewGame);
-            overviewForm.Controls.Add(butGuide);
+            overviewForm.Controls.Add(overviewPanel);
         }
 
         private void DrawGameModeForm(Form gameModeForm, string formText)
         {
             DrawCommonForm(ref gameModeForm, formText);
-            butLoadGame.Location = new Point(225, 250);
-            butLoadGame.Size = new Size(150, 55);
-            gameModeForm.Controls.Add(butTwoPlayer);
-            gameModeForm.Controls.Add(butModeLan);
-            gameModeForm.Controls.Add(butModeAI);
-            if (formText == Config.NAME.GAME_MODE_SETTING)
-            {
-                butCancel.Location = new Point(370, 280);
-                gameModeForm.Controls.Add(butCancel);
-            }
-            else
-            {
-                gameModeForm.Controls.Add(butLoadGame);
-                gameModeForm.Controls.Add(lblOr);
-            }
+            gameModeForm.Controls.Add(gameModePanel);
         }
 
         private void DrawPlayerForm(Form playerForm, string formText, string gameMode = "")
         {
             DrawCommonForm(ref playerForm, Config.NAME.PLAYER);
             playerForm.Controls.Add(playerPanel);
-            playerForm.Controls.Add(butNext);
         }
 
         private void DrawLANForm(Form LANForm)
         {
-            butNext.Enabled = false;
+            //butNext.Enabled = false;
             butConnect.Text = "Connect";
             butConnect.BackColor = Color.White;
             butConnect.Enabled = true;
@@ -254,15 +191,15 @@ namespace CaroGame.Presentaion
             //txtName1Row.Text = "";
             //lblName1Row.Text = "IP";
             //lblName2Column.Text = "Port";
-            butCancel.Location = new Point(370, 280);
+            //butCancel.Location = new Point(370, 280);
             DrawCommonForm(ref LANForm, Config.NAME.LAN_CONNECTION);
             //LANForm.Controls.Add(lblName1Row);
             //LANForm.Controls.Add(lblName2Column);
             //LANForm.Controls.Add(txtName1Row);
             //LANForm.Controls.Add(txtName2Column);
-            LANForm.Controls.Add(butNext);
+            //LANForm.Controls.Add(butNext);
             LANForm.Controls.Add(butConnect);
-            LANForm.Controls.Add(butCancel);
+            //LANForm.Controls.Add(butCancel);
             LANForm.Controls.Add(butGetIP);
         }
 
@@ -342,8 +279,8 @@ namespace CaroGame.Presentaion
                 }
             }
             DrawCommonForm(ref loadForm, Config.NAME.LOAD_GAME, 400, Y + 110, false);
-            butCancel.Location = new Point(170, Y + 30);
-            loadForm.Controls.Add(butCancel);
+            //butCancel.Location = new Point(170, Y + 30);
+            //loadForm.Controls.Add(butCancel);
         }
 
         /// <summary>
@@ -358,17 +295,5 @@ namespace CaroGame.Presentaion
         }
         #endregion
         #endregion
-
-        public Timer timer;
-        public RichTextBox rtbChat, rtbAbout;
-        public Panel pnlChat, pnlCaroBoard;
-        public Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo;
-        public Button butNext, butGuide, butSaveGame, butNewGame;
-        public Button butConnect, butCancel, butGetIP, butLoadGame, butChat;
-        public TextBox txtChat, txtPlayer;
-        public Label lblOr, lblTime;
-        public PlayerPanel playerPanel;
-        public SizePanel sizePanel;
-        public CustomMenu mainMenu;
     }
 }

@@ -10,6 +10,15 @@
     <Compile Update="Presentation\CustomMenu.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Presentation\CustomPanel\GameModePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Presentation\CustomPanel\RoutePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Presentation\CustomPanel\OverviewPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Presentation\CustomPanel\PlayerPanel.cs">
       <SubType>Component</SubType>
     </Compile>

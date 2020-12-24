@@ -7,10 +7,11 @@ namespace CaroGame.Presentation.CustomPanel
     {
         public TextBox txtName1, txtName2;
         public Label lblName1, lblName2;
+        public RoutePanel routePnl;
 
         public PlayerPanel(): base()
         {
-            this.Size = new Size(600, 280);
+            this.Size = new Size(600, 375);
             DrawBasePanel();
         }
 
@@ -38,10 +39,15 @@ namespace CaroGame.Presentation.CustomPanel
                 Width = 360,
                 Location = new Point(120, 170)
             };
+            routePnl = new RoutePanel()
+            {
+                Location = new Point(0, 280)
+            };
             this.Controls.Add(lblName1);
             this.Controls.Add(lblName2);
             this.Controls.Add(txtName1);
             this.Controls.Add(txtName2);
+            this.Controls.Add(routePnl);
         }
     }
 }

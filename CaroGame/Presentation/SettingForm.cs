@@ -66,12 +66,12 @@ namespace CaroGame.Presentation
             if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) mainForm.timer.Start();
         }
 
-        private void ButSound_Click(object sender, System.EventArgs e)
+        private void ButSound_Click(object sender, EventArgs e)
         {
             DrawSoundSettingForm(this);
         }
 
-        private void ButSizeBoard_Click(object sender, System.EventArgs e)
+        private void ButSizeBoard_Click(object sender, EventArgs e)
         {
             DrawSizeSettingForm(this);
         }

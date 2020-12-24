@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaroGame", "CaroGame\CaroGa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataTransmission", "DataTransmission\DataTransmission.csproj", "{F5104BA8-7C97-4670-AD10-1706E3D1E38F}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{3F7DB376-7F1D-4B52-97E1-A1B1C0738EC4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,8 +21,6 @@ Global
 		{F5104BA8-7C97-4670-AD10-1706E3D1E38F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5104BA8-7C97-4670-AD10-1706E3D1E38F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5104BA8-7C97-4670-AD10-1706E3D1E38F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3F7DB376-7F1D-4B52-97E1-A1B1C0738EC4}.Debug|Any CPU.ActiveCfg = Debug
-		{3F7DB376-7F1D-4B52-97E1-A1B1C0738EC4}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -356,5 +356,22 @@ namespace CaroGame.Presentaion
                 if (result == DialogResult.OK) caroManager.NewGameHandle(1 - caroManager.Turn);
             }
         }
+
+
+
+
+
+
+        private void PlayerPanel_NextActionBut_Click(object sender, EventArgs e)
+        {
+            DrawMainForm(this);
+            Config.InitializePlayereName(playerPanel.txtName1.Text, playerPanel.txtName2.Text);
+            caroManager.NewGameHandle(0);
+        }
+
+        private void PlayerPanel_CancelActionBut_Click(object sender, EventArgs e)
+        {
+            DrawGameModeForm(this, Config.NAME.GAME_MODE);
+        }
     }
 }
