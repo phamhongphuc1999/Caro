@@ -85,7 +85,7 @@ namespace CaroGame.Configuration
             public const string GAME_MODE = "Game Mode";
             public const string PLAYER_SETTING = "Player_SETTING";
             public const string PLAYER = "Player";
-            public const string LAN_CONNECTION = "LAN COnnection";
+            public const string LAN_CONNECTION = "LAN Connection";
             public const string CARO = "Caro";
             public const string SETTING = "Setting";
             public const string TIME_SETTING = "Time Setting";

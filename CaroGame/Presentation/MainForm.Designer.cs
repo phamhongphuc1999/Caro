@@ -153,13 +153,13 @@ namespace CaroGame.Presentaion
             butChat.Click += ButChat_Click;
             #endregion
 
-            butSave = new Button()
+            butNext = new Button()
             {
-                Text = "Save Change",
+                Text = "Next",
                 Size = new Size(90, 40),
                 Location = new Point(490, 280)
             };
-            //butSave.Click += ButSave_Click;
+            butNext.Click += ButNext_Click;
 
             #region Load And Save Game
             butLoadGame = new Button();
@@ -201,6 +201,10 @@ namespace CaroGame.Presentaion
             };
             timer.Tick += Timer_Tick;
         }
+
+        private void ButNext_Click(object sender, System.EventArgs e)
+        {
+        }
         #endregion
 
         #region Draw Form
@@ -235,12 +239,12 @@ namespace CaroGame.Presentaion
         {
             DrawCommonForm(ref playerForm, Config.NAME.PLAYER);
             playerForm.Controls.Add(playerPanel);
+            playerForm.Controls.Add(butNext);
         }
 
         private void DrawLANForm(Form LANForm)
         {
-            butSave.Text = "Next";
-            butSave.Enabled = false;
+            butNext.Enabled = false;
             butConnect.Text = "Connect";
             butConnect.BackColor = Color.White;
             butConnect.Enabled = true;
@@ -256,7 +260,7 @@ namespace CaroGame.Presentaion
             //LANForm.Controls.Add(lblName2Column);
             //LANForm.Controls.Add(txtName1Row);
             //LANForm.Controls.Add(txtName2Column);
-            LANForm.Controls.Add(butSave);
+            LANForm.Controls.Add(butNext);
             LANForm.Controls.Add(butConnect);
             LANForm.Controls.Add(butCancel);
             LANForm.Controls.Add(butGetIP);
@@ -359,7 +363,7 @@ namespace CaroGame.Presentaion
         public RichTextBox rtbChat, rtbAbout;
         public Panel pnlChat, pnlCaroBoard;
         public Button butTwoPlayer, butModeLan, butModeAI, butUndo, butRedo;
-        public Button butSave, butGuide, butSaveGame, butNewGame;
+        public Button butNext, butGuide, butSaveGame, butNewGame;
         public Button butConnect, butCancel, butGetIP, butLoadGame, butChat;
         public TextBox txtChat, txtPlayer;
         public Label lblOr, lblTime;
