@@ -7,12 +7,24 @@ namespace CaroGame.Presentation.CustomPanel
     {
         public TextBox txtName1, txtName2;
         public Label lblName1, lblName2;
-        public RoutePanel routePnl;
+        private RoutePanel routePnl;
 
         public PlayerPanel(): base()
         {
             this.Size = new Size(600, 375);
             DrawBasePanel();
+        }
+
+        public Button nextActionBut
+        {
+            get { return routePnl.nextActionBut; }
+            set { }
+        }
+
+        public Button cancelActionBut
+        {
+            get { return routePnl.cancelActionBut; }
+            set { }
         }
 
         private void DrawBasePanel()

@@ -23,6 +23,7 @@ namespace CaroGame
 
         public static MainForm mainForm;
         public static SettingForm settingForm;
+        public static AboutForm aboutForm;
 
         [STAThread]
         static void Main()
@@ -50,13 +51,15 @@ namespace CaroGame
             //init screen
             Icon mainIcon = new Icon("../../../Resources/Image/caro.ico");
             Icon settingIcon = new Icon("../../../Resources/Image/setting.ico");
+            Icon aboutIcon = new Icon("../../../Resources/Image/about.ico");
             mainForm = new MainForm(Config.NAME.GAME_MODE, mainIcon);
-            settingForm = new SettingForm("Setting", settingIcon);
+            settingForm = new SettingForm(Config.NAME.SETTING, settingIcon);
+            aboutForm = new AboutForm(Config.NAME.ABOUT, aboutIcon);
 
             caroManager.txtPlayer = mainForm.txtPlayer;
             caroManager.pnlCaroBoard = mainForm.pnlCaroBoard;
             caroManager.lblTime = mainForm.lblTime;
-            Application.Run(mainForm);
+            Application.Run(settingForm);
         }
     }
 }

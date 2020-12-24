@@ -11,7 +11,7 @@ namespace CaroGame.Presentaion
     partial class MainForm
     {
         public Timer timer;
-        public RichTextBox rtbChat, rtbAbout;
+        public RichTextBox rtbChat;
         public Panel pnlChat, pnlCaroBoard;
         public Button butUndo, butRedo;
         public Button butSaveGame;
@@ -118,8 +118,8 @@ namespace CaroGame.Presentaion
             {
                 Location = new Point(0, 0)
             };
-            playerPanel.routePnl.cancelActionBut.Click += PlayerPanel_CancelActionBut_Click;
-            playerPanel.routePnl.nextActionBut.Click += PlayerPanel_NextActionBut_Click;
+            playerPanel.cancelActionBut.Click += Player_CancelActionBut_Click;
+            playerPanel.nextActionBut.Click += Player_NextActionBut_Click;
             sizePanel = new SizePanel()
             {
                 Location = new Point(0, 0)
@@ -128,8 +128,8 @@ namespace CaroGame.Presentaion
             {
                 Location = new Point(0, 0)
             };
-            overviewPanel.butNewGame.Click += ButNewGame_Click;
-            overviewPanel.butGuide.Click += ButGuide_Click;
+            overviewPanel.butNewGame.Click += Overview_ButNewGame_Click;
+            overviewPanel.butGuide.Click += Overview_ButGuide_Click;
             gameModePanel = new GameModePanel()
             {
                 Location = new Point(0, 0)
@@ -140,18 +140,6 @@ namespace CaroGame.Presentaion
             gameModePanel.routePanel.cancelActionBut.Click += ButCancel_Click;
             gameModePanel.butLoadGame.Click += ButLoadGame_Click;
 
-            rtbAbout = new RichTextBox()
-            {
-                Name = "rtbAbout",
-                Text = "\n\n" +
-                "          Devepoler: Phạm Hồng Phúc\n" +
-                "          Country: Việt Nam\n" +
-                "          Game: Caro Game\n" +
-                "          Version: v1",
-                Size = new Size(400, 250),
-                Location = new Point(0, 0),
-                Enabled = false
-            };
             timer = new Timer()
             {
                 Interval = Config.INTERVAL * 1000
@@ -281,17 +269,6 @@ namespace CaroGame.Presentaion
             DrawCommonForm(ref loadForm, Config.NAME.LOAD_GAME, 400, Y + 110, false);
             //butCancel.Location = new Point(170, Y + 30);
             //loadForm.Controls.Add(butCancel);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="aboutForm"></param>
-        private void DrawAboutGame(Form aboutForm)
-        {
-            DrawCommonForm(ref aboutForm, Config.NAME.ABOUT, 400, 250);
-            aboutForm.Icon = new Icon("../../../Resources/Image/about.ico");
-            aboutForm.Controls.Add(rtbAbout);
         }
         #endregion
         #endregion

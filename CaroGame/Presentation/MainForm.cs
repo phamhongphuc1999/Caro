@@ -91,7 +91,7 @@ namespace CaroGame.Presentaion
             else if (currentFrom == Config.NAME.SETTING) settingForm.Close();
             else if (currentFrom == Config.NAME.LAN_CONNECTION) DrawPlayerForm(this, Config.NAME.PLAYER, Config.GAME_MODE.CurrentGameMode);
             else if (currentFrom == Config.NAME.LOAD_GAME && prevForm == Config.NAME.GAME_MODE) DrawGameModeForm(this, Config.NAME.GAME_MODE);
-            else settingForm.DrawSettingForm(settingForm);
+            else settingForm.ShowDialog();
         }
         #endregion
         #endregion
@@ -168,14 +168,12 @@ namespace CaroGame.Presentaion
         private void ToolItemAbout_Click(object sender, EventArgs e)
         {
             timer.Stop();
-            DrawAboutGame(settingForm);
-            settingForm.ShowDialog();
+            aboutForm.ShowDialog();
         }
 
         private void ToolItemSetting_Click(object sender, EventArgs e)
         {
             timer.Stop();
-            settingForm.DrawSettingForm(settingForm);
             settingForm.ShowDialog();
         }
 
@@ -226,19 +224,16 @@ namespace CaroGame.Presentaion
         }
         #endregion
 
-        #region Event Overview Handler
-        private void ButGuide_Click(object sender, EventArgs e)
+        private void Overview_ButGuide_Click(object sender, EventArgs e)
         {
             MessageBox.Show(this, "chức năng chưa có");
         }
 
-        private void ButNewGame_Click(object sender, EventArgs e)
+        private void Overview_ButNewGame_Click(object sender, EventArgs e)
         {
             DrawGameModeForm(this, Config.NAME.GAME_MODE);
         }
-        #endregion
 
-        #region Event Main Handler
         private void ButUndo_Click(object sender, EventArgs e)
         {
             caroManager.UndoHandle();
@@ -248,9 +243,7 @@ namespace CaroGame.Presentaion
         {
             caroManager.RedoHandle();
         }
-        #endregion
 
-        #region Event Chat Handler
         private void ButChat_Click(object sender, EventArgs e)
         {
             string data = txtChat.Text;
@@ -259,7 +252,6 @@ namespace CaroGame.Presentaion
             MessageData message = new MessageData(120, 0, 0, data);
             lanManager.SEND_TCP(message, SocketFlags.None);
         }
-        #endregion
 
         #region Event Lan Handler
         private void ButGetIP_Click(object sender, EventArgs e)
@@ -362,14 +354,14 @@ namespace CaroGame.Presentaion
 
 
 
-        private void PlayerPanel_NextActionBut_Click(object sender, EventArgs e)
+        private void Player_NextActionBut_Click(object sender, EventArgs e)
         {
             DrawMainForm(this);
             Config.InitializePlayereName(playerPanel.txtName1.Text, playerPanel.txtName2.Text);
             caroManager.NewGameHandle(0);
         }
 
-        private void PlayerPanel_CancelActionBut_Click(object sender, EventArgs e)
+        private void Player_CancelActionBut_Click(object sender, EventArgs e)
         {
             DrawGameModeForm(this, Config.NAME.GAME_MODE);
         }

@@ -1,34 +1,78 @@
-﻿using System.Drawing;
+﻿using CaroGame.Configuration;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace CaroGame.Presentation.CustomPanel
 {
     public class SettingPanel: Panel
     {
-        public Button saveBut, cancelBut;
+        public Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butLoadGame, butSaveGame;
+        public RoutePanel routePanel;
 
         public SettingPanel() : base()
         {
-            this.Size = new Size(600, 95);
+            this.Size = new Size(600, 375);
             DrawBasePanel();
         }
 
         private void DrawBasePanel()
         {
-            saveBut = new Button()
+            butGameMode = new Button()
             {
-                Text = "Save",
-                Size = new Size(90, 40),
-                Location = new Point(490, 0)
+                Text = "Game Mode",
+                Size = new Size(144, 55),
+                Location = new Point(42, 70)
             };
-            cancelBut = new Button()
+            butTimer = new Button()
             {
-                Text = "Back",
-                Size = new Size(90, 40),
+                Text = "Time",
+                Size = new Size(144, 55),
+                Location = new Point(228, 70)
+            };
+            if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.TWO_PLAYER) butTimer.Enabled = true;
+            else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN) butTimer.Enabled = false;
+            butNamePlayer = new Button()
+            {
+                Text = "Player",
+                Size = new Size(144, 55),
+                Location = new Point(414, 70)
+            };
+            butSizeBoard = new Button()
+            {
+                Text = "Size Board",
+                Size = new Size(144, 55),
+                Location = new Point(42, 145)
+            };
+            butSound = new Button()
+            {
+                Text = "Sound",
+                Size = new Size(144, 55),
+                Location = new Point(228, 145)
+            };
+            butLoadGame = new Button()
+            {
+                Text = "Load Game",
+                Size = new Size(110, 40),
                 Location = new Point(370, 0)
             };
-            this.Controls.Add(saveBut);
-            this.Controls.Add(cancelBut);
+            butSaveGame = new Button()
+            {
+                Text = "Save Game",
+                Size = new Size(110, 40),
+                Location = new Point(485, 0)
+            };
+            routePanel = new RoutePanel()
+            {
+                Location = new Point(0, 280)
+            };
+            this.Controls.Add(butGameMode);
+            this.Controls.Add(butTimer);
+            this.Controls.Add(butNamePlayer);
+            this.Controls.Add(butSizeBoard);
+            this.Controls.Add(butSound);
+            this.Controls.Add(butLoadGame);
+            this.Controls.Add(butSaveGame);
+            this.Controls.Add(routePanel);
         }
     }
 }
