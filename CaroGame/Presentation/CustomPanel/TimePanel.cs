@@ -53,34 +53,34 @@ namespace CaroGame.Presentation.CustomPanel
             lblSTimeTurn = new Label()
             {
                 Text = "Time Turn",
-                Enabled = Config.IS_ON_TIMER ? true : false,
+                Enabled = Config.TIME_CONFIG.IsTime ? true : false,
                 Size = new Size(80, 40),
                 Location = new Point(30, 80)
             };
             lblSTimeInterval = new Label()
             {
                 Text = "Interval",
-                Enabled = Config.IS_ON_TIMER ? true : false,
+                Enabled = Config.TIME_CONFIG.IsTime ? true : false,
                 Size = new Size(80, 40),
                 Location = new Point(30, 170)
             };
             txtSTimeTurn = new TextBox()
             {
-                Text = Config.TIME_TURN.ToString(),
-                Enabled = Config.IS_ON_TIMER ? true : false,
+                Text = Config.TIME_CONFIG.TimeTurn.ToString(),
+                Enabled = Config.TIME_CONFIG.IsTime ? true : false,
                 Width = 360,
                 Location = new Point(120, 85)
             };
             txtSTimeInterval = new TextBox()
             {
-                Text = Config.INTERVAL.ToString(),
-                Enabled = Config.IS_ON_TIMER ? true : false,
+                Text = Config.TIME_CONFIG.Interval.ToString(),
+                Enabled = Config.TIME_CONFIG.IsTime ? true : false,
                 Width = 360,
                 Location = new Point(120, 170)
             };
             butStatusTime = new Button()
             {
-                Text = Config.IS_ON_TIMER ? "Off Timer" : "On Timer",
+                Text = Config.TIME_CONFIG.IsTime ? "Off Timer" : "On Timer",
                 Size = new Size(90, 40),
                 Location = new Point(250, 280)
             };

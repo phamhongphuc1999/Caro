@@ -2,9 +2,9 @@
 //  License under the Apache License, Version 2.0.
 //  Owner: Pham Hong Phuc
 
-namespace CaroGame.Configuration
+namespace CaroGame.Entities
 {
-    class EntityConfig
+    class ConfigEntity
     {
         public int numberOfRow { get; set; }
         public int numberOfColumn { get; set; }

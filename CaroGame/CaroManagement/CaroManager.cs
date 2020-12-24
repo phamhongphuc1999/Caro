@@ -209,7 +209,7 @@ namespace CaroGame.CaroManagement
         {
             Turn = player;
             pnlCaroBoard.Enabled = true;
-            if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN && !Config.IS_SERVER)
+            if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN && !Config.LAN_CONFIG.IsServer)
             {
                 PlayerList[0].NamePlayer = Config.NAME_PLAYER2;
                 PlayerList[1].NamePlayer = Config.NAME_PLAYER1;
@@ -224,8 +224,8 @@ namespace CaroGame.CaroManagement
             winManager.NewGameHanlde(player);
             if (Config.caroFlow.Peek() == Config.NAME.SIZE_SETTING) DrawCaroBoard();
             else DrawCaroBoard(Config.NUMBER_OF_ROW, Config.NUMBER_OF_COLUMN);
-            lblTime.Text = (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) ? 
-                Config.TIME_TURN.ToString() : "No Timer";
+            lblTime.Text = (Config.TIME_CONFIG.IsTime && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) ? 
+                Config.TIME_CONFIG.TimeTurn.ToString() : "No Timer";
             Config.IS_OLD_GAME = false;
             Config.INDEX_OLD_GAME = -1;
             newGameEvent(this, new EventArgs());
@@ -279,10 +279,10 @@ namespace CaroGame.CaroManagement
                 DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK) NewGameHandle(player);
             }
-            else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN && !Config.IS_TURN)
+            else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN && !Config.LAN_CONFIG.IsTurn)
             {
-                Config.IS_LOCK = !Config.IS_LOCK;
-                Config.IS_TURN = !Config.IS_TURN;
+                Config.LAN_CONFIG.IsLock = !Config.LAN_CONFIG.IsLock;
+                Config.LAN_CONFIG.IsTurn = !Config.LAN_CONFIG.IsTurn;
                 if (sign == 0) MessageBox.Show("You are the winner", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else MessageBox.Show("The Game is ended, no players is winer", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
@@ -297,10 +297,10 @@ namespace CaroGame.CaroManagement
 
                 }
             }
-            else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN && Config.IS_TURN)
+            else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN && Config.LAN_CONFIG.IsTurn)
             {
-                Config.IS_LOCK = !Config.IS_LOCK;
-                Config.IS_TURN = !Config.IS_TURN;
+                Config.LAN_CONFIG.IsLock = !Config.LAN_CONFIG.IsLock;
+                Config.LAN_CONFIG.IsTurn = !Config.LAN_CONFIG.IsTurn;
                 if (sign == 0) MessageBox.Show("You are the lost", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 else MessageBox.Show("The Game is ended, no players is winer", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -315,7 +315,7 @@ namespace CaroGame.CaroManagement
             {
                 try
                 {
-                    if (Config.IS_ON_TIMER) lblTime.Text = Config.TIME_TURN.ToString();
+                    if (Config.TIME_CONFIG.IsTime) lblTime.Text = Config.TIME_CONFIG.TimeTurn.ToString();
                     else lblTime.Text = "No Timer";
                     Button but = butUndo.Pop();
                     butRedo.Push(but);
@@ -339,7 +339,7 @@ namespace CaroGame.CaroManagement
         {
             if (butRedo.Count > 0)
             {
-                if (Config.IS_ON_TIMER) lblTime.Text = Config.TIME_TURN.ToString();
+                if (Config.TIME_CONFIG.IsTime) lblTime.Text = Config.TIME_CONFIG.TimeTurn.ToString();
                 else lblTime.Text = "No Timer";
                 Button but = butRedo.Pop();
                 if (butUndo.Count > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
@@ -358,7 +358,7 @@ namespace CaroGame.CaroManagement
         /// <param name="Y">Y-coordinate</param>
         public void LANMovePointHandle(int X, int Y)
         {
-            Config.IS_LOCK = true;
+            Config.LAN_CONFIG.IsLock = true;
             Button eventBut = caroBoard[new KeyValuePair<int, int>(X, Y)];
             But_Click(eventBut, new EventArgs());
         }
@@ -368,18 +368,18 @@ namespace CaroGame.CaroManagement
             Button eventBut = sender as Button;
             int X = eventBut.Location.X;
             int Y = eventBut.Location.Y;
-            if (eventBut.Image == null && Config.IS_LOCK)
+            if (eventBut.Image == null && Config.LAN_CONFIG.IsLock)
             {
-                if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN && Config.IS_TURN)
+                if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN && Config.LAN_CONFIG.IsTurn)
                 {
                     MessageData message = new MessageData(101, X, Y, "");
                     lanManager.SEND_TCP(message, SocketFlags.None);
-                    Config.IS_TURN = !Config.IS_TURN;
-                    Config.IS_LOCK = !Config.IS_LOCK;
+                    Config.LAN_CONFIG.IsTurn = !Config.LAN_CONFIG.IsTurn;
+                    Config.LAN_CONFIG.IsLock = !Config.LAN_CONFIG.IsLock;
                 }
-                else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN) Config.IS_TURN = !Config.IS_TURN;
-                if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) 
-                    lblTime.Text = Config.TIME_TURN.ToString();
+                else if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN) Config.LAN_CONFIG.IsTurn = !Config.LAN_CONFIG.IsTurn;
+                if (Config.TIME_CONFIG.IsTime && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) 
+                    lblTime.Text = Config.TIME_CONFIG.TimeTurn.ToString();
                 eventBut.FlatStyle = FlatStyle.Flat;
                 if (butUndo.Count > 0) butUndo.Peek().FlatStyle = FlatStyle.Standard;
                 butUndo.Push(eventBut);

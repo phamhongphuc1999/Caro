@@ -62,7 +62,7 @@ namespace CaroGame.Presentation
 
         private void SettingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) mainForm.timer.Start();
+            if (Config.TIME_CONFIG.IsTime && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) mainForm.timer.Start();
         }
 
         private void Time_ButStatusTime_Click1(object sender, EventArgs e)
@@ -87,7 +87,7 @@ namespace CaroGame.Presentation
         private void SettingPanel_SaveBut_Click(object sender, EventArgs e)
         {
             this.Close();
-            if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) mainForm.timer.Start();
+            if (Config.TIME_CONFIG.IsTime && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) mainForm.timer.Start();
         }
 
         private void Common_ButSound_Click(object sender, EventArgs e)
@@ -146,25 +146,25 @@ namespace CaroGame.Presentation
                 if (!check1 || !check2)
                 {
                     MessageBox.Show("Must be enter integer", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    timePanel.txtSTimeTurn.Text = Config.TIME_TURN.ToString();
-                    timePanel.txtSTimeInterval.Text = Config.INTERVAL.ToString();
+                    timePanel.txtSTimeTurn.Text = Config.TIME_CONFIG.TimeTurn.ToString();
+                    timePanel.txtSTimeInterval.Text = Config.TIME_CONFIG.Interval.ToString();
                     return;
                 }
                 if (timeTurn <= 0 || timeTurn < interval || timeTurn > 30)
                 {
                     MessageBox.Show("time turn is the integer within 0 and 30 and less than interval", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    timePanel.txtSTimeTurn.Text = Config.TIME_TURN.ToString();
-                    timePanel.txtSTimeInterval.Text = Config.INTERVAL.ToString();
+                    timePanel.txtSTimeTurn.Text = Config.TIME_CONFIG.TimeTurn.ToString();
+                    timePanel.txtSTimeInterval.Text = Config.TIME_CONFIG.Interval.ToString();
                     return;
                 }
-                Config.IS_ON_TIMER = true;
-                Config.TIME_TURN = timeTurn;
-                Config.INTERVAL = interval;
-                mainForm.lblTime.Text = Config.TIME_TURN.ToString();
+                Config.TIME_CONFIG.IsTime = true;
+                Config.TIME_CONFIG.TimeTurn = timeTurn;
+                Config.TIME_CONFIG.Interval = interval;
+                mainForm.lblTime.Text = Config.TIME_CONFIG.TimeTurn.ToString();
             }
             else
             {
-                Config.IS_ON_TIMER = false;
+                Config.TIME_CONFIG.IsTime = false;
                 mainForm.lblTime.Text = "No Timer";
             }
             DisplayCommonSetting();

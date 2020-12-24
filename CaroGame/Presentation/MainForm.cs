@@ -3,6 +3,7 @@
 //  Owner: Pham Hong Phuc
 
 using CaroGame.Configuration;
+using CaroGame.Entities;
 using CaroGame.LANManagement;
 using CaroGame.Presentation;
 using CaroGame.SaveGameManagement;
@@ -41,7 +42,7 @@ namespace CaroGame.Presentaion
                     if (message.odcode == 100)
                     {
                         Config.NAME_PLAYER2 = message.data;
-                        if (!Config.IS_SERVER)
+                        if (!Config.LAN_CONFIG.IsServer)
                         {
                             Config.NUMBER_OF_ROW = message.X;
                             Config.NUMBER_OF_COLUMN = message.Y;
@@ -99,7 +100,7 @@ namespace CaroGame.Presentaion
         #region Event Caro Manager Handler
         private void CaroManager_EndGameEvent(object sender, EventArgs e)
         {
-            if (Config.IS_ON_TIMER) timer.Stop();
+            if (Config.TIME_CONFIG.IsTime) timer.Stop();
             butUndo.Enabled = false;
             butRedo.Enabled = false;
         }
@@ -107,7 +108,7 @@ namespace CaroGame.Presentaion
         private void CaroManager_NewGameEvent(object sender, EventArgs e)
         {
             DrawMainForm(this);
-            if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
+            if (Config.TIME_CONFIG.IsTime && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
             butUndo.Enabled = true;
             butRedo.Enabled = true;
         }
@@ -158,7 +159,7 @@ namespace CaroGame.Presentaion
                     settingForm.Close();
                     DrawMainForm(this);
                     caroManager.NewGameHandle(0);
-                    if (Config.IS_ON_TIMER) timer.Start();
+                    if (Config.TIME_CONFIG.IsTime) timer.Start();
                 }
             }
         }
@@ -189,7 +190,7 @@ namespace CaroGame.Presentaion
             if (result == DialogResult.OK) caroManager.NewGameHandle(caroManager.Turn);
             else
             {
-                if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
+                if (Config.TIME_CONFIG.IsTime && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
             }
         }
         #endregion
@@ -326,7 +327,7 @@ namespace CaroGame.Presentaion
             if (result == DialogResult.Cancel)
             {
                 e.Cancel = true;
-                if (Config.IS_ON_TIMER && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
+                if (Config.TIME_CONFIG.IsTime && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
             }
             else
             {

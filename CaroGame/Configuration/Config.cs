@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using CaroGame.Entities;
 
 namespace CaroGame.Configuration
 {
@@ -14,26 +15,19 @@ namespace CaroGame.Configuration
         public static int NUMBER_OF_ROW;
         public static int NUMBER_OF_COLUMN;
         public static Size CHESS_SIZE = new Size(40, 40);
-        public static bool IS_ON_TIMER;
         public static bool IS_PLAY_MUSIC;
         public static int VOLUME_SIZE;
-        public static int TIME_TURN;
-        public static int INTERVAL;
         public static string NAME_PLAYER1 = "";
         public static string NAME_PLAYER2 = "";
+        public static TimeConfigEntity TIME_CONFIG;
+        public static LanConfigEntity LAN_CONFIG;
 
-        public static string IP = "127.0.0.1";
-        public static int PORT = 9999;
-        public static int BUFF_SIZE = 10240;
-        public static bool IS_SERVER = true;
-        public static bool IS_TURN = true;
-        public static bool IS_LOCK = true;
         //const load and save game
         public static bool IS_LOAD_GAME = false;
         public static bool IS_OLD_GAME = false;
         public static int INDEX_OLD_GAME = -1;
 
-        private static EntityConfig jsonConst;
+        private static ConfigEntity jsonConst;
         public static Stack<string> caroFlow;
 
         /// <summary>
@@ -52,19 +46,31 @@ namespace CaroGame.Configuration
         /// </summary>
         public static void InitializeConfiguration()
         {
-            jsonConst = new EntityConfig();
+            jsonConst = new ConfigEntity();
             caroFlow = new Stack<string>();
+            LAN_CONFIG = new LanConfigEntity
+            {
+                IP = "127.0.0.1",
+                Port = 9999,
+                BuffSize = 10240,
+                IsServer = true,
+                IsLock = true,
+                IsTurn = true
+            };
             using (StreamReader sr = File.OpenText("../../../Configuration/Config.json"))
             {
                 string data = sr.ReadToEnd();
-                jsonConst = JsonConvert.DeserializeObject<EntityConfig>(data);
+                jsonConst = JsonConvert.DeserializeObject<ConfigEntity>(data);
                 NUMBER_OF_ROW = jsonConst.numberOfRow;
                 NUMBER_OF_COLUMN = jsonConst.numberOfColumn;
-                IS_ON_TIMER = jsonConst.isOnTime;
                 IS_PLAY_MUSIC = jsonConst.isPlayMusic;
-                TIME_TURN = jsonConst.timeTurn;
-                INTERVAL = jsonConst.interval;
                 VOLUME_SIZE = jsonConst.volumeSize;
+                TIME_CONFIG = new TimeConfigEntity
+                {
+                    IsTime = jsonConst.isOnTime,
+                    TimeTurn = jsonConst.timeTurn,
+                    Interval = jsonConst.interval
+                };
             }
         }
 
@@ -73,15 +79,15 @@ namespace CaroGame.Configuration
         /// </summary>
         public static void SaveConfiguration()
         {
-            if (!(GAME_MODE.CurrentGameMode == GAME_MODE.LAN && !Config.IS_SERVER))
+            if (!(GAME_MODE.CurrentGameMode == GAME_MODE.LAN && !Config.LAN_CONFIG.IsServer))
             {
                 jsonConst.numberOfColumn = NUMBER_OF_COLUMN;
                 jsonConst.numberOfRow = NUMBER_OF_ROW;
             }
-            jsonConst.isOnTime = IS_ON_TIMER;
+            jsonConst.isOnTime = TIME_CONFIG.IsTime;
             jsonConst.isPlayMusic = IS_PLAY_MUSIC;
-            jsonConst.timeTurn = TIME_TURN;
-            jsonConst.interval = INTERVAL;
+            jsonConst.timeTurn = TIME_CONFIG.TimeTurn;
+            jsonConst.interval = TIME_CONFIG.Interval;
             jsonConst.volumeSize = VOLUME_SIZE;
             StreamWriter sw = new StreamWriter("../../../Configuration/Config.json");
             string data = JsonConvert.SerializeObject(jsonConst);

@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 
-namespace CaroGame.SaveGameManagement
+namespace CaroGame.Entities
 {
     public class GameSaveData
     {

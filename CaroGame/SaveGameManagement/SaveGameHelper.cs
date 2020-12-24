@@ -5,6 +5,7 @@
 using CaroGame.Configuration;
 using Newtonsoft.Json;
 using System.IO;
+using CaroGame.Entities;
 
 namespace CaroGame.SaveGameManagement
 {

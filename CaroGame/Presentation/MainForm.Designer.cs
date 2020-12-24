@@ -1,7 +1,7 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 using CaroGame.Configuration;
+using CaroGame.Entities;
 using CaroGame.Presentation;
 using CaroGame.Presentation.CustomPanel;
 using CaroGame.SaveGameManagement;
@@ -142,7 +142,7 @@ namespace CaroGame.Presentaion
 
             timer = new Timer()
             {
-                Interval = Config.INTERVAL * 1000
+                Interval = Config.TIME_CONFIG.Interval * 1000
             };
             timer.Tick += Timer_Tick;
         }
