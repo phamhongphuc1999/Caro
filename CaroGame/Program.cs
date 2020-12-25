@@ -59,7 +59,7 @@ namespace CaroGame
             caroManager.txtPlayer = mainForm.txtPlayer;
             caroManager.pnlCaroBoard = mainForm.pnlCaroBoard;
             caroManager.lblTime = mainForm.lblTime;
-            Application.Run(settingForm);
+            Application.Run(mainForm);
         }
     }
 }
