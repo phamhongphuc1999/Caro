@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using CaroGame.Presentation.CustomButton;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace CaroGame.Presentation.CustomPanel
@@ -15,20 +16,17 @@ namespace CaroGame.Presentation.CustomPanel
 
         public void DrawBasePanel()
         {
-            butNewGame = new Button()
+            butNewGame = new CaroButton()
             {
                 Text = "New Game",
                 Size = new Size(150, 65),
-                Location = new Point(100, 155),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = ColorTranslator.FromHtml("#8BC4FC")
+                Location = new Point(100, 155)
             };
-            butGuide = new Button()
+            butGuide = new CaroButton()
             {
                 Text = "Guide",
                 Size = new Size(150, 65),
                 Location = new Point(350, 155),
-                BackColor = ColorTranslator.FromHtml("#8BC4FC")
             };
             this.Controls.Add(butNewGame);
             this.Controls.Add(butGuide);

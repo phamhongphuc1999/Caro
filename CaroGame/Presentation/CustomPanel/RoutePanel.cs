@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using CaroGame.Presentation.CustomButton;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace CaroGame.Presentation.CustomPanel
@@ -15,13 +16,13 @@ namespace CaroGame.Presentation.CustomPanel
 
         public void DrawBasePanel()
         {
-            nextActionBut = new Button()
+            nextActionBut = new CaroButton()
             {
                 Text = "Save",
                 Size = new Size(90, 40),
                 Location = new Point(490, 0)
             };
-            cancelActionBut = new Button()
+            cancelActionBut = new CaroButton()
             {
                 Text = "Back",
                 Size = new Size(90, 40),

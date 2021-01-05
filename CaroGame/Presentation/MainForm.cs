@@ -341,11 +341,6 @@ namespace CaroGame.Presentaion
             }
         }
 
-
-
-
-
-
         private void Player_NextActionBut_Click(object sender, EventArgs e)
         {
             DrawMainForm(this);
