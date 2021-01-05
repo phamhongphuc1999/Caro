@@ -8,6 +8,7 @@ namespace CaroGame.Presentation
     {
         private OverviewPanel overviewPnl;
         private GameModePanel gameModePnl;
+        private TwoTextPanel playerPnl;
 
         private void DrawOverview()
         {
@@ -30,9 +31,21 @@ namespace CaroGame.Presentation
             gameModePnl.AIModeClickEvent += GameModePnl_AIModeClickEvent;
             gameModePnl.LanModeClickEvent += GameModePnl_LanModeClickEvent;
             gameModePnl.LoadGameClickEvent += GameModePnl_LoadGameClickEvent;
-            gameModePnl.NextActionClickEvent += GameModePnl_NextActionClickEvent;
             gameModePnl.CancelActionClickEvent += GameModePnl_CancelActionClickEvent;
             this.Controls.Add(gameModePnl);
+        }
+
+        private void DrawPayer()
+        {
+            playerPnl = new TwoTextPanel()
+            {
+                Location = new Point(0, 0),
+                LabelText1 = "Player1",
+                LabelText2 = "Player2"
+            };
+            playerPnl.NextActionClickEvent += PlayerPnl_NextActionClickEvent;
+            playerPnl.CancelActionClickEvent += PlayerPnl_CancelActionClickEvent;
+            this.Controls.Add(playerPnl);
         }
     }
 }

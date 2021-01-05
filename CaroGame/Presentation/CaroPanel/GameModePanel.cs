@@ -35,15 +35,9 @@ namespace CaroGame.Presentation.CaroPanel
             remove { loadgameBut.Click -= value; }
         }
 
-        public event EventHandler NextActionClickEvent
-        {
-            add { routePnl.NextActionClickEvent += value; }
-            remove { routePnl.NextActionClickEvent -= value; }
-        }
-
         public event EventHandler CancelActionClickEvent
         {
-            add { routePnl.NextActionClickEvent += value; }
+            add { routePnl.CancelActionClickEvent += value; }
             remove { routePnl.CancelActionClickEvent -= value; }
         }
 
@@ -89,7 +83,8 @@ namespace CaroGame.Presentation.CaroPanel
             };
             routePnl = new RoutePanel()
             {
-                Location = new Point(0, 280)
+                Location = new Point(0, 280),
+                NextVisible = false
             };
             this.Controls.Add(twoPlayerBut);
             this.Controls.Add(lanModeBut);

@@ -1,7 +1,19 @@
-﻿namespace CaroGame.Configuration
+﻿using System.Drawing;
+
+namespace CaroGame.Configuration
 {
     public static class Config
     {
+        public static int NUMBER_OF_ROW = 20;
+        public static int NUMBER_OF_COLUMN = 20;
+        public static readonly Size CHESS_SIZE = new Size(40, 40);
+
+        public enum GameMode
+        {
+            TWO_PLAYER,
+            AI, LAN
+        }
+
         public static class NAME
         {
             public const string OVERVIEW = "Overview";

@@ -27,6 +27,27 @@ namespace CaroGame.Presentation.CaroPanel
             DrawBasePanel();
         }
 
+        public bool NextVisible
+        {
+            get { return nextActionBut.Visible; }
+            set
+            {
+                nextActionBut.Visible = value;
+                if (value)
+                {
+                    nextActionBut.Location = new Point(490, 0);
+                    cancelActionBut.Location = new Point(370, 0);
+                }
+                else cancelActionBut.Location = new Point(490, 0);
+            }
+        }
+
+        public bool CancelVisible
+        {
+            get { return cancelActionBut.Visible; }
+            set { cancelActionBut.Visible = value; }
+        }
+
         public void DrawBasePanel()
         {
             nextActionBut = new CaroButton1()

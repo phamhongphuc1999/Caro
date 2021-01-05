@@ -19,6 +19,9 @@
     <Compile Update="Presentation\CaroPanel\RoutePanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Presentation\CaroPanel\TwoTextPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Presentation\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
