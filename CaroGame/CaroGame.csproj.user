@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <_LastSelectedProfileId>D:\Documents\VisualStudio\Caro\CaroGame\Properties\PublishProfiles\setup.pubxml</_LastSelectedProfileId>
-  </PropertyGroup>
   <ItemGroup>
     <Compile Update="Presentation\AboutForm.cs">
       <SubType>Form</SubType>
@@ -10,34 +7,16 @@
     <Compile Update="Presentation\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Presentation\CustomButton\CaroButton.cs">
+    <Compile Update="Presentation\CaroButton\CaroButton1.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Presentation\CustomMenu.cs">
+    <Compile Update="Presentation\CaroPanel\GameModePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Presentation\CustomPanel\GameModePanel.cs">
+    <Compile Update="Presentation\CaroPanel\OverviewPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Presentation\CustomPanel\LoadGamePanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Presentation\CustomPanel\RoutePanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Presentation\CustomPanel\OverviewPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Presentation\CustomPanel\PlayerPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Presentation\CustomPanel\SizePanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Presentation\CustomPanel\SoundPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Presentation\CustomPanel\TimePanel.cs">
+    <Compile Update="Presentation\CaroPanel\RoutePanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Presentation\MainForm.cs">

@@ -6,8 +6,6 @@ namespace CaroGame.Presentation
     {
         public AboutForm(string formText, Icon icon): base(formText, icon)
         {
-            this.Size = new Size(400, 250);
-            InitializeController();
         }
     }
 }

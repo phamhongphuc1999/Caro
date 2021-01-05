@@ -1,11 +1,11 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace CaroGame.Presentation.CustomButton
+namespace CaroGame.Presentation.CaroButton
 {
-    public class CaroButton: Button
+    public class CaroButton1: Button
     {
-        public CaroButton() : base()
+        public CaroButton1() : base()
         {
             FlatStyle = FlatStyle.Flat;
             BackColor = ColorTranslator.FromHtml("#8BC4FC");
