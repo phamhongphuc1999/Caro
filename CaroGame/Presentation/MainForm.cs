@@ -63,13 +63,11 @@ namespace CaroGame.Presentaion
             }
         }
 
-        #region Event Handler
-        #region Event Load And Save Game Handler
         private void ButLoadGame_Click(object sender, EventArgs e)
         {
             string prevForm = Config.caroFlow.Peek();
-            if (prevForm == Config.NAME.GAME_MODE) DrawLoadGame(this);
-            else DrawLoadGame(settingForm);
+            if (prevForm == Config.NAME.GAME_MODE) DrawLoadGameForm(this);
+            else DrawLoadGameForm(this);
             Config.IS_LOAD_GAME = true;
         }
 
@@ -81,9 +79,7 @@ namespace CaroGame.Presentaion
             SaveGameHelper.SaveGameToFile();
             settingForm.Close();
         }
-        #endregion
 
-        #region Event Player Infomation Handler
         private void ButCancel_Click(object sender, EventArgs e)
         {
             string currentFrom = Config.caroFlow.Pop();
@@ -94,10 +90,7 @@ namespace CaroGame.Presentaion
             else if (currentFrom == Config.NAME.LOAD_GAME && prevForm == Config.NAME.GAME_MODE) DrawGameModeForm(this, Config.NAME.GAME_MODE);
             else settingForm.ShowDialog();
         }
-        #endregion
-        #endregion
 
-        #region Event Caro Manager Handler
         private void CaroManager_EndGameEvent(object sender, EventArgs e)
         {
             if (Config.TIME_CONFIG.IsTime) timer.Stop();
@@ -112,9 +105,7 @@ namespace CaroGame.Presentaion
             butUndo.Enabled = true;
             butRedo.Enabled = true;
         }
-        #endregion
 
-        #region Event Game Mode Handler
         private void ButModeAI_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Chế độ này chưa được thiết lập\nChọn chế độ khác", "WRONG", MessageBoxButtons.OK, MessageBoxIcon.Hand);
@@ -163,9 +154,7 @@ namespace CaroGame.Presentaion
                 }
             }
         }
-        #endregion
 
-        #region Event Menu Tool Handler
         private void ToolItemAbout_Click(object sender, EventArgs e)
         {
             timer.Stop();
@@ -193,18 +182,16 @@ namespace CaroGame.Presentaion
                 if (Config.TIME_CONFIG.IsTime && Config.GAME_MODE.CurrentGameMode != Config.GAME_MODE.LAN) timer.Start();
             }
         }
-        #endregion
 
-        #region Event Load Game Handler
-        private void ButtonDelete_Click(object sender, EventArgs e)
+        private void LoadGamePanel_CancelLoadGame_Click(object sender, EventArgs e)
         {
             Button eventBut = sender as Button;
             int index = (int)eventBut.Tag;
             SaveGameHelper.saveData.GameSaveList.RemoveAt(index - 1);
-            DrawLoadGame(this);
+            DrawLoadGameForm(this);
         }
 
-        private void Button_Click(object sender, EventArgs e)
+        private void LoadGamePanel_LoadGame_Click(object sender, EventArgs e)
         {
             Button eventBut = sender as Button;
             Config.caroFlow.Pop();
@@ -223,7 +210,11 @@ namespace CaroGame.Presentaion
             if (prevForm == Config.NAME.SETTING) parent.Close();
             DrawMainForm(this);
         }
-        #endregion
+
+        private void LoadGame_ButBack_Click(object sender, EventArgs e)
+        {
+            DrawGameModeForm(this, Config.NAME.GAME_MODE);
+        }
 
         private void Overview_ButGuide_Click(object sender, EventArgs e)
         {
@@ -349,11 +340,6 @@ namespace CaroGame.Presentaion
                 if (result == DialogResult.OK) caroManager.NewGameHandle(1 - caroManager.Turn);
             }
         }
-
-
-
-
-
 
         private void Player_NextActionBut_Click(object sender, EventArgs e)
         {

@@ -1,10 +1,8 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using CaroGame.Configuration;
-using CaroGame.Entities;
 using CaroGame.Presentation;
 using CaroGame.Presentation.CustomPanel;
-using CaroGame.SaveGameManagement;
 
 namespace CaroGame.Presentaion
 {
@@ -22,10 +20,8 @@ namespace CaroGame.Presentaion
         public SizePanel sizePanel;
         public OverviewPanel overviewPanel;
         public GameModePanel gameModePanel;
+        public LoadGamePanel loadGamePanel;
         public CustomMenu mainMenu;
-
-        #region Windows Form Designer generated code
-        #region Initialize Controller
 
         private void InitializeController()
         {
@@ -120,16 +116,19 @@ namespace CaroGame.Presentaion
             };
             playerPanel.cancelActionBut.Click += Player_CancelActionBut_Click;
             playerPanel.nextActionBut.Click += Player_NextActionBut_Click;
+
             sizePanel = new SizePanel()
             {
                 Location = new Point(0, 0)
             };
+
             overviewPanel = new OverviewPanel()
             {
                 Location = new Point(0, 0)
             };
             overviewPanel.butNewGame.Click += Overview_ButNewGame_Click;
             overviewPanel.butGuide.Click += Overview_ButGuide_Click;
+
             gameModePanel = new GameModePanel()
             {
                 Location = new Point(0, 0)
@@ -140,15 +139,21 @@ namespace CaroGame.Presentaion
             gameModePanel.routePanel.cancelActionBut.Click += ButCancel_Click;
             gameModePanel.butLoadGame.Click += ButLoadGame_Click;
 
+            loadGamePanel = new LoadGamePanel()
+            {
+                Location = new Point(0, 0)
+            };
+            loadGamePanel.LoadGame_Click += LoadGamePanel_LoadGame_Click;
+            loadGamePanel.CancelLoadGame_Click += LoadGamePanel_CancelLoadGame_Click;
+            loadGamePanel.butBack.Click += LoadGame_ButBack_Click;
+
             timer = new Timer()
             {
                 Interval = Config.TIME_CONFIG.Interval * 1000
             };
             timer.Tick += Timer_Tick;
         }
-        #endregion
 
-        #region Draw Form
         private void DrawOverviewForm(Form overviewForm, string formText)
         {
             DrawCommonForm(ref overviewForm, formText);
@@ -224,53 +229,12 @@ namespace CaroGame.Presentaion
             mainForm.MainMenuStrip = mainMenu;
         }
 
-        private void DrawLoadGame(Form loadForm)
+        private void DrawLoadGameForm(Form loadGameForm)
         {
-            int Y = 40, count = 1;
-            loadForm.Controls.Clear();
-            if (SaveGameHelper.saveData.GameSaveList.Count == 0)
-            {
-                Label info = new Label()
-                {
-                    Text = "Nothing To Load",
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Size = new Size(200, 30),
-                    Location = new Point(120, Y)
-                };
-                Y += 60;
-                loadForm.Controls.Add(info);
-            }
-            else
-            {
-                foreach (GameSaveData item in SaveGameHelper.saveData.GameSaveList)
-                {
-                    string butText = count.ToString() + "." + item.PlayerName1 + " vs " + item.PlayerName2 + "; row: "
-                        + item.NumberOfRow + "/ column: " + item.NumberOfColumn;
-                    Button button = new Button()
-                    {
-                        Text = butText,
-                        Size = new Size(200, 40),
-                        Location = new Point(70, Y)
-                    };
-                    Button buttonDelete = new Button()
-                    {
-                        Tag = count,
-                        Text = "X",
-                        Size = new Size(40, 40),
-                        Location = new Point(270, Y)
-                    };
-                    button.Click += Button_Click;
-                    buttonDelete.Click += ButtonDelete_Click;
-                    loadForm.Controls.Add(button);
-                    loadForm.Controls.Add(buttonDelete);
-                    Y += 60; count++;
-                }
-            }
-            DrawCommonForm(ref loadForm, Config.NAME.LOAD_GAME, 400, Y + 110, false);
-            //butCancel.Location = new Point(170, Y + 30);
-            //loadForm.Controls.Add(butCancel);
+            loadGameForm.Controls.Clear();
+            loadGameForm.Controls.Add(loadGamePanel);
+            loadGamePanel.DrawLoadGame();
+            loadGameForm.Size = loadGamePanel.Size;
         }
-        #endregion
-        #endregion
     }
 }

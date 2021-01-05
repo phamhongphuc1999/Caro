@@ -10,10 +10,16 @@
     <Compile Update="Presentation\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Presentation\CustomButton\CaroButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Presentation\CustomMenu.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Presentation\CustomPanel\GameModePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Presentation\CustomPanel\LoadGamePanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Presentation\CustomPanel\RoutePanel.cs">

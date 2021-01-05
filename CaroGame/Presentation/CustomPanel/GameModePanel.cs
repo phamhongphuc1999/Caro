@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using CaroGame.Presentation.CustomButton;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace CaroGame.Presentation.CustomPanel
@@ -17,27 +18,24 @@ namespace CaroGame.Presentation.CustomPanel
 
         public void DrawBasePanel()
         {
-            butTwoPlayer = new Button()
+            butTwoPlayer = new CaroButton()
             {
                 Text = "Two Player",
                 Size = new Size(144, 55),
-                Location = new Point(42, 45),
-                BackColor = ColorTranslator.FromHtml("#8BC4FC")
+                Location = new Point(42, 45)
             };
-            butModeLan = new Button()
+            butModeLan = new CaroButton()
             {
                 Text = "LAN Mode",
                 Size = new Size(144, 55),
-                Location = new Point(228, 45),
-                BackColor = ColorTranslator.FromHtml("#8BC4FC")
+                Location = new Point(228, 45)
             };
-            butModeAI = new Button()
+            butModeAI = new CaroButton()
             {
                 Name = "butModeAI",
                 Text = "One Player",
                 Size = new Size(144, 55),
-                Location = new Point(414, 45),
-                BackColor = ColorTranslator.FromHtml("#8BC4FC")
+                Location = new Point(414, 45)
             };
             lblOr = new Label()
             {
@@ -46,7 +44,7 @@ namespace CaroGame.Presentation.CustomPanel
                 Size = new Size(60, 20),
                 Location = new Point(270, 147)
             };
-            butLoadGame = new Button()
+            butLoadGame = new CaroButton()
             {
                 Location = new Point(225, 200),
                 Text = "Load Game",
