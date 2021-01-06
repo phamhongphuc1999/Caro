@@ -6,22 +6,29 @@ using System.Windows.Forms;
 
 namespace CaroGame.CaroManagement
 {
-    internal class DisplayManager
+    internal class CaroBoardManager
     {
-        public Panel PnlCaroBoard { get; set; }
+        public Panel CaroBoardPnl { get; }
         private Dictionary<KeyValuePair<int, int>, Button> caroBoard;
 
         public Action<object, EventArgs> ButClick { get; set; }
 
-        public DisplayManager()
+        public CaroBoardManager()
         {
-            PnlCaroBoard = new Panel();
+            CaroBoardPnl = new Panel();
             caroBoard = new Dictionary<KeyValuePair<int, int>, Button>();
+        }
+
+        public void ResizeCaroBoard()
+        {
+            int width = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
+            int height = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
+            CaroBoardPnl.Size = new Size(width, height);
         }
 
         public void DrawCaroBoard()
         {
-            PnlCaroBoard.Controls.Clear();
+            CaroBoardPnl.Controls.Clear();
             caroBoard.Clear();
             for (int i = 0; i < Config.NUMBER_OF_ROW; i++)
             {
@@ -35,14 +42,14 @@ namespace CaroGame.CaroManagement
                     };
                     but.Click += But_Click;
                     caroBoard.Add(new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
-                    PnlCaroBoard.Controls.Add(but);
+                    CaroBoardPnl.Controls.Add(but);
                 }
             }
         }
 
         public void DrawCaroBoard(int numberOfRow, int numberOfColumn)
         {
-            if (PnlCaroBoard.Controls.Count == 0)
+            if (CaroBoardPnl.Controls.Count == 0)
             {
                 for (int i = 0; i < numberOfRow; i++)
                 {
@@ -56,7 +63,7 @@ namespace CaroGame.CaroManagement
                         };
                         but.Click += But_Click;
                         caroBoard.Add(new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
-                        PnlCaroBoard.Controls.Add(but);
+                        CaroBoardPnl.Controls.Add(but);
                     }
                 }
             }

@@ -1,30 +1,41 @@
 ﻿using CaroGame.PlayerManagement;
+using CaroGame.Presentation.CaroPanel;
 using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace CaroGame.CaroManagement
 {
     public class CaroManager
     {
         private PlayerManager playerManager;
-        private DisplayManager displayManager;
+        private CaroBoardManager caroBoardManager;
         private WinnerManager winnerManager;
 
         public CaroManager()
         {
             playerManager = new PlayerManager();
-            displayManager = new DisplayManager();
-            displayManager.ButClick = But_Click;
+            caroBoardManager = new CaroBoardManager();
+            winnerManager = new WinnerManager();
+            caroBoardManager.ButClick = But_Click;
         }
 
-        public void CreateNewGame(int turn)
+        public Panel CaroGameBoard
         {
+            get { return caroBoardManager.CaroBoardPnl; }
+        }
+
+        public void CreateNewGame(int turn = 1)
+        {
+            caroBoardManager.ResizeCaroBoard();
+            caroBoardManager.DrawCaroBoard();
+            winnerManager.NewGameHanlde(turn);
             playerManager.Turn = turn % 2;
-            displayManager.DrawCaroBoard();
         }
 
         private void But_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("123");
         }
     }
 }

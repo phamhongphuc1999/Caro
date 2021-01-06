@@ -10,6 +10,9 @@
     <Compile Update="Presentation\CaroButton\CaroButton1.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Presentation\CaroPanel\GameBoardPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Presentation\CaroPanel\GameModePanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -20,6 +23,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Presentation\CaroPanel\TwoTextPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Presentation\CustomMenu.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Presentation\MainForm.cs">

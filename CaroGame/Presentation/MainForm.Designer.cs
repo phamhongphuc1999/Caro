@@ -9,6 +9,7 @@ namespace CaroGame.Presentation
         private OverviewPanel overviewPnl;
         private GameModePanel gameModePnl;
         private TwoTextPanel playerPnl;
+        private GameBoardPanel gameBoardPanel;
 
         private void DrawOverview()
         {
@@ -46,6 +47,21 @@ namespace CaroGame.Presentation
             playerPnl.NextActionClickEvent += PlayerPnl_NextActionClickEvent;
             playerPnl.CancelActionClickEvent += PlayerPnl_CancelActionClickEvent;
             this.Controls.Add(playerPnl);
+        }
+
+        private void DrawGameBoard()
+        {
+            gameBoardPanel = new GameBoardPanel()
+            {
+                Location = new Point(0, 0)
+            };
+            gameBoardPanel.UndoClickEvent += GameBoardPanel_UndoClickEvent;
+            gameBoardPanel.RedoClickEvent += GameBoardPanel_RedoClickEvent;
+            gameBoardPanel.NewGameToolClickEvent += GameBoardPanel_NewGameToolClickEvent;
+            gameBoardPanel.QuickItemClickEvent += GameBoardPanel_QuickItemClickEvent;
+            gameBoardPanel.SettingItemClickEvent += GameBoardPanel_SettingItemClickEvent;
+            gameBoardPanel.AboutItemClickEvent += GameBoardPanel_AboutItemClickEvent;
+            this.Controls.Add(gameBoardPanel);
         }
     }
 }

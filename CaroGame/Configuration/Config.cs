@@ -4,8 +4,8 @@ namespace CaroGame.Configuration
 {
     public static class Config
     {
-        public static int NUMBER_OF_ROW = 20;
-        public static int NUMBER_OF_COLUMN = 20;
+        public static int NUMBER_OF_ROW = 10;
+        public static int NUMBER_OF_COLUMN = 10;
         public static readonly Size CHESS_SIZE = new Size(40, 40);
 
         public enum GameMode

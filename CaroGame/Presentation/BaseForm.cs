@@ -18,5 +18,19 @@ namespace CaroGame.Presentation
             currentPnl = panel;
             currentPnl.Visible = true;
         }
+
+        protected void SetCurrentPanel(Panel panel, string title)
+        {
+            SetCurrentPanel(panel);
+            this.Text = title;
+        }
+
+        protected void AddFit(Panel panel)
+        {
+            this.AutoSize = true;
+            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.Size = panel.Size;
+            this.Controls.Add(panel);
+        }
     }
 }
