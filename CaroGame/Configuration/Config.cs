@@ -1,4 +1,16 @@
-﻿using System.Drawing;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using System.Drawing;
 
 namespace CaroGame.Configuration
 {
@@ -8,11 +20,16 @@ namespace CaroGame.Configuration
         public static int NUMBER_OF_COLUMN = 10;
         public static readonly Size CHESS_SIZE = new Size(40, 40);
 
+        public static string NAME_PLAYER1 = "";
+        public static string NAME_PLAYER2 = "";
+
         public enum GameMode
         {
             TWO_PLAYER,
             AI, LAN
         }
+
+        public static GameMode CURRENT_GAME_MODE;
 
         public static class NAME
         {

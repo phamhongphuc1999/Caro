@@ -1,4 +1,16 @@
-﻿using CaroGame.Presentation.CaroButton;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Presentation.CaroButton;
 using System;
 using System.Drawing;
 using System.Windows.Forms;

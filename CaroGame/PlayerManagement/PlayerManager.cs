@@ -1,4 +1,16 @@
-﻿using System.Drawing;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using System.Drawing;
 
 namespace CaroGame.PlayerManagement
 {
@@ -21,15 +33,15 @@ namespace CaroGame.PlayerManagement
 
         public int Turn
         {
-            get { return player1.IsTurn ? 1 : 2; }
+            get { return player1.IsTurn ? 0 : 1; }
             set
             {
-                if(value == 1)
+                if(value % 2 == 0)
                 {
                     player1.IsTurn = true;
                     player2.IsTurn = false;
                 }
-                else if(value == 2)
+                else if(value % 2 == 1)
                 {
                     player1.IsTurn = false;
                     player2.IsTurn = true;
@@ -55,6 +67,30 @@ namespace CaroGame.PlayerManagement
         public Color PlayerColor2
         {
             get { return player2.ColorPlayer; }
+        }
+
+        public string CurrentPlayerName
+        {
+            get
+            {
+                if (player1.IsTurn) return player1.NamePlayer;
+                return player2.NamePlayer;
+            }
+        }
+
+        public Color CurrentPlayerColor
+        {
+            get
+            {
+                if (player1.IsTurn) return player1.ColorPlayer;
+                return player2.ColorPlayer;
+            }
+        }
+
+        public void Set(string playerName1, string playerName2)
+        {
+            player1.NamePlayer = playerName1;
+            player2.NamePlayer = playerName2;
         }
     }
 }

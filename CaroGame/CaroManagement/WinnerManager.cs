@@ -1,4 +1,16 @@
-﻿using CaroGame.Configuration;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Configuration;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -7,12 +19,7 @@ namespace CaroGame.CaroManagement
 {
     internal class WinnerManager
     {
-        private int turn;
-        public int Turn
-        {
-            get { return turn; }
-            set { turn = value; }
-        }
+        public int Turn { get; set; }
         private int numberOfColumn;
         private int numberOfRow;
         private int numberOfChess;
@@ -32,7 +39,7 @@ namespace CaroGame.CaroManagement
 
         public void NewGameHanlde(int turn)
         {
-            this.turn = turn;
+            this.Turn = turn % 2;
             check[0] = check[1] = check[2] = check[3] = 0;
             while (caroBoard.Count > 0) caroBoard.Clear();
             numberOfColumn = Config.NUMBER_OF_COLUMN;
@@ -42,12 +49,12 @@ namespace CaroGame.CaroManagement
 
         public void DrawCaroBoard(int X, int Y)
         {
-            caroBoard.Add(new KeyValuePair<int, int>(X, Y), turn);
+            caroBoard.Add(new KeyValuePair<int, int>(X, Y), Turn);
         }
 
         public void DrawCaroBoard(Point point)
         {
-            caroBoard.Add(new KeyValuePair<int, int>(point.X, point.Y), turn);
+            caroBoard.Add(new KeyValuePair<int, int>(point.X, point.Y), Turn);
         }
 
         public void DrawCaroBoard(Point point, int turn)
@@ -58,13 +65,13 @@ namespace CaroGame.CaroManagement
         public void UndoHandle(int X, int Y)
         {
             caroBoard.Remove(new KeyValuePair<int, int>(X, Y));
-            turn = 1 - turn;
+            Turn = 1 - Turn;
         }
 
         public void RedoHandle(int X, int Y)
         {
-            caroBoard.Add(new KeyValuePair<int, int>(X, Y), turn);
-            turn = 1 - turn;
+            caroBoard.Add(new KeyValuePair<int, int>(X, Y), Turn);
+            Turn = 1 - Turn;
         }
 
         public bool IsEndGame()
@@ -94,7 +101,7 @@ namespace CaroGame.CaroManagement
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, Y);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
-                    if (player == turn)
+                    if (player == Turn)
                     {
                         arrRow[count] = temp;
                         count++;
@@ -110,7 +117,7 @@ namespace CaroGame.CaroManagement
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, Y);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
-                    if (player == turn)
+                    if (player == Turn)
                     {
                         arrRow[count] = temp;
                         count++;
@@ -131,7 +138,7 @@ namespace CaroGame.CaroManagement
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(X, i);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
-                    if (player == turn)
+                    if (player == Turn)
                     {
                         arrColumn[count] = temp;
                         count++;
@@ -147,7 +154,7 @@ namespace CaroGame.CaroManagement
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(X, i);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
-                    if (player == turn)
+                    if (player == Turn)
                     {
                         arrColumn[count] = temp;
                         count++;
@@ -169,7 +176,7 @@ namespace CaroGame.CaroManagement
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
-                    if (player == turn)
+                    if (player == Turn)
                     {
                         arrMainDiagonal[count] = temp;
                         count++;
@@ -187,7 +194,7 @@ namespace CaroGame.CaroManagement
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
-                    if (player == turn)
+                    if (player == Turn)
                     {
                         arrMainDiagonal[count] = temp;
                         count++;
@@ -210,7 +217,7 @@ namespace CaroGame.CaroManagement
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
-                    if (player == turn)
+                    if (player == Turn)
                     {
                         arrSubDiagomal[count] = temp;
                         count++;
@@ -227,7 +234,7 @@ namespace CaroGame.CaroManagement
                 KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
-                    if (player == turn)
+                    if (player == Turn)
                     {
                         arrSubDiagomal[count] = temp;
                         count++;

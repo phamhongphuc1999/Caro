@@ -1,4 +1,16 @@
-﻿using CaroGame.Configuration;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -93,6 +105,32 @@ namespace CaroGame.CaroManagement
                 else board += "0";
             }
             return board;
+        }
+
+        public void ChangeFlatStypeWhenEndGame(Button eventBut, WinnerManager winnerManager)
+        {
+            int[] check = winnerManager.check;
+            if (check[0] == 1)
+            {
+                foreach (KeyValuePair<int, int> item in winnerManager.arrRow)
+                    caroBoard[item].FlatStyle = FlatStyle.Flat;
+            }
+            if (check[1] == 1)
+            {
+                foreach (KeyValuePair<int, int> item in winnerManager.arrColumn)
+                    caroBoard[item].FlatStyle = FlatStyle.Flat;
+            }
+            if (check[2] == 1)
+            {
+                foreach (KeyValuePair<int, int> item in winnerManager.arrMainDiagonal)
+                    caroBoard[item].FlatStyle = FlatStyle.Flat;
+            }
+            if (check[3] == 1)
+            {
+                foreach (KeyValuePair<int, int> item in winnerManager.arrSubDiagomal)
+                    caroBoard[item].FlatStyle = FlatStyle.Flat;
+            }
+            eventBut.FlatStyle = FlatStyle.Flat;
         }
 
         private void But_Click(object sender, EventArgs e)

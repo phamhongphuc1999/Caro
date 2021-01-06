@@ -10,17 +10,13 @@
 //
 // ------------------------------------------------------
 
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace CaroGame.Presentation.CaroButton
+namespace CaroGame.Presentation.CaroPanel
 {
-    public class CaroButton1: Button
+    public class SettingSizePanel: TwoTextPanel
     {
-        public CaroButton1() : base()
+        public override (bool, string) IsValid()
         {
-            FlatStyle = FlatStyle.Flat;
-            BackColor = ColorTranslator.FromHtml("#8BC4FC");
+            return base.IsValid();
         }
     }
 }

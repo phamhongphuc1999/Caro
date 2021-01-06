@@ -1,17 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UseWindowsForms>true</UseWindowsForms>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Configuration\Config.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Configuration\Config.json" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="Configuration\Config.json" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Include="Configuration\Config.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DataTransmission\DataTransmission.csproj" />
+	</ItemGroup>
 
 </Project>

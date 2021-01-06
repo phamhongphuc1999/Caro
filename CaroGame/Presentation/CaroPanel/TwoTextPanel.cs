@@ -1,4 +1,16 @@
-﻿using System;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -50,7 +62,7 @@ namespace CaroGame.Presentation.CaroPanel
             set { txt2.Text = value; }
         }
 
-        public (bool, string) IsFill()
+        public virtual (bool, string) IsValid()
         {
             if (this.CaroVisible)
             {
