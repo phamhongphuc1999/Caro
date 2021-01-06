@@ -30,38 +30,74 @@ namespace CaroGame.Presentation.CaroPanel
 
         public event EventHandler UndoClickEvent
         {
-            add { undoBut.Click += value; }
-            remove { undoBut.Click -= value; }
+            add
+            {
+                undoBut.Click += value;
+            }
+            remove
+            {
+                undoBut.Click -= value;
+            }
         }
 
         public event EventHandler RedoClickEvent
         {
-            add { redoBut.Click += value; }
-            remove { redoBut.Click -= value; }
+            add
+            {
+                redoBut.Click += value;
+            }
+            remove
+            {
+                redoBut.Click -= value;
+            }
         }
 
         public event EventHandler NewGameToolClickEvent
         {
-            add { mainMenu.NewGameItemClickEvent += value; }
-            remove { mainMenu.NewGameItemClickEvent -= value; }
+            add
+            {
+                mainMenu.NewGameItemClickEvent += value;
+            }
+            remove
+            {
+                mainMenu.NewGameItemClickEvent -= value;
+            }
         }
 
         public event EventHandler QuickItemClickEvent
         {
-            add { mainMenu.QuickItemClickEvent += value; }
-            remove { mainMenu.QuickItemClickEvent -= value; }
+            add
+            {
+                mainMenu.QuickItemClickEvent += value;
+            }
+            remove
+            {
+                mainMenu.QuickItemClickEvent -= value;
+            }
         }
 
         public event EventHandler SettingItemClickEvent
         {
-            add { mainMenu.SettingItemClickEvent += value; }
-            remove { mainMenu.SettingItemClickEvent -= value; }
+            add
+            {
+                mainMenu.SettingItemClickEvent += value;
+            }
+            remove
+            {
+                mainMenu.SettingItemClickEvent -= value;
+            }
         }
 
         public event EventHandler AboutItemClickEvent
         {
-            add { mainMenu.AboutItemClickEvent += value; }
-            remove { mainMenu.AboutItemClickEvent -= value; }
+            add
+            {
+                mainMenu.AboutItemClickEvent += value;
+            }
+            remove
+            {
+                mainMenu.AboutItemClickEvent -= value;
+            }
         }
 
         private void DrawBasePanel()

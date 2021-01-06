@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace CaroGame.Presentation.CaroPanel
 {
-    public class GameModePanel: Panel
+    public class GameModePanel : Panel
     {
         protected CaroButton1 twoPlayerBut, lanModeBut, aiModeBut, loadgameBut;
         protected Label orLbl;
@@ -25,32 +25,62 @@ namespace CaroGame.Presentation.CaroPanel
 
         public event EventHandler TwoPlayerClickEvent
         {
-            add { twoPlayerBut.Click += value; }
-            remove { twoPlayerBut.Click -= value; }
+            add
+            {
+                twoPlayerBut.Click += value;
+            }
+            remove
+            {
+                twoPlayerBut.Click -= value;
+            }
         }
 
         public event EventHandler LanModeClickEvent
         {
-            add { lanModeBut.Click += value; }
-            remove { lanModeBut.Click -= value; }
+            add
+            {
+                lanModeBut.Click += value;
+            }
+            remove
+            {
+                lanModeBut.Click -= value;
+            }
         }
 
         public event EventHandler AIModeClickEvent
         {
-            add { aiModeBut.Click += value; }
-            remove { aiModeBut.Click -= value; }
+            add
+            {
+                aiModeBut.Click += value;
+            }
+            remove
+            {
+                aiModeBut.Click -= value;
+            }
         }
 
         public event EventHandler LoadGameClickEvent
         {
-            add { loadgameBut.Click += value; }
-            remove { loadgameBut.Click -= value; }
+            add
+            {
+                loadgameBut.Click += value;
+            }
+            remove
+            {
+                loadgameBut.Click -= value;
+            }
         }
 
         public event EventHandler CancelActionClickEvent
         {
-            add { routePnl.CancelActionClickEvent += value; }
-            remove { routePnl.CancelActionClickEvent -= value; }
+            add
+            {
+                routePnl.CancelActionClickEvent += value;
+            }
+            remove
+            {
+                routePnl.CancelActionClickEvent -= value;
+            }
         }
 
         public GameModePanel() : base()

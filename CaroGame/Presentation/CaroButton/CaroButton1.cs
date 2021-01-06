@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace CaroGame.Presentation.CaroButton
 {
-    public class CaroButton1: Button
+    public class CaroButton1 : Button
     {
         public CaroButton1() : base()
         {

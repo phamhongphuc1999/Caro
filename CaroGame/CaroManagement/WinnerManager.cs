@@ -19,7 +19,10 @@ namespace CaroGame.CaroManagement
 {
     internal class WinnerManager
     {
-        public int Turn { get; set; }
+        public int Turn
+        {
+            get; set;
+        }
         private int numberOfColumn;
         private int numberOfRow;
         private int numberOfChess;

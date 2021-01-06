@@ -31,6 +31,7 @@ namespace CaroGame.Presentation
             DrawPayer();
             DrawGameBoard();
             currentPnl = overviewPnl;
+            StartPosition = FormStartPosition.CenterScreen;
 
             caroManager = new CaroManager(gameBoardPanel.playerTxt);
         }
@@ -42,7 +43,7 @@ namespace CaroGame.Presentation
 
         private void OverviewPnl_NewGameClickEvent(object sender, EventArgs e)
         {
-            this.SetCurrentPanel(gameModePnl, Config.NAME.GAME_MODE);
+            this.SetCurrentPanel(gameModePnl, Config.NAME.OVERVIEW);
         }
 
         private void GameModePnl_CancelActionClickEvent(object sender, EventArgs e)

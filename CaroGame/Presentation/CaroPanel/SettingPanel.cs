@@ -10,15 +10,16 @@
 //
 // ------------------------------------------------------
 
+using CaroGame.Presentation.CaroButton;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace CaroGame.Presentation.CaroPanel
 {
-    public class SettingPanel: Panel
+    public class SettingPanel : Panel
     {
-        protected Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butLoadGame, butSaveGame;
+        protected Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butLanguage, butLoadGame, butSaveGame;
         protected RoutePanel routePanel;
 
         public SettingPanel() : base()
@@ -29,56 +30,122 @@ namespace CaroGame.Presentation.CaroPanel
 
         public event EventHandler GameModeClickEvent
         {
-            add { butGameMode.Click += value; }
-            remove { butGameMode.Click -= value; }
+            add
+            {
+                butGameMode.Click += value;
+            }
+            remove
+            {
+                butGameMode.Click -= value;
+            }
         }
 
         public event EventHandler TimerClickEvent
         {
-            add { butTimer.Click += value; }
-            remove { butTimer.Click -= value; }
+            add
+            {
+                butTimer.Click += value;
+            }
+            remove
+            {
+                butTimer.Click -= value;
+            }
         }
 
         public event EventHandler NamePlayerClickEvent
         {
-            add { butNamePlayer.Click += value; }
-            remove { butNamePlayer.Click -= value; }
+            add
+            {
+                butNamePlayer.Click += value;
+            }
+            remove
+            {
+                butNamePlayer.Click -= value;
+            }
         }
 
         public event EventHandler SizeClickEvent
         {
-            add { butSizeBoard.Click += value; }
-            remove { butSizeBoard.Click -= value; }
+            add
+            {
+                butSizeBoard.Click += value;
+            }
+            remove
+            {
+                butSizeBoard.Click -= value;
+            }
         }
 
         public event EventHandler SoundClickEvent
         {
-            add { butSound.Click += value; }
-            remove { butSound.Click -= value; }
+            add
+            {
+                butSound.Click += value;
+            }
+            remove
+            {
+                butSound.Click -= value;
+            }
+        }
+
+        public event EventHandler LanguageClickEvent
+        {
+            add
+            {
+                butLanguage.Click += value;
+            }
+            remove
+            {
+                butLanguage.Click -= value;
+            }
         }
 
         public event EventHandler LoadGameClickEvent
         {
-            add { butLoadGame.Click += value; }
-            remove { butLoadGame.Click -= value; }
+            add
+            {
+                butLoadGame.Click += value;
+            }
+            remove
+            {
+                butLoadGame.Click -= value;
+            }
         }
 
         public event EventHandler SaveGameClickEvent
         {
-            add { butSaveGame.Click += value; }
-            remove { butSaveGame.Click -= value; }
+            add
+            {
+                butSaveGame.Click += value;
+            }
+            remove
+            {
+                butSaveGame.Click -= value;
+            }
         }
 
         public event EventHandler NextActionClickEvent
         {
-            add { routePanel.NextActionClickEvent += value; }
-            remove { routePanel.NextActionClickEvent -= value; }
+            add
+            {
+                routePanel.NextActionClickEvent += value;
+            }
+            remove
+            {
+                routePanel.NextActionClickEvent -= value;
+            }
         }
 
         public event EventHandler CancelActionClickEvent
         {
-            add { routePanel.CancelActionClickEvent += value; }
-            remove { routePanel.CancelActionClickEvent -= value; }
+            add
+            {
+                routePanel.CancelActionClickEvent += value;
+            }
+            remove
+            {
+                routePanel.CancelActionClickEvent -= value;
+            }
         }
 
         private void DrawBasePanel()
@@ -113,6 +180,12 @@ namespace CaroGame.Presentation.CaroPanel
                 Size = new Size(144, 55),
                 Location = new Point(228, 145)
             };
+            butLanguage = new SettingButton()
+            {
+                Text = "Language",
+                Size = new Size(144, 55),
+                Location = new Point(414, 145)
+            };
             butLoadGame = new Button()
             {
                 Text = "Load Game",
@@ -134,6 +207,7 @@ namespace CaroGame.Presentation.CaroPanel
             this.Controls.Add(butNamePlayer);
             this.Controls.Add(butSizeBoard);
             this.Controls.Add(butSound);
+            this.Controls.Add(butLanguage);
             this.Controls.Add(butLoadGame);
             this.Controls.Add(butSaveGame);
             this.Controls.Add(routePanel);

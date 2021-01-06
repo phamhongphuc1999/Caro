@@ -33,15 +33,18 @@ namespace CaroGame.PlayerManagement
 
         public int Turn
         {
-            get { return player1.IsTurn ? 0 : 1; }
+            get
+            {
+                return player1.IsTurn ? 0 : 1;
+            }
             set
             {
-                if(value % 2 == 0)
+                if (value % 2 == 0)
                 {
                     player1.IsTurn = true;
                     player2.IsTurn = false;
                 }
-                else if(value % 2 == 1)
+                else if (value % 2 == 1)
                 {
                     player1.IsTurn = false;
                     player2.IsTurn = true;
@@ -51,22 +54,34 @@ namespace CaroGame.PlayerManagement
 
         public string PlayerName1
         {
-            get { return player1.NamePlayer; }
+            get
+            {
+                return player1.NamePlayer;
+            }
         }
 
         public string PlayerName2
         {
-            get { return player2.NamePlayer; }
+            get
+            {
+                return player2.NamePlayer;
+            }
         }
 
         public Color PlayerColor1
         {
-            get { return player1.ColorPlayer; }
+            get
+            {
+                return player1.ColorPlayer;
+            }
         }
 
         public Color PlayerColor2
         {
-            get { return player2.ColorPlayer; }
+            get
+            {
+                return player2.ColorPlayer;
+            }
         }
 
         public string CurrentPlayerName

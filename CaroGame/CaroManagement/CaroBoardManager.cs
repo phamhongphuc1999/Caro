@@ -20,10 +20,16 @@ namespace CaroGame.CaroManagement
 {
     internal class CaroBoardManager
     {
-        public Panel CaroBoardPnl { get; }
+        public Panel CaroBoardPnl
+        {
+            get;
+        }
         private Dictionary<KeyValuePair<int, int>, Button> caroBoard;
 
-        public Action<object, EventArgs> ButClick { get; set; }
+        public Action<object, EventArgs> ButClick
+        {
+            get; set;
+        }
 
         public CaroBoardManager()
         {
@@ -41,6 +47,7 @@ namespace CaroGame.CaroManagement
         public void DrawCaroBoard()
         {
             CaroBoardPnl.Controls.Clear();
+            CaroBoardPnl.Enabled = true;
             caroBoard.Clear();
             for (int i = 0; i < Config.NUMBER_OF_ROW; i++)
             {
@@ -61,6 +68,7 @@ namespace CaroGame.CaroManagement
 
         public void DrawCaroBoard(int numberOfRow, int numberOfColumn)
         {
+            CaroBoardPnl.Enabled = true;
             if (CaroBoardPnl.Controls.Count == 0)
             {
                 for (int i = 0; i < numberOfRow; i++)
@@ -107,8 +115,9 @@ namespace CaroGame.CaroManagement
             return board;
         }
 
-        public void ChangeFlatStypeWhenEndGame(Button eventBut, WinnerManager winnerManager)
+        public void Winner(Button eventBut, WinnerManager winnerManager)
         {
+            CaroBoardPnl.Enabled = false;
             int[] check = winnerManager.check;
             if (check[0] == 1)
             {
@@ -131,6 +140,11 @@ namespace CaroGame.CaroManagement
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             eventBut.FlatStyle = FlatStyle.Flat;
+        }
+
+        public void EndGame()
+        {
+            CaroBoardPnl.Enabled = false;
         }
 
         private void But_Click(object sender, EventArgs e)

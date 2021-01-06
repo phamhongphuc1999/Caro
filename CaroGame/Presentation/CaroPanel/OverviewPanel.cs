@@ -17,20 +17,32 @@ using System.Windows.Forms;
 
 namespace CaroGame.Presentation.CaroPanel
 {
-    public class OverviewPanel: Panel
+    public class OverviewPanel : Panel
     {
         protected CaroButton1 newGameBut, guideBut;
 
         public event EventHandler NewGameClickEvent
         {
-            add { newGameBut.Click += value; }
-            remove { newGameBut.Click -= value; }
+            add
+            {
+                newGameBut.Click += value;
+            }
+            remove
+            {
+                newGameBut.Click -= value;
+            }
         }
 
         public event EventHandler GuideClickEvent
         {
-            add { guideBut.Click += value; }
-            remove { guideBut.Click -= value; }
+            add
+            {
+                guideBut.Click += value;
+            }
+            remove
+            {
+                guideBut.Click -= value;
+            }
         }
 
         public OverviewPanel() : base()

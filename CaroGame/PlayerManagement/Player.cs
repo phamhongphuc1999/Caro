@@ -16,9 +16,18 @@ namespace CaroGame.PlayerManagement
 {
     internal class Player
     {
-        public string NamePlayer { get; set; }
-        public bool IsTurn { get; set; }
-        public Color ColorPlayer { get; set; }
+        public string NamePlayer
+        {
+            get; set;
+        }
+        public bool IsTurn
+        {
+            get; set;
+        }
+        public Color ColorPlayer
+        {
+            get; set;
+        }
 
         public Player(string namePlayer, Color colorPlayer, bool isTurn)
         {

@@ -10,6 +10,9 @@
     <Compile Update="Presentation\CaroButton\CaroButton1.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Presentation\CaroButton\SettingButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Presentation\CaroPanel\GameBoardPanel.cs">
       <SubType>Component</SubType>
     </Compile>

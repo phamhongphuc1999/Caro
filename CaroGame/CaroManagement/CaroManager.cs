@@ -10,9 +10,9 @@
 //
 // ------------------------------------------------------
 
+using System;
 using CaroGame.Configuration;
 using CaroGame.PlayerManagement;
-using System;
 using System.Windows.Forms;
 
 namespace CaroGame.CaroManagement
@@ -22,6 +22,7 @@ namespace CaroGame.CaroManagement
         private PlayerManager playerManager;
         private CaroBoardManager caroBoardManager;
         private WinnerManager winnerManager;
+        private ActionManager actionManager;
         private TextBox playerTxt;
 
         public CaroManager(TextBox playerTxt)
@@ -31,12 +32,16 @@ namespace CaroGame.CaroManagement
             playerManager = new PlayerManager();
             caroBoardManager = new CaroBoardManager();
             winnerManager = new WinnerManager();
+            actionManager = new ActionManager();
             caroBoardManager.ButClick = But_Click;
         }
 
         public Panel CaroGameBoard
         {
-            get { return caroBoardManager.CaroBoardPnl; }
+            get
+            {
+                return caroBoardManager.CaroBoardPnl;
+            }
         }
 
         private void SetControl(Control control)
@@ -66,22 +71,23 @@ namespace CaroGame.CaroManagement
 
         private void Winner(Button eventBut)
         {
-            caroBoardManager.ChangeFlatStypeWhenEndGame(eventBut, this.winnerManager);
-            if(Config.CURRENT_GAME_MODE == Config.GameMode.TWO_PLAYER)
+            caroBoardManager.Winner(eventBut, this.winnerManager);
+            if (Config.CURRENT_GAME_MODE == Config.GameMode.TWO_PLAYER)
             {
-                MessageBox.Show("The Game is ended, no players is winer", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                MessageBox.Show($"Người chơi {playerManager.CurrentPlayerName} chiến thắng", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult result = MessageBox.Show("Bạn có muốn chơi trò chơi mới?", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK) CreateNewGame(playerManager.Turn);
             }
 
         }
 
-        private void EndGame(Button eventBut)
+        private void EndGame()
         {
+            caroBoardManager.EndGame();
             if (Config.CURRENT_GAME_MODE == Config.GameMode.TWO_PLAYER)
             {
-                MessageBox.Show("The Game is ended, no players is winer", "ANNOUNT", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                DialogResult result = MessageBox.Show("Do you want to play new game?", "ANNOUNT", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                MessageBox.Show("Trò chơi kết thúc, không ai giành chiến thắng", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult result = MessageBox.Show("Bạn có muốn chơi trò chơi mới?", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK) CreateNewGame(playerManager.Turn);
             }
 
@@ -102,7 +108,7 @@ namespace CaroGame.CaroManagement
             but.BackColor = playerManager.CurrentPlayerColor;
             winnerManager.DrawCaroBoard(but.Location);
             if (winnerManager.IsWiner(X, Y).Result) Winner(but);
-            else if (winnerManager.IsEndGame()) EndGame(but);
+            else if (winnerManager.IsEndGame()) EndGame();
             else TurnPlayer();
         }
     }
