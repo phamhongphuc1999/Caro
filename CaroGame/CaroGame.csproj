@@ -18,14 +18,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Remove="Configuration\Config.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Include="Configuration\Config.json" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
 	</ItemGroup>
 

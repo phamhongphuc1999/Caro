@@ -1,6 +1,5 @@
 ﻿using CaroGame.Presentation.CaroPanel;
 using System.Drawing;
-using System;
 
 namespace CaroGame.Presentation
 {
@@ -15,7 +14,8 @@ namespace CaroGame.Presentation
         {
             overviewPnl = new OverviewPanel
             {
-                Location = new Point(0, 0)
+                Location = new Point(0, 0),
+                Visible = false
             };
             overviewPnl.NewGameClickEvent += OverviewPnl_NewGameClickEvent;
             overviewPnl.GuideClickEvent += OverviewPnl_GuideClickEvent;
@@ -26,7 +26,8 @@ namespace CaroGame.Presentation
         {
             gameModePnl = new GameModePanel
             {
-                Location = new Point(0, 0)
+                Location = new Point(0, 0),
+                Visible = false
             };
             gameModePnl.TwoPlayerClickEvent += GameModePnl_TwoPlayerClickEvent;
             gameModePnl.AIModeClickEvent += GameModePnl_AIModeClickEvent;
@@ -41,6 +42,7 @@ namespace CaroGame.Presentation
             playerPnl = new TwoTextPanel()
             {
                 Location = new Point(0, 0),
+                Visible = false,
                 LabelText1 = "Player1",
                 LabelText2 = "Player2"
             };
@@ -53,7 +55,8 @@ namespace CaroGame.Presentation
         {
             gameBoardPanel = new GameBoardPanel()
             {
-                Location = new Point(0, 0)
+                Location = new Point(0, 0),
+                Visible = false
             };
             gameBoardPanel.UndoClickEvent += GameBoardPanel_UndoClickEvent;
             gameBoardPanel.RedoClickEvent += GameBoardPanel_RedoClickEvent;

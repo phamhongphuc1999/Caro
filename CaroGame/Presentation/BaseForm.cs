@@ -17,16 +17,25 @@ namespace CaroGame.Presentation
 {
     public partial class BaseForm : Form
     {
-        protected Panel currentPnl;
+        private Panel currentPnl;
 
         public BaseForm(string formText, Icon icon)
         {
             InitializeComponent(formText, icon);
         }
 
+        protected Panel CurrentPnl
+        {
+            get
+            {
+                return currentPnl;
+            }
+        }
+
         protected void SetCurrentPanel(Panel panel)
         {
-            currentPnl.Visible = false;
+            if (currentPnl != null)
+                currentPnl.Visible = false;
             currentPnl = panel;
             currentPnl.Visible = true;
         }

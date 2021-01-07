@@ -10,10 +10,18 @@
 //
 // ------------------------------------------------------
 
+using CaroGame.Configuration;
+
 namespace CaroGame.Presentation.CaroPanel
 {
     public class SettingSizePanel: TwoTextPanel
     {
+        public SettingSizePanel() : base()
+        {
+            this.LabelText1 = "Hàng";
+            this.LabelText2 = "Cột";
+        }
+
         public override (bool, string) IsValid()
         {
             return base.IsValid();

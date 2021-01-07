@@ -30,7 +30,7 @@ namespace CaroGame.Presentation
             DrawGameMode();
             DrawPayer();
             DrawGameBoard();
-            currentPnl = overviewPnl;
+            this.SetCurrentPanel(overviewPnl);
             StartPosition = FormStartPosition.CenterScreen;
 
             caroManager = new CaroManager(gameBoardPanel.playerTxt);

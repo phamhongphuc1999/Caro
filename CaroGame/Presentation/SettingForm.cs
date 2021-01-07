@@ -10,6 +10,7 @@
 //
 // ------------------------------------------------------
 
+using CaroGame.Configuration;
 using System;
 using System.Drawing;
 
@@ -20,6 +21,13 @@ namespace CaroGame.Presentation
         public SettingForm(string formText, Icon icon): base(formText, icon)
         {
             DrawCommonSetting();
+            DrawSoundSetting();
+            DrawTimeSetting();
+            DrawPlayerNamePanel();
+            DrawSettingSize();
+            DrawGameMode();
+
+            this.SetCurrentPanel(settingPnl);
         }
 
         private void SettingPnl_SaveGameClickEvent(object sender, EventArgs e)
@@ -33,22 +41,31 @@ namespace CaroGame.Presentation
 
         private void SettingPnl_SoundClickEvent(object sender, EventArgs e)
         {
+            SetCurrentPanel(soundPanel);
         }
 
         private void SettingPnl_SizeClickEvent(object sender, EventArgs e)
         {
+            settingSizePanel.Text1 = Config.NUMBER_OF_ROW.ToString();
+            settingSizePanel.Text2 = Config.NUMBER_OF_COLUMN.ToString();
+            SetCurrentPanel(settingSizePanel);
         }
 
         private void SettingPnl_NamePlayerClickEvent(object sender, EventArgs e)
         {
+            settingSizePanel.Text1 = Config.NAME_PLAYER1.ToString();
+            settingSizePanel.Text2 = Config.NAME_PLAYER2.ToString();
+            SetCurrentPanel(playerNamePanel);
         }
 
         private void SettingPnl_TimerClickEvent(object sender, EventArgs e)
         {
+            SetCurrentPanel(timePanel);
         }
 
         private void SettingPnl_GameModeClickEvent(object sender, EventArgs e)
         {
+            SetCurrentPanel(gameModePanel);
         }
 
         private void SettingPnl_CancelActionClickEvent(object sender, EventArgs e)
@@ -56,6 +73,63 @@ namespace CaroGame.Presentation
         }
 
         private void SettingPnl_NextActionClickEvent(object sender, EventArgs e)
+        {
+        }
+
+        private void SoundPanel_CancelActionClickEvent(object sender, EventArgs e)
+        {
+            SetCurrentPanel(settingPnl);
+        }
+
+        private void SoundPanel_NextActionClickEvent(object sender, EventArgs e)
+        {
+        }
+
+        private void SettingSizePanel_CancelActionClickEvent(object sender, EventArgs e)
+        {
+            SetCurrentPanel(settingPnl);
+        }
+
+        private void SettingSizePanel_NextActionClickEvent(object sender, EventArgs e)
+        {
+        }
+
+        private void TimePanel_CancelActionClickEvent(object sender, EventArgs e)
+        {
+            SetCurrentPanel(settingPnl);
+        }
+
+        private void TimePanel_NextActionClickEvent(object sender, EventArgs e)
+        {
+        }
+
+        private void PlayerNamePanel_CancelActionClickEvent(object sender, EventArgs e)
+        {
+            SetCurrentPanel(settingPnl);
+        }
+
+        private void PlayerNamePanel_NextActionClickEvent(object sender, EventArgs e)
+        {
+        }
+
+        private void GameModePanel_CancelActionClickEvent(object sender, EventArgs e)
+        {
+            SetCurrentPanel(settingPnl);
+        }
+
+        private void GameModePanel_LoadGameClickEvent(object sender, EventArgs e)
+        {
+        }
+
+        private void GameModePanel_LanModeClickEvent(object sender, EventArgs e)
+        {
+        }
+
+        private void GameModePanel_AIModeClickEvent(object sender, EventArgs e)
+        {
+        }
+
+        private void GameModePanel_TwoPlayerClickEvent(object sender, EventArgs e)
         {
         }
     }

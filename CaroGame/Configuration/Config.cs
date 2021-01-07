@@ -26,6 +26,10 @@ namespace CaroGame.Configuration
         public static bool IS_PLAY_MUSIC = false;
         public static int VOLUME_SIZE = 20;
 
+        public static bool IS_TIMER = false;
+        public static int TIME_TURN = 30;
+        public static int INTERVAL = 1;
+
         public enum GameMode
         {
             TWO_PLAYER,

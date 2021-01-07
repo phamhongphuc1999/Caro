@@ -19,7 +19,7 @@ namespace CaroGame.Presentation.CaroPanel
 {
     public class SettingPanel : Panel
     {
-        protected Button butGameMode, butTimer, butNamePlayer, butSizeBoard, butSound, butLanguage, butLoadGame, butSaveGame;
+        protected Button gameModeBut, timerBut, namePlayerBut, sizeBoardBut, soundBut, languageBut, loadGameBut, saveGameBut;
         protected RoutePanel routePanel;
 
         public SettingPanel() : base()
@@ -32,11 +32,11 @@ namespace CaroGame.Presentation.CaroPanel
         {
             add
             {
-                butGameMode.Click += value;
+                gameModeBut.Click += value;
             }
             remove
             {
-                butGameMode.Click -= value;
+                gameModeBut.Click -= value;
             }
         }
 
@@ -44,11 +44,11 @@ namespace CaroGame.Presentation.CaroPanel
         {
             add
             {
-                butTimer.Click += value;
+                timerBut.Click += value;
             }
             remove
             {
-                butTimer.Click -= value;
+                timerBut.Click -= value;
             }
         }
 
@@ -56,11 +56,11 @@ namespace CaroGame.Presentation.CaroPanel
         {
             add
             {
-                butNamePlayer.Click += value;
+                namePlayerBut.Click += value;
             }
             remove
             {
-                butNamePlayer.Click -= value;
+                namePlayerBut.Click -= value;
             }
         }
 
@@ -68,11 +68,11 @@ namespace CaroGame.Presentation.CaroPanel
         {
             add
             {
-                butSizeBoard.Click += value;
+                sizeBoardBut.Click += value;
             }
             remove
             {
-                butSizeBoard.Click -= value;
+                sizeBoardBut.Click -= value;
             }
         }
 
@@ -80,11 +80,11 @@ namespace CaroGame.Presentation.CaroPanel
         {
             add
             {
-                butSound.Click += value;
+                soundBut.Click += value;
             }
             remove
             {
-                butSound.Click -= value;
+                soundBut.Click -= value;
             }
         }
 
@@ -92,11 +92,11 @@ namespace CaroGame.Presentation.CaroPanel
         {
             add
             {
-                butLanguage.Click += value;
+                languageBut.Click += value;
             }
             remove
             {
-                butLanguage.Click -= value;
+                languageBut.Click -= value;
             }
         }
 
@@ -104,11 +104,11 @@ namespace CaroGame.Presentation.CaroPanel
         {
             add
             {
-                butLoadGame.Click += value;
+                loadGameBut.Click += value;
             }
             remove
             {
-                butLoadGame.Click -= value;
+                loadGameBut.Click -= value;
             }
         }
 
@@ -116,11 +116,11 @@ namespace CaroGame.Presentation.CaroPanel
         {
             add
             {
-                butSaveGame.Click += value;
+                saveGameBut.Click += value;
             }
             remove
             {
-                butSaveGame.Click -= value;
+                saveGameBut.Click -= value;
             }
         }
 
@@ -150,49 +150,49 @@ namespace CaroGame.Presentation.CaroPanel
 
         private void DrawBasePanel()
         {
-            butGameMode = new Button()
+            gameModeBut = new Button()
             {
                 Text = "Game Mode",
                 Size = new Size(144, 55),
                 Location = new Point(42, 70)
             };
-            butTimer = new Button()
+            timerBut = new Button()
             {
                 Text = "Time",
                 Size = new Size(144, 55),
                 Location = new Point(228, 70)
             };
-            butNamePlayer = new Button()
+            namePlayerBut = new Button()
             {
                 Text = "Player",
                 Size = new Size(144, 55),
                 Location = new Point(414, 70)
             };
-            butSizeBoard = new Button()
+            sizeBoardBut = new Button()
             {
                 Text = "Size Board",
                 Size = new Size(144, 55),
                 Location = new Point(42, 145)
             };
-            butSound = new Button()
+            soundBut = new Button()
             {
                 Text = "Sound",
                 Size = new Size(144, 55),
                 Location = new Point(228, 145)
             };
-            butLanguage = new SettingButton()
+            languageBut = new SettingButton()
             {
                 Text = "Language",
                 Size = new Size(144, 55),
                 Location = new Point(414, 145)
             };
-            butLoadGame = new Button()
+            loadGameBut = new Button()
             {
                 Text = "Load Game",
                 Size = new Size(110, 40),
                 Location = new Point(370, 0)
             };
-            butSaveGame = new Button()
+            saveGameBut = new Button()
             {
                 Text = "Save Game",
                 Size = new Size(110, 40),
@@ -202,14 +202,14 @@ namespace CaroGame.Presentation.CaroPanel
             {
                 Location = new Point(0, 280)
             };
-            this.Controls.Add(butGameMode);
-            this.Controls.Add(butTimer);
-            this.Controls.Add(butNamePlayer);
-            this.Controls.Add(butSizeBoard);
-            this.Controls.Add(butSound);
-            this.Controls.Add(butLanguage);
-            this.Controls.Add(butLoadGame);
-            this.Controls.Add(butSaveGame);
+            this.Controls.Add(gameModeBut);
+            this.Controls.Add(timerBut);
+            this.Controls.Add(namePlayerBut);
+            this.Controls.Add(sizeBoardBut);
+            this.Controls.Add(soundBut);
+            this.Controls.Add(languageBut);
+            this.Controls.Add(loadGameBut);
+            this.Controls.Add(saveGameBut);
             this.Controls.Add(routePanel);
         }
     }
