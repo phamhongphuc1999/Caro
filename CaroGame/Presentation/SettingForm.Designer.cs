@@ -1,72 +1,101 @@
-﻿using CaroGame.Presentation.CustomPanel;
+﻿using CaroGame.Presentation.CaroPanel;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace CaroGame.Presentation
 {
     partial class SettingForm
     {
-        public PlayerPanel playerPanel;
-        public SizePanel sizePanel;
-        public SettingPanel settingPanel;
-        public TimePanel timePanel;
-        public SoundPanel soundPanel;
-        private Panel currentPnl;
+        private SettingPanel settingPnl;
+        private SoundPanel soundPanel;
+        private TimePanel timePanel;
+        private TwoTextPanel playerNamePanel;
+        private SettingSizePanel settingSizePanel;
+        private GameModePanel gameModePanel;
 
-        private void InitializeController()
+        private void DrawCommonSetting()
         {
-            settingPanel = new SettingPanel()
-            {
-                Location = new Point(0, 0)
-            };
-            settingPanel.butGameMode.Click += Common_ButGameMode_Click;
-            settingPanel.butTimer.Click += Common_ButTimer_Click;
-            settingPanel.butNamePlayer.Click += Common_ButNamePlayer_Click;
-            settingPanel.butSizeBoard.Click += Common_ButSizeBoard_Click;
-            settingPanel.butSound.Click += Common_ButSound_Click;
-
-            playerPanel = new PlayerPanel()
+            settingPnl = new SettingPanel()
             {
                 Location = new Point(0, 0),
                 Visible = false
             };
-            playerPanel.nextActionBut.Click += Player_NextActionBut_Click;
-            playerPanel.cancelActionBut.Click += Player_CancelActionBut_Click;
+            settingPnl.GameModeClickEvent += SettingPnl_GameModeClickEvent;
+            settingPnl.TimerClickEvent += SettingPnl_TimerClickEvent;
+            settingPnl.NamePlayerClickEvent += SettingPnl_NamePlayerClickEvent;
+            settingPnl.SizeClickEvent += SettingPnl_SizeClickEvent;
+            settingPnl.SoundClickEvent += SettingPnl_SoundClickEvent;
+            settingPnl.LoadGameClickEvent += SettingPnl_LoadGameClickEvent;
+            settingPnl.SaveGameClickEvent += SettingPnl_SaveGameClickEvent;
+            settingPnl.NextActionClickEvent += SettingPnl_NextActionClickEvent;
+            settingPnl.CancelActionClickEvent += SettingPnl_CancelActionClickEvent;
+            this.Controls.Add(settingPnl);
+        }
 
-            sizePanel = new SizePanel()
-            {
-                Location = new Point(0, 0),
-                Visible = false
-            };
-            sizePanel.nextActionBut.Click += Size_NextActionBut_Click;
-            sizePanel.cancelActionBut.Click += Size_CancelActionBut_Click;
-
-            timePanel = new TimePanel()
-            {
-                Location = new Point(0, 0),
-                Visible = false
-            };
-            timePanel.nextActionBut.Click += Time_NextActionBut_Click;
-            timePanel.cancelActionBut.Click += Time_CancelActionBut_Click;
-            timePanel.butStatusTime.Click += Time_ButStatusTime_Click1;
-
+        private void DrawSoundSetting()
+        {
             soundPanel = new SoundPanel()
             {
                 Location = new Point(0, 0),
                 Visible = false
             };
-            soundPanel.nextActionBut.Click += Sound_NextActionBut_Click;
-            soundPanel.cancelActionBut.Click += Sound_CancelActionBut_Click;
+            soundPanel.NextActionClickEvent += SoundPanel_NextActionClickEvent;
+            soundPanel.CancelActionClickEvent += SoundPanel_CancelActionClickEvent;
+            this.Controls.Add(soundPanel);
         }
 
-        public void DrawSettingForm()
+        private void DrawTimeSetting()
         {
-            currentPnl = settingPanel;
-            this.Controls.Add(playerPanel);
-            this.Controls.Add(sizePanel);
-            this.Controls.Add(settingPanel);
+            timePanel = new TimePanel()
+            {
+                Location = new Point(0, 0),
+                Visible = false
+            };
+            timePanel.NextActionClickEvent += TimePanel_NextActionClickEvent;
+            timePanel.CancelActionClickEvent += TimePanel_CancelActionClickEvent;
             this.Controls.Add(timePanel);
-            this.Controls.Add(soundPanel);
+        }
+
+        private void DrawPlayerNamePanel()
+        {
+            playerNamePanel = new TwoTextPanel
+            {
+                Location = new Point(0, 0),
+                Visible = false,
+                LabelText1 = "Player1",
+                LabelText2 = "Player2"
+            };
+            playerNamePanel.NextActionClickEvent += PlayerNamePanel_NextActionClickEvent;
+            playerNamePanel.CancelActionClickEvent += PlayerNamePanel_CancelActionClickEvent;
+            this.Controls.Add(playerNamePanel);
+        }
+
+        private void DrawSettingSize()
+        {
+            settingSizePanel = new SettingSizePanel()
+            {
+                Location = new Point(0, 0),
+                Visible = false,
+                LabelText1 = "Hàng",
+                LabelText2 = "Cột"
+            };
+            settingSizePanel.NextActionClickEvent += SettingSizePanel_NextActionClickEvent;
+            settingSizePanel.CancelActionClickEvent += SettingSizePanel_CancelActionClickEvent;
+            this.Controls.Add(settingSizePanel);
+        }
+
+        private void DrawGameMode()
+        {
+            gameModePanel = new GameModePanel
+            {
+                Location = new Point(0, 0),
+                Visible = false
+            };
+            gameModePanel.TwoPlayerClickEvent += GameModePanel_TwoPlayerClickEvent;
+            gameModePanel.AIModeClickEvent += GameModePanel_AIModeClickEvent;
+            gameModePanel.LanModeClickEvent += GameModePanel_LanModeClickEvent;
+            gameModePanel.LoadGameClickEvent += GameModePanel_LoadGameClickEvent;
+            gameModePanel.CancelActionClickEvent += GameModePanel_CancelActionClickEvent;
+            this.Controls.Add(gameModePanel);
         }
     }
 }

@@ -10,14 +10,12 @@
 //
 // ------------------------------------------------------
 
-using System.Drawing;
+using System;
 
-namespace CaroGame.Presentation
+namespace CaroGame.CaroException
 {
-    public partial class AboutForm : BaseForm
+    public class MaxUndoException: Exception
     {
-        public AboutForm(string formText, Icon icon): base(formText, icon)
-        {
-        }
+        public MaxUndoException(): base("Invalid MaxUndo") { }
     }
 }

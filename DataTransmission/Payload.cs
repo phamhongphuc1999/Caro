@@ -1,19 +1,9 @@
-﻿// Copyright (c) Microsoft. All Rights Reserved.
-//  License under the Apache License, Version 2.0.
-//  Owner: Pham Hong Phuc
-
-using System;
+﻿using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace DataTransmission
 {
-    //100: send name player
-    //101: send point
-    //110: handle undo game
-    //111: handle redo game
-    //112: new game
-    //120: send chat
     [Serializable]
     public struct MessageData
     {
@@ -31,7 +21,7 @@ namespace DataTransmission
         }
     };
 
-    public class Data
+    public class Payload
     {
         public static byte[] SerializeData(object data)
         {

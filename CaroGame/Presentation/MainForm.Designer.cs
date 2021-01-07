@@ -1,240 +1,70 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-using CaroGame.Configuration;
-using CaroGame.Presentation;
-using CaroGame.Presentation.CustomPanel;
+﻿using CaroGame.Presentation.CaroPanel;
+using System.Drawing;
 
-namespace CaroGame.Presentaion
+namespace CaroGame.Presentation
 {
     partial class MainForm
     {
-        public Timer timer;
-        public RichTextBox rtbChat;
-        public Panel pnlChat, pnlCaroBoard;
-        public Button butUndo, butRedo;
-        public Button butSaveGame;
-        public Button butConnect, butGetIP, butChat;
-        public TextBox txtChat, txtPlayer;
-        public Label lblTime;
-        public PlayerPanel playerPanel;
-        public SizePanel sizePanel;
-        public OverviewPanel overviewPanel;
-        public GameModePanel gameModePanel;
-        public LoadGamePanel loadGamePanel;
-        public CustomMenu mainMenu;
+        private OverviewPanel overviewPnl;
+        private GameModePanel gameModePnl;
+        private TwoTextPanel playerPnl;
+        private GameBoardPanel gameBoardPanel;
 
-        private void InitializeController()
+        private void DrawOverview()
         {
-            #region LAN Mode
-            butConnect = new Button()
+            overviewPnl = new OverviewPanel
             {
-                Size = new Size(360, 35),
-                TextAlign = ContentAlignment.MiddleCenter,
-                Location = new Point(120, 205)
-            };
-            butGetIP = new Button()
-            {
-                Text = "Get IP",
-                Size = new Size(80, 35),
-                TextAlign = ContentAlignment.MiddleCenter,
-                Location = new Point(490, 85)
-            };
-            butConnect.Click += ButConnect_Click;
-            butGetIP.Click += ButGetIP_Click;
-            #endregion
-
-            #region Main Game
-            pnlCaroBoard = new Panel()
-            {
-                Location = new Point(1, 70)
-            };
-            butUndo = new Button()
-            {
-                Text = "Undo",
-                Size = new Size(120, 30),
-            };
-            butRedo = new Button()
-            {
-                Text = "Redo",
-                Size = new Size(120, 30)
-            };
-            txtPlayer = new TextBox()
-            {
-                Width = 240,
-                ReadOnly = true
-            };
-            lblTime = new Label()
-            {
-                Size = new Size(90, 30),
-                TextAlign = ContentAlignment.MiddleCenter,
-                Location = new Point(0, 35)
-            };
-            mainMenu = new CustomMenu
-            {
-                Name = "mainMenu",
-                Text = "Menu",
-                GripMargin = new Padding(2, 2, 0, 2),
-                ImageScalingSize = new Size(24, 24),
                 Location = new Point(0, 0),
-                TabIndex = 0
+                Visible = false
             };
-            mainMenu.toolItemAbout.Click += ToolItemAbout_Click;
-            mainMenu.toolItemSetting.Click += ToolItemSetting_Click;
-            mainMenu.toolItemQuick.Click += ToolItemQuick_Click;
-            mainMenu.toolItemNewGame.Click += ToolItemNewGame_Click;
-            butRedo.Click += ButRedo_Click;
-            butUndo.Click += ButUndo_Click;
-            #endregion
-
-            #region CHAT Form In LAN Mode
-            pnlChat = new Panel();
-            txtChat = new TextBox()
-            {
-                Multiline = true,
-                Size = new Size(330, 50),
-            };
-            butChat = new Button()
-            {
-                Text = "Send",
-                Size = new Size(70, 50)
-            };
-            rtbChat = new RichTextBox();
-            butChat.Click += ButChat_Click;
-            #endregion
-
-            butSaveGame = new Button()
-            {
-                Text = "Save Game",
-                Size = new Size(110, 40),
-                Location = new Point(485, 0)
-            };
-            butSaveGame.Click += ButSaveGame_Click;
-
-            playerPanel = new PlayerPanel()
-            {
-                Location = new Point(0, 0)
-            };
-            playerPanel.cancelActionBut.Click += Player_CancelActionBut_Click;
-            playerPanel.nextActionBut.Click += Player_NextActionBut_Click;
-
-            sizePanel = new SizePanel()
-            {
-                Location = new Point(0, 0)
-            };
-
-            overviewPanel = new OverviewPanel()
-            {
-                Location = new Point(0, 0)
-            };
-            overviewPanel.butNewGame.Click += Overview_ButNewGame_Click;
-            overviewPanel.butGuide.Click += Overview_ButGuide_Click;
-
-            gameModePanel = new GameModePanel()
-            {
-                Location = new Point(0, 0)
-            };
-            gameModePanel.butTwoPlayer.Click += ButTwoPlayer_Click;
-            gameModePanel.butModeLan.Click += ButModeLan_Click;
-            gameModePanel.butModeAI.Click += ButModeAI_Click;
-            gameModePanel.routePanel.cancelActionBut.Click += ButCancel_Click;
-            gameModePanel.butLoadGame.Click += ButLoadGame_Click;
-
-            loadGamePanel = new LoadGamePanel()
-            {
-                Location = new Point(0, 0)
-            };
-            loadGamePanel.LoadGame_Click += LoadGamePanel_LoadGame_Click;
-            loadGamePanel.CancelLoadGame_Click += LoadGamePanel_CancelLoadGame_Click;
-            loadGamePanel.butBack.Click += LoadGame_ButBack_Click;
-
-            timer = new Timer()
-            {
-                Interval = Config.TIME_CONFIG.Interval * 1000
-            };
-            timer.Tick += Timer_Tick;
+            overviewPnl.NewGameClickEvent += OverviewPnl_NewGameClickEvent;
+            overviewPnl.GuideClickEvent += OverviewPnl_GuideClickEvent;
+            this.Controls.Add(overviewPnl);
         }
 
-        private void DrawOverviewForm(Form overviewForm, string formText)
+        private void DrawGameMode()
         {
-            DrawCommonForm(ref overviewForm, formText);
-            overviewForm.Controls.Add(overviewPanel);
-        }
-
-        private void DrawGameModeForm(Form gameModeForm, string formText)
-        {
-            DrawCommonForm(ref gameModeForm, formText);
-            gameModeForm.Controls.Add(gameModePanel);
-        }
-
-        private void DrawPlayerForm(Form playerForm, string formText, string gameMode = "")
-        {
-            DrawCommonForm(ref playerForm, Config.NAME.PLAYER);
-            playerForm.Controls.Add(playerPanel);
-        }
-
-        private void DrawLANForm(Form LANForm)
-        {
-            //butNext.Enabled = false;
-            butConnect.Text = "Connect";
-            butConnect.BackColor = Color.White;
-            butConnect.Enabled = true;
-            butGetIP.Enabled = true;
-            //txtName2Column.ReadOnly = false;
-            //txtName1Row.ReadOnly = false;
-            //txtName1Row.Text = "";
-            //lblName1Row.Text = "IP";
-            //lblName2Column.Text = "Port";
-            //butCancel.Location = new Point(370, 280);
-            DrawCommonForm(ref LANForm, Config.NAME.LAN_CONNECTION);
-            //LANForm.Controls.Add(lblName1Row);
-            //LANForm.Controls.Add(lblName2Column);
-            //LANForm.Controls.Add(txtName1Row);
-            //LANForm.Controls.Add(txtName2Column);
-            //LANForm.Controls.Add(butNext);
-            LANForm.Controls.Add(butConnect);
-            //LANForm.Controls.Add(butCancel);
-            LANForm.Controls.Add(butGetIP);
-        }
-
-        private void DrawMainForm(Form mainForm)
-        {
-            int width = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
-            int height = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
-            pnlCaroBoard.Size = new Size(width, height);
-            DrawCommonForm(ref mainForm, Config.NAME.CARO, width, height);
-            txtPlayer.Location = new Point(pnlCaroBoard.Width - 240, 0);
-            butUndo.Location = new Point(pnlCaroBoard.Width - 120, 30);
-            butRedo.Location = new Point(pnlCaroBoard.Width - 240, 30);
-            mainForm.AutoSize = true;
-            if (Config.GAME_MODE.CurrentGameMode == Config.GAME_MODE.LAN)
+            gameModePnl = new GameModePanel
             {
-                pnlChat.Size = new Size(400, pnlCaroBoard.Height + 70);
-                pnlChat.Location = new Point(pnlCaroBoard.Width, 0);
-                txtChat.Location = new Point(0, pnlChat.Height - 50);
-                butChat.Location = new Point(330, pnlChat.Height - 50);
-                rtbChat.Size = new Size(400, pnlChat.Height - 50);
-                rtbChat.Location = new Point(0, 0);
-                pnlChat.Controls.Add(txtChat);
-                pnlChat.Controls.Add(butChat);
-                pnlChat.Controls.Add(rtbChat);
-                mainForm.Controls.Add(pnlChat);
-            }
-            mainForm.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            mainForm.Controls.Add(pnlCaroBoard);
-            mainForm.Controls.Add(txtPlayer);
-            mainForm.Controls.Add(butRedo);
-            mainForm.Controls.Add(butUndo);
-            mainForm.Controls.Add(lblTime);
-            mainForm.Controls.Add(mainMenu);
-            mainForm.MainMenuStrip = mainMenu;
+                Location = new Point(0, 0),
+                Visible = false
+            };
+            gameModePnl.TwoPlayerClickEvent += GameModePnl_TwoPlayerClickEvent;
+            gameModePnl.AIModeClickEvent += GameModePnl_AIModeClickEvent;
+            gameModePnl.LanModeClickEvent += GameModePnl_LanModeClickEvent;
+            gameModePnl.LoadGameClickEvent += GameModePnl_LoadGameClickEvent;
+            gameModePnl.CancelActionClickEvent += GameModePnl_CancelActionClickEvent;
+            this.Controls.Add(gameModePnl);
         }
 
-        private void DrawLoadGameForm(Form loadGameForm)
+        private void DrawPayer()
         {
-            loadGameForm.Controls.Clear();
-            loadGameForm.Controls.Add(loadGamePanel);
-            loadGamePanel.DrawLoadGame();
-            loadGameForm.Size = loadGamePanel.Size;
+            playerPnl = new TwoTextPanel()
+            {
+                Location = new Point(0, 0),
+                Visible = false,
+                LabelText1 = "Player1",
+                LabelText2 = "Player2"
+            };
+            playerPnl.NextActionClickEvent += PlayerPnl_NextActionClickEvent;
+            playerPnl.CancelActionClickEvent += PlayerPnl_CancelActionClickEvent;
+            this.Controls.Add(playerPnl);
+        }
+
+        private void DrawGameBoard()
+        {
+            gameBoardPanel = new GameBoardPanel()
+            {
+                Location = new Point(0, 0),
+                Visible = false
+            };
+            gameBoardPanel.UndoClickEvent += GameBoardPanel_UndoClickEvent;
+            gameBoardPanel.RedoClickEvent += GameBoardPanel_RedoClickEvent;
+            gameBoardPanel.NewGameToolClickEvent += GameBoardPanel_NewGameToolClickEvent;
+            gameBoardPanel.QuickItemClickEvent += GameBoardPanel_QuickItemClickEvent;
+            gameBoardPanel.SettingItemClickEvent += GameBoardPanel_SettingItemClickEvent;
+            gameBoardPanel.AboutItemClickEvent += GameBoardPanel_AboutItemClickEvent;
+            this.Controls.Add(gameBoardPanel);
         }
     }
 }

@@ -11,13 +11,16 @@
 // ------------------------------------------------------
 
 using System.Drawing;
+using System.Windows.Forms;
 
-namespace CaroGame.Presentation
+namespace CaroGame.Presentation.CaroButton
 {
-    public partial class AboutForm : BaseForm
+    public class CaroButton1 : Button
     {
-        public AboutForm(string formText, Icon icon): base(formText, icon)
+        public CaroButton1() : base()
         {
+            FlatStyle = FlatStyle.Flat;
+            BackColor = ColorTranslator.FromHtml("#8BC4FC");
         }
     }
 }

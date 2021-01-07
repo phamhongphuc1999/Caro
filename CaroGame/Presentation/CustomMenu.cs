@@ -1,54 +1,91 @@
-﻿using System.Windows.Forms;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using System;
+using System.Windows.Forms;
 
 namespace CaroGame.Presentation
 {
     public class CustomMenu : MenuStrip
     {
-        public ToolStripSeparator bottomQuickSeparator;
-        public ToolStripMenuItem toolItemMain, toolItemNewGame, toolItemQuick, toolItemSetting, toolItemAbout;
+        protected ToolStripSeparator bottomQuickSeparator;
+        protected ToolStripMenuItem mainItemTool, newGameItemTool, quickItemTool, settingItemTool, aboutItemTool;
 
         public CustomMenu() : base()
         {
             CreateMainMenu();
             Items.AddRange(new ToolStripItem[]
             {
-                toolItemMain
+                mainItemTool
             });
+        }
+
+        public event EventHandler NewGameItemClickEvent
+        {
+            add { newGameItemTool.Click += value; }
+            remove { newGameItemTool.Click -= value; }
+        }
+
+        public event EventHandler QuickItemClickEvent
+        {
+            add { quickItemTool.Click += value; }
+            remove { quickItemTool.Click -= value; }
+        }
+
+        public event EventHandler SettingItemClickEvent
+        {
+            add { settingItemTool.Click += value; }
+            remove { settingItemTool.Click -= value; }
+        }
+
+        public event EventHandler AboutItemClickEvent
+        {
+            add { aboutItemTool.Click += value; }
+            remove { aboutItemTool.Click -= value; }
         }
 
         private void CreateMainMenu()
         {
-            toolItemSetting = new ToolStripMenuItem()
+            settingItemTool = new ToolStripMenuItem()
             {
                 Text = "Setting Game",
                 ShortcutKeys = (Keys)Shortcut.CtrlShiftS
             };
-            toolItemNewGame = new ToolStripMenuItem()
+            newGameItemTool = new ToolStripMenuItem()
             {
                 Text = "New Game",
                 ShortcutKeys = (Keys)Shortcut.CtrlN
             };
-            toolItemQuick = new ToolStripMenuItem()
+            quickItemTool = new ToolStripMenuItem()
             {
                 Text = "Quick Game",
                 ShortcutKeys = (Keys)Shortcut.CtrlQ
             };
             bottomQuickSeparator = new ToolStripSeparator();
-            toolItemAbout = new ToolStripMenuItem()
+            aboutItemTool = new ToolStripMenuItem()
             {
                 Text = "About"
             };
-            toolItemMain = new ToolStripMenuItem()
+            mainItemTool = new ToolStripMenuItem()
             {
                 Text = "Menu"
             };
-            toolItemMain.DropDownItems.AddRange(new ToolStripItem[]
+            mainItemTool.DropDownItems.AddRange(new ToolStripItem[]
             {
-                toolItemNewGame,
-                toolItemSetting,
-                toolItemQuick,
+                newGameItemTool,
+                settingItemTool,
+                quickItemTool,
                 bottomQuickSeparator,
-                toolItemAbout
+                aboutItemTool
             });
         }
     }

@@ -1,34 +1,23 @@
 ﻿using CaroGame.Configuration;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace CaroGame.Presentation.CustomPanel
+namespace CaroGame.Presentation.CaroPanel
 {
     public class TimePanel: Panel
     {
-        public Label lblSTimeTurn, lblSTimeInterval, lblSSound;
-        public TextBox txtSTimeTurn, txtSTimeInterval;
-        public Button butStatusTime;
-        private RoutePanel routePnl;
-        private bool enable;
+        protected Label lblSTimeTurn, lblSTimeInterval, lblSSound;
+        protected TextBox txtSTimeTurn, txtSTimeInterval;
+        protected Button butStatusTime;
+        protected RoutePanel routePnl;
+        protected bool enable;
 
-        public TimePanel(): base()
+        public TimePanel() : base()
         {
             this.Size = new Size(600, 375);
+            enable = Config.IS_TIMER;
             DrawBasePanel();
-            enable = true;
-        }
-
-        public Button nextActionBut
-        {
-            get { return routePnl.nextActionBut; }
-            set { }
-        }
-
-        public Button cancelActionBut
-        {
-            get { return routePnl.cancelActionBut; }
-            set { }
         }
 
         public bool Enable
@@ -48,39 +37,63 @@ namespace CaroGame.Presentation.CustomPanel
             }
         }
 
+        public event EventHandler NextActionClickEvent
+        {
+            add
+            {
+                routePnl.NextActionClickEvent += value;
+            }
+            remove
+            {
+                routePnl.NextActionClickEvent -= value;
+            }
+        }
+
+        public event EventHandler CancelActionClickEvent
+        {
+            add
+            {
+                routePnl.CancelActionClickEvent += value;
+            }
+            remove
+            {
+                routePnl.CancelActionClickEvent -= value;
+            }
+        }
+
         public void DrawBasePanel()
         {
             lblSTimeTurn = new Label()
             {
                 Text = "Time Turn",
-                Enabled = Config.TIME_CONFIG.IsTime ? true : false,
+                Enabled = enable ? true : false,
                 Size = new Size(80, 40),
                 Location = new Point(30, 80)
             };
             lblSTimeInterval = new Label()
             {
                 Text = "Interval",
-                Enabled = Config.TIME_CONFIG.IsTime ? true : false,
+                Enabled = enable ? true : false,
                 Size = new Size(80, 40),
                 Location = new Point(30, 170)
             };
             txtSTimeTurn = new TextBox()
             {
-                Text = Config.TIME_CONFIG.TimeTurn.ToString(),
-                Enabled = Config.TIME_CONFIG.IsTime ? true : false,
+                Text = Config.TIME_TURN.ToString(),
+                Enabled = enable ? true : false,
                 Width = 360,
                 Location = new Point(120, 85)
             };
             txtSTimeInterval = new TextBox()
             {
-                Text = Config.TIME_CONFIG.Interval.ToString(),
-                Enabled = Config.TIME_CONFIG.IsTime ? true : false,
+                Text = Config.INTERVAL.ToString(),
+                Enabled = enable ? true : false,
                 Width = 360,
                 Location = new Point(120, 170)
             };
             butStatusTime = new Button()
             {
-                Text = Config.TIME_CONFIG.IsTime ? "Off Timer" : "On Timer",
+                Text = enable ? "Off Timer" : "On Timer",
                 Size = new Size(90, 40),
                 Location = new Point(250, 280)
             };
