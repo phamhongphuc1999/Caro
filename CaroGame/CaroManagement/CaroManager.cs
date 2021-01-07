@@ -56,6 +56,7 @@ namespace CaroGame.CaroManagement
             caroBoardManager.DrawCaroBoard();
             winnerManager.NewGameHanlde(turn);
             playerManager.Turn = turn;
+            actionManager.ResetAction();
             SetControl(this.playerTxt);
         }
 
@@ -66,7 +67,33 @@ namespace CaroGame.CaroManagement
             winnerManager.NewGameHanlde(turn);
             playerManager.Set(name1, name2);
             playerManager.Turn = turn;
+            actionManager.ResetAction();
             SetControl(this.playerTxt);
+        }
+
+        public void UndoGame()
+        {
+            try
+            {
+                Button but = actionManager.AddUndo();
+                winnerManager.UndoHandle(but.Location.X, but.Location.Y);
+                playerManager.Turn = playerManager.Turn + 1;
+                SetControl(this.playerTxt);
+                caroBoardManager.UndoGame(but.Location.X, but.Location.Y);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        public void RedoGame()
+        {
+            Button but = actionManager.AddRedo();
+            winnerManager.RedoHandle(but.Location.X, but.Location.Y);
+            playerManager.Turn = playerManager.Turn + 1;
+            SetControl(this.playerTxt);
+            caroBoardManager.RedoGame(but.Location.X, but.Location.Y, playerManager.CurrentPlayerColor);
         }
 
         private void Winner(Button eventBut)
@@ -78,7 +105,6 @@ namespace CaroGame.CaroManagement
                 DialogResult result = MessageBox.Show("Bạn có muốn chơi trò chơi mới?", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK) CreateNewGame(playerManager.Turn);
             }
-
         }
 
         private void EndGame()
@@ -90,7 +116,6 @@ namespace CaroGame.CaroManagement
                 DialogResult result = MessageBox.Show("Bạn có muốn chơi trò chơi mới?", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK) CreateNewGame(playerManager.Turn);
             }
-
         }
 
         private void TurnPlayer()
@@ -107,6 +132,7 @@ namespace CaroGame.CaroManagement
             int Y = but.Location.Y;
             but.BackColor = playerManager.CurrentPlayerColor;
             winnerManager.DrawCaroBoard(but.Location);
+            actionManager.UpdateTurn(but);
             if (winnerManager.IsWiner(X, Y).Result) Winner(but);
             else if (winnerManager.IsEndGame()) EndGame();
             else TurnPlayer();

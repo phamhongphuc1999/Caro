@@ -23,6 +23,9 @@ namespace CaroGame.Configuration
         public static string NAME_PLAYER1 = "";
         public static string NAME_PLAYER2 = "";
 
+        public static bool IS_PLAY_MUSIC = false;
+        public static int VOLUME_SIZE = 20;
+
         public enum GameMode
         {
             TWO_PLAYER,

@@ -119,10 +119,12 @@ namespace CaroGame.Presentation
 
         private void GameBoardPanel_RedoClickEvent(object sender, EventArgs e)
         {
+            caroManager.RedoGame();
         }
 
         private void GameBoardPanel_UndoClickEvent(object sender, EventArgs e)
         {
+            caroManager.UndoGame();
         }
     }
 }

@@ -12,6 +12,7 @@
 
 using CaroGame.Configuration;
 using CaroGame.Presentation;
+using CaroGame.SoundManagement;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -23,6 +24,8 @@ namespace CaroGame
         public static MainForm mainForm;
         public static SettingForm settingForm;
         public static AboutForm aboutForm;
+
+        public static SoundManager soundManager;
 
         /// <summary>
         ///  The main entry point for the application.
@@ -41,6 +44,9 @@ namespace CaroGame
             mainForm = new MainForm(Config.NAME.GAME_MODE, mainIcon);
             settingForm = new SettingForm(Config.NAME.SETTING, settingIcon);
             aboutForm = new AboutForm(Config.NAME.ABOUT, aboutIcon);
+
+            soundManager = new SoundManager();
+            soundManager.StartConfig();
 
             Application.Run(mainForm);
         }

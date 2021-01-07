@@ -115,6 +115,20 @@ namespace CaroGame.CaroManagement
             return board;
         }
 
+        public void UndoGame(int X, int Y)
+        {
+            Button but = caroBoard[new KeyValuePair<int, int>(X, Y)];
+            but.BackColor = Color.Transparent;
+            but.FlatStyle = FlatStyle.Standard;
+        }
+
+        public void RedoGame(int X, int Y,  Color playerColor)
+        {
+            Button but = caroBoard[new KeyValuePair<int, int>(X, Y)];
+            but.BackColor = playerColor;
+            but.FlatStyle = FlatStyle.Flat;
+        }
+
         public void Winner(Button eventBut, WinnerManager winnerManager)
         {
             CaroBoardPnl.Enabled = false;
