@@ -15,7 +15,6 @@ using CaroGame.Presentation;
 using CaroGame.SoundManagement;
 using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace CaroGame
@@ -49,7 +48,7 @@ namespace CaroGame
             soundManager = new SoundManager();
             soundManager.StartConfig();
 
-            Application.Run(settingForm);
+            Application.Run(mainForm);
         }
     }
 }

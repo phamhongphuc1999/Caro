@@ -27,7 +27,8 @@ namespace CaroGame.Presentation
             gameModePnl = new GameModePanel
             {
                 Location = new Point(0, 0),
-                Visible = false
+                Visible = false,
+                CancelText = "Back"
             };
             gameModePnl.TwoPlayerClickEvent += GameModePnl_TwoPlayerClickEvent;
             gameModePnl.AIModeClickEvent += GameModePnl_AIModeClickEvent;
@@ -44,7 +45,9 @@ namespace CaroGame.Presentation
                 Location = new Point(0, 0),
                 Visible = false,
                 LabelText1 = "Player1",
-                LabelText2 = "Player2"
+                LabelText2 = "Player2",
+                NextText = "Next",
+                CancelText = "Back"
             };
             playerPnl.NextActionClickEvent += PlayerPnl_NextActionClickEvent;
             playerPnl.CancelActionClickEvent += PlayerPnl_CancelActionClickEvent;

@@ -17,7 +17,9 @@ namespace CaroGame.Presentation
             settingPnl = new SettingPanel()
             {
                 Location = new Point(0, 0),
-                Visible = false
+                Visible = false,
+                NextText = "Save",
+                CancelText = "Cancel"
             };
             settingPnl.GameModeClickEvent += SettingPnl_GameModeClickEvent;
             settingPnl.TimerClickEvent += SettingPnl_TimerClickEvent;
@@ -36,7 +38,9 @@ namespace CaroGame.Presentation
             soundPanel = new SoundPanel()
             {
                 Location = new Point(0, 0),
-                Visible = false
+                Visible = false,
+                NextText = "Save",
+                CancelText = "Cancel"
             };
             soundPanel.NextActionClickEvent += SoundPanel_NextActionClickEvent;
             soundPanel.CancelActionClickEvent += SoundPanel_CancelActionClickEvent;
@@ -48,7 +52,9 @@ namespace CaroGame.Presentation
             timePanel = new TimePanel()
             {
                 Location = new Point(0, 0),
-                Visible = false
+                Visible = false,
+                NextText = "Save",
+                CancelText = "Cancel"
             };
             timePanel.NextActionClickEvent += TimePanel_NextActionClickEvent;
             timePanel.CancelActionClickEvent += TimePanel_CancelActionClickEvent;
@@ -62,7 +68,9 @@ namespace CaroGame.Presentation
                 Location = new Point(0, 0),
                 Visible = false,
                 LabelText1 = "Player1",
-                LabelText2 = "Player2"
+                LabelText2 = "Player2",
+                NextText = "Save",
+                CancelText = "Cancel"
             };
             playerNamePanel.NextActionClickEvent += PlayerNamePanel_NextActionClickEvent;
             playerNamePanel.CancelActionClickEvent += PlayerNamePanel_CancelActionClickEvent;
@@ -76,7 +84,9 @@ namespace CaroGame.Presentation
                 Location = new Point(0, 0),
                 Visible = false,
                 LabelText1 = "Hàng",
-                LabelText2 = "Cột"
+                LabelText2 = "Cột",
+                NextText = "Save",
+                CancelText = "Cancel"
             };
             settingSizePanel.NextActionClickEvent += SettingSizePanel_NextActionClickEvent;
             settingSizePanel.CancelActionClickEvent += SettingSizePanel_CancelActionClickEvent;
@@ -88,7 +98,8 @@ namespace CaroGame.Presentation
             gameModePanel = new GameModePanel
             {
                 Location = new Point(0, 0),
-                Visible = false
+                Visible = false,
+                CancelText = "Cancel"
             };
             gameModePanel.TwoPlayerClickEvent += GameModePanel_TwoPlayerClickEvent;
             gameModePanel.AIModeClickEvent += GameModePanel_AIModeClickEvent;

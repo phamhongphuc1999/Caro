@@ -78,7 +78,6 @@ namespace CaroGame.CaroManagement
                 Button but = actionManager.AddUndo();
                 winnerManager.UndoHandle(but.Location.X, but.Location.Y);
                 playerManager.Turn = playerManager.Turn + 1;
-                SetControl(this.playerTxt);
                 caroBoardManager.UndoGame(but.Location.X, but.Location.Y);
             }
             catch(Exception e)
@@ -89,11 +88,18 @@ namespace CaroGame.CaroManagement
 
         public void RedoGame()
         {
-            Button but = actionManager.AddRedo();
-            winnerManager.RedoHandle(but.Location.X, but.Location.Y);
-            playerManager.Turn = playerManager.Turn + 1;
-            SetControl(this.playerTxt);
-            caroBoardManager.RedoGame(but.Location.X, but.Location.Y, playerManager.CurrentPlayerColor);
+            try
+            {
+                Button but = actionManager.AddRedo();
+                winnerManager.RedoHandle(but.Location.X, but.Location.Y);
+                SetControl(this.playerTxt);
+                caroBoardManager.RedoGame(but.Location.X, but.Location.Y, playerManager.CurrentPlayerColor);
+                playerManager.Turn = playerManager.Turn + 1;
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void Winner(Button eventBut)

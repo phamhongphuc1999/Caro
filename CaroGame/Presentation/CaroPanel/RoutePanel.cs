@@ -60,17 +60,39 @@ namespace CaroGame.Presentation.CaroPanel
             set { cancelActionBut.Visible = value; }
         }
 
+        public string NextText
+        {
+            get
+            {
+                return nextActionBut.Text;
+            }
+            set
+            {
+                nextActionBut.Text = value;
+            }
+        }
+
+        public string CancelText
+        {
+            get
+            {
+                return cancelActionBut.Text;
+            }
+            set
+            {
+                cancelActionBut.Text = value;
+            }
+        }
+
         public void DrawBasePanel()
         {
             nextActionBut = new CaroButton1()
             {
-                Text = "Save",
                 Size = new Size(90, 40),
                 Location = new Point(490, 0)
             };
             cancelActionBut = new CaroButton1()
             {
-                Text = "Back",
                 Size = new Size(90, 40),
                 Location = new Point(370, 0)
             };

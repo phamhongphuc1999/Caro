@@ -58,6 +58,7 @@ namespace CaroGame.CaroManagement
 
         public Button AddRedo()
         {
+            if (undoBut.Count == 0) throw new RedoException();
             Button but = undoBut.Pop();
             redoBut.Push(but);
             if (count > 0) count--;

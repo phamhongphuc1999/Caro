@@ -83,6 +83,30 @@ namespace CaroGame.Presentation.CaroPanel
             }
         }
 
+        public string NextText
+        {
+            get
+            {
+                return routePnl.NextText;
+            }
+            set
+            {
+                routePnl.NextText = value;
+            }
+        }
+
+        public string CancelText
+        {
+            get
+            {
+                return routePnl.CancelText;
+            }
+            set
+            {
+                routePnl.CancelText = value;
+            }
+        }
+
         public GameModePanel() : base()
         {
             this.Size = new Size(600, 375);

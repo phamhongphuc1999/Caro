@@ -62,6 +62,30 @@ namespace CaroGame.Presentation.CaroPanel
             set { txt2.Text = value; }
         }
 
+        public string NextText
+        {
+            get
+            {
+                return routePnl.NextText;
+            }
+            set
+            {
+                routePnl.NextText = value;
+            }
+        }
+
+        public string CancelText
+        {
+            get
+            {
+                return routePnl.CancelText;
+            }
+            set
+            {
+                routePnl.CancelText = value;
+            }
+        }
+
         public virtual (bool, string) IsValid()
         {
             if (this.CaroVisible)

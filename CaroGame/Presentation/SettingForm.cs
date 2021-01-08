@@ -13,6 +13,7 @@
 using CaroGame.Configuration;
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace CaroGame.Presentation
 {
@@ -53,8 +54,8 @@ namespace CaroGame.Presentation
 
         private void SettingPnl_NamePlayerClickEvent(object sender, EventArgs e)
         {
-            settingSizePanel.Text1 = Config.NAME_PLAYER1.ToString();
-            settingSizePanel.Text2 = Config.NAME_PLAYER2.ToString();
+            playerNamePanel.Text1 = Config.NAME_PLAYER1.ToString();
+            playerNamePanel.Text2 = Config.NAME_PLAYER2.ToString();
             SetCurrentPanel(playerNamePanel);
         }
 
@@ -92,6 +93,16 @@ namespace CaroGame.Presentation
 
         private void SettingSizePanel_NextActionClickEvent(object sender, EventArgs e)
         {
+            (bool, string) info = settingSizePanel.IsValid();
+            if(!info.Item1)
+            {
+                MessageBox.Show(info.Item2, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                settingSizePanel.Text1 = Config.NUMBER_OF_ROW.ToString();
+                settingSizePanel.Text2 = Config.NUMBER_OF_COLUMN.ToString();
+                return;
+            }
+            MessageBox.Show("123");
+            SetCurrentPanel(settingPnl);
         }
 
         private void TimePanel_CancelActionClickEvent(object sender, EventArgs e)
@@ -101,15 +112,26 @@ namespace CaroGame.Presentation
 
         private void TimePanel_NextActionClickEvent(object sender, EventArgs e)
         {
+            SetCurrentPanel(settingPnl);
         }
 
         private void PlayerNamePanel_CancelActionClickEvent(object sender, EventArgs e)
         {
+            (bool, string) info = playerNamePanel.IsValid();
+            if (!info.Item1)
+            {
+                MessageBox.Show(info.Item2, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                playerNamePanel.Text1 = Config.NAME_PLAYER1.ToString();
+                playerNamePanel.Text2 = Config.NAME_PLAYER2.ToString();
+                return;
+            }
+            MessageBox.Show("123");
             SetCurrentPanel(settingPnl);
         }
 
         private void PlayerNamePanel_NextActionClickEvent(object sender, EventArgs e)
         {
+            SetCurrentPanel(settingPnl);
         }
 
         private void GameModePanel_CancelActionClickEvent(object sender, EventArgs e)

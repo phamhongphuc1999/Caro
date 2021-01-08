@@ -29,6 +29,30 @@ namespace CaroGame.Presentation.CaroPanel
             DrawBasePanel();
         }
 
+        public string NextText
+        {
+            get
+            {
+                return routePanel.NextText;
+            }
+            set
+            {
+                routePanel.NextText = value;
+            }
+        }
+
+        public string CancelText
+        {
+            get
+            {
+                return routePanel.CancelText;
+            }
+            set
+            {
+                routePanel.CancelText = value;
+            }
+        }
+
         public event EventHandler NextActionClickEvent
         {
             add

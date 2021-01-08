@@ -126,7 +126,7 @@ namespace CaroGame.CaroManagement
         {
             Button but = caroBoard[new KeyValuePair<int, int>(X, Y)];
             but.BackColor = playerColor;
-            but.FlatStyle = FlatStyle.Flat;
+            but.FlatStyle = FlatStyle.Standard;
         }
 
         public void Winner(Button eventBut, WinnerManager winnerManager)
