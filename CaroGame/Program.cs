@@ -10,6 +10,7 @@
 //
 // ------------------------------------------------------
 
+using CaroGame.CaroManagement;
 using CaroGame.Configuration;
 using CaroGame.Presentation;
 using CaroGame.SoundManagement;
@@ -26,6 +27,7 @@ namespace CaroGame
         public static AboutForm aboutForm;
 
         public static SoundManager soundManager;
+        public static CaroManager caroManager;
 
         /// <summary>
         ///  The main entry point for the application.

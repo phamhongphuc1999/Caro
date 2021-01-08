@@ -37,11 +37,107 @@ namespace CaroGame.CaroManagement
             caroBoard = new Dictionary<KeyValuePair<int, int>, Button>();
         }
 
-        public void ResizeCaroBoard()
+        public void InitSizeCaroBoard()
         {
             int width = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
             int height = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
             CaroBoardPnl.Size = new Size(width, height);
+        }
+
+        public void ResizeCaroBoard(int numberOfRow, int numberOfColumn)
+        {
+            int oldRow = Config.NUMBER_OF_ROW;
+            int oldColumn = Config.NUMBER_OF_COLUMN;
+            Config.NUMBER_OF_COLUMN = numberOfColumn;
+            Config.NUMBER_OF_ROW = numberOfRow;
+            int width = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
+            int height = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
+            CaroBoardPnl.Size = new Size(width, height);
+            UpdateDictionary(oldRow, oldColumn);
+            RedrawCaroBoard(oldRow, oldColumn);
+        }
+
+        private void UpdateDictionary(int oldRow, int oldColumn)
+        {
+            if(oldRow > Config.NUMBER_OF_ROW)
+            {
+                for(int i = Config.NUMBER_OF_ROW; i < oldRow; i++)
+                {
+                    for(int j = 0; j < oldColumn; j++)
+                    {
+                        KeyValuePair<int, int> location = new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i);
+                        if (caroBoard.ContainsKey(location)) caroBoard.Remove(location);
+                    }
+                }
+            }
+            if (oldColumn < Config.NUMBER_OF_COLUMN)
+            {
+                for(int i = 0; i < oldRow; i++)
+                {
+                    for (int j = oldColumn; j < Config.NUMBER_OF_COLUMN; j++)
+                    {
+                        KeyValuePair<int, int> location = new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i);
+                        if (caroBoard.ContainsKey(location)) caroBoard.Remove(location);
+                    }
+                }
+            }
+        }
+
+        private void RedrawCaroBoard(int oldRow, int oldColumn)
+        {
+            if(oldRow < Config.NUMBER_OF_ROW)
+            {
+                for(int i = oldRow; i < Config.NUMBER_OF_ROW; i++)
+                {
+                    for(int j = 0; j < oldColumn; j++)
+                    {
+                        Button but = new Button()
+                        {
+                            Size = new Size(Config.CHESS_SIZE.Width, Config.CHESS_SIZE.Height),
+                            Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i),
+                            FlatStyle = FlatStyle.Standard
+                        };
+                        but.Click += But_Click;
+                        caroBoard.Add(new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
+                        CaroBoardPnl.Controls.Add(but);
+                    }
+                }
+                if (oldColumn >= Config.NUMBER_OF_COLUMN) return;
+            }
+            if(oldColumn < Config.NUMBER_OF_COLUMN)
+            {
+                for (int i = 0; i < oldRow; i++)
+                {
+                    for (int j = oldColumn; j < Config.NUMBER_OF_COLUMN; j++)
+                    {
+                        Button but = new Button()
+                        {
+                            Size = new Size(Config.CHESS_SIZE.Width, Config.CHESS_SIZE.Height),
+                            Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i),
+                            FlatStyle = FlatStyle.Standard
+                        };
+                        but.Click += But_Click;
+                        caroBoard.Add(new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
+                        CaroBoardPnl.Controls.Add(but);
+                    }
+                }
+                if (oldRow >= Config.NUMBER_OF_ROW) return;
+            }
+            for(int i = oldRow; i < Config.NUMBER_OF_ROW; i++)
+            {
+                for(int j = oldColumn; j < Config.NUMBER_OF_COLUMN; j++)
+                {
+                    Button but = new Button()
+                    {
+                        Size = new Size(Config.CHESS_SIZE.Width, Config.CHESS_SIZE.Height),
+                        Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i),
+                        FlatStyle = FlatStyle.Standard
+                    };
+                    but.Click += But_Click;
+                    caroBoard.Add(new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
+                    CaroBoardPnl.Controls.Add(but);
+                }
+            }
         }
 
         public void DrawCaroBoard()

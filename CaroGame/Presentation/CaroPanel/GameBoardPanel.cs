@@ -22,10 +22,25 @@ namespace CaroGame.Presentation.CaroPanel
         protected Button undoBut, redoBut;
         protected Label timeLbl;
         protected CustomMenu mainMenu;
+        protected Panel boardPnl;
 
         public GameBoardPanel() : base()
         {
             DrawBasePanel();
+        }
+
+        public Panel BoardPnl
+        {
+            get
+            {
+                return boardPnl;
+            }
+            set
+            {
+                this.boardPnl = value;
+                this.boardPnl.Location = new Point(0, 75);
+                this.Controls.Add(boardPnl);
+            }
         }
 
         public event EventHandler UndoClickEvent
@@ -139,14 +154,15 @@ namespace CaroGame.Presentation.CaroPanel
             this.Controls.Add(mainMenu);
         }
 
-        public void DrawCaroGameBoard(Panel boardPnl)
+        public void DrawCaroGameBoard()
         {
-            this.Size = new Size(boardPnl.Width, boardPnl.Height + 60);
-            boardPnl.Location = new Point(0, 75);
-            this.Controls.Add(boardPnl);
-            playerTxt.Location = new Point(this.Width - 240, 0);
-            undoBut.Location = new Point(this.Width - 120, 35);
-            redoBut.Location = new Point(this.Width - 240, 35);
+            if(this.boardPnl != null)
+            {
+                this.Size = new Size(this.boardPnl.Width, this.boardPnl.Height + 75);
+                playerTxt.Location = new Point(this.Width - 240, 0);
+                undoBut.Location = new Point(this.Width - 120, 35);
+                redoBut.Location = new Point(this.Width - 240, 35);
+            }
         }
     }
 }

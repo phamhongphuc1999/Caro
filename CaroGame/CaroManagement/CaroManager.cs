@@ -36,6 +36,19 @@ namespace CaroGame.CaroManagement
             caroBoardManager.ButClick = But_Click;
         }
 
+        private event EventHandler resizeCaroBoardEvent;
+        public event EventHandler ResizeCaroBoardEvent
+        {
+            add
+            {
+                resizeCaroBoardEvent += value;
+            }
+            remove
+            {
+                resizeCaroBoardEvent -= value;
+            }
+        }
+
         public Panel CaroGameBoard
         {
             get
@@ -50,9 +63,20 @@ namespace CaroGame.CaroManagement
             control.BackColor = playerManager.CurrentPlayerColor;
         }
 
+        public void SetPlayerName(string name1, string name2 = "")
+        {
+            playerManager.Set(name1, name2);
+        }
+
+        public void ResizeCaroBoard(int numberOfRow, int numberOfColumn)
+        {
+            caroBoardManager.ResizeCaroBoard(numberOfRow, numberOfColumn);
+            resizeCaroBoardEvent(this, new EventArgs());
+        }
+
         public void CreateNewGame(int turn = 0)
         {
-            caroBoardManager.ResizeCaroBoard();
+            caroBoardManager.InitSizeCaroBoard();
             caroBoardManager.DrawCaroBoard();
             winnerManager.NewGameHanlde(turn);
             playerManager.Turn = turn;
@@ -62,7 +86,7 @@ namespace CaroGame.CaroManagement
 
         public void CreateNewGame(string name1, string name2, int turn = 0)
         {
-            caroBoardManager.ResizeCaroBoard();
+            caroBoardManager.InitSizeCaroBoard();
             caroBoardManager.DrawCaroBoard();
             winnerManager.NewGameHanlde(turn);
             playerManager.Set(name1, name2);

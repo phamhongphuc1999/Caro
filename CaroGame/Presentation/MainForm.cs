@@ -22,8 +22,6 @@ namespace CaroGame.Presentation
 {
     public partial class MainForm : BaseForm
     {
-        private CaroManager caroManager;
-
         public MainForm(string formText, Icon icon): base(formText, icon)
         {
             DrawOverview();
@@ -34,6 +32,12 @@ namespace CaroGame.Presentation
             StartPosition = FormStartPosition.CenterScreen;
 
             caroManager = new CaroManager(gameBoardPanel.playerTxt);
+            caroManager.ResizeCaroBoardEvent += CaroManager_ResizeCaroBoardEvent;
+        }
+
+        private void CaroManager_ResizeCaroBoardEvent(object sender, EventArgs e)
+        {
+            gameBoardPanel.DrawCaroGameBoard();
         }
 
         private void OverviewPnl_GuideClickEvent(object sender, EventArgs e)
@@ -94,8 +98,11 @@ namespace CaroGame.Presentation
                 playerPnl.Text1 = playerPnl.Text2 = "";
                 return;
             }
+            Config.NAME_PLAYER1 = playerPnl.Text1;
+            Config.NAME_PLAYER2 = playerPnl.Text2;
             caroManager.CreateNewGame(playerPnl.Text1, playerPnl.Text2);
-            gameBoardPanel.DrawCaroGameBoard(caroManager.CaroGameBoard);
+            gameBoardPanel.BoardPnl = caroManager.CaroGameBoard;
+            gameBoardPanel.DrawCaroGameBoard();
             this.AddFit(this.gameBoardPanel);
             this.SetCurrentPanel(this.gameBoardPanel);
         }
