@@ -32,6 +32,12 @@ namespace CaroGame.Presentation
             this.SetCurrentPanel(settingPnl);
         }
 
+        public void ShowSetting()
+        {
+            this.SetCurrentPanel(settingPnl);
+            this.Show();
+        }
+
         private void SettingPnl_SaveGameClickEvent(object sender, EventArgs e)
         {
 

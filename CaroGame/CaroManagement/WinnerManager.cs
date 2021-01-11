@@ -14,6 +14,7 @@ using CaroGame.Configuration;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CaroGame.CaroManagement
 {
@@ -23,21 +24,44 @@ namespace CaroGame.CaroManagement
         {
             get; set;
         }
-        private int numberOfColumn;
-        private int numberOfRow;
-        private int numberOfChess;
-        private Dictionary<KeyValuePair<int, int>, int> caroBoard;
-        public KeyValuePair<int, int>[] arrRow, arrColumn, arrMainDiagonal, arrSubDiagomal;
+        private Dictionary<Point, int> caroBoard;
+        public Point[] arrRow, arrColumn, arrMainDiagonal, arrSubDiagomal;
         public int[] check;
 
         public WinnerManager()
         {
-            caroBoard = new Dictionary<KeyValuePair<int, int>, int>();
-            arrRow = new KeyValuePair<int, int>[4];
-            arrColumn = new KeyValuePair<int, int>[4];
-            arrMainDiagonal = new KeyValuePair<int, int>[4];
-            arrSubDiagomal = new KeyValuePair<int, int>[4];
+            caroBoard = new Dictionary<Point, int>();
+            arrRow = new Point[4];
+            arrColumn = new Point[4];
+            arrMainDiagonal = new Point[4];
+            arrSubDiagomal = new Point[4];
             check = new int[4] { 0, 0, 0, 0 };
+        }
+
+        public void ResetDictionary(int oldRow, int oldColumn)
+        {
+            if (oldRow > Config.NUMBER_OF_ROW)
+            {
+                for (int i = Config.NUMBER_OF_ROW; i < oldRow; i++)
+                {
+                    for (int j = 0; j < oldColumn; j++)
+                    {
+                        Point location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i);
+                        if (caroBoard.ContainsKey(location)) caroBoard.Remove(location);
+                    }
+                }
+            }
+            if (oldColumn > Config.NUMBER_OF_COLUMN)
+            {
+                for (int i = 0; i < oldRow; i++)
+                {
+                    for (int j = Config.NUMBER_OF_COLUMN; j < oldColumn; j++)
+                    {
+                        Point location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i);
+                        if (caroBoard.ContainsKey(location)) caroBoard.Remove(location);
+                    }
+                }
+            }
         }
 
         public void NewGameHanlde(int turn)
@@ -45,41 +69,38 @@ namespace CaroGame.CaroManagement
             this.Turn = turn % 2;
             check[0] = check[1] = check[2] = check[3] = 0;
             while (caroBoard.Count > 0) caroBoard.Clear();
-            numberOfColumn = Config.NUMBER_OF_COLUMN;
-            numberOfRow = Config.NUMBER_OF_ROW;
-            numberOfChess = numberOfColumn * numberOfRow;
         }
 
         public void DrawCaroBoard(int X, int Y)
         {
-            caroBoard.Add(new KeyValuePair<int, int>(X, Y), Turn);
+            caroBoard.Add(new Point(X, Y), Turn);
         }
 
         public void DrawCaroBoard(Point point)
         {
-            caroBoard.Add(new KeyValuePair<int, int>(point.X, point.Y), Turn);
+            caroBoard.Add(point, Turn);
         }
 
         public void DrawCaroBoard(Point point, int turn)
         {
-            caroBoard.Add(new KeyValuePair<int, int>(point.X, point.Y), turn);
+            caroBoard.Add(point, turn);
         }
 
         public void UndoHandle(int X, int Y)
         {
-            caroBoard.Remove(new KeyValuePair<int, int>(X, Y));
+            caroBoard.Remove(new Point(X, Y));
             Turn = 1 - Turn;
         }
 
         public void RedoHandle(int X, int Y)
         {
-            caroBoard.Add(new KeyValuePair<int, int>(X, Y), Turn);
+            caroBoard.Add(new Point(X, Y), Turn);
             Turn = 1 - Turn;
         }
 
         public bool IsEndGame()
         {
-            return caroBoard.Count == numberOfChess - 1;
+            return caroBoard.Count == Config.NUMBER_OF_ROW * Config.NUMBER_OF_COLUMN - 1;
         }
 
         public async Task<bool> IsWiner(int X, int Y)
@@ -101,7 +122,7 @@ namespace CaroGame.CaroManagement
             int count = 0, countEnemy = 0, player = -1;
             for (int i = X - Config.CHESS_SIZE.Width; i >= 0; i = i - Config.CHESS_SIZE.Width)
             {
-                KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, Y);
+                Point temp = new Point(i, Y);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
                     if (player == Turn)
@@ -114,10 +135,10 @@ namespace CaroGame.CaroManagement
                 }
                 else break;
             }
-            int MAX_X = numberOfColumn * Config.CHESS_SIZE.Width;
+            int MAX_X = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
             for (int i = X + Config.CHESS_SIZE.Width; i <= MAX_X; i = i + Config.CHESS_SIZE.Width)
             {
-                KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, Y);
+                Point temp = new Point(i, Y);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
                     if (player == Turn)
@@ -138,7 +159,7 @@ namespace CaroGame.CaroManagement
             int count = 0, countEnemy = 0, player = -1;
             for (int i = Y - Config.CHESS_SIZE.Height; i >= 0; i = i - Config.CHESS_SIZE.Height)
             {
-                KeyValuePair<int, int> temp = new KeyValuePair<int, int>(X, i);
+                Point temp = new Point(X, i);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
                     if (player == Turn)
@@ -151,10 +172,10 @@ namespace CaroGame.CaroManagement
                 }
                 else break;
             }
-            int MAX_Y = numberOfRow * Config.CHESS_SIZE.Height;
+            int MAX_Y = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
             for (int i = Y + Config.CHESS_SIZE.Height; i <= MAX_Y; i = i + Config.CHESS_SIZE.Height)
             {
-                KeyValuePair<int, int> temp = new KeyValuePair<int, int>(X, i);
+                Point temp = new Point(X, i);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
                     if (player == Turn)
@@ -176,7 +197,7 @@ namespace CaroGame.CaroManagement
             for (int i = X - Config.CHESS_SIZE.Width, j = Y - Config.CHESS_SIZE.Height;
                 i >= 0 && j >= 0; i = i - Config.CHESS_SIZE.Width, j = j - Config.CHESS_SIZE.Height)
             {
-                KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, j);
+                Point temp = new Point(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
                     if (player == Turn)
@@ -189,12 +210,12 @@ namespace CaroGame.CaroManagement
                 }
                 else break;
             }
-            int MAX_X = numberOfColumn * Config.CHESS_SIZE.Width;
-            int MAX_Y = numberOfRow * Config.CHESS_SIZE.Height;
+            int MAX_X = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
+            int MAX_Y = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
             for (int i = X + Config.CHESS_SIZE.Width, j = Y + Config.CHESS_SIZE.Height;
                 i <= MAX_X && j < MAX_Y; i = i + Config.CHESS_SIZE.Width, j = j + Config.CHESS_SIZE.Height)
             {
-                KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, j);
+                Point temp = new Point(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
                     if (player == Turn)
@@ -213,11 +234,11 @@ namespace CaroGame.CaroManagement
         private async Task<bool> IsWinSubDiagonal(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
-            int MAX_X = numberOfColumn * Config.CHESS_SIZE.Width;
+            int MAX_X = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
             for (int i = X + Config.CHESS_SIZE.Width, j = Y - Config.CHESS_SIZE.Height;
                 i <= MAX_X && j >= 0; i = i + Config.CHESS_SIZE.Width, j = j - Config.CHESS_SIZE.Height)
             {
-                KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, j);
+                Point temp = new Point(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
                     if (player == Turn)
@@ -230,11 +251,11 @@ namespace CaroGame.CaroManagement
                 }
                 else break;
             }
-            int MAX_Y = numberOfRow * Config.CHESS_SIZE.Height;
+            int MAX_Y = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
             for (int i = X - Config.CHESS_SIZE.Width, j = Y + Config.CHESS_SIZE.Height;
                 i >= 0 && j <= MAX_Y; i = i - Config.CHESS_SIZE.Width, j = j + Config.CHESS_SIZE.Height)
             {
-                KeyValuePair<int, int> temp = new KeyValuePair<int, int>(i, j);
+                Point temp = new Point(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
                 {
                     if (player == Turn)

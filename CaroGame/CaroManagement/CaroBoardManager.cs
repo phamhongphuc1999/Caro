@@ -24,7 +24,7 @@ namespace CaroGame.CaroManagement
         {
             get;
         }
-        private Dictionary<KeyValuePair<int, int>, Button> caroBoard;
+        private Dictionary<Point, Button> caroBoard;
 
         public Action<object, EventArgs> ButClick
         {
@@ -34,7 +34,7 @@ namespace CaroGame.CaroManagement
         public CaroBoardManager()
         {
             CaroBoardPnl = new Panel();
-            caroBoard = new Dictionary<KeyValuePair<int, int>, Button>();
+            caroBoard = new Dictionary<Point, Button>();
         }
 
         public void InitSizeCaroBoard()
@@ -44,12 +44,8 @@ namespace CaroGame.CaroManagement
             CaroBoardPnl.Size = new Size(width, height);
         }
 
-        public void ResizeCaroBoard(int numberOfRow, int numberOfColumn)
+        public void ResizeCaroBoard(int oldRow, int oldColumn)
         {
-            int oldRow = Config.NUMBER_OF_ROW;
-            int oldColumn = Config.NUMBER_OF_COLUMN;
-            Config.NUMBER_OF_COLUMN = numberOfColumn;
-            Config.NUMBER_OF_ROW = numberOfRow;
             int width = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
             int height = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
             CaroBoardPnl.Size = new Size(width, height);
@@ -65,7 +61,7 @@ namespace CaroGame.CaroManagement
                 {
                     for(int j = 0; j < oldColumn; j++)
                     {
-                        KeyValuePair<int, int> location = new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i);
+                        Point location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i);
                         if (caroBoard.ContainsKey(location)) caroBoard.Remove(location);
                     }
                 }
@@ -76,7 +72,7 @@ namespace CaroGame.CaroManagement
                 {
                     for (int j = oldColumn; j < Config.NUMBER_OF_COLUMN; j++)
                     {
-                        KeyValuePair<int, int> location = new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i);
+                        Point location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i);
                         if (caroBoard.ContainsKey(location)) caroBoard.Remove(location);
                     }
                 }
@@ -98,7 +94,7 @@ namespace CaroGame.CaroManagement
                             FlatStyle = FlatStyle.Standard
                         };
                         but.Click += But_Click;
-                        caroBoard.Add(new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
+                        caroBoard.Add(new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
                         CaroBoardPnl.Controls.Add(but);
                     }
                 }
@@ -117,7 +113,7 @@ namespace CaroGame.CaroManagement
                             FlatStyle = FlatStyle.Standard
                         };
                         but.Click += But_Click;
-                        caroBoard.Add(new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
+                        caroBoard.Add(new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
                         CaroBoardPnl.Controls.Add(but);
                     }
                 }
@@ -134,7 +130,7 @@ namespace CaroGame.CaroManagement
                         FlatStyle = FlatStyle.Standard
                     };
                     but.Click += But_Click;
-                    caroBoard.Add(new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
+                    caroBoard.Add(new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
                     CaroBoardPnl.Controls.Add(but);
                 }
             }
@@ -156,7 +152,7 @@ namespace CaroGame.CaroManagement
                         FlatStyle = FlatStyle.Standard
                     };
                     but.Click += But_Click;
-                    caroBoard.Add(new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
+                    caroBoard.Add(new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
                     CaroBoardPnl.Controls.Add(but);
                 }
             }
@@ -178,7 +174,7 @@ namespace CaroGame.CaroManagement
                             FlatStyle = FlatStyle.Standard
                         };
                         but.Click += But_Click;
-                        caroBoard.Add(new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
+                        caroBoard.Add(new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
                         CaroBoardPnl.Controls.Add(but);
                     }
                 }
@@ -189,7 +185,7 @@ namespace CaroGame.CaroManagement
                 {
                     for (int j = 0; j < numberOfColumn; j++)
                     {
-                        Button but = caroBoard[new KeyValuePair<int, int>(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i)];
+                        Button but = caroBoard[new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i)];
                         but.BackColor = Color.Empty;
                         but.FlatStyle = FlatStyle.Standard;
                     }
@@ -201,7 +197,7 @@ namespace CaroGame.CaroManagement
         public string ConvertBoardToString(Color playerColor1, Color playerColor2)
         {
             string board = "";
-            foreach (KeyValuePair<KeyValuePair<int, int>, Button> item in caroBoard)
+            foreach (KeyValuePair<Point, Button> item in caroBoard)
             {
                 Button button = item.Value;
                 if (button.BackColor == playerColor1) board += "1";
@@ -213,14 +209,14 @@ namespace CaroGame.CaroManagement
 
         public void UndoGame(int X, int Y)
         {
-            Button but = caroBoard[new KeyValuePair<int, int>(X, Y)];
+            Button but = caroBoard[new Point(X, Y)];
             but.BackColor = Color.Transparent;
             but.FlatStyle = FlatStyle.Standard;
         }
 
         public void RedoGame(int X, int Y,  Color playerColor)
         {
-            Button but = caroBoard[new KeyValuePair<int, int>(X, Y)];
+            Button but = caroBoard[new Point(X, Y)];
             but.BackColor = playerColor;
             but.FlatStyle = FlatStyle.Standard;
         }
@@ -231,22 +227,22 @@ namespace CaroGame.CaroManagement
             int[] check = winnerManager.check;
             if (check[0] == 1)
             {
-                foreach (KeyValuePair<int, int> item in winnerManager.arrRow)
+                foreach (Point item in winnerManager.arrRow)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             if (check[1] == 1)
             {
-                foreach (KeyValuePair<int, int> item in winnerManager.arrColumn)
+                foreach (Point item in winnerManager.arrColumn)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             if (check[2] == 1)
             {
-                foreach (KeyValuePair<int, int> item in winnerManager.arrMainDiagonal)
+                foreach (Point item in winnerManager.arrMainDiagonal)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             if (check[3] == 1)
             {
-                foreach (KeyValuePair<int, int> item in winnerManager.arrSubDiagomal)
+                foreach (Point item in winnerManager.arrSubDiagomal)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             eventBut.FlatStyle = FlatStyle.Flat;

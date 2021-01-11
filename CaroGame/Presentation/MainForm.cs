@@ -104,7 +104,7 @@ namespace CaroGame.Presentation
             gameBoardPanel.BoardPnl = caroManager.CaroGameBoard;
             gameBoardPanel.DrawCaroGameBoard();
             this.AddFit(this.gameBoardPanel);
-            this.SetCurrentPanel(this.gameBoardPanel);
+            this.SetCurrentPanel(this.gameBoardPanel, Config.NAME.CARO);
         }
 
         private void GameBoardPanel_AboutItemClickEvent(object sender, EventArgs e)
@@ -113,7 +113,7 @@ namespace CaroGame.Presentation
 
         private void GameBoardPanel_SettingItemClickEvent(object sender, EventArgs e)
         {
-            settingForm.Show();
+            settingForm.ShowSetting();
         }
 
         private void GameBoardPanel_QuickItemClickEvent(object sender, EventArgs e)

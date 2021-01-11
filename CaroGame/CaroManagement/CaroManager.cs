@@ -70,7 +70,12 @@ namespace CaroGame.CaroManagement
 
         public void ResizeCaroBoard(int numberOfRow, int numberOfColumn)
         {
-            caroBoardManager.ResizeCaroBoard(numberOfRow, numberOfColumn);
+            int oldRow = Config.NUMBER_OF_ROW;
+            int oldColumn = Config.NUMBER_OF_COLUMN;
+            Config.NUMBER_OF_COLUMN = numberOfColumn;
+            Config.NUMBER_OF_ROW = numberOfRow;
+            caroBoardManager.ResizeCaroBoard(oldRow, oldColumn);
+            winnerManager.ResetDictionary(oldRow, oldColumn);
             resizeCaroBoardEvent(this, new EventArgs());
         }
 
