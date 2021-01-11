@@ -14,6 +14,7 @@ using System;
 using CaroGame.Configuration;
 using CaroGame.PlayerManagement;
 using System.Windows.Forms;
+using CaroGame.CaroException;
 
 namespace CaroGame.CaroManagement
 {
@@ -23,17 +24,16 @@ namespace CaroGame.CaroManagement
         private CaroBoardManager caroBoardManager;
         private WinnerManager winnerManager;
         private ActionManager actionManager;
-        private TextBox playerTxt;
 
-        public CaroManager(TextBox playerTxt)
+        public CaroManager(TextBox playerTxt, Label timeLbl)
         {
-            this.playerTxt = playerTxt;
-
             playerManager = new PlayerManager();
-            caroBoardManager = new CaroBoardManager();
+            caroBoardManager = new CaroBoardManager(playerTxt, timeLbl);
             winnerManager = new WinnerManager();
             actionManager = new ActionManager();
+
             caroBoardManager.ButClick = But_Click;
+            caroBoardManager.TimeTick = Timer_Tick;
         }
 
         private event EventHandler resizeCaroBoardEvent;
@@ -57,12 +57,6 @@ namespace CaroGame.CaroManagement
             }
         }
 
-        private void SetControl(Control control)
-        {
-            control.Text = playerManager.CurrentPlayerName;
-            control.BackColor = playerManager.CurrentPlayerColor;
-        }
-
         public void SetPlayerName(string name1, string name2 = "")
         {
             playerManager.Set(name1, name2);
@@ -81,23 +75,28 @@ namespace CaroGame.CaroManagement
 
         public void CreateNewGame(int turn = 0)
         {
-            caroBoardManager.InitSizeCaroBoard();
-            caroBoardManager.DrawCaroBoard();
-            winnerManager.NewGameHanlde(turn);
             playerManager.Turn = turn;
             actionManager.ResetAction();
-            SetControl(this.playerTxt);
+            caroBoardManager.InitCaroBoard(playerManager.CurrentPlayerName, playerManager.CurrentPlayerColor);
+            caroBoardManager.DrawCaroBoard();
+            winnerManager.NewGameHanlde(turn);
         }
 
         public void CreateNewGame(string name1, string name2, int turn = 0)
         {
-            caroBoardManager.InitSizeCaroBoard();
-            caroBoardManager.DrawCaroBoard();
-            winnerManager.NewGameHanlde(turn);
             playerManager.Set(name1, name2);
             playerManager.Turn = turn;
             actionManager.ResetAction();
-            SetControl(this.playerTxt);
+            caroBoardManager.InitCaroBoard(playerManager.CurrentPlayerName, playerManager.CurrentPlayerColor);
+            caroBoardManager.DrawCaroBoard();
+            winnerManager.NewGameHanlde(turn);
+        }
+
+        private void ExecuteNewGame()
+        {
+            DialogResult result = MessageBox.Show("Bạn có muốn chơi trò chơi mới?", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK) CreateNewGame(playerManager.Turn);
+            throw new StayOldGameException();
         }
 
         public void UndoGame()
@@ -107,9 +106,10 @@ namespace CaroGame.CaroManagement
                 Button but = actionManager.AddUndo();
                 winnerManager.UndoHandle(but.Location.X, but.Location.Y);
                 playerManager.Turn = playerManager.Turn + 1;
-                caroBoardManager.UndoGame(but.Location.X, but.Location.Y);
+                caroBoardManager.UndoGame(but.Location.X, but.Location.Y, playerManager.CurrentPlayerName);
+                caroBoardManager.TimeText = Config.TIME_TURN.ToString();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -121,11 +121,11 @@ namespace CaroGame.CaroManagement
             {
                 Button but = actionManager.AddRedo();
                 winnerManager.RedoHandle(but.Location.X, but.Location.Y);
-                SetControl(this.playerTxt);
-                caroBoardManager.RedoGame(but.Location.X, but.Location.Y, playerManager.CurrentPlayerColor);
+                caroBoardManager.RedoGame(but.Location.X, but.Location.Y, playerManager.CurrentPlayerName, playerManager.CurrentPlayerColor);
                 playerManager.Turn = playerManager.Turn + 1;
+                caroBoardManager.TimeText = Config.TIME_TURN.ToString();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -137,8 +137,11 @@ namespace CaroGame.CaroManagement
             if (Config.CURRENT_GAME_MODE == Config.GameMode.TWO_PLAYER)
             {
                 MessageBox.Show($"Người chơi {playerManager.CurrentPlayerName} chiến thắng", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                DialogResult result = MessageBox.Show("Bạn có muốn chơi trò chơi mới?", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                if (result == DialogResult.OK) CreateNewGame(playerManager.Turn);
+                try
+                {
+                    ExecuteNewGame();
+                }
+                catch { }
             }
         }
 
@@ -148,8 +151,11 @@ namespace CaroGame.CaroManagement
             if (Config.CURRENT_GAME_MODE == Config.GameMode.TWO_PLAYER)
             {
                 MessageBox.Show("Trò chơi kết thúc, không ai giành chiến thắng", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                DialogResult result = MessageBox.Show("Bạn có muốn chơi trò chơi mới?", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                if (result == DialogResult.OK) CreateNewGame(playerManager.Turn);
+                try
+                {
+                    ExecuteNewGame();
+                }
+                catch { }
             }
         }
 
@@ -157,20 +163,39 @@ namespace CaroGame.CaroManagement
         {
             playerManager.Turn = playerManager.Turn + 1;
             winnerManager.Turn = 1 - winnerManager.Turn;
-            SetControl(this.playerTxt);
+            caroBoardManager.Turn(playerManager.CurrentPlayerName, playerManager.CurrentPlayerColor);
         }
 
         private void But_Click(object sender, EventArgs e)
         {
             Button but = sender as Button;
-            int X = but.Location.X;
-            int Y = but.Location.Y;
-            but.BackColor = playerManager.CurrentPlayerColor;
-            winnerManager.DrawCaroBoard(but.Location);
-            actionManager.UpdateTurn(but);
-            if (winnerManager.IsWiner(X, Y).Result) Winner(but);
-            else if (winnerManager.IsEndGame()) EndGame();
-            else TurnPlayer();
+            if (!winnerManager.CheckExtist(but.Location))
+            {
+                int X = but.Location.X;
+                int Y = but.Location.Y;
+                but.BackColor = playerManager.CurrentPlayerColor;
+                winnerManager.DrawCaroBoard(but.Location);
+                actionManager.UpdateTurn(but);
+                if (winnerManager.IsWiner(X, Y).Result) Winner(but);
+                else if (winnerManager.IsEndGame()) EndGame();
+                else TurnPlayer();
+            }
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            int remainTime = Int32.Parse(caroBoardManager.TimeText);
+            if (remainTime == 0)
+            {
+                caroBoardManager.TimeEnable = false;
+                MessageBox.Show($"Người chơi {playerManager.OtherPlayerName} chiến thắng", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    ExecuteNewGame();
+                }
+                catch { }
+            }
+            else caroBoardManager.TimeText = (remainTime - 1).ToString();
         }
     }
 }

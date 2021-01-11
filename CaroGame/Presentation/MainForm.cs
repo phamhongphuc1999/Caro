@@ -12,6 +12,7 @@
 
 using CaroGame.CaroManagement;
 using CaroGame.Configuration;
+using CaroGame.ConnectionManagement;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -27,12 +28,22 @@ namespace CaroGame.Presentation
             DrawOverview();
             DrawGameMode();
             DrawPayer();
+            DrawLan();
             DrawGameBoard();
             this.SetCurrentPanel(overviewPnl);
             StartPosition = FormStartPosition.CenterScreen;
 
-            caroManager = new CaroManager(gameBoardPanel.playerTxt);
+            caroManager = new CaroManager(gameBoardPanel.playerTxt, gameBoardPanel.TimeLbl);
             caroManager.ResizeCaroBoardEvent += CaroManager_ResizeCaroBoardEvent;
+        }
+
+        private void CreateNewGame()
+        {
+            caroManager.CreateNewGame(Config.NAME_PLAYER1, Config.NAME_PLAYER2);
+            gameBoardPanel.BoardPnl = caroManager.CaroGameBoard;
+            gameBoardPanel.DrawCaroGameBoard();
+            this.AddFit(this.gameBoardPanel);
+            this.SetCurrentPanel(this.gameBoardPanel, Config.NAME.CARO);
         }
 
         private void CaroManager_ResizeCaroBoardEvent(object sender, EventArgs e)
@@ -100,11 +111,8 @@ namespace CaroGame.Presentation
             }
             Config.NAME_PLAYER1 = playerPnl.Text1;
             Config.NAME_PLAYER2 = playerPnl.Text2;
-            caroManager.CreateNewGame(playerPnl.Text1, playerPnl.Text2);
-            gameBoardPanel.BoardPnl = caroManager.CaroGameBoard;
-            gameBoardPanel.DrawCaroGameBoard();
-            this.AddFit(this.gameBoardPanel);
-            this.SetCurrentPanel(this.gameBoardPanel, Config.NAME.CARO);
+            if (Config.CURRENT_GAME_MODE != GameMode.LAN) CreateNewGame();
+            else this.SetCurrentPanel(lanPnl, Config.NAME.LAN_CONNECTION);
         }
 
         private void GameBoardPanel_AboutItemClickEvent(object sender, EventArgs e)
@@ -132,6 +140,29 @@ namespace CaroGame.Presentation
         private void GameBoardPanel_UndoClickEvent(object sender, EventArgs e)
         {
             caroManager.UndoGame();
+        }
+
+        private void LanPnl_IPButClickEvent(object sender, EventArgs e)
+        {
+            lanPnl.Text1 = LanManager.GetIPv4();
+        }
+
+        private void Lanpnl_ConnectButClickEvent(object sender, EventArgs e)
+        {
+        }
+
+        private void LanPnl_CancelActionClickEvent(object sender, EventArgs e)
+        {
+            this.SetCurrentPanel(playerPnl, Config.NAME.PLAYER);
+        }
+
+        private void LanPnl_NextActionClickEvent(object sender, EventArgs e)
+        {
+        }
+
+        protected override void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
         }
     }
 }

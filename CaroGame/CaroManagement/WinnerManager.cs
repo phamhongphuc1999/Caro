@@ -14,7 +14,6 @@ using CaroGame.Configuration;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace CaroGame.CaroManagement
 {
@@ -62,6 +61,11 @@ namespace CaroGame.CaroManagement
                     }
                 }
             }
+        }
+
+        public bool CheckExtist(Point location)
+        {
+            return caroBoard.ContainsKey(location);
         }
 
         public void NewGameHanlde(int turn)

@@ -102,6 +102,24 @@ namespace CaroGame.PlayerManagement
             }
         }
 
+        public string OtherPlayerName
+        {
+            get
+            {
+                if (player1.IsTurn) return player2.NamePlayer;
+                return player1.NamePlayer;
+            }
+        }
+
+        public Color OtherPlayerColor
+        {
+            get
+            {
+                if (player1.IsTurn) return player2.ColorPlayer;
+                return player1.ColorPlayer;
+            }
+        }
+
         public void Set(string playerName1, string playerName2)
         {
             player1.NamePlayer = playerName1;

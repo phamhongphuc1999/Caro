@@ -8,6 +8,7 @@ namespace CaroGame.Presentation
         private OverviewPanel overviewPnl;
         private GameModePanel gameModePnl;
         private TwoTextPanel playerPnl;
+        private LanPanel lanPnl;
         private GameBoardPanel gameBoardPanel;
 
         private void DrawOverview()
@@ -52,6 +53,24 @@ namespace CaroGame.Presentation
             playerPnl.NextActionClickEvent += PlayerPnl_NextActionClickEvent;
             playerPnl.CancelActionClickEvent += PlayerPnl_CancelActionClickEvent;
             this.Controls.Add(playerPnl);
+        }
+
+        private void DrawLan()
+        {
+            lanPnl = new LanPanel
+            {
+                Location = new Point(0, 0),
+                Visible = false,
+                LabelText1 = "IP Address",
+                LabelText2 = "Port",
+                NextText = "Next",
+                CancelText = "Back"
+            };
+            lanPnl.ConnectButClickEvent += Lanpnl_ConnectButClickEvent;
+            lanPnl.IPButClickEvent += LanPnl_IPButClickEvent;
+            lanPnl.NextActionClickEvent += LanPnl_NextActionClickEvent;
+            lanPnl.CancelActionClickEvent += LanPnl_CancelActionClickEvent;
+            this.Controls.Add(lanPnl);
         }
 
         private void DrawGameBoard()

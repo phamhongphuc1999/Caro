@@ -12,6 +12,7 @@
 
 using System.Drawing;
 using System.Windows.Forms;
+using static CaroGame.Program;
 
 namespace CaroGame.Presentation
 {
@@ -22,6 +23,7 @@ namespace CaroGame.Presentation
         public BaseForm(string formText, Icon icon)
         {
             InitializeComponent(formText, icon);
+            this.FormClosing += BaseForm_FormClosing;
         }
 
         protected Panel CurrentPnl
@@ -52,6 +54,11 @@ namespace CaroGame.Presentation
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             this.Size = panel.Size;
             this.Controls.Add(panel);
+        }
+
+        protected virtual void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

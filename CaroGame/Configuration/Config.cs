@@ -16,19 +16,19 @@ namespace CaroGame.Configuration
 {
     public static class Config
     {
-        public static int NUMBER_OF_ROW = 10;
-        public static int NUMBER_OF_COLUMN = 10;
+        public static int NUMBER_OF_ROW;
+        public static int NUMBER_OF_COLUMN;
         public static readonly Size CHESS_SIZE = new Size(40, 40);
 
         public static string NAME_PLAYER1 = "";
         public static string NAME_PLAYER2 = "";
 
-        public static bool IS_PLAY_MUSIC = false;
-        public static int VOLUME_SIZE = 20;
+        public static bool IS_PLAY_MUSIC;
+        public static int VOLUME_SIZE;
 
-        public static bool IS_TIMER = false;
-        public static int TIME_TURN = 30;
-        public static int INTERVAL = 1;
+        public static bool IS_TIMER;
+        public static int TIME_TURN;
+        public static int INTERVAL;
 
         public enum GameMode
         {

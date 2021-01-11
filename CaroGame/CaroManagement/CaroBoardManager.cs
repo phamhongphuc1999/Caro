@@ -26,22 +26,78 @@ namespace CaroGame.CaroManagement
         }
         private Dictionary<Point, Button> caroBoard;
 
+        private TextBox playerTxt;
+        private Label timeLbl;
+        private Timer caroTimer;
+
         public Action<object, EventArgs> ButClick
         {
             get; set;
         }
 
-        public CaroBoardManager()
+        public Action<object, EventArgs> TimeTick
         {
+            get; set;
+        }
+
+        public CaroBoardManager(TextBox playerTxt, Label timeLbl)
+        {
+            this.playerTxt = playerTxt;
+            this.timeLbl = timeLbl;
+            this.caroTimer = new Timer
+            {
+                Interval = Config.INTERVAL
+            };
+            this.caroTimer.Tick += CaroTimer_Tick;
+
             CaroBoardPnl = new Panel();
             caroBoard = new Dictionary<Point, Button>();
         }
 
-        public void InitSizeCaroBoard()
+        public string TimeText
+        {
+            get
+            {
+                return timeLbl.Text;
+            }
+            set
+            {
+                timeLbl.Text = value;
+            }
+        }
+
+        public bool TimeEnable
+        {
+            get
+            {
+                return caroTimer.Enabled;
+            }
+            set
+            {
+                caroTimer.Enabled = value;
+            }
+        }
+
+        public void Turn(string playerName, Color playerColor)
+        {
+            playerTxt.Text = playerName;
+            playerTxt.BackColor = playerColor;
+            timeLbl.Text = Config.TIME_TURN.ToString();
+        }
+
+        public void InitCaroBoard(string playerFirstName, Color playerColor)
         {
             int width = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
             int height = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
+            playerTxt.Text = playerFirstName;
+            playerTxt.BackColor = playerColor;
             CaroBoardPnl.Size = new Size(width, height);
+            if (Config.IS_TIMER)
+            {
+                timeLbl.Text = Config.TIME_TURN.ToString();
+                caroTimer.Start();
+            }
+            else timeLbl.Text = "No Timer";
         }
 
         public void ResizeCaroBoard(int oldRow, int oldColumn)
@@ -55,11 +111,11 @@ namespace CaroGame.CaroManagement
 
         private void UpdateDictionary(int oldRow, int oldColumn)
         {
-            if(oldRow > Config.NUMBER_OF_ROW)
+            if (oldRow > Config.NUMBER_OF_ROW)
             {
-                for(int i = Config.NUMBER_OF_ROW; i < oldRow; i++)
+                for (int i = Config.NUMBER_OF_ROW; i < oldRow; i++)
                 {
-                    for(int j = 0; j < oldColumn; j++)
+                    for (int j = 0; j < oldColumn; j++)
                     {
                         Point location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i);
                         if (caroBoard.ContainsKey(location)) caroBoard.Remove(location);
@@ -68,7 +124,7 @@ namespace CaroGame.CaroManagement
             }
             if (oldColumn < Config.NUMBER_OF_COLUMN)
             {
-                for(int i = 0; i < oldRow; i++)
+                for (int i = 0; i < oldRow; i++)
                 {
                     for (int j = oldColumn; j < Config.NUMBER_OF_COLUMN; j++)
                     {
@@ -81,11 +137,11 @@ namespace CaroGame.CaroManagement
 
         private void RedrawCaroBoard(int oldRow, int oldColumn)
         {
-            if(oldRow < Config.NUMBER_OF_ROW)
+            if (oldRow < Config.NUMBER_OF_ROW)
             {
-                for(int i = oldRow; i < Config.NUMBER_OF_ROW; i++)
+                for (int i = oldRow; i < Config.NUMBER_OF_ROW; i++)
                 {
-                    for(int j = 0; j < oldColumn; j++)
+                    for (int j = 0; j < oldColumn; j++)
                     {
                         Button but = new Button()
                         {
@@ -100,7 +156,7 @@ namespace CaroGame.CaroManagement
                 }
                 if (oldColumn >= Config.NUMBER_OF_COLUMN) return;
             }
-            if(oldColumn < Config.NUMBER_OF_COLUMN)
+            if (oldColumn < Config.NUMBER_OF_COLUMN)
             {
                 for (int i = 0; i < oldRow; i++)
                 {
@@ -119,9 +175,9 @@ namespace CaroGame.CaroManagement
                 }
                 if (oldRow >= Config.NUMBER_OF_ROW) return;
             }
-            for(int i = oldRow; i < Config.NUMBER_OF_ROW; i++)
+            for (int i = oldRow; i < Config.NUMBER_OF_ROW; i++)
             {
-                for(int j = oldColumn; j < Config.NUMBER_OF_COLUMN; j++)
+                for (int j = oldColumn; j < Config.NUMBER_OF_COLUMN; j++)
                 {
                     Button but = new Button()
                     {
@@ -207,17 +263,19 @@ namespace CaroGame.CaroManagement
             return board;
         }
 
-        public void UndoGame(int X, int Y)
+        public void UndoGame(int X, int Y, string playerName)
         {
             Button but = caroBoard[new Point(X, Y)];
             but.BackColor = Color.Transparent;
             but.FlatStyle = FlatStyle.Standard;
+            playerTxt.Text = playerName;
         }
 
-        public void RedoGame(int X, int Y,  Color playerColor)
+        public void RedoGame(int X, int Y, string playerName, Color playerColor)
         {
             Button but = caroBoard[new Point(X, Y)];
             but.BackColor = playerColor;
+            playerTxt.Text = playerName;
             but.FlatStyle = FlatStyle.Standard;
         }
 
@@ -256,6 +314,11 @@ namespace CaroGame.CaroManagement
         private void But_Click(object sender, EventArgs e)
         {
             this.ButClick(sender, e);
+        }
+
+        private void CaroTimer_Tick(object sender, EventArgs e)
+        {
+            this.TimeTick(sender, e);
         }
     }
 }

@@ -14,6 +14,7 @@ using CaroGame.CaroManagement;
 using CaroGame.Configuration;
 using CaroGame.Presentation;
 using CaroGame.SoundManagement;
+using CaroGame.StorageManagement;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -28,6 +29,7 @@ namespace CaroGame
 
         public static SoundManager soundManager;
         public static CaroManager caroManager;
+        public static StorageManager storageManager;
 
         /// <summary>
         ///  The main entry point for the application.
@@ -39,7 +41,10 @@ namespace CaroGame
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Icon mainIcon = new Icon($"../../..//Resources/Image/caro.ico");
+            storageManager = new StorageManager();
+            storageManager.InitializeConfiguration();
+
+            Icon mainIcon = new Icon("../../../Resources/Image/caro.ico");
             Icon settingIcon = new Icon("../../../Resources/Image/setting.ico");
             Icon aboutIcon = new Icon("../../../Resources/Image/about.ico");
 

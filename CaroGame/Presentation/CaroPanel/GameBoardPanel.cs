@@ -43,6 +43,18 @@ namespace CaroGame.Presentation.CaroPanel
             }
         }
 
+        public Label TimeLbl
+        {
+            get
+            {
+                return timeLbl;
+            }
+            set
+            {
+                timeLbl = value;
+            }
+        }
+
         public event EventHandler UndoClickEvent
         {
             add
