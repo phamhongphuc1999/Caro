@@ -30,6 +30,7 @@ namespace CaroGame.Presentation
             DrawPayer();
             DrawLan();
             DrawGameBoard();
+            DrawLoadGame();
             this.SetCurrentPanel(overviewPnl);
             StartPosition = FormStartPosition.CenterScreen;
 
@@ -68,6 +69,9 @@ namespace CaroGame.Presentation
 
         private void GameModePnl_LoadGameClickEvent(object sender, EventArgs e)
         {
+            loadGamePanel.DrawLoadGame();
+            this.Size = loadGamePanel.Size;
+            this.SetCurrentPanel(loadGamePanel, Config.NAME.LOAD_GAME);
         }
 
         private void GameModePnl_LanModeClickEvent(object sender, EventArgs e)
@@ -163,6 +167,20 @@ namespace CaroGame.Presentation
         protected override void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             
+        }
+
+        private void LoadGamePanel_CancelActionClickEvent(object sender, EventArgs e)
+        {
+            this.SetCurrentPanel(gameModePnl, Config.NAME.GAME_MODE);
+            this.ClientSize = new Size(600, 375);
+        }
+
+        private void LoadGamePanel_ButGameClickEvent(object sender, EventArgs e)
+        {
+        }
+
+        private void LoadGamePanel_ButDeleteClickEvent(object sender, EventArgs e)
+        {
         }
     }
 }

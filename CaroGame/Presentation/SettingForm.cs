@@ -49,31 +49,31 @@ namespace CaroGame.Presentation
 
         private void SettingPnl_SoundClickEvent(object sender, EventArgs e)
         {
-            SetCurrentPanel(soundPanel);
+            SetCurrentPanel(soundPanel, Config.NAME.SOUND_SETTING);
         }
 
         private void SettingPnl_SizeClickEvent(object sender, EventArgs e)
         {
             settingSizePanel.Text1 = Config.NUMBER_OF_ROW.ToString();
             settingSizePanel.Text2 = Config.NUMBER_OF_COLUMN.ToString();
-            SetCurrentPanel(settingSizePanel);
+            SetCurrentPanel(settingSizePanel, Config.NAME.SIZE_SETTING);
         }
 
         private void SettingPnl_NamePlayerClickEvent(object sender, EventArgs e)
         {
             playerNamePanel.Text1 = Config.NAME_PLAYER1.ToString();
             playerNamePanel.Text2 = Config.NAME_PLAYER2.ToString();
-            SetCurrentPanel(playerNamePanel);
+            SetCurrentPanel(playerNamePanel, Config.NAME.PLAYER_SETTING);
         }
 
         private void SettingPnl_TimerClickEvent(object sender, EventArgs e)
         {
-            SetCurrentPanel(timePanel);
+            SetCurrentPanel(timePanel, Config.NAME.TIME_SETTING);
         }
 
         private void SettingPnl_GameModeClickEvent(object sender, EventArgs e)
         {
-            SetCurrentPanel(gameModePanel);
+            SetCurrentPanel(gameModePanel, Config.NAME.GAME_MODE_SETTING);
         }
 
         private void SettingPnl_CancelActionClickEvent(object sender, EventArgs e)
@@ -86,7 +86,7 @@ namespace CaroGame.Presentation
 
         private void SoundPanel_CancelActionClickEvent(object sender, EventArgs e)
         {
-            SetCurrentPanel(settingPnl);
+            SetCurrentPanel(settingPnl, Config.NAME.SETTING);
         }
 
         private void SoundPanel_NextActionClickEvent(object sender, EventArgs e)
@@ -95,7 +95,7 @@ namespace CaroGame.Presentation
 
         private void SettingSizePanel_CancelActionClickEvent(object sender, EventArgs e)
         {
-            SetCurrentPanel(settingPnl);
+            SetCurrentPanel(settingPnl, Config.NAME.SETTING);
         }
 
         private void SettingSizePanel_NextActionClickEvent(object sender, EventArgs e)
@@ -116,7 +116,7 @@ namespace CaroGame.Presentation
 
         private void TimePanel_CancelActionClickEvent(object sender, EventArgs e)
         {
-            SetCurrentPanel(settingPnl);
+            SetCurrentPanel(settingPnl, Config.NAME.SETTING);
         }
 
         private void TimePanel_NextActionClickEvent(object sender, EventArgs e)
@@ -126,7 +126,7 @@ namespace CaroGame.Presentation
 
         private void PlayerNamePanel_CancelActionClickEvent(object sender, EventArgs e)
         {
-            SetCurrentPanel(settingPnl);
+            SetCurrentPanel(settingPnl, Config.NAME.SETTING);
         }
 
         private void PlayerNamePanel_NextActionClickEvent(object sender, EventArgs e)
@@ -147,7 +147,7 @@ namespace CaroGame.Presentation
 
         private void GameModePanel_CancelActionClickEvent(object sender, EventArgs e)
         {
-            SetCurrentPanel(settingPnl);
+            SetCurrentPanel(settingPnl, Config.NAME.SETTING);
         }
 
         private void GameModePanel_LoadGameClickEvent(object sender, EventArgs e)

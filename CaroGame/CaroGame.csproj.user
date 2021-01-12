@@ -22,6 +22,9 @@
     <Compile Update="Presentation\CaroPanel\LanPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Presentation\CaroPanel\LoadGamePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Presentation\CaroPanel\OverviewPanel.cs">
       <SubType>Component</SubType>
     </Compile>
