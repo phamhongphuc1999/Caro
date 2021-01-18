@@ -21,7 +21,7 @@ namespace CaroGame.Presentation.CaroPanel
         public TextBox playerTxt;
         protected Button undoBut, redoBut;
         protected Label timeLbl;
-        protected CustomMenu mainMenu;
+        protected CaroMenu mainMenu;
         protected Panel boardPnl;
 
         public GameBoardPanel() : base()
@@ -150,7 +150,7 @@ namespace CaroGame.Presentation.CaroPanel
                 TextAlign = ContentAlignment.MiddleCenter,
                 Location = new Point(0, 35)
             };
-            mainMenu = new CustomMenu
+            mainMenu = new CaroMenu
             {
                 Name = "mainMenu",
                 Text = "Menu",

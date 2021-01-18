@@ -15,12 +15,12 @@ using System.Windows.Forms;
 
 namespace CaroGame.Presentation
 {
-    public class CustomMenu : MenuStrip
+    public class CaroMenu : MenuStrip
     {
         protected ToolStripSeparator bottomQuickSeparator;
         protected ToolStripMenuItem mainItemTool, newGameItemTool, quickItemTool, settingItemTool, aboutItemTool;
 
-        public CustomMenu() : base()
+        public CaroMenu() : base()
         {
             CreateMainMenu();
             Items.AddRange(new ToolStripItem[]

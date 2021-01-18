@@ -46,7 +46,7 @@
     <Compile Update="Presentation\CaroPanel\TwoTextPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Presentation\CustomMenu.cs">
+    <Compile Update="Presentation\CaroMenu.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Presentation\MainForm.cs">

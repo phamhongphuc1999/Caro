@@ -35,12 +35,19 @@ namespace CaroGame.Presentation
         public void ShowSetting()
         {
             this.SetCurrentPanel(settingPnl);
-            this.Show();
+            this.ShowDialog();
+        }
+
+        protected override void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
         }
 
         private void SettingPnl_SaveGameClickEvent(object sender, EventArgs e)
         {
-
+            string caroBoard = caroManager.ConvertBoardToString();
+            storageManager.SaveCurrentGame(caroBoard, caroManager.Turn);
+            this.Hide();
         }
 
         private void SettingPnl_LoadGameClickEvent(object sender, EventArgs e)

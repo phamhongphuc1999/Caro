@@ -18,7 +18,7 @@ namespace CaroGame.Presentation
 {
     public partial class BaseForm : Form
     {
-        private Panel currentPnl;
+        protected Panel currentPnl;
 
         public BaseForm(string formText, Icon icon)
         {
@@ -26,7 +26,7 @@ namespace CaroGame.Presentation
             this.FormClosing += BaseForm_FormClosing;
         }
 
-        protected Panel CurrentPnl
+        public Panel CurrentPnl
         {
             get
             {
@@ -34,7 +34,7 @@ namespace CaroGame.Presentation
             }
         }
 
-        protected void SetCurrentPanel(Panel panel)
+        public void SetCurrentPanel(Panel panel)
         {
             if (currentPnl != null)
                 currentPnl.Visible = false;
@@ -42,10 +42,30 @@ namespace CaroGame.Presentation
             currentPnl.Visible = true;
         }
 
-        protected void SetCurrentPanel(Panel panel, string title)
+        public void SetCurrentPanel(Panel panel, string title)
         {
             SetCurrentPanel(panel);
             this.Text = title;
+        }
+
+        protected Point SetCenterLocation(Point baseLocation, Size baseSize, Size size)
+        {
+            int setY = (baseSize.Height - size.Height) / 2;
+            int setX = (baseSize.Width - size.Width) / 2;
+            return new Point(baseLocation.X - setX, baseLocation.Y - setY);
+        }
+
+        public void Show(Form baseForm)
+        {
+            this.Location = SetCenterLocation(baseForm.Location, baseForm.Size, this.Size);
+            this.Show();
+        }
+
+        public void ShowDialog(Form baseForm)
+        {
+            Point point = SetCenterLocation(baseForm.Location, baseForm.Size, this.Size);
+            this.Location = new Point(point.X, point.Y);
+            this.ShowDialog();
         }
 
         protected void AddFit(Panel panel)
@@ -58,6 +78,7 @@ namespace CaroGame.Presentation
 
         protected virtual void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            storageManager.SaveGameToFile();
             Application.Exit();
         }
     }

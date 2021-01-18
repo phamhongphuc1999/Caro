@@ -42,8 +42,6 @@ namespace CaroGame
             Application.SetCompatibleTextRenderingDefault(false);
 
             storageManager = new StorageManager();
-            storageManager.InitializeConfiguration();
-            storageManager.LoadGame();
 
             Icon mainIcon = new Icon("../../../Resources/Image/caro.ico");
             Icon settingIcon = new Icon("../../../Resources/Image/setting.ico");

@@ -82,7 +82,7 @@ namespace CaroGame.CaroManagement
         {
             playerTxt.Text = playerName;
             playerTxt.BackColor = playerColor;
-            timeLbl.Text = Config.TIME_TURN.ToString();
+            if (Config.IS_TIMER) timeLbl.Text = Config.TIME_TURN.ToString();
         }
 
         public void InitCaroBoard(string playerFirstName, Color playerColor)

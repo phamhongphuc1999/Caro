@@ -10,12 +10,12 @@
 //
 // ------------------------------------------------------
 
-using CaroGame.CaroManagement;
-using CaroGame.Configuration;
-using CaroGame.ConnectionManagement;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using CaroGame.CaroManagement;
+using CaroGame.Configuration;
+using CaroGame.ConnectionManagement;
 using static CaroGame.Configuration.Config;
 using static CaroGame.Program;
 
@@ -54,7 +54,7 @@ namespace CaroGame.Presentation
 
         private void OverviewPnl_GuideClickEvent(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Chức năng chưa có");
         }
 
         private void OverviewPnl_NewGameClickEvent(object sender, EventArgs e)
@@ -121,6 +121,7 @@ namespace CaroGame.Presentation
 
         private void GameBoardPanel_AboutItemClickEvent(object sender, EventArgs e)
         {
+            aboutForm.ShowDialog(this);
         }
 
         private void GameBoardPanel_SettingItemClickEvent(object sender, EventArgs e)
@@ -164,11 +165,6 @@ namespace CaroGame.Presentation
         {
         }
 
-        protected override void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
-        }
-
         private void LoadGamePanel_CancelActionClickEvent(object sender, EventArgs e)
         {
             this.SetCurrentPanel(gameModePnl, Config.NAME.GAME_MODE);
@@ -177,6 +173,7 @@ namespace CaroGame.Presentation
 
         private void LoadGamePanel_ButGameClickEvent(object sender, EventArgs e)
         {
+
         }
 
         private void LoadGamePanel_ButDeleteClickEvent(object sender, EventArgs e)

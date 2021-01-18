@@ -28,6 +28,8 @@ namespace CaroGame.StorageManagement
         {
             gameSaveModel = new GameSaveModel();
             current_index = -1;
+            InitializeConfiguration();
+            LoadGame();
         }
 
         public int Count
@@ -46,7 +48,7 @@ namespace CaroGame.StorageManagement
             }
         }
 
-        public void InitializeConfiguration()
+        private void InitializeConfiguration()
         {
             using (StreamReader sr = File.OpenText("../../../StorageManagement/Config.json"))
             {
@@ -80,7 +82,7 @@ namespace CaroGame.StorageManagement
             sw.Close();
         }
 
-        public void LoadGame()
+        private void LoadGame()
         {
             using (StreamReader sr = File.OpenText("../../../StorageManagement/SaveGame.json"))
             {
@@ -91,7 +93,7 @@ namespace CaroGame.StorageManagement
 
         public void SaveCurrentGame(string caroBoard, int turn)
         {
-            if (current_index == -1)
+            if (current_index >= 0)
             {
                 gameSaveModel.GameSaveList[current_index].Row = Config.NUMBER_OF_ROW;
                 gameSaveModel.GameSaveList[current_index].Column = Config.NUMBER_OF_COLUMN;

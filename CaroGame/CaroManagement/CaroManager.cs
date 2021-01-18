@@ -49,6 +49,14 @@ namespace CaroGame.CaroManagement
             }
         }
 
+        public int Turn
+        {
+            get
+            {
+                return playerManager.Turn;
+            }
+        }
+
         public Panel CaroGameBoard
         {
             get
@@ -90,6 +98,11 @@ namespace CaroGame.CaroManagement
             caroBoardManager.InitCaroBoard(playerManager.CurrentPlayerName, playerManager.CurrentPlayerColor);
             caroBoardManager.DrawCaroBoard();
             winnerManager.NewGameHanlde(turn);
+        }
+
+        public string ConvertBoardToString()
+        {
+            return caroBoardManager.ConvertBoardToString(playerManager.PlayerColor1, playerManager.PlayerColor2);
         }
 
         private void ExecuteNewGame()
