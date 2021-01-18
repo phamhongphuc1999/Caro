@@ -72,7 +72,16 @@ namespace CaroGame.CaroManagement
         {
             this.Turn = turn % 2;
             check[0] = check[1] = check[2] = check[3] = 0;
-            while (caroBoard.Count > 0) caroBoard.Clear();
+            caroBoard.Clear();
+        }
+
+        public void LoadSaveGame(int turn, List<(Point, int)> listChess)
+        {
+            this.Turn = turn % 2;
+            check[0] = check[1] = check[2] = check[3] = 0;
+            caroBoard.Clear();
+            foreach((Point, int) item in listChess)
+                caroBoard.Add(item.Item1, item.Item2);
         }
 
         public void DrawCaroBoard(int X, int Y)

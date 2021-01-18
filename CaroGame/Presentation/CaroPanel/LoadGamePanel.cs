@@ -89,6 +89,7 @@ namespace CaroGame.Presentation.CaroPanel
                     string butText = count.ToString() + "." + item.PlayerName1 + " vs " + item.PlayerName2;
                     Button butGame = new Button()
                     {
+                        Tag = count,
                         Text = butText,
                         Size = new Size(280, 40),
                         Location = new Point(30, Y)

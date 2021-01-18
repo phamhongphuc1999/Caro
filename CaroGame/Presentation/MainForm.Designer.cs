@@ -5,10 +5,10 @@ namespace CaroGame.Presentation
 {
     partial class MainForm
     {
+        private LanPanel lanPnl;
         private OverviewPanel overviewPnl;
         private GameModePanel gameModePnl;
         private TwoTextPanel playerPnl;
-        private LanPanel lanPnl;
         private GameBoardPanel gameBoardPanel;
         private LoadGamePanel loadGamePanel;
 

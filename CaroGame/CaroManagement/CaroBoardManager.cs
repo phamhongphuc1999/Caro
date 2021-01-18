@@ -214,40 +214,40 @@ namespace CaroGame.CaroManagement
             }
         }
 
-        public void DrawCaroBoard(int numberOfRow, int numberOfColumn)
+        public List<(Point, int)> DrawLoadCaroBoard(string sCaroBoard, Color playerColor1, Color playerColor2)
         {
+            CaroBoardPnl.Controls.Clear();
             CaroBoardPnl.Enabled = true;
-            if (CaroBoardPnl.Controls.Count == 0)
+            caroBoard.Clear();
+            List<(Point, int)> result = new List<(Point, int)>(); 
+            int count = 0;
+            for (int i = 0; i < Config.NUMBER_OF_ROW; i++)
             {
-                for (int i = 0; i < numberOfRow; i++)
+                for (int j = 0; j < Config.NUMBER_OF_COLUMN; j++)
                 {
-                    for (int j = 0; j < numberOfColumn; j++)
+                    Button but = new Button()
                     {
-                        Button but = new Button()
-                        {
-                            Size = new Size(Config.CHESS_SIZE.Width, Config.CHESS_SIZE.Height),
-                            Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i),
-                            FlatStyle = FlatStyle.Standard
-                        };
-                        but.Click += But_Click;
-                        caroBoard.Add(new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
-                        CaroBoardPnl.Controls.Add(but);
+                        Size = new Size(Config.CHESS_SIZE.Width, Config.CHESS_SIZE.Height),
+                        Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i),
+                        FlatStyle = FlatStyle.Standard
+                    };
+                    if (sCaroBoard[count] == '1')
+                    {
+                        but.BackColor = playerColor1;
+                        result.Add((but.Location, 0));
                     }
+                    else if (sCaroBoard[count] == '2')
+                    {
+                        but.BackColor = playerColor2;
+                        result.Add((but.Location, 1));
+                    }
+                    but.Click += But_Click;
+                    caroBoard.Add(new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
+                    CaroBoardPnl.Controls.Add(but);
+                    count++;
                 }
             }
-            else
-            {
-                for (int i = 0; i < numberOfRow; i++)
-                {
-                    for (int j = 0; j < numberOfColumn; j++)
-                    {
-                        Button but = caroBoard[new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i)];
-                        but.BackColor = Color.Empty;
-                        but.FlatStyle = FlatStyle.Standard;
-                    }
-
-                }
-            }
+            return result;
         }
 
         public string ConvertBoardToString(Color playerColor1, Color playerColor2)

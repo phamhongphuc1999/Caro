@@ -20,8 +20,8 @@ namespace CaroGame.Configuration
         public static int NUMBER_OF_COLUMN;
         public static readonly Size CHESS_SIZE = new Size(40, 40);
 
-        public static string NAME_PLAYER1 = "";
-        public static string NAME_PLAYER2 = "";
+        //public static string NAME_PLAYER1 = "";
+        //public static string NAME_PLAYER2 = "";
 
         public static bool IS_PLAY_MUSIC;
         public static int VOLUME_SIZE;

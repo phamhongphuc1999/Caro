@@ -68,8 +68,8 @@ namespace CaroGame.Presentation
 
         private void SettingPnl_NamePlayerClickEvent(object sender, EventArgs e)
         {
-            playerNamePanel.Text1 = Config.NAME_PLAYER1.ToString();
-            playerNamePanel.Text2 = Config.NAME_PLAYER2.ToString();
+            playerNamePanel.Text1 = caroManager.PlayerName1;
+            playerNamePanel.Text2 = caroManager.PlayerName2;
             SetCurrentPanel(playerNamePanel, Config.NAME.PLAYER_SETTING);
         }
 
@@ -142,12 +142,10 @@ namespace CaroGame.Presentation
             if (!info.Item1)
             {
                 MessageBox.Show(info.Item2, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                playerNamePanel.Text1 = Config.NAME_PLAYER1.ToString();
-                playerNamePanel.Text2 = Config.NAME_PLAYER2.ToString();
+                playerNamePanel.Text1 = caroManager.PlayerName1;
+                playerNamePanel.Text2 = caroManager.PlayerName2;
                 return;
             }
-            Config.NAME_PLAYER1 = playerNamePanel.Text1;
-            Config.NAME_PLAYER2 = playerNamePanel.Text2;
             caroManager.SetPlayerName(playerNamePanel.Text1, playerNamePanel.Text2);
             this.Hide();
         }
@@ -177,6 +175,10 @@ namespace CaroGame.Presentation
                 caroManager.CreateNewGame();
                 this.Hide();
             }
+        }
+
+        private void LoadGamePanel_CancelActionClickEvent(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -11,6 +11,7 @@ namespace CaroGame.Presentation
         private TwoTextPanel playerNamePanel;
         private SettingSizePanel settingSizePanel;
         private GameModePanel gameModePanel;
+        private LoadGamePanel loadGamePanel;
 
         private void DrawCommonSetting()
         {
@@ -107,6 +108,19 @@ namespace CaroGame.Presentation
             gameModePanel.LoadGameClickEvent += GameModePanel_LoadGameClickEvent;
             gameModePanel.CancelActionClickEvent += GameModePanel_CancelActionClickEvent;
             this.Controls.Add(gameModePanel);
+        }
+
+        private void DrawLoadGame()
+        {
+            loadGamePanel = new LoadGamePanel
+            {
+                Visible = false,
+                Location = new Point(0, 0)
+            };
+            loadGamePanel.CancelActionClickEvent += LoadGamePanel_CancelActionClickEvent;
+            //loadGamePanel.ButGameClickEvent = LoadGamePanel_ButGameClickEvent;
+            //loadGamePanel.ButDeleteClickEvent = LoadGamePanel_ButDeleteClickEvent;
+            this.Controls.Add(loadGamePanel);
         }
     }
 }

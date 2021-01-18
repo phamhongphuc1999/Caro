@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using CaroGame.CaroManagement;
 using CaroGame.Configuration;
 using CaroGame.ConnectionManagement;
+using CaroGame.Entities;
 using static CaroGame.Configuration.Config;
 using static CaroGame.Program;
 
@@ -40,7 +41,16 @@ namespace CaroGame.Presentation
 
         private void CreateNewGame()
         {
-            caroManager.CreateNewGame(Config.NAME_PLAYER1, Config.NAME_PLAYER2);
+            caroManager.CreateNewGame(playerPnl.Text1, playerPnl.Text2);
+            gameBoardPanel.BoardPnl = caroManager.CaroGameBoard;
+            gameBoardPanel.DrawCaroGameBoard();
+            this.AddFit(this.gameBoardPanel);
+            this.SetCurrentPanel(this.gameBoardPanel, Config.NAME.CARO);
+        }
+
+        private void LoadSaveGame(GameSaveData gameSaveData)
+        {
+            caroManager.LoadSaveGame(gameSaveData);
             gameBoardPanel.BoardPnl = caroManager.CaroGameBoard;
             gameBoardPanel.DrawCaroGameBoard();
             this.AddFit(this.gameBoardPanel);
@@ -59,7 +69,7 @@ namespace CaroGame.Presentation
 
         private void OverviewPnl_NewGameClickEvent(object sender, EventArgs e)
         {
-            this.SetCurrentPanel(gameModePnl, Config.NAME.OVERVIEW);
+            this.SetCurrentPanel(gameModePnl, Config.NAME.GAME_MODE);
         }
 
         private void GameModePnl_CancelActionClickEvent(object sender, EventArgs e)
@@ -113,8 +123,6 @@ namespace CaroGame.Presentation
                 playerPnl.Text1 = playerPnl.Text2 = "";
                 return;
             }
-            Config.NAME_PLAYER1 = playerPnl.Text1;
-            Config.NAME_PLAYER2 = playerPnl.Text2;
             if (Config.CURRENT_GAME_MODE != GameMode.LAN) CreateNewGame();
             else this.SetCurrentPanel(lanPnl, Config.NAME.LAN_CONNECTION);
         }
@@ -173,11 +181,16 @@ namespace CaroGame.Presentation
 
         private void LoadGamePanel_ButGameClickEvent(object sender, EventArgs e)
         {
-
+            Button but = sender as Button;
+            int index = (int)but.Tag - 1;
+            storageManager.CurrentIndex = index;
+            LoadSaveGame(storageManager.GameSaveList[index]);
         }
 
         private void LoadGamePanel_ButDeleteClickEvent(object sender, EventArgs e)
         {
+            Button but = sender as Button;
+            int index = (int)but.Tag - 1;
         }
     }
 }

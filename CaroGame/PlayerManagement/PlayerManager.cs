@@ -52,6 +52,22 @@ namespace CaroGame.PlayerManagement
             }
         }
 
+        public string PlayerName1
+        {
+            get
+            {
+                return player1.NamePlayer;
+            }
+        }
+
+        public string PlayerName2
+        {
+            get
+            {
+                return player2.NamePlayer;
+            }
+        }
+
         public Color PlayerColor1
         {
             get

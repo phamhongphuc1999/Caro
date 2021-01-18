@@ -14,6 +14,7 @@ using CaroGame.Configuration;
 using CaroGame.Entities;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using static CaroGame.Program;
 using System.IO;
 
 namespace CaroGame.StorageManagement
@@ -30,6 +31,18 @@ namespace CaroGame.StorageManagement
             current_index = -1;
             InitializeConfiguration();
             LoadGame();
+        }
+
+        public int CurrentIndex
+        {
+            get
+            {
+                return current_index;
+            }
+            set
+            {
+                current_index = value;
+            }
         }
 
         public int Count
@@ -97,8 +110,8 @@ namespace CaroGame.StorageManagement
             {
                 gameSaveModel.GameSaveList[current_index].Row = Config.NUMBER_OF_ROW;
                 gameSaveModel.GameSaveList[current_index].Column = Config.NUMBER_OF_COLUMN;
-                gameSaveModel.GameSaveList[current_index].PlayerName1 = Config.NAME_PLAYER1;
-                gameSaveModel.GameSaveList[current_index].PlayerName2 = Config.NAME_PLAYER2;
+                gameSaveModel.GameSaveList[current_index].PlayerName1 = caroManager.PlayerName1;
+                gameSaveModel.GameSaveList[current_index].PlayerName2 = caroManager.PlayerName2;
                 gameSaveModel.GameSaveList[current_index].CaroBoard = caroBoard;
                 gameSaveModel.GameSaveList[current_index].Turn = turn;
                 gameSaveModel.GameSaveList[current_index].GameMode = Config.CURRENT_GAME_MODE.ToString();
@@ -109,8 +122,8 @@ namespace CaroGame.StorageManagement
                 {
                     Column = Config.NUMBER_OF_COLUMN,
                     Row = Config.NUMBER_OF_ROW,
-                    PlayerName1 = Config.NAME_PLAYER1,
-                    PlayerName2 = Config.NAME_PLAYER2,
+                    PlayerName1 = caroManager.PlayerName1,
+                    PlayerName2 = caroManager.PlayerName2,
                     CaroBoard = caroBoard,
                     GameMode = Config.CURRENT_GAME_MODE.ToString(),
                     Turn = turn

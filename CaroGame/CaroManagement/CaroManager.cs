@@ -15,6 +15,10 @@ using CaroGame.Configuration;
 using CaroGame.PlayerManagement;
 using System.Windows.Forms;
 using CaroGame.CaroException;
+using CaroGame.Entities;
+using System.Collections.Generic;
+using System.Drawing;
+using static CaroGame.Program;
 
 namespace CaroGame.CaroManagement
 {
@@ -57,6 +61,22 @@ namespace CaroGame.CaroManagement
             }
         }
 
+        public string PlayerName1
+        {
+            get
+            {
+                return playerManager.PlayerName1;
+            }
+        }
+
+        public string PlayerName2
+        {
+            get
+            {
+                return playerManager.PlayerName2;
+            }
+        }
+
         public Panel CaroGameBoard
         {
             get
@@ -88,6 +108,7 @@ namespace CaroGame.CaroManagement
             caroBoardManager.InitCaroBoard(playerManager.CurrentPlayerName, playerManager.CurrentPlayerColor);
             caroBoardManager.DrawCaroBoard();
             winnerManager.NewGameHanlde(turn);
+            storageManager.CurrentIndex = -1;
         }
 
         public void CreateNewGame(string name1, string name2, int turn = 0)
@@ -98,6 +119,17 @@ namespace CaroGame.CaroManagement
             caroBoardManager.InitCaroBoard(playerManager.CurrentPlayerName, playerManager.CurrentPlayerColor);
             caroBoardManager.DrawCaroBoard();
             winnerManager.NewGameHanlde(turn);
+            storageManager.CurrentIndex = -1;
+        }
+
+        public void LoadSaveGame(GameSaveData gameSaveData)
+        {
+            playerManager.Set(gameSaveData.PlayerName1, gameSaveData.PlayerName2);
+            playerManager.Turn = gameSaveData.Turn;
+            actionManager.ResetAction();
+            caroBoardManager.InitCaroBoard(playerManager.CurrentPlayerName, playerManager.CurrentPlayerColor);
+            List<(Point, int)> result = caroBoardManager.DrawLoadCaroBoard(gameSaveData.CaroBoard, playerManager.PlayerColor1, playerManager.PlayerColor2);
+            winnerManager.LoadSaveGame(gameSaveData.Turn, result);
         }
 
         public string ConvertBoardToString()
