@@ -10,6 +10,8 @@
 //
 // ------------------------------------------------------
 
+using System;
+using System.Diagnostics;
 using System.Drawing;
 
 namespace CaroGame.Presentation
@@ -20,6 +22,11 @@ namespace CaroGame.Presentation
         {
             this.Size = new Size(400, 250);
             InitializeController();
+        }
+
+        private void GitLlbl_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/phamhongphuc1999/Caro");
         }
     }
 }

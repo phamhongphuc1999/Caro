@@ -1,5 +1,4 @@
 <h1 align="center">Caro Game</h1>
------
 
 ## Environment
 Visual Studio 2019, C# Winform Core
