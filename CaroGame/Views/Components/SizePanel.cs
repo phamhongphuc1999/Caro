@@ -9,7 +9,7 @@ namespace CaroGame.Views.Components
     public class SizePanel : Panel
     {
         public Action<object, EventArgs> ClickEvent;
-        public CaroButton backBut;
+        protected CaroButton backBut;
 
         public event EventHandler BackClickEvent
         {
@@ -50,8 +50,8 @@ namespace CaroGame.Views.Components
                 };
                 button.Click += (sender, e) =>
                 {
-                    SettingConfig.CaroWidth = size.Item1;
-                    SettingConfig.CaroHeight = size.Item2;
+                    SettingConfig.NUMBER_OF_COLUMN = size.Item1;
+                    SettingConfig.NUMBER_OF_ROW = size.Item2;
                     ClickEvent(sender, e);
                 };
                 this.Controls.Add(button);

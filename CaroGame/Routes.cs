@@ -21,6 +21,7 @@ namespace CaroGame
         public GameModePanel GameModeView { get; set; }
         public SizePanel SizeView { get; set; }
         public PlayerPanel PlayerView { get; set; }
+        public MainPanel MainView { get; set; }
         private Control currentControl;
 
         private event EventHandler<EventArgsRoute> routeingEvent;
@@ -30,16 +31,26 @@ namespace CaroGame
             remove { routeingEvent -= value; }
         }
 
+        private event EventHandler<EventArgsRoute> mainViewEvent;
+        public event EventHandler<EventArgsRoute> MainViewEvent
+        {
+            add { mainViewEvent += value; }
+            remove { mainViewEvent -= value; }
+        }
+
         public Routes(Form viewForm)
         {
             OverviewView = new OverviewPanel() { Visible = false };
             GameModeView = new GameModePanel() { Visible = false };
             SizeView = new SizePanel() { Visible = false };
             PlayerView = new PlayerPanel() { Visible = false };
+            MainView = new MainPanel() { Visible = false };
             currentControl = new Control();
             viewForm.Controls.Add(OverviewView);
             viewForm.Controls.Add(GameModeView);
             viewForm.Controls.Add(SizeView);
+            viewForm.Controls.Add(PlayerView);
+            viewForm.Controls.Add(MainView);
         }
 
         private void SetCurrentControl(Control control)
@@ -71,6 +82,11 @@ namespace CaroGame
             {
                 routeingEvent(PlayerView, e);
                 SetCurrentControl(PlayerView);
+            }
+            else if (router.Equals(Constants.MAIN))
+            {
+                mainViewEvent(MainView, e);
+                SetCurrentControl(MainView);
             }
             else throw new Exception();
         }

@@ -109,10 +109,10 @@ namespace CaroGame.PlayerManagement
             }
         }
 
-        public void Set(string playerName1, string playerName2)
+        public void SetPlayerName(string playerName, string player)
         {
-            player1.NamePlayer = playerName1;
-            player2.NamePlayer = playerName2;
+            if (player.Equals(Constants.PLAYER1)) player1.NamePlayer = playerName;
+            else player2.NamePlayer = playerName;
         }
     }
 }

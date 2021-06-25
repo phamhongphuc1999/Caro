@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using static CaroGame.Program;
 
 namespace CaroGame.Views
 {
@@ -13,6 +14,7 @@ namespace CaroGame.Views
         {
             CreateRoute();
             HandleEvent();
+            caroBoardManager.InitMainView(routes.MainView);
         }
 
         private void CreateRoute()
@@ -28,7 +30,14 @@ namespace CaroGame.Views
                     this.Text = e.title;
                 }
             };
+            routes.MainViewEvent += Routes_MainViewEvent;
             routes.Routing(Constants.OVERVIEW);
+        }
+
+        private void Routes_MainViewEvent(object sender, EventArgsRoute e)
+        {
+            caroBoardManager.InitCaroBoard();
+            caroBoardManager.DrawCaroBoard();
         }
 
         private void HandleEvent()
@@ -45,6 +54,9 @@ namespace CaroGame.Views
             // Size
             routes.SizeView.ClickEvent = SizeView_ActionClickEvent;
             routes.SizeView.BackClickEvent += SizeView_BackClickEvent;
+            // Player Setting
+            routes.PlayerView.BackClickEvent += PlayerView_BackClickEvent;
+            routes.PlayerView.NextClickEvent = PlayerView_ActionClickEvent;
         }
 
         #region Overview
@@ -90,12 +102,24 @@ namespace CaroGame.Views
         #region Size
         private void SizeView_ActionClickEvent(object sender, EventArgs e)
         {
-            MessageBox.Show("123");
+            routes.Routing(Constants.PLAYER_SETTING);
         }
 
         private void SizeView_BackClickEvent(object sender, EventArgs e)
         {
             
+        }
+        #endregion
+
+        #region Player Setting
+        private void PlayerView_BackClickEvent(object sender, EventArgs e)
+        {
+            routes.Routing(Constants.SIZE_SETTING);
+        }
+
+        private void PlayerView_ActionClickEvent(object sender, EventArgs e)
+        {
+            routes.Routing(Constants.MAIN);
         }
         #endregion
     }
