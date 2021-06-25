@@ -1,266 +1,73 @@
-﻿// --------------------CARO  GAME-----------------
-//
-//
-// Copyright (c) Microsoft. All Rights Reserved.
-// License under the Apache License, Version 2.0.
-//
-//
-// Product by: Pham Hong Phuc
-//
-//
-// ------------------------------------------------------
-
-using CaroGame.Configuration;
+﻿using CaroGame.Configuration;
+using CaroGame.Views.Components;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using static CaroGame.Program;
 
 namespace CaroGame.CaroManagement
 {
-    internal class CaroBoardManager
+    public class CaroBoardManager
     {
-        public Panel CaroBoardPnl
-        {
-            get;
-        }
+        private MainPanel MainView;
+        private Panel caroBoardView;
         private Dictionary<Point, Button> caroBoard;
-
         private TextBox playerTxt;
         private Label timeLbl;
-        private Timer caroTimer;
 
-        public Action<object, EventArgs> ButClick
+        public Action<object, EventArgs> ButClick;
+
+        public void InitMainView(MainPanel mainView)
         {
-            get; set;
+            MainView = mainView;
+            caroBoardView = mainView.caroBoardView;
+            playerTxt = mainView.playerTxt;
+            timeLbl = mainView.timeLbl;
         }
 
-        public Action<object, EventArgs> TimeTick
+        public void Turn()
         {
-            get; set;
+            playerTxt.Text = playerManager.CurrentPlayerName;
+            playerTxt.BackColor = playerManager.CurrentPlayerColor;
         }
 
-        public CaroBoardManager(TextBox playerTxt, Label timeLbl)
+        public void InitCaroBoard()
         {
-            this.playerTxt = playerTxt;
-            this.timeLbl = timeLbl;
-            this.caroTimer = new Timer
-            {
-                Interval = Config.INTERVAL
-            };
-            this.caroTimer.Tick += CaroTimer_Tick;
-
-            CaroBoardPnl = new Panel();
+            playerTxt.Text = playerManager.CurrentPlayerName;
+            playerTxt.BackColor = playerManager.CurrentPlayerColor;
             caroBoard = new Dictionary<Point, Button>();
-        }
-
-        public string TimeText
-        {
-            get
-            {
-                return timeLbl.Text;
-            }
-            set
-            {
-                timeLbl.Text = value;
-            }
-        }
-
-        public bool TimeEnable
-        {
-            get
-            {
-                return caroTimer.Enabled;
-            }
-            set
-            {
-                caroTimer.Enabled = value;
-            }
-        }
-
-        public void Turn(string playerName, Color playerColor)
-        {
-            playerTxt.Text = playerName;
-            playerTxt.BackColor = playerColor;
-            if (Config.IS_TIMER) timeLbl.Text = Config.TIME_TURN.ToString();
-        }
-
-        public void InitCaroBoard(string playerFirstName, Color playerColor)
-        {
-            int width = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
-            int height = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
-            playerTxt.Text = playerFirstName;
-            playerTxt.BackColor = playerColor;
-            CaroBoardPnl.Size = new Size(width, height);
-            if (Config.IS_TIMER)
-            {
-                timeLbl.Text = Config.TIME_TURN.ToString();
-                caroTimer.Start();
-            }
-            else timeLbl.Text = "No Timer";
-        }
-
-        public void ResizeCaroBoard(int oldRow, int oldColumn)
-        {
-            int width = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
-            int height = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
-            CaroBoardPnl.Size = new Size(width, height);
-            UpdateDictionary(oldRow, oldColumn);
-            RedrawCaroBoard(oldRow, oldColumn);
-        }
-
-        private void UpdateDictionary(int oldRow, int oldColumn)
-        {
-            if (oldRow > Config.NUMBER_OF_ROW)
-            {
-                for (int i = Config.NUMBER_OF_ROW; i < oldRow; i++)
-                {
-                    for (int j = 0; j < oldColumn; j++)
-                    {
-                        Point location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i);
-                        if (caroBoard.ContainsKey(location)) caroBoard.Remove(location);
-                    }
-                }
-            }
-            if (oldColumn < Config.NUMBER_OF_COLUMN)
-            {
-                for (int i = 0; i < oldRow; i++)
-                {
-                    for (int j = oldColumn; j < Config.NUMBER_OF_COLUMN; j++)
-                    {
-                        Point location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i);
-                        if (caroBoard.ContainsKey(location)) caroBoard.Remove(location);
-                    }
-                }
-            }
-        }
-
-        private void RedrawCaroBoard(int oldRow, int oldColumn)
-        {
-            if (oldRow < Config.NUMBER_OF_ROW)
-            {
-                for (int i = oldRow; i < Config.NUMBER_OF_ROW; i++)
-                {
-                    for (int j = 0; j < oldColumn; j++)
-                    {
-                        Button but = new Button()
-                        {
-                            Size = new Size(Config.CHESS_SIZE.Width, Config.CHESS_SIZE.Height),
-                            Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i),
-                            FlatStyle = FlatStyle.Standard
-                        };
-                        but.Click += But_Click;
-                        caroBoard.Add(new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
-                        CaroBoardPnl.Controls.Add(but);
-                    }
-                }
-                if (oldColumn >= Config.NUMBER_OF_COLUMN) return;
-            }
-            if (oldColumn < Config.NUMBER_OF_COLUMN)
-            {
-                for (int i = 0; i < oldRow; i++)
-                {
-                    for (int j = oldColumn; j < Config.NUMBER_OF_COLUMN; j++)
-                    {
-                        Button but = new Button()
-                        {
-                            Size = new Size(Config.CHESS_SIZE.Width, Config.CHESS_SIZE.Height),
-                            Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i),
-                            FlatStyle = FlatStyle.Standard
-                        };
-                        but.Click += But_Click;
-                        caroBoard.Add(new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
-                        CaroBoardPnl.Controls.Add(but);
-                    }
-                }
-                if (oldRow >= Config.NUMBER_OF_ROW) return;
-            }
-            for (int i = oldRow; i < Config.NUMBER_OF_ROW; i++)
-            {
-                for (int j = oldColumn; j < Config.NUMBER_OF_COLUMN; j++)
-                {
-                    Button but = new Button()
-                    {
-                        Size = new Size(Config.CHESS_SIZE.Width, Config.CHESS_SIZE.Height),
-                        Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i),
-                        FlatStyle = FlatStyle.Standard
-                    };
-                    but.Click += But_Click;
-                    caroBoard.Add(new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
-                    CaroBoardPnl.Controls.Add(but);
-                }
-            }
         }
 
         public void DrawCaroBoard()
         {
-            CaroBoardPnl.Controls.Clear();
-            CaroBoardPnl.Enabled = true;
+            caroBoardView.Controls.Clear();
+            caroBoardView.Enabled = true;
             caroBoard.Clear();
-            for (int i = 0; i < Config.NUMBER_OF_ROW; i++)
+            for (int i = 0; i < SettingConfig.NUMBER_OF_ROW; i++)
             {
-                for (int j = 0; j < Config.NUMBER_OF_COLUMN; j++)
+                for (int j = 0; j < SettingConfig.NUMBER_OF_COLUMN; j++)
                 {
                     Button but = new Button()
                     {
-                        Size = new Size(Config.CHESS_SIZE.Width, Config.CHESS_SIZE.Height),
-                        Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i),
+                        Size = new Size(Constants.CHESS_WIDTH, Constants.CHESS_HEIGHT),
+                        Location = new Point(Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i),
                         FlatStyle = FlatStyle.Standard
                     };
                     but.Click += But_Click;
-                    caroBoard.Add(new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
-                    CaroBoardPnl.Controls.Add(but);
+                    caroBoard.Add(new Point(Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i), but);
+                    caroBoardView.Controls.Add(but);
                 }
             }
         }
 
-        public List<(Point, int)> DrawLoadCaroBoard(string sCaroBoard, Color playerColor1, Color playerColor2)
+        public void CreateNewGame(int turn)
         {
-            CaroBoardPnl.Controls.Clear();
-            CaroBoardPnl.Enabled = true;
-            caroBoard.Clear();
-            List<(Point, int)> result = new List<(Point, int)>(); 
-            int count = 0;
-            for (int i = 0; i < Config.NUMBER_OF_ROW; i++)
-            {
-                for (int j = 0; j < Config.NUMBER_OF_COLUMN; j++)
-                {
-                    Button but = new Button()
-                    {
-                        Size = new Size(Config.CHESS_SIZE.Width, Config.CHESS_SIZE.Height),
-                        Location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i),
-                        FlatStyle = FlatStyle.Standard
-                    };
-                    if (sCaroBoard[count] == '1')
-                    {
-                        but.BackColor = playerColor1;
-                        result.Add((but.Location, 0));
-                    }
-                    else if (sCaroBoard[count] == '2')
-                    {
-                        but.BackColor = playerColor2;
-                        result.Add((but.Location, 1));
-                    }
-                    but.Click += But_Click;
-                    caroBoard.Add(new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i), but);
-                    CaroBoardPnl.Controls.Add(but);
-                    count++;
-                }
-            }
-            return result;
-        }
-
-        public string ConvertBoardToString(Color playerColor1, Color playerColor2)
-        {
-            string board = "";
-            foreach (KeyValuePair<Point, Button> item in caroBoard)
-            {
-                Button button = item.Value;
-                if (button.BackColor == playerColor1) board += "1";
-                else if (button.BackColor == playerColor2) board += "2";
-                else board += "0";
-            }
-            return board;
+            playerManager.Turn = turn;
+            actionManager.ResetAction();
+            InitCaroBoard();
+            DrawCaroBoard();
+            winnerManager.NewGameHanlde(turn);
         }
 
         public void UndoGame(int X, int Y, string playerName)
@@ -279,9 +86,16 @@ namespace CaroGame.CaroManagement
             but.FlatStyle = FlatStyle.Standard;
         }
 
-        public void Winner(Button eventBut, WinnerManager winnerManager)
+        private void ExecuteNewGame()
         {
-            CaroBoardPnl.Enabled = false;
+            DialogResult result = MessageBox.Show("Bạn có muốn chơi trò chơi mới?", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK) CreateNewGame(playerManager.Turn);
+            throw new StayOldGameException();
+        }
+
+        private void DrawWinner(Button eventBut)
+        {
+            caroBoardView.Enabled = false;
             int[] check = winnerManager.check;
             if (check[0] == 1)
             {
@@ -306,19 +120,53 @@ namespace CaroGame.CaroManagement
             eventBut.FlatStyle = FlatStyle.Flat;
         }
 
-        public void EndGame()
+        private void Winner(Button eventBut)
         {
-            CaroBoardPnl.Enabled = false;
+            DrawWinner(eventBut);
+            if (SettingConfig.GameMode == Constants.TWO_PLAYER_GAME_MODE)
+            {
+                MessageBox.Show($"Người chơi {playerManager.CurrentPlayerName} chiến thắng", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    ExecuteNewGame();
+                }
+                catch { }
+            }
+        }
+
+        private void EndGame()
+        {
+            caroBoardView.Enabled = false;
+            if (SettingConfig.GameMode == Constants.TWO_PLAYER_GAME_MODE)
+            {
+                MessageBox.Show("Trò chơi kết thúc, không ai giành chiến thắng", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    ExecuteNewGame();
+                }
+                catch { }
+            }
         }
 
         private void But_Click(object sender, EventArgs e)
         {
-            this.ButClick(sender, e);
-        }
-
-        private void CaroTimer_Tick(object sender, EventArgs e)
-        {
-            this.TimeTick(sender, e);
+            Button but = sender as Button;
+            if (!winnerManager.CheckExtist(but.Location))
+            {
+                int X = but.Location.X;
+                int Y = but.Location.Y;
+                but.BackColor = playerManager.CurrentPlayerColor;
+                winnerManager.DrawCaroBoard(but.Location);
+                actionManager.UpdateTurn(but);
+                if (winnerManager.IsWiner(X, Y).Result) Winner(but);
+                else if (winnerManager.IsEndGame()) EndGame();
+                else
+                {
+                    playerManager.Turn = playerManager.Turn + 1;
+                    winnerManager.Turn = 1 - winnerManager.Turn;
+                    Turn();
+                }
+            }
         }
     }
 }

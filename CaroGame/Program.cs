@@ -1,20 +1,7 @@
-// --------------------CARO  GAME-----------------
-//
-//
-// Copyright (c) Microsoft. All Rights Reserved.
-// License under the Apache License, Version 2.0.
-//
-//
-// Product by: Pham Hong Phuc
-//
-//
-// ------------------------------------------------------
-
-using CaroGame.CaroManagement;
+﻿using CaroGame.CaroManagement;
 using CaroGame.Configuration;
-using CaroGame.Presentation;
-using CaroGame.SoundManagement;
-using CaroGame.StorageManagement;
+using CaroGame.PlayerManagement;
+using CaroGame.Views;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -27,32 +14,34 @@ namespace CaroGame
         public static SettingForm settingForm;
         public static AboutForm aboutForm;
 
+        public static PlayerManager playerManager;
+        public static CaroBoardManager caroBoardManager;
+        public static WinnerManager winnerManager;
+        public static ActionManager actionManager;
         public static SoundManager soundManager;
-        public static CaroManager caroManager;
-        public static StorageManager storageManager;
 
         /// <summary>
-        ///  The main entry point for the application.
+        /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Icon mainIcon = new Icon("../../Resources/Images/caro.ico");
+            Icon settingIcon = new Icon("../../Resources/Images/setting.ico");
+            Icon aboutIcon = new Icon("../../Resources/Images/about.ico");
+
+            playerManager = new PlayerManager();
+            caroBoardManager = new CaroBoardManager();
+            winnerManager = new WinnerManager();
+            actionManager = new ActionManager();
+            soundManager = new SoundManager();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            storageManager = new StorageManager();
-
-            Icon mainIcon = new Icon("../../../Resources/Image/caro.ico");
-            Icon settingIcon = new Icon("../../../Resources/Image/setting.ico");
-            Icon aboutIcon = new Icon("../../../Resources/Image/about.ico");
-
-            mainForm = new MainForm(Config.NAME.OVERVIEW, mainIcon);
-            settingForm = new SettingForm(Config.NAME.SETTING, settingIcon);
-            aboutForm = new AboutForm(Config.NAME.ABOUT, aboutIcon);
-
-            soundManager = new SoundManager();
-            soundManager.StartConfig();
+            mainForm = new MainForm(Constants.OVERVIEW, mainIcon);
+            settingForm = new SettingForm(Constants.MAIN_SETTING, settingIcon);
+            aboutForm = new AboutForm(Constants.ABOUT, aboutIcon);
 
             Application.Run(mainForm);
         }

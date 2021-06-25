@@ -1,28 +1,13 @@
-﻿// --------------------CARO  GAME-----------------
-//
-//
-// Copyright (c) Microsoft. All Rights Reserved.
-// License under the Apache License, Version 2.0.
-//
-//
-// Product by: Pham Hong Phuc
-//
-//
-// ------------------------------------------------------
-
-using CaroGame.Configuration;
+﻿using CaroGame.Configuration;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 
 namespace CaroGame.CaroManagement
 {
-    internal class WinnerManager
+    public class WinnerManager
     {
-        public int Turn
-        {
-            get; set;
-        }
+        public int Turn { get; set; }
         private Dictionary<Point, int> caroBoard;
         public Point[] arrRow, arrColumn, arrMainDiagonal, arrSubDiagomal;
         public int[] check;
@@ -39,24 +24,24 @@ namespace CaroGame.CaroManagement
 
         public void ResetDictionary(int oldRow, int oldColumn)
         {
-            if (oldRow > Config.NUMBER_OF_ROW)
+            if (oldRow > SettingConfig.NUMBER_OF_ROW)
             {
-                for (int i = Config.NUMBER_OF_ROW; i < oldRow; i++)
+                for (int i = SettingConfig.NUMBER_OF_ROW; i < oldRow; i++)
                 {
                     for (int j = 0; j < oldColumn; j++)
                     {
-                        Point location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i);
+                        Point location = new Point(Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i);
                         if (caroBoard.ContainsKey(location)) caroBoard.Remove(location);
                     }
                 }
             }
-            if (oldColumn > Config.NUMBER_OF_COLUMN)
+            if (oldColumn > SettingConfig.NUMBER_OF_COLUMN)
             {
                 for (int i = 0; i < oldRow; i++)
                 {
-                    for (int j = Config.NUMBER_OF_COLUMN; j < oldColumn; j++)
+                    for (int j = SettingConfig.NUMBER_OF_COLUMN; j < oldColumn; j++)
                     {
-                        Point location = new Point(Config.CHESS_SIZE.Width * j, Config.CHESS_SIZE.Height * i);
+                        Point location = new Point(Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i);
                         if (caroBoard.ContainsKey(location)) caroBoard.Remove(location);
                     }
                 }
@@ -80,7 +65,7 @@ namespace CaroGame.CaroManagement
             this.Turn = turn % 2;
             check[0] = check[1] = check[2] = check[3] = 0;
             caroBoard.Clear();
-            foreach((Point, int) item in listChess)
+            foreach ((Point, int) item in listChess)
                 caroBoard.Add(item.Item1, item.Item2);
         }
 
@@ -113,7 +98,7 @@ namespace CaroGame.CaroManagement
 
         public bool IsEndGame()
         {
-            return caroBoard.Count == Config.NUMBER_OF_ROW * Config.NUMBER_OF_COLUMN - 1;
+            return caroBoard.Count == SettingConfig.NUMBER_OF_ROW * SettingConfig.NUMBER_OF_COLUMN - 1;
         }
 
         public async Task<bool> IsWiner(int X, int Y)
@@ -133,7 +118,7 @@ namespace CaroGame.CaroManagement
         private async Task<bool> IsWinRow(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
-            for (int i = X - Config.CHESS_SIZE.Width; i >= 0; i = i - Config.CHESS_SIZE.Width)
+            for (int i = X - Constants.CHESS_WIDTH; i >= 0; i = i - Constants.CHESS_WIDTH)
             {
                 Point temp = new Point(i, Y);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -148,8 +133,8 @@ namespace CaroGame.CaroManagement
                 }
                 else break;
             }
-            int MAX_X = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
-            for (int i = X + Config.CHESS_SIZE.Width; i <= MAX_X; i = i + Config.CHESS_SIZE.Width)
+            int MAX_X = SettingConfig.NUMBER_OF_COLUMN * Constants.CHESS_WIDTH;
+            for (int i = X + Constants.CHESS_WIDTH; i <= MAX_X; i = i + Constants.CHESS_WIDTH)
             {
                 Point temp = new Point(i, Y);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -170,7 +155,7 @@ namespace CaroGame.CaroManagement
         private async Task<bool> IsWinColumn(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
-            for (int i = Y - Config.CHESS_SIZE.Height; i >= 0; i = i - Config.CHESS_SIZE.Height)
+            for (int i = Y - Constants.CHESS_HEIGHT; i >= 0; i = i - Constants.CHESS_HEIGHT)
             {
                 Point temp = new Point(X, i);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -185,8 +170,8 @@ namespace CaroGame.CaroManagement
                 }
                 else break;
             }
-            int MAX_Y = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
-            for (int i = Y + Config.CHESS_SIZE.Height; i <= MAX_Y; i = i + Config.CHESS_SIZE.Height)
+            int MAX_Y = SettingConfig.NUMBER_OF_ROW * Constants.CHESS_HEIGHT;
+            for (int i = Y + Constants.CHESS_HEIGHT; i <= MAX_Y; i = i + Constants.CHESS_HEIGHT)
             {
                 Point temp = new Point(X, i);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -207,8 +192,8 @@ namespace CaroGame.CaroManagement
         private async Task<bool> IsWinMainDiagonal(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
-            for (int i = X - Config.CHESS_SIZE.Width, j = Y - Config.CHESS_SIZE.Height;
-                i >= 0 && j >= 0; i = i - Config.CHESS_SIZE.Width, j = j - Config.CHESS_SIZE.Height)
+            for (int i = X - Constants.CHESS_WIDTH, j = Y - Constants.CHESS_HEIGHT;
+                i >= 0 && j >= 0; i = i - Constants.CHESS_WIDTH, j = j - Constants.CHESS_HEIGHT)
             {
                 Point temp = new Point(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -223,10 +208,10 @@ namespace CaroGame.CaroManagement
                 }
                 else break;
             }
-            int MAX_X = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
-            int MAX_Y = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
-            for (int i = X + Config.CHESS_SIZE.Width, j = Y + Config.CHESS_SIZE.Height;
-                i <= MAX_X && j < MAX_Y; i = i + Config.CHESS_SIZE.Width, j = j + Config.CHESS_SIZE.Height)
+            int MAX_X = SettingConfig.NUMBER_OF_COLUMN * Constants.CHESS_WIDTH;
+            int MAX_Y = SettingConfig.NUMBER_OF_ROW * Constants.CHESS_HEIGHT;
+            for (int i = X + Constants.CHESS_WIDTH, j = Y + Constants.CHESS_HEIGHT;
+                i <= MAX_X && j < MAX_Y; i = i + Constants.CHESS_WIDTH, j = j + Constants.CHESS_HEIGHT)
             {
                 Point temp = new Point(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -247,9 +232,9 @@ namespace CaroGame.CaroManagement
         private async Task<bool> IsWinSubDiagonal(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
-            int MAX_X = Config.NUMBER_OF_COLUMN * Config.CHESS_SIZE.Width;
-            for (int i = X + Config.CHESS_SIZE.Width, j = Y - Config.CHESS_SIZE.Height;
-                i <= MAX_X && j >= 0; i = i + Config.CHESS_SIZE.Width, j = j - Config.CHESS_SIZE.Height)
+            int MAX_X = SettingConfig.NUMBER_OF_COLUMN * Constants.CHESS_WIDTH;
+            for (int i = X + Constants.CHESS_WIDTH, j = Y - Constants.CHESS_HEIGHT;
+                i <= MAX_X && j >= 0; i = i + Constants.CHESS_WIDTH, j = j - Constants.CHESS_HEIGHT)
             {
                 Point temp = new Point(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -264,9 +249,9 @@ namespace CaroGame.CaroManagement
                 }
                 else break;
             }
-            int MAX_Y = Config.NUMBER_OF_ROW * Config.CHESS_SIZE.Height;
-            for (int i = X - Config.CHESS_SIZE.Width, j = Y + Config.CHESS_SIZE.Height;
-                i >= 0 && j <= MAX_Y; i = i - Config.CHESS_SIZE.Width, j = j + Config.CHESS_SIZE.Height)
+            int MAX_Y = SettingConfig.NUMBER_OF_ROW * Constants.CHESS_HEIGHT;
+            for (int i = X - Constants.CHESS_WIDTH, j = Y + Constants.CHESS_HEIGHT;
+                i >= 0 && j <= MAX_Y; i = i - Constants.CHESS_WIDTH, j = j + Constants.CHESS_HEIGHT)
             {
                 Point temp = new Point(i, j);
                 if (caroBoard.TryGetValue(temp, out player))
