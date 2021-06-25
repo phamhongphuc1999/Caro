@@ -35,16 +35,17 @@ namespace CaroGame.Views.Components
             int Y = 10;
             foreach ((int, int) size in Constants.CARO_SIZE)
             {
-                int X = 40 + 140 * index;
+                int X = 29 + 129 * index;
                 if(X > Constants.WIDTH_STANDARD)
                 {
                     index = 0;
-                    X = 40;
-                    Y += 100;
+                    X = 29;
+                    Y += 120;
                 }
                 CaroButton button = new CaroButton
                 {
-                    Size = new Size(100, 75),
+                    Size = new Size(100, 100),
+                    Font = new Font("Time New Roman", 15),
                     Location = new Point(X, Y),
                     Text = string.Format("{0} x {1}", size.Item1, size.Item2)
                 };
@@ -64,9 +65,9 @@ namespace CaroGame.Views.Components
             DrawSizeButtonPanel();
             backBut = new CaroButton()
             {
-                Location = new Point(90, 280),
+                Location = new Point(20, 300),
                 Text = "Back",
-                Size = new Size(90, 40)
+                Size = new Size(70, 30)
             };
             this.Controls.Add(backBut);
         }

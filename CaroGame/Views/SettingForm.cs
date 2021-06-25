@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Drawing;
 
 namespace CaroGame.Views
 {
-    public partial class SettingForm : Form
+    public partial class SettingForm : BaseForm
     {
-        public SettingForm()
+        public SettingForm(string title, Icon icon) : base(title, icon)
         {
-            InitializeComponent();
+            InitializeComponent(title, icon);
         }
     }
 }

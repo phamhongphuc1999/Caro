@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace CaroGame.Views.Components
 {
-    public class GameModePanel: Panel
+    public class GameModePanel: BaseCaroPanel
     {
         protected CaroButton twoPlayerBut, lanModeBut, aiModeBut, loadgameBut;
         protected CaroButton backBut;
@@ -71,33 +71,32 @@ namespace CaroGame.Views.Components
                 backBut.Click -= value;
             }
         }
-        
+
         public GameModePanel(): base()
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
-            DrawBasePanel();
         }
 
-        private void DrawBasePanel()
+        protected override void DrawBasePanel()
         {
             twoPlayerBut = new CaroButton()
             {
                 Text = "Two Player",
-                Size = new Size(144, 55),
-                Location = new Point(42, 45)
+                Size = new Size(130, 40),
+                Location = new Point(22, 45)
             };
             lanModeBut = new CaroButton()
             {
                 Text = "LAN Mode",
-                Size = new Size(144, 55),
-                Location = new Point(228, 45)
+                Size = new Size(130, 40),
+                Location = new Point(202, 45)
             };
             aiModeBut = new CaroButton()
             {
                 Name = "butModeAI",
                 Text = "One Player",
-                Size = new Size(144, 55),
-                Location = new Point(414, 45)
+                Size = new Size(130, 40),
+                Location = new Point(382, 45)
             };
             orLbl = new Label()
             {
@@ -108,15 +107,15 @@ namespace CaroGame.Views.Components
             };
             loadgameBut = new CaroButton()
             {
-                Location = new Point(225, 200),
+                Location = new Point(202, 200),
                 Text = "Load Game",
-                Size = new Size(150, 55)
+                Size = new Size(130, 40)
             };
             backBut = new CaroButton()
             {
-                Location = new Point(90, 280),
+                Location = new Point(20, 300),
                 Text = "Back",
-                Size = new Size(90, 40)
+                Size = new Size(70, 30)
             };
             this.Controls.Add(twoPlayerBut);
             this.Controls.Add(lanModeBut);

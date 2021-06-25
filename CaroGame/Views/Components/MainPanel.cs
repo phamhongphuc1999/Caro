@@ -5,18 +5,13 @@ using System.Windows.Forms;
 
 namespace CaroGame.Views.Components
 {
-    public class MainPanel: Panel
+    public class MainPanel : BaseCaroPanel
     {
         public CaroMenu mainMenu;
         public TextBox playerTxt;
         protected CaroButton undoBut, redoBut;
         public Label timeLbl;
         public Panel caroBoardView;
-
-        public MainPanel(): base()
-        {
-            DrawBasePanel();
-        }
 
         public event EventHandler UndoClickEvent
         {
@@ -90,21 +85,23 @@ namespace CaroGame.Views.Components
             }
         }
 
-        private void DrawBasePanel()
+        public MainPanel() : base(true) { }
+
+        protected override void DrawBasePanel()
         {
             undoBut = new CaroButton()
             {
                 Text = "Undo",
-                Size = new Size(120, 35),
+                Size = new Size(100, 30),
             };
             redoBut = new CaroButton()
             {
                 Text = "Redo",
-                Size = new Size(120, 35)
+                Size = new Size(100, 30)
             };
             playerTxt = new TextBox()
             {
-                Width = 240,
+                Width = 200,
                 ReadOnly = true
             };
             timeLbl = new Label()
@@ -124,7 +121,9 @@ namespace CaroGame.Views.Components
             };
             caroBoardView = new Panel()
             {
-                Location = new Point(0, 75)
+                Location = new Point(0, 75),
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink
             };
             caroBoardView.SizeChanged += CaroBoardView_SizeChanged;
             this.Controls.Add(undoBut);
@@ -137,10 +136,29 @@ namespace CaroGame.Views.Components
 
         private void CaroBoardView_SizeChanged(object sender, EventArgs e)
         {
-            this.Size = new Size(this.caroBoardView.Width, this.caroBoardView.Height + 75);
-            playerTxt.Location = new Point(this.Width - 240, 0);
-            undoBut.Location = new Point(this.Width - 120, 35);
-            redoBut.Location = new Point(this.Width - 240, 35);
+            Panel panel = sender as Panel;
+            if (panel != null)
+            {
+                int X_MIN = panel.Width - 200;
+                int X_OTHER = panel.Width - 100;
+                if (X_MIN < 0)
+                {
+                    playerTxt.Width = 100;
+                    undoBut.Width = 50;
+                    redoBut.Width = 50;
+                    X_MIN = panel.Width - 100;
+                    X_OTHER = panel.Width - 50;
+                }
+                else
+                {
+                    playerTxt.Width = 200;
+                    undoBut.Width = 100;
+                    redoBut.Width = 100;
+                }
+                playerTxt.Location = new Point(X_MIN, 0);
+                undoBut.Location = new Point(X_MIN, 35);
+                redoBut.Location = new Point(X_OTHER, 35);
+            }
         }
     }
 }

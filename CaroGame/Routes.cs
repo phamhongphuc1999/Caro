@@ -86,6 +86,7 @@ namespace CaroGame
             else if (router.Equals(Constants.MAIN))
             {
                 mainViewEvent(MainView, e);
+                routeingEvent(MainView, e);
                 SetCurrentControl(MainView);
             }
             else throw new Exception();

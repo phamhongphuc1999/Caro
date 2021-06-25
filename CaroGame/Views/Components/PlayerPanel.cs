@@ -81,15 +81,15 @@ namespace CaroGame.Views.Components
             };
             backBut = new CaroButton()
             {
-                Location = new Point(90, 280),
+                Location = new Point(20, 300),
                 Text = "Back",
-                Size = new Size(90, 40)
+                Size = new Size(70, 30)
             };
             nextBut = new CaroButton()
             {
-                Location = new Point(420, 280),
+                Location = new Point(455, 300),
                 Text = "Next",
-                Size = new Size(90, 40)
+                Size = new Size(70, 30)
             };
             nextBut.Click += NextBut_Click;
             this.Controls.Add(lbl1);

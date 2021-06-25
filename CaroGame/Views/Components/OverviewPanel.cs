@@ -2,11 +2,10 @@
 using CaroGame.Controls;
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 
 namespace CaroGame.Views.Components
 {
-    public class OverviewPanel: Panel
+    public class OverviewPanel: BaseCaroPanel
     {
         protected CaroButton newGameBut, guideBut;
 
@@ -37,21 +36,20 @@ namespace CaroGame.Views.Components
         public OverviewPanel(): base()
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
-            DrawBasePanel();
         }
 
-        public void DrawBasePanel()
+        protected override void DrawBasePanel()
         {
             newGameBut = new CaroButton()
             {
                 Text = "New Game",
-                Size = new Size(150, 65),
+                Size = new Size(130, 50),
                 Location = new Point(100, 155)
             };
             guideBut = new CaroButton()
             {
                 Text = "Guide",
-                Size = new Size(150, 65),
+                Size = new Size(130, 50),
                 Location = new Point(350, 155)
             };
             this.Controls.Add(newGameBut);

@@ -32,7 +32,7 @@ namespace CaroGame.CaroManagement
             int height = SettingConfig.NUMBER_OF_ROW * Constants.CHESS_HEIGHT;
             playerTxt.Text = playerManager.CurrentPlayerName;
             playerTxt.BackColor = playerManager.CurrentPlayerColor;
-            caroBoardView.Size = new Size(width, height);
+            //caroBoardView.Size = new Size(width, height);
             caroBoard = new Dictionary<Point, Button>();
         }
 
@@ -48,7 +48,7 @@ namespace CaroGame.CaroManagement
                     Button but = new Button()
                     {
                         Size = new Size(Constants.CHESS_WIDTH, Constants.CHESS_HEIGHT),
-                        Location = new Point(Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i),
+                        Location = new Point(2 + Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i),
                         FlatStyle = FlatStyle.Standard
                     };
                     but.Click += But_Click;
@@ -60,7 +60,7 @@ namespace CaroGame.CaroManagement
 
         private void But_Click(object sender, EventArgs e)
         {
-            this.ButClick(sender, e);
+            MessageBox.Show(MainView.Width.ToString());
         }
     }
 }

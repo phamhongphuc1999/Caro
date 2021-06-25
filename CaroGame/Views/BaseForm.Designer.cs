@@ -1,4 +1,6 @@
 ﻿using CaroGame.Configuration;
+using System.ComponentModel;
+using System.Windows.Forms;
 using System.Drawing;
 
 namespace CaroGame.Views
@@ -8,7 +10,7 @@ namespace CaroGame.Views
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -24,20 +26,22 @@ namespace CaroGame.Views
         }
 
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent(string title, Icon icon)
+        protected virtual void InitializeComponent(string title, Icon icon)
         {
             this.Text = title;
             this.Icon = icon;
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
+            this.components = new Container();
+            this.AutoScaleMode = AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.Opacity = 1;
         }
-
         #endregion
     }
 }

@@ -10,7 +10,7 @@ namespace CaroGame.Views
     {
         private Routes routes;
 
-        public MainForm(string title, Icon icon): base(title, icon)
+        public MainForm(string title, Icon icon) : base(title, icon)
         {
             CreateRoute();
             HandleEvent();
@@ -23,10 +23,8 @@ namespace CaroGame.Views
             routes.RoutingEvent += (sender, e) =>
             {
                 Control control = sender as Control;
-                if(control != null)
+                if (control != null)
                 {
-                    this.Width = control.Width;
-                    this.Height = control.Height;
                     this.Text = e.title;
                 }
             };
@@ -62,7 +60,7 @@ namespace CaroGame.Views
         #region Overview
         private void OverviewView_GuideClickEvent(object sender, EventArgs e)
         {
-            
+
         }
 
         private void OverviewView_NewGameClickEvent(object sender, EventArgs e)
@@ -74,7 +72,7 @@ namespace CaroGame.Views
         #region Game Mode
         private void GameModeView_LoadGameClickEvent(object sender, EventArgs e)
         {
-            
+
         }
 
         private void GameModeView_AIModeClickEvent(object sender, EventArgs e)
@@ -84,7 +82,7 @@ namespace CaroGame.Views
 
         private void GameModeView_LanModeClickEvent(object sender, EventArgs e)
         {
-            
+
         }
 
         private void GameModeView_TwoPlayerClickEvent(object sender, EventArgs e)
@@ -107,7 +105,7 @@ namespace CaroGame.Views
 
         private void SizeView_BackClickEvent(object sender, EventArgs e)
         {
-            
+            routes.Routing(Constants.GAME_MODE);
         }
         #endregion
 
