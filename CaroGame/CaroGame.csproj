@@ -49,8 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaroException.cs" />
+    <Compile Include="CaroManagement\ActionManager.cs" />
     <Compile Include="CaroManagement\CaroBoardManager.cs" />
-    <Compile Include="CaroManagement\CaroManager.cs" />
     <Compile Include="CaroManagement\WinnerManager.cs" />
     <Compile Include="Configuration\Constants.cs" />
     <Compile Include="Configuration\SettingConfig.cs" />
@@ -71,7 +72,9 @@
     <Compile Include="PlayerManagement\PlayerManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Routes.cs" />
+    <Compile Include="Routers\BaseRoutes.cs" />
+    <Compile Include="Routers\Routes.cs" />
+    <Compile Include="Routers\SettingRoutes.cs" />
     <Compile Include="SoundManager.cs" />
     <Compile Include="Views\AboutForm.cs">
       <SubType>Form</SubType>
@@ -108,6 +111,9 @@
     </Compile>
     <Compile Include="Views\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Components\SettingComponents\MainSettingPanel.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\SettingForm.cs">
       <SubType>Form</SubType>

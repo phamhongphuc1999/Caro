@@ -3,26 +3,15 @@ using CaroGame.Views.Components;
 using System;
 using System.Windows.Forms;
 
-namespace CaroGame
+namespace CaroGame.Routers
 {
-    public class EventArgsRoute : EventArgs
-    {
-        public string title { get; private set; }
-
-        public EventArgsRoute(string router) : base()
-        {
-            this.title = router;
-        }
-    }
-
-    public class Routes
+    public class Routes : BaseRoutes
     {
         public OverviewPanel OverviewView { get; set; }
         public GameModePanel GameModeView { get; set; }
         public SizePanel SizeView { get; set; }
         public PlayerPanel PlayerView { get; set; }
         public MainPanel MainView { get; set; }
-        private Control currentControl;
 
         private event EventHandler<EventArgsRoute> routeingEvent;
         public event EventHandler<EventArgsRoute> RoutingEvent
@@ -38,26 +27,18 @@ namespace CaroGame
             remove { mainViewEvent -= value; }
         }
 
-        public Routes(Form viewForm)
+        public Routes(Form viewForm) : base()
         {
             OverviewView = new OverviewPanel() { Visible = false };
             GameModeView = new GameModePanel() { Visible = false };
             SizeView = new SizePanel() { Visible = false };
             PlayerView = new PlayerPanel() { Visible = false };
             MainView = new MainPanel() { Visible = false };
-            currentControl = new Control();
             viewForm.Controls.Add(OverviewView);
             viewForm.Controls.Add(GameModeView);
             viewForm.Controls.Add(SizeView);
             viewForm.Controls.Add(PlayerView);
             viewForm.Controls.Add(MainView);
-        }
-
-        private void SetCurrentControl(Control control)
-        {
-            if (currentControl != null) currentControl.Visible = false;
-            currentControl = control;
-            currentControl.Visible = true;
         }
 
         public void Routing(string router)

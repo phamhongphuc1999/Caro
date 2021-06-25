@@ -27,5 +27,14 @@
         public readonly static string SIZE_SETTING = "Size Setting";
         public readonly static string PLAYER_SETTING = "Player Setting";
         public readonly static string MAIN = "Caro";
+
+        public readonly static string MAIN_SETTING = "Setting";
+
+        public readonly static string ABOUT = "about";
+        public readonly static string ABOUT_DETAIL = "\n" +
+                "          Devepoler: Phạm Hồng Phúc\n" +
+                "          Country: Việt Nam\n" +
+                "          Game: Caro Game\n" +
+                "          Version: v2.0";
     }
 }

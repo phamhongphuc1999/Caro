@@ -32,7 +32,7 @@ namespace CaroGame.Views.Components
         public void DrawSizeButtonPanel()
         {
             int index = 0;
-            int Y = 10;
+            int Y = 20;
             foreach ((int, int) size in Constants.CARO_SIZE)
             {
                 int X = 29 + 129 * index;
@@ -40,11 +40,11 @@ namespace CaroGame.Views.Components
                 {
                     index = 0;
                     X = 29;
-                    Y += 120;
+                    Y += 80;
                 }
                 CaroButton button = new CaroButton
                 {
-                    Size = new Size(100, 100),
+                    Size = new Size(100, 60),
                     Font = new Font("Time New Roman", 15),
                     Location = new Point(X, Y),
                     Text = string.Format("{0} x {1}", size.Item1, size.Item2)

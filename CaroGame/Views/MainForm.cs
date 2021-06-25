@@ -1,4 +1,5 @@
 ﻿using CaroGame.Configuration;
+using CaroGame.Routers;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -34,8 +35,7 @@ namespace CaroGame.Views
 
         private void Routes_MainViewEvent(object sender, EventArgsRoute e)
         {
-            caroBoardManager.InitCaroBoard();
-            caroBoardManager.DrawCaroBoard();
+            caroBoardManager.CreateNewGame(playerManager.Turn);
         }
 
         private void HandleEvent()
@@ -55,6 +55,13 @@ namespace CaroGame.Views
             // Player Setting
             routes.PlayerView.BackClickEvent += PlayerView_BackClickEvent;
             routes.PlayerView.NextClickEvent = PlayerView_ActionClickEvent;
+            // Main
+            routes.MainView.UndoClickEvent += MainView_UndoClickEvent;
+            routes.MainView.RedoClickEvent += MainView_RedoClickEvent;
+            routes.MainView.NewGameToolClickEvent += MainView_NewGameToolClickEvent;
+            routes.MainView.QuickItemClickEvent += MainView_QuickItemClickEvent;
+            routes.MainView.SettingItemClickEvent += MainView_SettingItemClickEvent;
+            routes.MainView.AboutItemClickEvent += MainView_AboutItemClickEvent;
         }
 
         #region Overview
@@ -118,6 +125,58 @@ namespace CaroGame.Views
         private void PlayerView_ActionClickEvent(object sender, EventArgs e)
         {
             routes.Routing(Constants.MAIN);
+        }
+        #endregion
+
+        #region Main
+        private void MainView_AboutItemClickEvent(object sender, EventArgs e)
+        {
+            aboutForm.ShowDialog();
+        }
+
+        private void MainView_SettingItemClickEvent(object sender, EventArgs e)
+        {
+            settingForm.ShowDialog();
+        }
+
+        private void MainView_QuickItemClickEvent(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void MainView_NewGameToolClickEvent(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void MainView_RedoClickEvent(object sender, EventArgs e)
+        {
+            try
+            {
+                Button but = actionManager.AddRedo();
+                winnerManager.RedoHandle(but.Location.X, but.Location.Y);
+                caroBoardManager.RedoGame(but.Location.X, but.Location.Y, playerManager.CurrentPlayerName, playerManager.CurrentPlayerColor);
+                playerManager.Turn = playerManager.Turn + 1;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void MainView_UndoClickEvent(object sender, EventArgs e)
+        {
+            try
+            {
+                Button but = actionManager.AddUndo();
+                winnerManager.UndoHandle(but.Location.X, but.Location.Y);
+                playerManager.Turn = playerManager.Turn + 1;
+                caroBoardManager.UndoGame(but.Location.X, but.Location.Y, playerManager.CurrentPlayerName);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
         #endregion
     }

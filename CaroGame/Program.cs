@@ -10,9 +10,14 @@ namespace CaroGame
 {
     static class Program
     {
+        public static MainForm mainForm;
+        public static SettingForm settingForm;
+        public static AboutForm aboutForm;
+
         public static PlayerManager playerManager;
-        public static CaroManager caroManager;
         public static CaroBoardManager caroBoardManager;
+        public static WinnerManager winnerManager;
+        public static ActionManager actionManager;
         public static SoundManager soundManager;
 
         /// <summary>
@@ -26,13 +31,19 @@ namespace CaroGame
             Icon aboutIcon = new Icon("../../Resources/Images/about.ico");
 
             playerManager = new PlayerManager();
-            caroManager = new CaroManager();
             caroBoardManager = new CaroBoardManager();
+            winnerManager = new WinnerManager();
+            actionManager = new ActionManager();
             soundManager = new SoundManager();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm(Constants.OVERVIEW, mainIcon));
+
+            mainForm = new MainForm(Constants.OVERVIEW, mainIcon);
+            settingForm = new SettingForm(Constants.MAIN_SETTING, settingIcon);
+            aboutForm = new AboutForm(Constants.ABOUT, aboutIcon);
+
+            Application.Run(mainForm);
         }
     }
 }
