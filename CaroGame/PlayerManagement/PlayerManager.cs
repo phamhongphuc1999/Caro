@@ -1,15 +1,4 @@
-﻿// --------------------CARO  GAME-----------------
-//
-//
-// Copyright (c) Microsoft. All Rights Reserved.
-// License under the Apache License, Version 2.0.
-//
-//
-// Product by: Pham Hong Phuc
-//
-//
-// ------------------------------------------------------
-
+﻿using CaroGame.Configuration;
 using System.Drawing;
 
 namespace CaroGame.PlayerManagement
@@ -21,8 +10,8 @@ namespace CaroGame.PlayerManagement
 
         public PlayerManager()
         {
-            player1 = new Player("player1", Color.Green, true);
-            player2 = new Player("player2", Color.Red, false);
+            player1 = new Player(Constants.PLAYER1_DEFAULT_NAME, Color.Green, true);
+            player2 = new Player(Constants.PLAYER2_DEFAULT_NAME, Color.Red, false);
         }
 
         public PlayerManager(string playerName1, string playerName2)
@@ -35,7 +24,7 @@ namespace CaroGame.PlayerManagement
         {
             get
             {
-                return player1.IsTurn ? 0 : 1;
+                return player1.IsTurn ? Constants.PLAYER1_TURN : Constants.PLAYER2_TURN;
             }
             set
             {
