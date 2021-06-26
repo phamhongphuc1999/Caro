@@ -1,11 +1,23 @@
-﻿using CaroGame.Configuration;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Configuration;
 using CaroGame.Controls;
 using System;
 using System.Drawing;
 
 namespace CaroGame.Views.Components
 {
-    public class OverviewPanel: BaseCaroPanel
+    public class OverviewPanel : BaseCaroPanel
     {
         protected CaroButton newGameBut, guideBut;
 
@@ -33,7 +45,7 @@ namespace CaroGame.Views.Components
             }
         }
 
-        public OverviewPanel(): base()
+        public OverviewPanel() : base()
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
         }

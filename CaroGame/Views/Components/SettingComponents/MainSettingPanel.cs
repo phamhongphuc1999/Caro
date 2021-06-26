@@ -1,4 +1,16 @@
-﻿using CaroGame.Configuration;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Configuration;
 using CaroGame.Controls;
 using System;
 using System.Drawing;
@@ -194,7 +206,7 @@ namespace CaroGame.Views.Components.SettingComponents
             permitBut = new CaroButton()
             {
                 Location = new Point(455, 300),
-                Text = "Next",
+                Text = "Save",
                 Size = new Size(70, 30)
             };
             this.Controls.Add(gameModeBut);

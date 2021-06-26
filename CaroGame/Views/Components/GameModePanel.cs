@@ -1,4 +1,16 @@
-﻿using CaroGame.Configuration;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Configuration;
 using CaroGame.Controls;
 using System;
 using System.Drawing;
@@ -6,7 +18,7 @@ using System.Windows.Forms;
 
 namespace CaroGame.Views.Components
 {
-    public class GameModePanel: BaseCaroPanel
+    public class GameModePanel : BaseCaroPanel
     {
         protected CaroButton twoPlayerBut, lanModeBut, aiModeBut, loadgameBut;
         protected CaroButton backBut;
@@ -72,7 +84,7 @@ namespace CaroGame.Views.Components
             }
         }
 
-        public GameModePanel(): base()
+        public GameModePanel() : base()
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
         }

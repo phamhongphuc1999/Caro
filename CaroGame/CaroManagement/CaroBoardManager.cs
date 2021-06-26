@@ -1,4 +1,16 @@
-﻿using CaroGame.Configuration;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Configuration;
 using CaroGame.Views.Components;
 using System;
 using System.Collections.Generic;
@@ -44,9 +56,9 @@ namespace CaroGame.CaroManagement
             caroBoardView.Controls.Clear();
             caroBoardView.Enabled = true;
             caroBoard.Clear();
-            for (int i = 0; i < SettingConfig.NUMBER_OF_ROW; i++)
+            for (int i = 0; i < SettingConfig.Rows; i++)
             {
-                for (int j = 0; j < SettingConfig.NUMBER_OF_COLUMN; j++)
+                for (int j = 0; j < SettingConfig.Columns; j++)
                 {
                     Button but = new Button()
                     {

@@ -1,4 +1,16 @@
-﻿using CaroGame.Configuration;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Configuration;
 using CaroGame.Routers;
 using System;
 using System.Drawing;
@@ -38,52 +50,52 @@ namespace CaroGame.Views
         #region Main Setting
         private void MainSettingView_CancelClickEvent(object sender, EventArgs e)
         {
-            
+
         }
 
         private void MainSettingView_PermitClickEvent(object sender, EventArgs e)
         {
-            
+
         }
 
         private void MainSettingView_SaveGameClickEvent(object sender, EventArgs e)
         {
-            
+
         }
 
         private void MainSettingView_LoadGameClickEvent(object sender, EventArgs e)
         {
-            
+
         }
 
         private void MainSettingView_LanguageClickEvent(object sender, EventArgs e)
         {
-           
+
         }
 
         private void MainSettingView_SoundClickEvent(object sender, EventArgs e)
         {
-            
+
         }
 
         private void MainSettingView_SizeClickEvent(object sender, EventArgs e)
         {
-            
+            settingRoutes.Routing(Constants.SIZE_SETTING);
         }
 
         private void MainSettingView_PlayerClickEvent(object sender, EventArgs e)
         {
-            
+            settingRoutes.Routing(Constants.PLAYER_SETTING);
         }
 
         private void MainSettingView_TimerClickEvent(object sender, EventArgs e)
         {
-            
+
         }
 
         private void MainSettingView_GameModeClickEvent(object sender, EventArgs e)
         {
-            
+
         }
         #endregion
     }

@@ -1,4 +1,16 @@
-﻿using CaroGame.Configuration;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Configuration;
 using CaroGame.Views.Components;
 using System;
 using System.Windows.Forms;
@@ -7,24 +19,51 @@ namespace CaroGame.Routers
 {
     public class Routes : BaseRoutes
     {
-        public OverviewPanel OverviewView { get; set; }
-        public GameModePanel GameModeView { get; set; }
-        public SizePanel SizeView { get; set; }
-        public PlayerPanel PlayerView { get; set; }
-        public MainPanel MainView { get; set; }
+        public OverviewPanel OverviewView
+        {
+            get; set;
+        }
+        public GameModePanel GameModeView
+        {
+            get; set;
+        }
+        public SizePanel SizeView
+        {
+            get; set;
+        }
+        public PlayerPanel PlayerView
+        {
+            get; set;
+        }
+        public MainPanel MainView
+        {
+            get; set;
+        }
 
         private event EventHandler<EventArgsRoute> routeingEvent;
         public event EventHandler<EventArgsRoute> RoutingEvent
         {
-            add { routeingEvent += value; }
-            remove { routeingEvent -= value; }
+            add
+            {
+                routeingEvent += value;
+            }
+            remove
+            {
+                routeingEvent -= value;
+            }
         }
 
         private event EventHandler<EventArgsRoute> mainViewEvent;
         public event EventHandler<EventArgsRoute> MainViewEvent
         {
-            add { mainViewEvent += value; }
-            remove { mainViewEvent -= value; }
+            add
+            {
+                mainViewEvent += value;
+            }
+            remove
+            {
+                mainViewEvent -= value;
+            }
         }
 
         public Routes(Form viewForm) : base()

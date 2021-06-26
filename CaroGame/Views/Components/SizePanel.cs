@@ -1,4 +1,16 @@
-﻿using CaroGame.Configuration;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Configuration;
 using CaroGame.Controls;
 using System;
 using System.Drawing;
@@ -8,8 +20,7 @@ namespace CaroGame.Views.Components
 {
     public class SizePanel : Panel
     {
-        public Action<object, EventArgs> ClickEvent;
-        protected CaroButton backBut;
+        protected CaroButton backBut, nextBut;
 
         public event EventHandler BackClickEvent
         {
@@ -20,6 +31,18 @@ namespace CaroGame.Views.Components
             remove
             {
                 backBut.Click -= value;
+            }
+        }
+
+        public event EventHandler NextClickEvent
+        {
+            add
+            {
+                nextBut.Click += value;
+            }
+            remove
+            {
+                nextBut.Click -= value;
             }
         }
 
@@ -36,7 +59,7 @@ namespace CaroGame.Views.Components
             foreach ((int, int) size in Constants.CARO_SIZE)
             {
                 int X = 29 + 129 * index;
-                if(X > Constants.WIDTH_STANDARD)
+                if (X > Constants.WIDTH_STANDARD)
                 {
                     index = 0;
                     X = 29;
@@ -51,9 +74,8 @@ namespace CaroGame.Views.Components
                 };
                 button.Click += (sender, e) =>
                 {
-                    SettingConfig.NUMBER_OF_COLUMN = size.Item1;
-                    SettingConfig.NUMBER_OF_ROW = size.Item2;
-                    ClickEvent(sender, e);
+                    SettingConfig.Columns = size.Item1;
+                    SettingConfig.Rows = size.Item2;
                 };
                 this.Controls.Add(button);
                 index++;
@@ -69,7 +91,14 @@ namespace CaroGame.Views.Components
                 Text = "Back",
                 Size = new Size(70, 30)
             };
+            nextBut = new CaroButton()
+            {
+                Location = new Point(455, 300),
+                Text = "Next",
+                Size = new Size(70, 30)
+            };
             this.Controls.Add(backBut);
+            this.Controls.Add(nextBut);
         }
     }
 }

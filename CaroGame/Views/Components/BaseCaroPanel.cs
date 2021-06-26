@@ -1,10 +1,22 @@
-﻿using System.Windows.Forms;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using System.Windows.Forms;
 
 namespace CaroGame.Views.Components
 {
-    public class BaseCaroPanel: Panel
+    public class BaseCaroPanel : Panel
     {
-        public BaseCaroPanel(bool isAutoSize = false): base()
+        public BaseCaroPanel(bool isAutoSize = false) : base()
         {
             if (isAutoSize)
             {
@@ -14,6 +26,8 @@ namespace CaroGame.Views.Components
             DrawBasePanel();
         }
 
-        protected virtual void DrawBasePanel() { }
+        protected virtual void DrawBasePanel()
+        {
+        }
     }
 }

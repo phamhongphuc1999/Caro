@@ -1,4 +1,16 @@
-﻿using CaroGame.Configuration;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Configuration;
 using CaroGame.Routers;
 using System;
 using System.Drawing;
@@ -50,8 +62,8 @@ namespace CaroGame.Views
             routes.GameModeView.LoadGameClickEvent += GameModeView_LoadGameClickEvent;
             routes.GameModeView.BackClickEvent += GameModeView_BackClickEvent;
             // Size
-            routes.SizeView.ClickEvent = SizeView_ActionClickEvent;
             routes.SizeView.BackClickEvent += SizeView_BackClickEvent;
+            routes.SizeView.NextClickEvent += SizeView_NextClickEvent;
             // Player Setting
             routes.PlayerView.BackClickEvent += PlayerView_BackClickEvent;
             routes.PlayerView.NextClickEvent = PlayerView_ActionClickEvent;
@@ -105,14 +117,21 @@ namespace CaroGame.Views
         #endregion
 
         #region Size
-        private void SizeView_ActionClickEvent(object sender, EventArgs e)
-        {
-            routes.Routing(Constants.PLAYER_SETTING);
-        }
-
         private void SizeView_BackClickEvent(object sender, EventArgs e)
         {
             routes.Routing(Constants.GAME_MODE);
+        }
+
+        private void SizeView_NextClickEvent(object sender, EventArgs e)
+        {
+            int rows = SettingConfig.Rows;
+            int columns = SettingConfig.Columns;
+            if (rows < 5 || rows > 25 || columns < 5 || columns > 25)
+            {
+                MessageBox.Show("Nhập số sai");
+                SettingConfig.Rows = SettingConfig.Columns = 0;
+                return;
+            }
         }
         #endregion
 
@@ -141,12 +160,12 @@ namespace CaroGame.Views
 
         private void MainView_QuickItemClickEvent(object sender, EventArgs e)
         {
-            
+
         }
 
         private void MainView_NewGameToolClickEvent(object sender, EventArgs e)
         {
-            
+
         }
 
         private void MainView_RedoClickEvent(object sender, EventArgs e)

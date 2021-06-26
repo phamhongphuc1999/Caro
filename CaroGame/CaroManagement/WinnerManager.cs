@@ -1,4 +1,16 @@
-﻿using CaroGame.Configuration;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Configuration;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
@@ -24,9 +36,9 @@ namespace CaroGame.CaroManagement
 
         public void ResetDictionary(int oldRow, int oldColumn)
         {
-            if (oldRow > SettingConfig.NUMBER_OF_ROW)
+            if (oldRow > SettingConfig.Rows)
             {
-                for (int i = SettingConfig.NUMBER_OF_ROW; i < oldRow; i++)
+                for (int i = SettingConfig.Rows; i < oldRow; i++)
                 {
                     for (int j = 0; j < oldColumn; j++)
                     {
@@ -35,11 +47,11 @@ namespace CaroGame.CaroManagement
                     }
                 }
             }
-            if (oldColumn > SettingConfig.NUMBER_OF_COLUMN)
+            if (oldColumn > SettingConfig.Columns)
             {
                 for (int i = 0; i < oldRow; i++)
                 {
-                    for (int j = SettingConfig.NUMBER_OF_COLUMN; j < oldColumn; j++)
+                    for (int j = SettingConfig.Columns; j < oldColumn; j++)
                     {
                         Point location = new Point(Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i);
                         if (caroBoard.ContainsKey(location)) caroBoard.Remove(location);
@@ -98,7 +110,7 @@ namespace CaroGame.CaroManagement
 
         public bool IsEndGame()
         {
-            return caroBoard.Count == SettingConfig.NUMBER_OF_ROW * SettingConfig.NUMBER_OF_COLUMN - 1;
+            return caroBoard.Count == SettingConfig.Rows * SettingConfig.Columns - 1;
         }
 
         public async Task<bool> IsWiner(int X, int Y)
@@ -133,7 +145,7 @@ namespace CaroGame.CaroManagement
                 }
                 else break;
             }
-            int MAX_X = SettingConfig.NUMBER_OF_COLUMN * Constants.CHESS_WIDTH;
+            int MAX_X = SettingConfig.Columns * Constants.CHESS_WIDTH;
             for (int i = X + Constants.CHESS_WIDTH; i <= MAX_X; i = i + Constants.CHESS_WIDTH)
             {
                 Point temp = new Point(i, Y);
@@ -170,7 +182,7 @@ namespace CaroGame.CaroManagement
                 }
                 else break;
             }
-            int MAX_Y = SettingConfig.NUMBER_OF_ROW * Constants.CHESS_HEIGHT;
+            int MAX_Y = SettingConfig.Rows * Constants.CHESS_HEIGHT;
             for (int i = Y + Constants.CHESS_HEIGHT; i <= MAX_Y; i = i + Constants.CHESS_HEIGHT)
             {
                 Point temp = new Point(X, i);
@@ -208,8 +220,8 @@ namespace CaroGame.CaroManagement
                 }
                 else break;
             }
-            int MAX_X = SettingConfig.NUMBER_OF_COLUMN * Constants.CHESS_WIDTH;
-            int MAX_Y = SettingConfig.NUMBER_OF_ROW * Constants.CHESS_HEIGHT;
+            int MAX_X = SettingConfig.Columns * Constants.CHESS_WIDTH;
+            int MAX_Y = SettingConfig.Rows * Constants.CHESS_HEIGHT;
             for (int i = X + Constants.CHESS_WIDTH, j = Y + Constants.CHESS_HEIGHT;
                 i <= MAX_X && j < MAX_Y; i = i + Constants.CHESS_WIDTH, j = j + Constants.CHESS_HEIGHT)
             {
@@ -232,7 +244,7 @@ namespace CaroGame.CaroManagement
         private async Task<bool> IsWinSubDiagonal(int X, int Y)
         {
             int count = 0, countEnemy = 0, player = -1;
-            int MAX_X = SettingConfig.NUMBER_OF_COLUMN * Constants.CHESS_WIDTH;
+            int MAX_X = SettingConfig.Columns * Constants.CHESS_WIDTH;
             for (int i = X + Constants.CHESS_WIDTH, j = Y - Constants.CHESS_HEIGHT;
                 i <= MAX_X && j >= 0; i = i + Constants.CHESS_WIDTH, j = j - Constants.CHESS_HEIGHT)
             {
@@ -249,7 +261,7 @@ namespace CaroGame.CaroManagement
                 }
                 else break;
             }
-            int MAX_Y = SettingConfig.NUMBER_OF_ROW * Constants.CHESS_HEIGHT;
+            int MAX_Y = SettingConfig.Rows * Constants.CHESS_HEIGHT;
             for (int i = X - Constants.CHESS_WIDTH, j = Y + Constants.CHESS_HEIGHT;
                 i >= 0 && j <= MAX_Y; i = i - Constants.CHESS_WIDTH, j = j + Constants.CHESS_HEIGHT)
             {

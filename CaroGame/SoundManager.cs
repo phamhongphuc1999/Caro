@@ -1,4 +1,16 @@
-﻿using WMPLib;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using WMPLib;
 
 namespace CaroGame
 {
@@ -12,8 +24,14 @@ namespace CaroGame
 
         public bool IsLoop
         {
-            get { return sound.settings.getMode("loop"); }
-            set { sound.settings.setMode("loop", value); }
+            get
+            {
+                return sound.settings.getMode("loop");
+            }
+            set
+            {
+                sound.settings.setMode("loop", value);
+            }
         }
 
         public int Volume

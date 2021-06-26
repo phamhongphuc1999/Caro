@@ -1,4 +1,16 @@
-﻿using CaroGame.Configuration;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Configuration;
 using CaroGame.Controls;
 using System;
 using System.Drawing;
@@ -7,7 +19,7 @@ using static CaroGame.Program;
 
 namespace CaroGame.Views.Components
 {
-    public class PlayerPanel: Panel
+    public class PlayerPanel : Panel
     {
         protected CaroTextBox player1Tb, player2Tb;
         protected Label lbl1, lbl2;
@@ -52,7 +64,7 @@ namespace CaroGame.Views.Components
                 TextWidth = 360,
                 Size = new Size(400, 80),
                 Location = new Point(120, 85),
-                RequiredText="Invalide text",
+                RequiredText = "Invalide text",
                 ValidateText = (text) =>
                 {
                     if (string.IsNullOrEmpty(text)) return false;
@@ -107,7 +119,7 @@ namespace CaroGame.Views.Components
                 playerManager.SetPlayerName(player1Tb.InfoText, Constants.PLAYER1);
                 playerManager.SetPlayerName(player2Tb.InfoText, Constants.PLAYER2);
                 NextClickEvent(sender, e);
-            }  
+            }
         }
     }
 }
