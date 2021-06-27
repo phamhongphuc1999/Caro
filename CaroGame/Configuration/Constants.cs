@@ -41,6 +41,9 @@ namespace CaroGame.Configuration
         public readonly static string MAIN = "Caro";
 
         public readonly static string MAIN_SETTING = "Setting";
+        public readonly static string LANGUAGE_SETTING = "Language Setting";
+        public readonly static string SOUND_SETTING = "Sound Setting";
+        public readonly static string TIME_SETTING = "Time Setting";
 
         public readonly static string ABOUT = "about";
         public readonly static string ABOUT_DETAIL = "\n" +

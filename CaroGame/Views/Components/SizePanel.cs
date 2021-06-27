@@ -18,9 +18,10 @@ using System.Windows.Forms;
 
 namespace CaroGame.Views.Components
 {
-    public class SizePanel : Panel
+    public class SizePanel : BaseCaroPanel
     {
         protected CaroButton backBut, nextBut;
+        private Button currentBut;
 
         public event EventHandler BackClickEvent
         {
@@ -49,10 +50,10 @@ namespace CaroGame.Views.Components
         public SizePanel()
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
-            DrawBasePanel();
+            currentBut = new Button();
         }
 
-        public void DrawSizeButtonPanel()
+        private void DrawSizeButtonPanel()
         {
             int index = 0;
             int Y = 20;
@@ -76,13 +77,20 @@ namespace CaroGame.Views.Components
                 {
                     SettingConfig.Columns = size.Item1;
                     SettingConfig.Rows = size.Item2;
+                    if (currentBut != null) currentBut.FlatStyle = FlatStyle.Flat;
+                    Button but = sender as Button;
+                    if(but != null)
+                    {
+                        currentBut = but;
+                        currentBut.FlatStyle = FlatStyle.Standard;
+                    }
                 };
                 this.Controls.Add(button);
                 index++;
             }
         }
 
-        public void DrawBasePanel()
+        protected override void DrawBasePanel()
         {
             DrawSizeButtonPanel();
             backBut = new CaroButton()

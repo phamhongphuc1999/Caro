@@ -17,10 +17,9 @@ using System.Drawing;
 
 namespace CaroGame.Views.Components.SettingComponents
 {
-    public class MainSettingPanel : BaseCaroPanel
+    public class MainSettingPanel : BaseSettingPanel
     {
         protected CaroButton gameModeBut, timerBut, playerBut, sizeBut, soundBut, languageBut, loadGameBut, saveGameBut;
-        private CaroButton permitBut, cancelBut;
 
         public event EventHandler GameModeClickEvent
         {
@@ -118,37 +117,14 @@ namespace CaroGame.Views.Components.SettingComponents
             }
         }
 
-        public event EventHandler PermitClickEvent
-        {
-            add
-            {
-                permitBut.Click += value;
-            }
-            remove
-            {
-                permitBut.Click -= value;
-            }
-        }
-
-        public event EventHandler CancelClickEvent
-        {
-            add
-            {
-                cancelBut.Click += value;
-            }
-            remove
-            {
-                cancelBut.Click -= value;
-            }
-        }
-
-        public MainSettingPanel() : base()
+        public MainSettingPanel() : base(true)
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
         }
 
         protected override void DrawBasePanel()
         {
+            base.DrawBasePanel();
             gameModeBut = new CaroButton()
             {
                 Text = "Game Mode",
@@ -197,18 +173,6 @@ namespace CaroGame.Views.Components.SettingComponents
                 Size = new Size(80, 30),
                 Location = new Point(445, 0)
             };
-            cancelBut = new CaroButton
-            {
-                Location = new Point(380, 300),
-                Text = "Cancel",
-                Size = new Size(70, 30)
-            };
-            permitBut = new CaroButton()
-            {
-                Location = new Point(455, 300),
-                Text = "Save",
-                Size = new Size(70, 30)
-            };
             this.Controls.Add(gameModeBut);
             this.Controls.Add(timerBut);
             this.Controls.Add(playerBut);
@@ -217,8 +181,6 @@ namespace CaroGame.Views.Components.SettingComponents
             this.Controls.Add(languageBut);
             this.Controls.Add(loadGameBut);
             this.Controls.Add(saveGameBut);
-            this.Controls.Add(cancelBut);
-            this.Controls.Add(permitBut);
         }
     }
 }

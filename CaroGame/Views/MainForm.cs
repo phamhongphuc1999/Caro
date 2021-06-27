@@ -132,6 +132,7 @@ namespace CaroGame.Views
                 SettingConfig.Rows = SettingConfig.Columns = 0;
                 return;
             }
+            else routes.Routing(Constants.PLAYER_SETTING);
         }
         #endregion
 

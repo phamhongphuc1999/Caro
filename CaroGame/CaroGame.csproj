@@ -103,6 +103,27 @@
     <Compile Include="Views\Components\PlayerPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Views\Components\SettingComponents\BaseSettingPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Components\SettingComponents\GameModeSettingPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Components\SettingComponents\LanguageSettingPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Components\SettingComponents\PlayerSettingPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Components\SettingComponents\SizeSettingPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Components\SettingComponents\SoundSettingPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Components\SettingComponents\TimeSettingPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\Components\SizePanel.cs">
       <SubType>Component</SubType>
     </Compile>

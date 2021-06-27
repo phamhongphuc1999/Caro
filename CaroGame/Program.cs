@@ -55,7 +55,7 @@ namespace CaroGame
             settingForm = new SettingForm(Constants.MAIN_SETTING, settingIcon);
             aboutForm = new AboutForm(Constants.ABOUT, aboutIcon);
 
-            Application.Run(mainForm);
+            Application.Run(settingForm);
         }
     }
 }

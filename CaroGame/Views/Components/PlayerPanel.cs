@@ -19,7 +19,7 @@ using static CaroGame.Program;
 
 namespace CaroGame.Views.Components
 {
-    public class PlayerPanel : Panel
+    public class PlayerPanel : BaseCaroPanel
     {
         protected CaroTextBox player1Tb, player2Tb;
         protected Label lbl1, lbl2;
@@ -42,10 +42,9 @@ namespace CaroGame.Views.Components
         public PlayerPanel()
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
-            DrawBasePanel();
         }
 
-        private void DrawBasePanel()
+        protected override void DrawBasePanel()
         {
             lbl1 = new Label
             {
