@@ -47,10 +47,11 @@ namespace CaroGame.Views.Components
             }
         }
 
-        public SizePanel()
+        public SizePanel(bool isAutoSize) : base(isAutoSize)
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
             currentBut = new Button();
+            DrawBasePanel();
         }
 
         private void DrawSizeButtonPanel()
@@ -79,7 +80,7 @@ namespace CaroGame.Views.Components
                     SettingConfig.Rows = size.Item2;
                     if (currentBut != null) currentBut.FlatStyle = FlatStyle.Flat;
                     Button but = sender as Button;
-                    if(but != null)
+                    if (but != null)
                     {
                         currentBut = but;
                         currentBut.FlatStyle = FlatStyle.Standard;

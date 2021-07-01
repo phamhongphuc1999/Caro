@@ -17,7 +17,10 @@ namespace CaroGame.Routers
 {
     public class EventArgsRoute : EventArgs
     {
-        public string title { get; private set; }
+        public string title
+        {
+            get; private set;
+        }
 
         public EventArgsRoute(string router) : base()
         {

@@ -13,6 +13,7 @@
 using CaroGame.CaroManagement;
 using CaroGame.Configuration;
 using CaroGame.PlayerManagement;
+using CaroGame.Routers;
 using CaroGame.Views;
 using System;
 using System.Drawing;
@@ -25,6 +26,9 @@ namespace CaroGame
         public static MainForm mainForm;
         public static SettingForm settingForm;
         public static AboutForm aboutForm;
+
+        public static Routes routes;
+        public static SettingRoutes settingRoutes;
 
         public static PlayerManager playerManager;
         public static CaroBoardManager caroBoardManager;
@@ -51,11 +55,18 @@ namespace CaroGame
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // Initliaze form
             mainForm = new MainForm(Constants.OVERVIEW, mainIcon);
             settingForm = new SettingForm(Constants.MAIN_SETTING, settingIcon);
             aboutForm = new AboutForm(Constants.ABOUT, aboutIcon);
 
-            Application.Run(settingForm);
+            // Initliaze routers
+            routes = Routes.GetInstance(mainForm);
+            routes.Routing(Constants.OVERVIEW);
+            settingRoutes = SettingRoutes.GetInstance(settingForm);
+            settingRoutes.Routing(Constants.MAIN_SETTING);
+
+            Application.Run(mainForm);
         }
     }
 }

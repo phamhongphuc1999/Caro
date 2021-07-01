@@ -45,9 +45,10 @@ namespace CaroGame.Views.Components
             }
         }
 
-        public OverviewPanel() : base()
+        public OverviewPanel(bool isAutoSize) : base(isAutoSize)
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
+            DrawBasePanel();
         }
 
         protected override void DrawBasePanel()

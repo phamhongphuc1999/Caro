@@ -21,8 +21,6 @@ namespace CaroGame.Views
 {
     public partial class MainForm : BaseForm
     {
-        private Routes routes;
-
         public MainForm(string title, Icon icon) : base(title, icon)
         {
             CreateRoute();
@@ -32,7 +30,6 @@ namespace CaroGame.Views
 
         private void CreateRoute()
         {
-            routes = new Routes(this);
             routes.RoutingEvent += (sender, e) =>
             {
                 Control control = sender as Control;
@@ -42,7 +39,6 @@ namespace CaroGame.Views
                 }
             };
             routes.MainViewEvent += Routes_MainViewEvent;
-            routes.Routing(Constants.OVERVIEW);
         }
 
         private void Routes_MainViewEvent(object sender, EventArgsRoute e)

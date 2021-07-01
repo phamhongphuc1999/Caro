@@ -57,9 +57,10 @@ namespace CaroGame.Views.Components.SettingComponents
             }
         }
 
-        public GameModeSettingPanel(): base(false)
+        public GameModeSettingPanel(bool isAutoSize, bool isSave) : base(isAutoSize, isSave)
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
+            DrawBasePanel();
         }
 
         protected override void DrawBasePanel()

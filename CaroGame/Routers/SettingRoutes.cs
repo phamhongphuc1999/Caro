@@ -47,16 +47,23 @@ namespace CaroGame.Routers
         {
             get; set;
         }
-
-        public SettingRoutes(SettingForm viewForm) : base()
+        public AppearanceSettingPanel AppearanceSettingView
         {
-            MainSettingView = new MainSettingPanel { Visible = false };
-            PlayerSettingView = new PlayerSettingPanel { Visible = false };
-            SizeSettingView = new SizeSettingPanel { Visible = false };
-            LanguageSettingView = new LanguageSettingPanel { Visible = false };
-            SoundSettingView = new SoundSettingPanel { Visible = false };
-            TimeSettingView = new TimeSettingPanel { Visible = false };
-            GameModeSettingView = new GameModeSettingPanel { Visible = false };
+            get; set;
+        }
+
+        private static SettingRoutes settingRoutes;
+
+        private SettingRoutes(SettingForm viewForm) : base()
+        {
+            MainSettingView = new MainSettingPanel(false, true) { Visible = false };
+            PlayerSettingView = new PlayerSettingPanel(false, true) { Visible = false };
+            SizeSettingView = new SizeSettingPanel(false, true) { Visible = false };
+            LanguageSettingView = new LanguageSettingPanel(false, true) { Visible = false };
+            SoundSettingView = new SoundSettingPanel(false, true) { Visible = false };
+            TimeSettingView = new TimeSettingPanel(false, true) { Visible = false };
+            GameModeSettingView = new GameModeSettingPanel(false, false) { Visible = false };
+            AppearanceSettingView = new AppearanceSettingPanel(false, true) { Visible = false };
             viewForm.Controls.Add(MainSettingView);
             viewForm.Controls.Add(PlayerSettingView);
             viewForm.Controls.Add(SizeSettingView);
@@ -64,6 +71,7 @@ namespace CaroGame.Routers
             viewForm.Controls.Add(SoundSettingView);
             viewForm.Controls.Add(TimeSettingView);
             viewForm.Controls.Add(GameModeSettingView);
+            viewForm.Controls.Add(AppearanceSettingView);
         }
 
         public void Routing(string router)
@@ -75,7 +83,14 @@ namespace CaroGame.Routers
             else if (router.Equals(Constants.SOUND_SETTING)) SetCurrentControl(SoundSettingView);
             else if (router.Equals(Constants.TIME_SETTING)) SetCurrentControl(TimeSettingView);
             else if (router.Equals(Constants.GAME_MODE)) SetCurrentControl(GameModeSettingView);
+            else if (router.Equals(Constants.APPEARANCE_SETTING)) SetCurrentControl(AppearanceSettingView);
             else throw new Exception();
+        }
+
+        public static SettingRoutes GetInstance(SettingForm viewForm)
+        {
+            if (settingRoutes == null) settingRoutes = new SettingRoutes(viewForm);
+            return settingRoutes;
         }
     }
 }

@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace CaroGame.Controls
 {
-    public class CaroMenu: MenuStrip
+    public class CaroMenu : MenuStrip
     {
         protected ToolStripSeparator bottomQuickSeparator;
         protected ToolStripMenuItem mainItemTool, newGameItemTool, quickItemTool, settingItemTool, aboutItemTool;
@@ -31,26 +31,50 @@ namespace CaroGame.Controls
 
         public event EventHandler NewGameItemClickEvent
         {
-            add { newGameItemTool.Click += value; }
-            remove { newGameItemTool.Click -= value; }
+            add
+            {
+                newGameItemTool.Click += value;
+            }
+            remove
+            {
+                newGameItemTool.Click -= value;
+            }
         }
 
         public event EventHandler QuickItemClickEvent
         {
-            add { quickItemTool.Click += value; }
-            remove { quickItemTool.Click -= value; }
+            add
+            {
+                quickItemTool.Click += value;
+            }
+            remove
+            {
+                quickItemTool.Click -= value;
+            }
         }
 
         public event EventHandler SettingItemClickEvent
         {
-            add { settingItemTool.Click += value; }
-            remove { settingItemTool.Click -= value; }
+            add
+            {
+                settingItemTool.Click += value;
+            }
+            remove
+            {
+                settingItemTool.Click -= value;
+            }
         }
 
         public event EventHandler AboutItemClickEvent
         {
-            add { aboutItemTool.Click += value; }
-            remove { aboutItemTool.Click -= value; }
+            add
+            {
+                aboutItemTool.Click += value;
+            }
+            remove
+            {
+                aboutItemTool.Click -= value;
+            }
         }
 
         private void CreateMainMenu()

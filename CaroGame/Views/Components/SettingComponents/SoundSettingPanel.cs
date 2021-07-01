@@ -18,9 +18,10 @@ namespace CaroGame.Views.Components.SettingComponents
 {
     public class SoundSettingPanel : BaseSettingPanel
     {
-        public SoundSettingPanel() : base(true)
+        public SoundSettingPanel(bool isAutoSize, bool isSave) : base(isAutoSize, isSave)
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
+            DrawBasePanel();
         }
 
         protected override void DrawBasePanel()

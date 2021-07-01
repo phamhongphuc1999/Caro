@@ -25,7 +25,7 @@ namespace CaroGame.Views.Components.SettingComponents
         protected CaroButton cancelBut, saveBut;
         protected bool isSave;
 
-        public BaseSettingPanel(bool isSave) : base()
+        public BaseSettingPanel(bool isAutoSize, bool isSave) : base(isAutoSize)
         {
             this.isSave = isSave;
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);

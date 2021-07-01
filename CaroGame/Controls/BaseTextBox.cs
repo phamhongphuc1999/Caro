@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace CaroGame.Controls
 {
-    public class BaseTextBox: TextBox
+    public class BaseTextBox : TextBox
     {
         const int WM_NCPAINT = 0x85;
         const uint RDW_INVALIDATE = 0x1;
@@ -33,7 +33,10 @@ namespace CaroGame.Controls
 
         public Color BorderColor
         {
-            get { return borderColor; }
+            get
+            {
+                return borderColor;
+            }
             set
             {
                 borderColor = value;

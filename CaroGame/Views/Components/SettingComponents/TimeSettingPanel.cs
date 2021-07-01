@@ -6,9 +6,10 @@ namespace CaroGame.Views.Components.SettingComponents
 {
     public class TimeSettingPanel : BaseSettingPanel
     {
-        public TimeSettingPanel() : base(true)
+        public TimeSettingPanel(bool isAutoSize, bool isSave) : base(isAutoSize, isSave)
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
+            DrawBasePanel();
         }
 
         protected override void DrawBasePanel()

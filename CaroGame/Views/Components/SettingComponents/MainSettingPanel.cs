@@ -19,7 +19,7 @@ namespace CaroGame.Views.Components.SettingComponents
 {
     public class MainSettingPanel : BaseSettingPanel
     {
-        protected CaroButton gameModeBut, timerBut, playerBut, sizeBut, soundBut, languageBut, loadGameBut, saveGameBut;
+        protected CaroButton gameModeBut, timerBut, playerBut, sizeBut, soundBut, languageBut, appearanceBut, loadGameBut, saveGameBut;
 
         public event EventHandler GameModeClickEvent
         {
@@ -93,6 +93,18 @@ namespace CaroGame.Views.Components.SettingComponents
             }
         }
 
+        public event EventHandler AppearanceClickEvent
+        {
+            add
+            {
+                appearanceBut.Click += value;
+            }
+            remove
+            {
+                appearanceBut.Click -= value;
+            }
+        }
+
         public event EventHandler LoadGameClickEvent
         {
             add
@@ -117,9 +129,10 @@ namespace CaroGame.Views.Components.SettingComponents
             }
         }
 
-        public MainSettingPanel() : base(true)
+        public MainSettingPanel(bool isAutoSize, bool isSave) : base(isAutoSize, isSave)
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
+            DrawBasePanel();
         }
 
         protected override void DrawBasePanel()
@@ -161,6 +174,12 @@ namespace CaroGame.Views.Components.SettingComponents
                 Size = new Size(100, 45),
                 Location = new Point(158, 135)
             };
+            appearanceBut = new CaroButton
+            {
+                Text = "Appearance",
+                Size = new Size(100, 45),
+                Location = new Point(287, 135)
+            };
             loadGameBut = new CaroButton()
             {
                 Text = "Load Game",
@@ -179,6 +198,7 @@ namespace CaroGame.Views.Components.SettingComponents
             this.Controls.Add(sizeBut);
             this.Controls.Add(soundBut);
             this.Controls.Add(languageBut);
+            this.Controls.Add(appearanceBut);
             this.Controls.Add(loadGameBut);
             this.Controls.Add(saveGameBut);
         }

@@ -103,6 +103,9 @@
     <Compile Include="Views\Components\PlayerPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Views\Components\SettingComponents\AppearanceSettingPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\Components\SettingComponents\BaseSettingPanel.cs">
       <SubType>Component</SubType>
     </Compile>

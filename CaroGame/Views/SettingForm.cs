@@ -10,8 +10,8 @@
 //
 // ------------------------------------------------------
 
+using static CaroGame.Program;
 using CaroGame.Configuration;
-using CaroGame.Routers;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -20,23 +20,14 @@ namespace CaroGame.Views
 {
     public partial class SettingForm : BaseForm
     {
-        private SettingRoutes settingRoutes;
-
         public SettingForm(string title, Icon icon) : base(title, icon)
         {
-            CreateRoute();
             HandleEvent();
         }
 
         protected override void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Close();
-        }
-
-        private void CreateRoute()
-        {
-            settingRoutes = new SettingRoutes(this);
-            settingRoutes.Routing(Constants.MAIN_SETTING);
         }
 
         private void HandleEvent()
@@ -48,6 +39,7 @@ namespace CaroGame.Views
             settingRoutes.MainSettingView.SizeClickEvent += MainSettingView_SizeClickEvent;
             settingRoutes.MainSettingView.SoundClickEvent += MainSettingView_SoundClickEvent;
             settingRoutes.MainSettingView.LanguageClickEvent += MainSettingView_LanguageClickEvent;
+            settingRoutes.MainSettingView.AppearanceClickEvent += MainSettingView_AppearanceClickEvent;
             settingRoutes.MainSettingView.LoadGameClickEvent += MainSettingView_LoadGameClickEvent;
             settingRoutes.MainSettingView.SaveGameClickEvent += MainSettingView_SaveGameClickEvent;
             settingRoutes.MainSettingView.SaveClickEvent = MainSettingView_SaveClickEvent;
@@ -60,6 +52,9 @@ namespace CaroGame.Views
             // Time Setting
             settingRoutes.TimeSettingView.SaveClickEvent = TimeSettingView_SaveClickEvent;
             settingRoutes.TimeSettingView.CancelClickEvent = TimeSettingView_CancelClickEvent;
+            // Appearance Setting
+            settingRoutes.AppearanceSettingView.SaveClickEvent = AppearanceSettingView_SaveClickEvent;
+            settingRoutes.AppearanceSettingView.CancelClickEvent = AppearanceSettingView_CancelClickEvent;
         }
 
         #region Main Setting
@@ -86,6 +81,11 @@ namespace CaroGame.Views
         private void MainSettingView_LanguageClickEvent(object sender, EventArgs e)
         {
             settingRoutes.Routing(Constants.LANGUAGE_SETTING);
+        }
+
+        private void MainSettingView_AppearanceClickEvent(object sender, EventArgs e)
+        {
+            settingRoutes.Routing(Constants.APPEARANCE_SETTING);
         }
 
         private void MainSettingView_SoundClickEvent(object sender, EventArgs e)
@@ -142,6 +142,17 @@ namespace CaroGame.Views
             settingRoutes.Routing(Constants.MAIN_SETTING);
         }
         private void TimeSettingView_CancelClickEvent(object sender, EventArgs e)
+        {
+            settingRoutes.Routing(Constants.MAIN_SETTING);
+        }
+        #endregion
+
+        #region Appearance Setting
+        private void AppearanceSettingView_SaveClickEvent(object sender, EventArgs e)
+        {
+            settingRoutes.Routing(Constants.MAIN_SETTING);
+        }
+        private void AppearanceSettingView_CancelClickEvent(object sender, EventArgs e)
         {
             settingRoutes.Routing(Constants.MAIN_SETTING);
         }

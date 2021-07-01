@@ -21,25 +21,46 @@ namespace CaroGame.Controls
         public Func<string, bool> ValidateText;
         public string InfoText
         {
-            get { return baseTextBox.Text; }
-            set { baseTextBox.Text = value; }
+            get
+            {
+                return baseTextBox.Text;
+            }
+            set
+            {
+                baseTextBox.Text = value;
+            }
         }
 
         public string RequiredText
         {
-            get { return requiredLbl.Text; }
-            set { requiredLbl.Text = value; }
+            get
+            {
+                return requiredLbl.Text;
+            }
+            set
+            {
+                requiredLbl.Text = value;
+            }
         }
 
         public int TextWidth
         {
-            get { return baseTextBox.Width; }
-            set { baseTextBox.Width = value; }
+            get
+            {
+                return baseTextBox.Width;
+            }
+            set
+            {
+                baseTextBox.Width = value;
+            }
         }
 
         public bool TextValidate
         {
-            get { return !requiredLbl.Visible; }
+            get
+            {
+                return !requiredLbl.Visible;
+            }
         }
 
         public CaroTextBox()

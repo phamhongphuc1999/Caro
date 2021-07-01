@@ -97,7 +97,10 @@ namespace CaroGame.Views.Components
             }
         }
 
-        public MainPanel() : base(true) { }
+        public MainPanel(bool isAutoSize) : base(isAutoSize)
+        {
+            DrawBasePanel();
+        }
 
         protected override void DrawBasePanel()
         {

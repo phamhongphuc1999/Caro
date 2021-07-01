@@ -66,13 +66,15 @@ namespace CaroGame.Routers
             }
         }
 
-        public Routes(Form viewForm) : base()
+        private static Routes commonRouter;
+
+        private Routes(Form viewForm) : base()
         {
-            OverviewView = new OverviewPanel() { Visible = false };
-            GameModeView = new GameModePanel() { Visible = false };
-            SizeView = new SizePanel() { Visible = false };
-            PlayerView = new PlayerPanel() { Visible = false };
-            MainView = new MainPanel() { Visible = false };
+            OverviewView = new OverviewPanel(false) { Visible = false };
+            GameModeView = new GameModePanel(false) { Visible = false };
+            SizeView = new SizePanel(false) { Visible = false };
+            PlayerView = new PlayerPanel(false) { Visible = false };
+            MainView = new MainPanel(true) { Visible = false };
             viewForm.Controls.Add(OverviewView);
             viewForm.Controls.Add(GameModeView);
             viewForm.Controls.Add(SizeView);
@@ -110,6 +112,12 @@ namespace CaroGame.Routers
                 SetCurrentControl(MainView);
             }
             else throw new Exception();
+        }
+
+        public static Routes GetInstance(Form viewForm)
+        {
+            if (commonRouter == null) commonRouter = new Routes(viewForm);
+            return commonRouter;
         }
     }
 }

@@ -16,9 +16,9 @@ using System.Drawing;
 
 namespace CaroGame.Views.Components.SettingComponents
 {
-    public class LanguageSettingPanel : BaseSettingPanel
+    public class AppearanceSettingPanel : BaseSettingPanel
     {
-        public LanguageSettingPanel(bool isAutoSize, bool isSave) : base(isAutoSize, isSave)
+        public AppearanceSettingPanel(bool isAutoSize, bool isSave) : base(isAutoSize, isSave)
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
             DrawBasePanel();
