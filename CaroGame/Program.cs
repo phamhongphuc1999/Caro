@@ -12,7 +12,6 @@
 
 using CaroGame.CaroManagement;
 using CaroGame.Configuration;
-using CaroGame.PlayerManagement;
 using CaroGame.Routers;
 using CaroGame.Views;
 using System;
@@ -35,6 +34,7 @@ namespace CaroGame
         public static WinnerManager winnerManager;
         public static ActionManager actionManager;
         public static SoundManager soundManager;
+        public static StorageManager storageManager;
 
         /// <summary>
         /// The main entry point for the application.
@@ -51,6 +51,7 @@ namespace CaroGame
             winnerManager = new WinnerManager();
             actionManager = new ActionManager();
             soundManager = new SoundManager();
+            storageManager = new StorageManager();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -62,7 +63,22 @@ namespace CaroGame
 
             // Initliaze routers
             routes = Routes.GetInstance(mainForm);
+            routes.RoutingEvent += (sender, e) =>
+            {
+                Control control = sender as Control;
+                if (control != null)
+                {
+                    mainForm.Text = e.title;
+                }
+            };
+            routes.MainViewEvent += (sender, e) =>
+            {
+                caroBoardManager.CreateNewGame(playerManager.Turn);
+            };
             routes.Routing(Constants.OVERVIEW);
+            caroBoardManager.InitMainView(routes.MainView);
+
+            // Initiliaze setting routes
             settingRoutes = SettingRoutes.GetInstance(settingForm);
             settingRoutes.Routing(Constants.MAIN_SETTING);
 

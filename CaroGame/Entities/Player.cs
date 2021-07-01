@@ -12,7 +12,7 @@
 
 using System.Drawing;
 
-namespace CaroGame.PlayerManagement
+namespace CaroGame.Entities
 {
     internal class Player
     {

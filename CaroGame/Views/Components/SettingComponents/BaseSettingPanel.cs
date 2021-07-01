@@ -19,9 +19,6 @@ namespace CaroGame.Views.Components.SettingComponents
 {
     public class BaseSettingPanel : BaseCaroPanel
     {
-        public Action<object, EventArgs> SaveClickEvent;
-        public Action<object, EventArgs> CancelClickEvent;
-
         protected CaroButton cancelBut, saveBut;
         protected bool isSave;
 
@@ -50,20 +47,20 @@ namespace CaroGame.Views.Components.SettingComponents
                 saveBut.Visible = false;
                 cancelBut.Location = new Point(455, 300);
             }
-            cancelBut.Click += CancelBut_Click;
             saveBut.Click += SaveBut_Click;
+            cancelBut.Click += CancelBut_Click;
             this.Controls.Add(cancelBut);
             this.Controls.Add(saveBut);
         }
 
-        protected virtual void SaveBut_Click(object sender, EventArgs e)
-        {
-            SaveClickEvent(sender, e);
-        }
-
         protected virtual void CancelBut_Click(object sender, EventArgs e)
         {
-            CancelClickEvent(sender, e);
+            
+        }
+
+        protected virtual void SaveBut_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

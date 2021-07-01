@@ -15,6 +15,7 @@ using CaroGame.Controls;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using static CaroGame.Program;
 
 namespace CaroGame.Views.Components
 {
@@ -22,30 +23,6 @@ namespace CaroGame.Views.Components
     {
         protected CaroButton backBut, nextBut;
         private Button currentBut;
-
-        public event EventHandler BackClickEvent
-        {
-            add
-            {
-                backBut.Click += value;
-            }
-            remove
-            {
-                backBut.Click -= value;
-            }
-        }
-
-        public event EventHandler NextClickEvent
-        {
-            add
-            {
-                nextBut.Click += value;
-            }
-            remove
-            {
-                nextBut.Click -= value;
-            }
-        }
 
         public SizePanel(bool isAutoSize) : base(isAutoSize)
         {
@@ -106,8 +83,28 @@ namespace CaroGame.Views.Components
                 Text = "Next",
                 Size = new Size(70, 30)
             };
+            backBut.Click += BackBut_Click;
+            nextBut.Click += NextBut_Click;
             this.Controls.Add(backBut);
             this.Controls.Add(nextBut);
+        }
+
+        private void NextBut_Click(object sender, EventArgs e)
+        {
+            int rows = SettingConfig.Rows;
+            int columns = SettingConfig.Columns;
+            if (rows < 5 || rows > 25 || columns < 5 || columns > 25)
+            {
+                MessageBox.Show("Nhập số sai");
+                SettingConfig.Rows = SettingConfig.Columns = 0;
+                return;
+            }
+            else routes.Routing(Constants.PLAYER_SETTING);
+        }
+
+        private void BackBut_Click(object sender, EventArgs e)
+        {
+            routes.Routing(Constants.GAME_MODE);
         }
     }
 }
