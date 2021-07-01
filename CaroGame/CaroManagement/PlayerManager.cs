@@ -11,9 +11,10 @@
 // ------------------------------------------------------
 
 using CaroGame.Configuration;
+using CaroGame.Entities;
 using System.Drawing;
 
-namespace CaroGame.PlayerManagement
+namespace CaroGame.CaroManagement
 {
     public class PlayerManager
     {

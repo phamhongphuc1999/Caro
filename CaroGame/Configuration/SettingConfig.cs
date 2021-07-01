@@ -17,5 +17,10 @@ namespace CaroGame.Configuration
         public static int Columns = 0;
         public static int Rows = 0;
         public static string GameMode = "";
+        public static bool IsTime = false;
+        public static bool IsPlayMusic = false;
+        public static int VolumnSize = 0;
+        public static int TimeTurn = 30;
+        public static int Interval = 1000;
     }
 }

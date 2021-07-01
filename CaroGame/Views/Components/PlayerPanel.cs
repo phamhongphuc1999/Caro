@@ -25,20 +25,6 @@ namespace CaroGame.Views.Components
         protected Label lbl1, lbl2;
         protected CaroButton backBut, nextBut;
 
-        public Action<object, EventArgs> NextClickEvent;
-
-        public event EventHandler BackClickEvent
-        {
-            add
-            {
-                backBut.Click += value;
-            }
-            remove
-            {
-                backBut.Click -= value;
-            }
-        }
-
         public PlayerPanel(bool isAutoSize) : base(isAutoSize)
         {
             this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
@@ -103,6 +89,7 @@ namespace CaroGame.Views.Components
                 Text = "Next",
                 Size = new Size(70, 30)
             };
+            backBut.Click += BackBut_Click;
             nextBut.Click += NextBut_Click;
             this.Controls.Add(lbl1);
             this.Controls.Add(lbl2);
@@ -112,13 +99,18 @@ namespace CaroGame.Views.Components
             this.Controls.Add(nextBut);
         }
 
+        private void BackBut_Click(object sender, EventArgs e)
+        {
+            routes.Routing(Constants.SIZE_SETTING);
+        }
+
         private void NextBut_Click(object sender, EventArgs e)
         {
             if (player1Tb.TextValidate && player2Tb.TextValidate)
             {
                 playerManager.SetPlayerName(player1Tb.InfoText, Constants.PLAYER1);
                 playerManager.SetPlayerName(player2Tb.InfoText, Constants.PLAYER2);
-                NextClickEvent(sender, e);
+                routes.Routing(Constants.MAIN);
             }
         }
     }

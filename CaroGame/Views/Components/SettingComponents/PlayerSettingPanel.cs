@@ -1,6 +1,19 @@
-﻿using CaroGame.Configuration;
+﻿// --------------------CARO  GAME-----------------
+//
+//
+// Copyright (c) Microsoft. All Rights Reserved.
+// License under the Apache License, Version 2.0.
+//
+//
+// Product by: Pham Hong Phuc
+//
+//
+// ------------------------------------------------------
+
+using CaroGame.Configuration;
 using System;
 using System.Drawing;
+using static CaroGame.Program;
 
 namespace CaroGame.Views.Components.SettingComponents
 {
@@ -19,12 +32,12 @@ namespace CaroGame.Views.Components.SettingComponents
 
         protected override void SaveBut_Click(object sender, EventArgs e)
         {
-            SaveClickEvent(sender, e);
+
         }
 
         protected override void CancelBut_Click(object sender, EventArgs e)
         {
-            CancelClickEvent(sender, e);
+            settingRoutes.Routing(Constants.MAIN_SETTING);
         }
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="CaroException.cs" />
     <Compile Include="CaroManagement\ActionManager.cs" />
     <Compile Include="CaroManagement\CaroBoardManager.cs" />
+    <Compile Include="CaroManagement\StorageManager.cs" />
     <Compile Include="CaroManagement\WinnerManager.cs" />
     <Compile Include="Configuration\Constants.cs" />
     <Compile Include="Configuration\SettingConfig.cs" />
@@ -68,14 +69,16 @@
     <Compile Include="Controls\CaroTextBox.Designer.cs">
       <DependentUpon>CaroTextBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="PlayerManagement\Player.cs" />
-    <Compile Include="PlayerManagement\PlayerManager.cs" />
+    <Compile Include="Entities\GameSaveEntities.cs" />
+    <Compile Include="Entities\Player.cs" />
+    <Compile Include="CaroManagement\PlayerManager.cs" />
+    <Compile Include="Entities\SettingEntity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routers\BaseRoutes.cs" />
     <Compile Include="Routers\Routes.cs" />
     <Compile Include="Routers\SettingRoutes.cs" />
-    <Compile Include="SoundManager.cs" />
+    <Compile Include="CaroManagement\SoundManager.cs" />
     <Compile Include="Views\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +168,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\game-save.json" />
+    <None Include="Resources\settings.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -13,6 +13,7 @@
 using CaroGame.Configuration;
 using System;
 using System.Drawing;
+using static CaroGame.Program;
 
 namespace CaroGame.Views.Components.SettingComponents
 {
@@ -31,12 +32,12 @@ namespace CaroGame.Views.Components.SettingComponents
 
         protected override void SaveBut_Click(object sender, EventArgs e)
         {
-            SaveClickEvent(sender, e);
+
         }
 
         protected override void CancelBut_Click(object sender, EventArgs e)
         {
-            CancelClickEvent(sender, e);
+            settingRoutes.Routing(Constants.MAIN_SETTING);
         }
     }
 }

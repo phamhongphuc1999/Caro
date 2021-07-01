@@ -12,7 +12,7 @@
 
 using WMPLib;
 
-namespace CaroGame
+namespace CaroGame.CaroManagement
 {
     public class SoundManager
     {

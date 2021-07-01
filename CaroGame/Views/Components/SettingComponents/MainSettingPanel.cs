@@ -14,120 +14,13 @@ using CaroGame.Configuration;
 using CaroGame.Controls;
 using System;
 using System.Drawing;
+using static CaroGame.Program;
 
 namespace CaroGame.Views.Components.SettingComponents
 {
     public class MainSettingPanel : BaseSettingPanel
     {
         protected CaroButton gameModeBut, timerBut, playerBut, sizeBut, soundBut, languageBut, appearanceBut, loadGameBut, saveGameBut;
-
-        public event EventHandler GameModeClickEvent
-        {
-            add
-            {
-                gameModeBut.Click += value;
-            }
-            remove
-            {
-                gameModeBut.Click -= value;
-            }
-        }
-
-        public event EventHandler TimerClickEvent
-        {
-            add
-            {
-                timerBut.Click += value;
-            }
-            remove
-            {
-                timerBut.Click -= value;
-            }
-        }
-
-        public event EventHandler PlayerClickEvent
-        {
-            add
-            {
-                playerBut.Click += value;
-            }
-            remove
-            {
-                playerBut.Click -= value;
-            }
-        }
-
-        public event EventHandler SizeClickEvent
-        {
-            add
-            {
-                sizeBut.Click += value;
-            }
-            remove
-            {
-                sizeBut.Click -= value;
-            }
-        }
-
-        public event EventHandler SoundClickEvent
-        {
-            add
-            {
-                soundBut.Click += value;
-            }
-            remove
-            {
-                soundBut.Click -= value;
-            }
-        }
-
-        public event EventHandler LanguageClickEvent
-        {
-            add
-            {
-                languageBut.Click += value;
-            }
-            remove
-            {
-                languageBut.Click -= value;
-            }
-        }
-
-        public event EventHandler AppearanceClickEvent
-        {
-            add
-            {
-                appearanceBut.Click += value;
-            }
-            remove
-            {
-                appearanceBut.Click -= value;
-            }
-        }
-
-        public event EventHandler LoadGameClickEvent
-        {
-            add
-            {
-                loadGameBut.Click += value;
-            }
-            remove
-            {
-                loadGameBut.Click -= value;
-            }
-        }
-
-        public event EventHandler SaveGameClickEvent
-        {
-            add
-            {
-                saveGameBut.Click += value;
-            }
-            remove
-            {
-                saveGameBut.Click -= value;
-            }
-        }
 
         public MainSettingPanel(bool isAutoSize, bool isSave) : base(isAutoSize, isSave)
         {
@@ -192,6 +85,15 @@ namespace CaroGame.Views.Components.SettingComponents
                 Size = new Size(80, 30),
                 Location = new Point(445, 0)
             };
+            gameModeBut.Click += GameModeBut_Click;
+            timerBut.Click += TimerBut_Click;
+            playerBut.Click += PlayerBut_Click;
+            sizeBut.Click += SizeBut_Click;
+            soundBut.Click += SoundBut_Click;
+            languageBut.Click += LanguageBut_Click;
+            appearanceBut.Click += AppearanceBut_Click;
+            loadGameBut.Click += LoadGameBut_Click;
+            saveGameBut.Click += SaveGameBut_Click;
             this.Controls.Add(gameModeBut);
             this.Controls.Add(timerBut);
             this.Controls.Add(playerBut);
@@ -201,6 +103,61 @@ namespace CaroGame.Views.Components.SettingComponents
             this.Controls.Add(appearanceBut);
             this.Controls.Add(loadGameBut);
             this.Controls.Add(saveGameBut);
+        }
+
+        protected override void SaveBut_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        protected override void CancelBut_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void SaveGameBut_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void LoadGameBut_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void AppearanceBut_Click(object sender, EventArgs e)
+        {
+            settingRoutes.Routing(Constants.APPEARANCE_SETTING);
+        }
+
+        private void LanguageBut_Click(object sender, EventArgs e)
+        {
+            settingRoutes.Routing(Constants.LANGUAGE_SETTING);
+        }
+
+        private void SoundBut_Click(object sender, EventArgs e)
+        {
+            settingRoutes.Routing(Constants.SOUND_SETTING);
+        }
+
+        private void SizeBut_Click(object sender, EventArgs e)
+        {
+            settingRoutes.Routing(Constants.SIZE_SETTING);
+        }
+
+        private void PlayerBut_Click(object sender, EventArgs e)
+        {
+            settingRoutes.Routing(Constants.PLAYER_SETTING);
+        }
+
+        private void TimerBut_Click(object sender, EventArgs e)
+        {
+            settingRoutes.Routing(Constants.TIME_SETTING);
+        }
+
+        private void GameModeBut_Click(object sender, EventArgs e)
+        {
+            settingRoutes.Routing(Constants.GAME_MODE);
         }
     }
 }
