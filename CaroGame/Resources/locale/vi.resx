@@ -117,4 +117,82 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="about" xml:space="preserve">
+    <value>Giới thiệu</value>
+  </data>
+  <data name="aiMode" xml:space="preserve">
+    <value>Người với máy</value>
+  </data>
+  <data name="appearanceSetting" xml:space="preserve">
+    <value>Cài đặt giao diện</value>
+  </data>
+  <data name="back" xml:space="preserve">
+    <value>Quay lại</value>
+  </data>
+  <data name="caro" xml:space="preserve">
+    <value>Caro</value>
+  </data>
+  <data name="country" xml:space="preserve">
+    <value>Quốc gia</value>
+  </data>
+  <data name="developer" xml:space="preserve">
+    <value>Lập trình viên</value>
+  </data>
+  <data name="gameMode" xml:space="preserve">
+    <value>Chế độ chơi</value>
+  </data>
+  <data name="guide" xml:space="preserve">
+    <value>Hướng dẫn</value>
+  </data>
+  <data name="invalid" xml:space="preserve">
+    <value>Lỗi</value>
+  </data>
+  <data name="languageSetting" xml:space="preserve">
+    <value>Cài đặt ngôn ngữ</value>
+  </data>
+  <data name="lanMode" xml:space="preserve">
+    <value>Kết nối mạng LAN</value>
+  </data>
+  <data name="loadGame" xml:space="preserve">
+    <value>Tải game đã lưu</value>
+  </data>
+  <data name="newGame" xml:space="preserve">
+    <value>Game Mới</value>
+  </data>
+  <data name="next" xml:space="preserve">
+    <value>Tiếp</value>
+  </data>
+  <data name="or" xml:space="preserve">
+    <value>Hoặc</value>
+  </data>
+  <data name="overview" xml:space="preserve">
+    <value>Tổng quan</value>
+  </data>
+  <data name="player1" xml:space="preserve">
+    <value>Người chơi đầu tiên</value>
+  </data>
+  <data name="player2" xml:space="preserve">
+    <value>Người chơi thứ hai</value>
+  </data>
+  <data name="playerSetting" xml:space="preserve">
+    <value>Cài đặt người chơi</value>
+  </data>
+  <data name="setting" xml:space="preserve">
+    <value>Cài đặt</value>
+  </data>
+  <data name="sizeSetting" xml:space="preserve">
+    <value>Cài đặt kích thức</value>
+  </data>
+  <data name="soundSetting" xml:space="preserve">
+    <value>Cài đặt âm thanh</value>
+  </data>
+  <data name="timeSetting" xml:space="preserve">
+    <value>Cài đặt thời gian</value>
+  </data>
+  <data name="twoPlayerMode" xml:space="preserve">
+    <value>Hai người chơi</value>
+  </data>
+  <data name="version" xml:space="preserve">
+    <value>Phiên bản</value>
+  </data>
 </root>

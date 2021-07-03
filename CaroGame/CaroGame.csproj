@@ -52,6 +52,7 @@
     <Compile Include="CaroException.cs" />
     <Compile Include="CaroManagement\ActionManager.cs" />
     <Compile Include="CaroManagement\CaroBoardManager.cs" />
+    <Compile Include="CaroManagement\LanguageManager.cs" />
     <Compile Include="CaroManagement\StorageManager.cs" />
     <Compile Include="CaroManagement\TimerManager.cs" />
     <Compile Include="CaroManagement\WinnerManager.cs" />
@@ -80,6 +81,16 @@
     <Compile Include="Entities\SettingEntity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\locale\en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\locale\vi.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>vi.resx</DependentUpon>
+    </Compile>
     <Compile Include="Routers\BaseRoutes.cs" />
     <Compile Include="Routers\Routes.cs" />
     <Compile Include="Routers\SettingRoutes.cs" />
@@ -100,6 +111,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\Components\GameModePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Components\LanPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\Components\MainPanel.cs">
@@ -162,8 +176,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Views\BaseForm.resx">
-      <DependentUpon>BaseForm.cs</DependentUpon>
+    <EmbeddedResource Include="Resources\locale\en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\locale\vi.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>vi.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include=".editorconfig" />
     <None Include="packages.config" />

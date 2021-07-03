@@ -36,6 +36,7 @@ namespace CaroGame
         public static SoundManager soundManager;
         public static StorageManager storageManager;
         public static TimerManager timerManager;
+        public static LanguageManager languageManager;
 
         /// <summary>
         /// The main entry point for the application.
@@ -48,6 +49,7 @@ namespace CaroGame
             Icon aboutIcon = new Icon("../../Resources/Images/about.ico");
 
             timerManager = new TimerManager();
+            languageManager = new LanguageManager();
             caroBoardManager = new CaroBoardManager();
             playerManager = new PlayerManager();
             winnerManager = new WinnerManager();
@@ -70,7 +72,7 @@ namespace CaroGame
                 Control control = sender as Control;
                 if (control != null)
                 {
-                    mainForm.Text = e.title;
+                    mainForm.Text = languageManager.GetString(e.title);
                 }
             };
             routes.MainViewEvent += (sender, e) =>
@@ -88,7 +90,7 @@ namespace CaroGame
                 Control control = sender as Control;
                 if (control != null)
                 {
-                    settingForm.Text = e.title;
+                    settingForm.Text = languageManager.GetString(e.title);
                 }
             };
             settingRoutes.Routing(Constants.MAIN_SETTING);

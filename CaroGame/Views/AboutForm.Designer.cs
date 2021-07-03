@@ -1,4 +1,4 @@
-﻿using CaroGame.Configuration;
+﻿using static CaroGame.Program;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -13,8 +13,8 @@ namespace CaroGame.Views
         {
             rtbAbout = new RichTextBox()
             {
-                Name = "rtbAbout",
-                Text = Constants.ABOUT_DETAIL,
+                Text = string.Format("\n          {0}: Phạm Hồng Phúc\n          {1}: Việt Nam\n          Game: Caro\n          {2}: v3.0",
+                languageManager.GetString("developer"), languageManager.GetString("country"), languageManager.GetString("version")),
                 Size = new Size(400, 150),
                 Location = new Point(0, 0),
                 Enabled = false

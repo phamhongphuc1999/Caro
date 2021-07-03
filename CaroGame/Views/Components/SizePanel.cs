@@ -74,13 +74,13 @@ namespace CaroGame.Views.Components
             backBut = new CaroButton()
             {
                 Location = new Point(20, 300),
-                Text = "Back",
+                Text = languageManager.GetString("back"),
                 Size = new Size(70, 30)
             };
             nextBut = new CaroButton()
             {
                 Location = new Point(455, 300),
-                Text = "Next",
+                Text = languageManager.GetString("next"),
                 Size = new Size(70, 30)
             };
             backBut.Click += BackBut_Click;

@@ -34,24 +34,19 @@ namespace CaroGame.Configuration
 
         public readonly static (int, int)[] CARO_SIZE = new (int, int)[] { (5, 5), (10, 5), (10, 10), (15, 10), (15, 15), (20, 15), (20, 20), (25, 20), (25, 25) };
 
-        public readonly static string OVERVIEW = "Overview";
-        public readonly static string GAME_MODE = "Game Mode";
-        public readonly static string SIZE_SETTING = "Size Setting";
-        public readonly static string PLAYER_SETTING = "Player Setting";
-        public readonly static string MAIN = "Caro";
+        public readonly static string OVERVIEW = "overview";
+        public readonly static string GAME_MODE = "gameMode";
+        public readonly static string SIZE_SETTING = "sizeSetting";
+        public readonly static string PLAYER_SETTING = "playerSetting";
+        public readonly static string MAIN = "caro";
 
-        public readonly static string MAIN_SETTING = "Setting";
-        public readonly static string LANGUAGE_SETTING = "Language Setting";
-        public readonly static string SOUND_SETTING = "Sound Setting";
-        public readonly static string TIME_SETTING = "Time Setting";
-        public readonly static string APPEARANCE_SETTING = "Appearance Setting";
+        public readonly static string MAIN_SETTING = "setting";
+        public readonly static string LANGUAGE_SETTING = "languageSetting";
+        public readonly static string SOUND_SETTING = "soundSetting";
+        public readonly static string TIME_SETTING = "timeSetting";
+        public readonly static string APPEARANCE_SETTING = "appearanceSetting";
 
         public readonly static string ABOUT = "about";
         public readonly static string GITHUB_LINK = "https://github.com/phamhongphuc1999/Caro";
-        public readonly static string ABOUT_DETAIL = "\n" +
-                "          Devepoler: Phạm Hồng Phúc\n" +
-                "          Country: Việt Nam\n" +
-                "          Game: Caro Game\n" +
-                "          Version: v2.0";
     }
 }

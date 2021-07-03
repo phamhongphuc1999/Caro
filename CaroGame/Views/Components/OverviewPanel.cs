@@ -32,13 +32,13 @@ namespace CaroGame.Views.Components
         {
             newGameBut = new CaroButton()
             {
-                Text = "New Game",
+                Text = languageManager.GetString("newGame"),
                 Size = new Size(130, 50),
                 Location = new Point(100, 155)
             };
             guideBut = new CaroButton()
             {
-                Text = "Guide",
+                Text = languageManager.GetString("guide"),
                 Size = new Size(130, 50),
                 Location = new Point(350, 155)
             };
