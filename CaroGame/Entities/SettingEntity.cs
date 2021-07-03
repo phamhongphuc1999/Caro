@@ -42,5 +42,9 @@ namespace CaroGame.Entities
         {
             get; set;
         }
+        public string language
+        {
+            get; set;
+        }
     }
 }

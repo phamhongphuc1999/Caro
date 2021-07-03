@@ -127,12 +127,12 @@ namespace CaroGame.Views.Components.SettingComponents
 
         private void SaveGameBut_Click(object sender, EventArgs e)
         {
-            
+            storageManager.SaveGameToFile(caroBoardManager.ConvertBoardToString(), playerManager.Turn);
         }
 
         private void LoadGameBut_Click(object sender, EventArgs e)
         {
-            
+            settingRoutes.Routing(Constants.LOAD_GAME);
         }
 
         private void AppearanceBut_Click(object sender, EventArgs e)

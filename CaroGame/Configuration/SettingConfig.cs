@@ -22,6 +22,7 @@ namespace CaroGame.Configuration
         public static int VolumnSize = 0;
         public static int TimeTurn = 30;
         public static int Interval = 1000;
+        public static string Language = "";
 
         public static bool AppearanceOption = false;
         public static bool LanguageOption = false;

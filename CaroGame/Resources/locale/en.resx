@@ -162,6 +162,9 @@
   <data name="next" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="nothingMessage" xml:space="preserve">
+    <value>Nothing to load</value>
+  </data>
   <data name="or" xml:space="preserve">
     <value>Or</value>
   </data>
@@ -177,6 +180,9 @@
   <data name="playerSetting" xml:space="preserve">
     <value>Player Setting</value>
   </data>
+  <data name="redo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
   <data name="setting" xml:space="preserve">
     <value>Setting</value>
   </data>
@@ -191,6 +197,9 @@
   </data>
   <data name="twoPlayerMode" xml:space="preserve">
     <value>Two Player</value>
+  </data>
+  <data name="undo" xml:space="preserve">
+    <value>Undo</value>
   </data>
   <data name="version" xml:space="preserve">
     <value>Version</value>

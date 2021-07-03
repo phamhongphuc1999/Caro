@@ -89,7 +89,7 @@ namespace CaroGame.Views.Components
 
         private void LoadgameBut_Click(object sender, EventArgs e)
         {
-            
+            routes.Routing(Constants.LOAD_GAME);
         }
 
         private void AiModeBut_Click(object sender, EventArgs e)

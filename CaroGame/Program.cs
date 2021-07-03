@@ -48,6 +48,7 @@ namespace CaroGame
             Icon settingIcon = new Icon("../../Resources/Images/setting.ico");
             Icon aboutIcon = new Icon("../../Resources/Images/about.ico");
 
+            storageManager = new StorageManager();
             timerManager = new TimerManager();
             languageManager = new LanguageManager();
             caroBoardManager = new CaroBoardManager();
@@ -55,7 +56,6 @@ namespace CaroGame
             winnerManager = new WinnerManager();
             actionManager = new ActionManager();
             soundManager = new SoundManager();
-            storageManager = new StorageManager();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

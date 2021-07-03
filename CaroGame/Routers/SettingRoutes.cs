@@ -51,6 +51,10 @@ namespace CaroGame.Routers
         {
             get; set;
         }
+        public LoadGamePanel LoadGameView
+        {
+            get; set;
+        }
 
         private event EventHandler<EventArgsRoute> routeingEvent;
         public event EventHandler<EventArgsRoute> RoutingEvent
@@ -77,6 +81,7 @@ namespace CaroGame.Routers
             TimeSettingView = new TimeSettingPanel(false, true) { Visible = false };
             GameModeSettingView = new GameModeSettingPanel(false, false) { Visible = false };
             AppearanceSettingView = new AppearanceSettingPanel(false, true) { Visible = false };
+            LoadGameView = new LoadGamePanel(false, false, true) { Visible = false };
             viewForm.Controls.Add(MainSettingView);
             viewForm.Controls.Add(PlayerSettingView);
             viewForm.Controls.Add(SizeSettingView);
@@ -85,6 +90,7 @@ namespace CaroGame.Routers
             viewForm.Controls.Add(TimeSettingView);
             viewForm.Controls.Add(GameModeSettingView);
             viewForm.Controls.Add(AppearanceSettingView);
+            viewForm.Controls.Add(LoadGameView);
         }
 
         public void Routing(string router)
@@ -129,6 +135,11 @@ namespace CaroGame.Routers
             {
                 routeingEvent(AppearanceSettingView, e);
                 SetCurrentControl(AppearanceSettingView);
+            }
+            else if (router.Equals(Constants.LOAD_GAME))
+            {
+                routeingEvent(LoadGameView, e);
+                SetCurrentControl(LoadGameView);
             }
             else throw new Exception();
         }

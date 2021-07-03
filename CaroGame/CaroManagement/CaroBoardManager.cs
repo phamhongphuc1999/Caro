@@ -61,6 +61,57 @@ namespace CaroGame.CaroManagement
             }
         }
 
+        public List<(Point, int)> DrawLoadCaroBoard(string sCaroBoard)
+        {
+            caroBoardView.Controls.Clear();
+            caroBoardView.Enabled = true;
+            caroBoard.Clear();
+            List<(Point, int)> result = new List<(Point, int)>();
+            int count = 0;
+            for (int i = 0; i < SettingConfig.Rows; i++)
+            {
+                for (int j = 0; j < SettingConfig.Columns; j++)
+                {
+                    Button but = new Button()
+                    {
+                        Size = new Size(Constants.CHESS_WIDTH, Constants.CHESS_HEIGHT),
+                        Location = new Point(Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i),
+                        FlatStyle = FlatStyle.Standard
+                    };
+                    if (sCaroBoard[count] == '1')
+                    {
+                        but.BackColor = playerManager.PlayerColor1;
+                        result.Add((but.Location, 0));
+                    }
+                    else if (sCaroBoard[count] == '2')
+                    {
+                        but.BackColor = playerManager.PlayerColor2;
+                        result.Add((but.Location, 1));
+                    }
+                    but.Click += But_Click;
+                    caroBoard.Add(new Point(Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i), but);
+                    caroBoardView.Controls.Add(but);
+                    count++;
+                }
+            }
+            return result;
+        }
+
+        public string ConvertBoardToString()
+        {
+            string board = "";
+            Color playerColor1 = playerManager.PlayerColor1;
+            Color playerColor2 = playerManager.PlayerColor2;
+            foreach (KeyValuePair<Point, Button> item in caroBoard)
+            {
+                Button button = item.Value;
+                if (button.BackColor == playerColor1) board += "1";
+                else if (button.BackColor == playerColor2) board += "2";
+                else board += "0";
+            }
+            return board;
+        }
+
         public void CreateNewGame(int turn)
         {
             playerManager.Turn = turn;

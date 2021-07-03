@@ -196,6 +196,15 @@ namespace CaroGame.Resources.locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Không có dữ liệu.
+        /// </summary>
+        internal static string nothingMessage {
+            get {
+                return ResourceManager.GetString("nothingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hoặc.
         /// </summary>
         internal static string or {
@@ -241,6 +250,15 @@ namespace CaroGame.Resources.locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hoàn tác.
+        /// </summary>
+        internal static string redo {
+            get {
+                return ResourceManager.GetString("redo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cài đặt.
         /// </summary>
         internal static string setting {
@@ -282,6 +300,15 @@ namespace CaroGame.Resources.locale {
         internal static string twoPlayerMode {
             get {
                 return ResourceManager.GetString("twoPlayerMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quay lại.
+        /// </summary>
+        internal static string undo {
+            get {
+                return ResourceManager.GetString("undo", resourceCulture);
             }
         }
         

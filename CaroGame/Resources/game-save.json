@@ -1,2 +1,13 @@
 {
+  "GameSaveList": [
+    {
+      "Row": 5,
+      "Column": 10,
+      "PlayerName1": "1111111111111",
+      "PlayerName2": "2",
+      "GameMode": "two_palyer",
+      "Turn": 0,
+      "CaroBoard": "00012000000000120000000001200000000000000000000000"
+    }
+  ]
 }

@@ -12,6 +12,7 @@
 
 using CaroGame.Configuration;
 using CaroGame.Views.Components;
+using CaroGame.Views.Components.SettingComponents;
 using System;
 using System.Windows.Forms;
 
@@ -24,6 +25,10 @@ namespace CaroGame.Routers
             get; set;
         }
         public GameModePanel GameModeView
+        {
+            get; set;
+        }
+        public LoadGamePanel LoadGameView
         {
             get; set;
         }
@@ -72,11 +77,13 @@ namespace CaroGame.Routers
         {
             OverviewView = new OverviewPanel(false) { Visible = false };
             GameModeView = new GameModePanel(false) { Visible = false };
+            LoadGameView = new LoadGamePanel(false, false, false) { Visible = false };
             SizeView = new SizePanel(false) { Visible = false };
             PlayerView = new PlayerPanel(false) { Visible = false };
             MainView = new MainPanel(true) { Visible = false };
             viewForm.Controls.Add(OverviewView);
             viewForm.Controls.Add(GameModeView);
+            viewForm.Controls.Add(LoadGameView);
             viewForm.Controls.Add(SizeView);
             viewForm.Controls.Add(PlayerView);
             viewForm.Controls.Add(MainView);
@@ -110,6 +117,11 @@ namespace CaroGame.Routers
                 mainViewEvent(MainView, e);
                 routeingEvent(MainView, e);
                 SetCurrentControl(MainView);
+            }
+            else if (router.Equals(Constants.LOAD_GAME))
+            {
+                routeingEvent(LoadGameView, e);
+                SetCurrentControl(LoadGameView);
             }
             else throw new Exception();
         }

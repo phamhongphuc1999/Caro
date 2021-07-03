@@ -32,6 +32,9 @@ namespace CaroGame.Configuration
         public readonly static int CHESS_WIDTH = 30;
         public readonly static int CHESS_HEIGHT = 30;
 
+        public readonly static string VI_LANGUAGE = "vi";
+        public readonly static string EN_LANGUAGE = "en";
+
         public readonly static (int, int)[] CARO_SIZE = new (int, int)[] { (5, 5), (10, 5), (10, 10), (15, 10), (15, 15), (20, 15), (20, 20), (25, 20), (25, 25) };
 
         public readonly static string OVERVIEW = "overview";
@@ -39,6 +42,7 @@ namespace CaroGame.Configuration
         public readonly static string SIZE_SETTING = "sizeSetting";
         public readonly static string PLAYER_SETTING = "playerSetting";
         public readonly static string MAIN = "caro";
+        public readonly static string LOAD_GAME = "loadGame";
 
         public readonly static string MAIN_SETTING = "setting";
         public readonly static string LANGUAGE_SETTING = "languageSetting";

@@ -137,6 +137,9 @@
     <Compile Include="Views\Components\SettingComponents\LanguageSettingPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Views\Components\SettingComponents\LoadGamePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\Components\SettingComponents\PlayerSettingPanel.cs">
       <SubType>Component</SubType>
     </Compile>

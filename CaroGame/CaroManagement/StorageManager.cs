@@ -22,26 +22,9 @@ namespace CaroGame.CaroManagement
     public class StorageManager
     {
         private GameSaveModel gameSaveModel;
-        private int current_index;
-
-        public StorageManager()
-        {
-            gameSaveModel = new GameSaveModel();
-            current_index = -1;
-            InitializeConfiguration();
-            LoadGame();
-        }
-
         public int CurrentIndex
         {
-            get
-            {
-                return current_index;
-            }
-            set
-            {
-                current_index = value;
-            }
+            get; set;
         }
 
         public int Count
@@ -60,6 +43,14 @@ namespace CaroGame.CaroManagement
             }
         }
 
+        public StorageManager()
+        {
+            gameSaveModel = new GameSaveModel();
+            CurrentIndex = -1;
+            InitializeConfiguration();
+            LoadGame();
+        }
+
         private void InitializeConfiguration()
         {
             using (StreamReader sr = File.OpenText("../../Resources/settings.json"))
@@ -73,6 +64,7 @@ namespace CaroGame.CaroManagement
                 SettingConfig.VolumnSize = configEntity.volumeSize;
                 SettingConfig.TimeTurn = configEntity.timeTurn;
                 SettingConfig.Interval = configEntity.interval;
+                SettingConfig.Language = configEntity.language;
             }
         }
 
@@ -86,7 +78,8 @@ namespace CaroGame.CaroManagement
                 isPlayMusic = SettingConfig.IsPlayMusic,
                 volumeSize = SettingConfig.VolumnSize,
                 timeTurn = SettingConfig.TimeTurn,
-                interval = SettingConfig.Interval
+                interval = SettingConfig.Interval,
+                language = SettingConfig.Language
             };
             StreamWriter sw = new StreamWriter("../../Resources/settings.json");
             string data = JsonConvert.SerializeObject(configEntity);
@@ -103,17 +96,17 @@ namespace CaroGame.CaroManagement
             }
         }
 
-        public void SaveCurrentGame(string caroBoard, int turn)
+        private void SaveCurrentGame(string caroBoard, int turn)
         {
-            if (current_index >= 0)
+            if (CurrentIndex >= 0)
             {
-                gameSaveModel.GameSaveList[current_index].Row = SettingConfig.Rows;
-                gameSaveModel.GameSaveList[current_index].Column = SettingConfig.Columns;
-                gameSaveModel.GameSaveList[current_index].PlayerName1 = playerManager.PlayerName1;
-                gameSaveModel.GameSaveList[current_index].PlayerName2 = playerManager.PlayerName2;
-                gameSaveModel.GameSaveList[current_index].CaroBoard = caroBoard;
-                gameSaveModel.GameSaveList[current_index].Turn = turn;
-                gameSaveModel.GameSaveList[current_index].GameMode = SettingConfig.GameMode;
+                gameSaveModel.GameSaveList[CurrentIndex].Row = SettingConfig.Rows;
+                gameSaveModel.GameSaveList[CurrentIndex].Column = SettingConfig.Columns;
+                gameSaveModel.GameSaveList[CurrentIndex].PlayerName1 = playerManager.PlayerName1;
+                gameSaveModel.GameSaveList[CurrentIndex].PlayerName2 = playerManager.PlayerName2;
+                gameSaveModel.GameSaveList[CurrentIndex].CaroBoard = caroBoard;
+                gameSaveModel.GameSaveList[CurrentIndex].Turn = turn;
+                gameSaveModel.GameSaveList[CurrentIndex].GameMode = SettingConfig.GameMode;
             }
             else
             {
@@ -128,12 +121,13 @@ namespace CaroGame.CaroManagement
                     Turn = turn
                 };
                 gameSaveModel.GameSaveList.Add(gameSave);
-                current_index = gameSaveModel.GameSaveList.Count - 1;
+                CurrentIndex = gameSaveModel.GameSaveList.Count - 1;
             }
         }
 
-        public void SaveGameToFile()
+        public void SaveGameToFile(string caroBoard, int turn)
         {
+            SaveCurrentGame(caroBoard, turn);
             StreamWriter sw = new StreamWriter("../../Resources/game-save.json");
             string data = JsonConvert.SerializeObject(gameSaveModel);
             sw.WriteLine(data);
