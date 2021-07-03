@@ -1,5 +1,4 @@
-﻿using CaroGame.Configuration;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Forms;
 using System.Drawing;
 

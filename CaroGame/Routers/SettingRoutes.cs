@@ -52,6 +52,19 @@ namespace CaroGame.Routers
             get; set;
         }
 
+        private event EventHandler<EventArgsRoute> routeingEvent;
+        public event EventHandler<EventArgsRoute> RoutingEvent
+        {
+            add
+            {
+                routeingEvent += value;
+            }
+            remove
+            {
+                routeingEvent -= value;
+            }
+        }
+
         private static SettingRoutes settingRoutes;
 
         private SettingRoutes(SettingForm viewForm) : base()
@@ -76,14 +89,47 @@ namespace CaroGame.Routers
 
         public void Routing(string router)
         {
-            if (router.Equals(Constants.MAIN_SETTING)) SetCurrentControl(MainSettingView);
-            else if (router.Equals(Constants.PLAYER_SETTING)) SetCurrentControl(PlayerSettingView);
-            else if (router.Equals(Constants.SIZE_SETTING)) SetCurrentControl(SizeSettingView);
-            else if (router.Equals(Constants.LANGUAGE_SETTING)) SetCurrentControl(LanguageSettingView);
-            else if (router.Equals(Constants.SOUND_SETTING)) SetCurrentControl(SoundSettingView);
-            else if (router.Equals(Constants.TIME_SETTING)) SetCurrentControl(TimeSettingView);
-            else if (router.Equals(Constants.GAME_MODE)) SetCurrentControl(GameModeSettingView);
-            else if (router.Equals(Constants.APPEARANCE_SETTING)) SetCurrentControl(AppearanceSettingView);
+            EventArgsRoute e = new EventArgsRoute(router);
+            if (router.Equals(Constants.MAIN_SETTING))
+            {
+                routeingEvent(MainSettingView, e);
+                SetCurrentControl(MainSettingView);
+            }
+            else if (router.Equals(Constants.PLAYER_SETTING))
+            {
+                routeingEvent(PlayerSettingView, e);
+                SetCurrentControl(PlayerSettingView);
+            }
+            else if (router.Equals(Constants.SIZE_SETTING))
+            {
+                routeingEvent(SizeSettingView, e);
+                SetCurrentControl(SizeSettingView);
+            }
+            else if (router.Equals(Constants.LANGUAGE_SETTING))
+            {
+                routeingEvent(LanguageSettingView, e);
+                SetCurrentControl(LanguageSettingView);
+            }
+            else if (router.Equals(Constants.SOUND_SETTING))
+            {
+                routeingEvent(SoundSettingView, e);
+                SetCurrentControl(SoundSettingView);
+            }
+            else if (router.Equals(Constants.TIME_SETTING))
+            {
+                routeingEvent(TimeSettingView, e);
+                SetCurrentControl(TimeSettingView);
+            }
+            else if (router.Equals(Constants.GAME_MODE))
+            {
+                routeingEvent(GameModeSettingView, e);
+                SetCurrentControl(GameModeSettingView);
+            }
+            else if (router.Equals(Constants.APPEARANCE_SETTING))
+            {
+                routeingEvent(AppearanceSettingView, e);
+                SetCurrentControl(AppearanceSettingView);
+            }
             else throw new Exception();
         }
 

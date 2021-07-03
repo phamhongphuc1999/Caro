@@ -86,12 +86,12 @@ namespace CaroGame.Views.Components
 
         private void MainMenu_AboutItemClickEvent(object sender, EventArgs e)
         {
-            aboutForm.ShowDialog();
+            aboutForm.ShowDialog(mainForm);
         }
 
         private void MainMenu_SettingItemClickEvent(object sender, EventArgs e)
         {
-            settingForm.ShowDialog();
+            settingForm.ShowDialog(mainForm);
         }
 
         private void MainMenu_QuickItemClickEvent(object sender, EventArgs e)

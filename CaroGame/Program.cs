@@ -35,6 +35,7 @@ namespace CaroGame
         public static ActionManager actionManager;
         public static SoundManager soundManager;
         public static StorageManager storageManager;
+        public static TimerManager timerManager;
 
         /// <summary>
         /// The main entry point for the application.
@@ -46,8 +47,9 @@ namespace CaroGame
             Icon settingIcon = new Icon("../../Resources/Images/setting.ico");
             Icon aboutIcon = new Icon("../../Resources/Images/about.ico");
 
-            playerManager = new PlayerManager();
+            timerManager = new TimerManager();
             caroBoardManager = new CaroBoardManager();
+            playerManager = new PlayerManager();
             winnerManager = new WinnerManager();
             actionManager = new ActionManager();
             soundManager = new SoundManager();
@@ -77,9 +79,18 @@ namespace CaroGame
             };
             routes.Routing(Constants.OVERVIEW);
             caroBoardManager.InitMainView(routes.MainView);
+            playerManager.InitMainView(routes.MainView);
 
             // Initiliaze setting routes
             settingRoutes = SettingRoutes.GetInstance(settingForm);
+            settingRoutes.RoutingEvent += (sender, e) =>
+            {
+                Control control = sender as Control;
+                if (control != null)
+                {
+                    settingForm.Text = e.title;
+                }
+            };
             settingRoutes.Routing(Constants.MAIN_SETTING);
 
             Application.Run(mainForm);

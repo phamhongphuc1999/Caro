@@ -27,12 +27,11 @@ namespace CaroGame.Views.Components.SettingComponents
 
         protected override void DrawBasePanel()
         {
-            
+            base.DrawBasePanel();
         }
 
         protected override void SaveBut_Click(object sender, EventArgs e)
         {
-
         }
 
         protected override void CancelBut_Click(object sender, EventArgs e)

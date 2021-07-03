@@ -14,6 +14,7 @@ using CaroGame.Configuration;
 using CaroGame.Controls;
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 using static CaroGame.Program;
 
 namespace CaroGame.Views.Components.SettingComponents
@@ -107,12 +108,21 @@ namespace CaroGame.Views.Components.SettingComponents
 
         protected override void SaveBut_Click(object sender, EventArgs e)
         {
-            
+            if (SettingConfig.PlayerOption)
+            {
+                playerManager.PlayerName1 = TempConfig.NamePlayer1;
+                playerManager.PlayerName2 = TempConfig.NamePlayer2;
+            }
+            SettingConfig.ResetSettingOption();
+            Control parent = this.Parent;
+            parent.Hide();
         }
 
         protected override void CancelBut_Click(object sender, EventArgs e)
         {
-            
+            SettingConfig.ResetSettingOption();
+            Control parent = this.Parent;
+            parent.Hide();
         }
 
         private void SaveGameBut_Click(object sender, EventArgs e)

@@ -12,7 +12,9 @@
 
 using CaroGame.Configuration;
 using CaroGame.Entities;
+using CaroGame.Views.Components;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace CaroGame.CaroManagement
 {
@@ -20,6 +22,7 @@ namespace CaroGame.CaroManagement
     {
         private Player player1;
         private Player player2;
+        private TextBox playerTxt;
 
         public PlayerManager()
         {
@@ -31,6 +34,11 @@ namespace CaroGame.CaroManagement
         {
             player1 = new Player(playerName1, Color.Green, true);
             player2 = new Player(playerName2, Color.Red, false);
+        }
+
+        public void InitMainView(MainPanel mainView)
+        {
+            playerTxt = mainView.playerTxt;
         }
 
         public int Turn
@@ -51,6 +59,8 @@ namespace CaroGame.CaroManagement
                     player1.IsTurn = false;
                     player2.IsTurn = true;
                 }
+                playerTxt.Text = this.CurrentPlayerName;
+                playerTxt.BackColor = this.CurrentPlayerColor;
             }
         }
 
@@ -60,6 +70,11 @@ namespace CaroGame.CaroManagement
             {
                 return player1.NamePlayer;
             }
+            set
+            {
+                player1.NamePlayer = value;
+                playerTxt.Text = this.CurrentPlayerName;
+            }
         }
 
         public string PlayerName2
@@ -67,6 +82,11 @@ namespace CaroGame.CaroManagement
             get
             {
                 return player2.NamePlayer;
+            }
+            set
+            {
+                player2.NamePlayer = value;
+                playerTxt.Text = this.CurrentPlayerName;
             }
         }
 
@@ -76,6 +96,11 @@ namespace CaroGame.CaroManagement
             {
                 return player1.ColorPlayer;
             }
+            set
+            {
+                player1.ColorPlayer = value;
+                playerTxt.BackColor = this.CurrentPlayerColor;
+            }
         }
 
         public Color PlayerColor2
@@ -83,6 +108,11 @@ namespace CaroGame.CaroManagement
             get
             {
                 return player2.ColorPlayer;
+            }
+            set
+            {
+                player2.ColorPlayer = value;
+                playerTxt.BackColor = this.CurrentPlayerColor;
             }
         }
 
@@ -120,12 +150,6 @@ namespace CaroGame.CaroManagement
                 if (player1.IsTurn) return player2.ColorPlayer;
                 return player1.ColorPlayer;
             }
-        }
-
-        public void SetPlayerName(string playerName, string player)
-        {
-            if (player.Equals(Constants.PLAYER1)) player1.NamePlayer = playerName;
-            else player2.NamePlayer = playerName;
         }
     }
 }

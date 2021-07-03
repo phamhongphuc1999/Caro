@@ -53,9 +53,11 @@
     <Compile Include="CaroManagement\ActionManager.cs" />
     <Compile Include="CaroManagement\CaroBoardManager.cs" />
     <Compile Include="CaroManagement\StorageManager.cs" />
+    <Compile Include="CaroManagement\TimerManager.cs" />
     <Compile Include="CaroManagement\WinnerManager.cs" />
     <Compile Include="Configuration\Constants.cs" />
     <Compile Include="Configuration\SettingConfig.cs" />
+    <Compile Include="Configuration\TempConfig.cs" />
     <Compile Include="Controls\BaseTextBox.cs" />
     <Compile Include="Controls\CaroButton.cs">
       <SubType>Component</SubType>
@@ -68,6 +70,9 @@
     </Compile>
     <Compile Include="Controls\CaroTextBox.Designer.cs">
       <DependentUpon>CaroTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ToggleButton.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Entities\GameSaveEntities.cs" />
     <Compile Include="Entities\Player.cs" />
@@ -157,6 +162,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include=".editorconfig" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -178,6 +186,7 @@
     <Content Include="Resources\Images\about.ico" />
     <Content Include="Resources\Images\caro.ico" />
     <Content Include="Resources\Images\setting.ico" />
+    <Content Include="Resources\Musics\a-town-with-an-ocean-view.wav" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

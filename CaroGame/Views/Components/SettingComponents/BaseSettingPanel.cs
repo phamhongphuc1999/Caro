@@ -55,12 +55,10 @@ namespace CaroGame.Views.Components.SettingComponents
 
         protected virtual void CancelBut_Click(object sender, EventArgs e)
         {
-            
         }
 
         protected virtual void SaveBut_Click(object sender, EventArgs e)
         {
-            
         }
     }
 }

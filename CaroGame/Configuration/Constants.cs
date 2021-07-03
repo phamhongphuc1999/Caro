@@ -47,6 +47,7 @@ namespace CaroGame.Configuration
         public readonly static string APPEARANCE_SETTING = "Appearance Setting";
 
         public readonly static string ABOUT = "about";
+        public readonly static string GITHUB_LINK = "https://github.com/phamhongphuc1999/Caro";
         public readonly static string ABOUT_DETAIL = "\n" +
                 "          Devepoler: Phạm Hồng Phúc\n" +
                 "          Country: Việt Nam\n" +

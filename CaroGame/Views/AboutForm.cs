@@ -10,9 +10,11 @@
 //
 // ------------------------------------------------------
 
+using CaroGame.Configuration;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace CaroGame.Views
 {
@@ -26,7 +28,12 @@ namespace CaroGame.Views
 
         private void GitLlbl_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/phamhongphuc1999/Caro");
+            Process.Start(Constants.GITHUB_LINK);
+        }
+
+        protected override void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
         }
     }
 }

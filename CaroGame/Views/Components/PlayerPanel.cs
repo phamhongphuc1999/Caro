@@ -108,8 +108,8 @@ namespace CaroGame.Views.Components
         {
             if (player1Tb.TextValidate && player2Tb.TextValidate)
             {
-                playerManager.SetPlayerName(player1Tb.InfoText, Constants.PLAYER1);
-                playerManager.SetPlayerName(player2Tb.InfoText, Constants.PLAYER2);
+                playerManager.PlayerName1 = player1Tb.InfoText;
+                playerManager.PlayerName2 = player2Tb.InfoText;
                 routes.Routing(Constants.MAIN);
             }
         }

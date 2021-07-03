@@ -22,26 +22,14 @@ namespace CaroGame.CaroManagement
 {
     public class CaroBoardManager
     {
-        private MainPanel MainView;
         private Panel caroBoardView;
         private Dictionary<Point, Button> caroBoard;
         private TextBox playerTxt;
-        private Label timeLbl;
-
-        public Action<object, EventArgs> ButClick;
 
         public void InitMainView(MainPanel mainView)
         {
-            MainView = mainView;
             caroBoardView = mainView.caroBoardView;
             playerTxt = mainView.playerTxt;
-            timeLbl = mainView.timeLbl;
-        }
-
-        public void Turn()
-        {
-            playerTxt.Text = playerManager.CurrentPlayerName;
-            playerTxt.BackColor = playerManager.CurrentPlayerColor;
         }
 
         public void InitCaroBoard()
@@ -176,7 +164,6 @@ namespace CaroGame.CaroManagement
                 {
                     playerManager.Turn = playerManager.Turn + 1;
                     winnerManager.Turn = 1 - winnerManager.Turn;
-                    Turn();
                 }
             }
         }
