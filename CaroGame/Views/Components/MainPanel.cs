@@ -101,7 +101,7 @@ namespace CaroGame.Views.Components
 
         private void MainMenu_NewGameItemClickEvent(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         private void RedoBut_Click(object sender, EventArgs e)

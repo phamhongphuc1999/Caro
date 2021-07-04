@@ -61,9 +61,10 @@
     <Compile Include="Configuration\Constants.cs" />
     <Compile Include="Configuration\SettingConfig.cs" />
     <Compile Include="Configuration\TempConfig.cs" />
-    <Compile Include="Controls\BaseTextBox.cs">
+    <Compile Include="Controls\BoardButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\BaseTextBox.cs" />
     <Compile Include="Controls\CaroButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -76,10 +77,14 @@
     <Compile Include="Controls\CaroTextBox.Designer.cs">
       <DependentUpon>CaroTextBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ResizePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\ToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Entities\CrossThread.cs" />
+    <Compile Include="Entities\BoardPosition.cs" />
     <Compile Include="Entities\GameSaveEntities.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="CaroManagement\PlayerManager.cs" />

@@ -15,96 +15,257 @@ using CaroGame.Controls;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using static CaroGame.Configuration.Constants;
 using static CaroGame.Program;
 
 namespace CaroGame.Views.Components
 {
     public class SizePanel : BaseCaroPanel
     {
-        protected CaroButton backBut, nextBut;
-        private Button currentBut;
+        protected CaroButton backBut, nextBut, addBut, removeBut, resetBut;
+        protected NumericUpDown rowNud, columnNud;
+        protected Label rowLbl, columnLbl;
+        private ResizePanel resizePanel;
+        private Panel containerPnl;
+        private SizeAction action = SizeAction.Add;
+        private int[,] board;
 
         public SizePanel(bool isAutoSize) : base(isAutoSize)
         {
-            this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
-            currentBut = new Button();
+            board = new int[15, 30];
+            this.Size = new Size(800, 340);
             DrawBasePanel();
         }
 
         private void DrawSizeButtonPanel()
         {
-            int index = 0;
-            int Y = 20;
-            foreach ((int, int) size in Constants.CARO_SIZE)
+            containerPnl = new Panel
             {
-                int X = 29 + 129 * index;
-                if (X > Constants.WIDTH_STANDARD)
+                Location = new Point(5, 5),
+                Size = new Size(630, 330)
+            };
+            resizePanel = new ResizePanel(false, true)
+            {
+                Location = new Point(5, 5),
+                Size = new Size(620, 320),
+                BorderStyle = BorderStyle.FixedSingle,
+                MaximumSize = new Size(620, 320),
+                MinimumSize = new Size(115, 115)
+            };
+            resizePanel.SizeChanged += ResizePanel_SizeChanged;
+            containerPnl.Controls.Add(resizePanel);
+            int X = 20, Y = 20;
+            for (int i = 0; i < 15; i++)
+            {
+                for (int j = 0; j < 30; j++)
                 {
-                    index = 0;
-                    X = 29;
-                    Y += 80;
-                }
-                CaroButton button = new CaroButton
-                {
-                    Size = new Size(100, 60),
-                    Font = new Font("Time New Roman", 15),
-                    Location = new Point(X, Y),
-                    Text = string.Format("{0} x {1}", size.Item1, size.Item2)
-                };
-                button.Click += (sender, e) =>
-                {
-                    SettingConfig.Columns = size.Item1;
-                    SettingConfig.Rows = size.Item2;
-                    if (currentBut != null) currentBut.FlatStyle = FlatStyle.Flat;
-                    Button but = sender as Button;
-                    if (but != null)
+                    Button but = new Button
                     {
-                        currentBut = but;
-                        currentBut.FlatStyle = FlatStyle.Standard;
-                    }
-                };
-                this.Controls.Add(button);
-                index++;
+                        Location = new Point(X, Y),
+                        Size = new Size(20, 20),
+                        Enabled = false
+                    };
+                    containerPnl.Controls.Add(but);
+                    X += 20;
+                }
+                X = 20; Y += 20;
             }
+            X = 14; Y = 14;
+            for (int i = 0; i < 15; i++)
+            {
+                for (int j = 0; j < 30; j++)
+                {
+                    BoardButton but = new BoardButton
+                    {
+                        Location = new Point(X, Y),
+                        Size = new Size(20, 20),
+                        Rows = i,
+                        Columns = j
+                    };
+                    but.Click += But_Click;
+                    resizePanel.Controls.Add(but);
+                    X += 20;
+                    board[i, j] = 3;
+                }
+                X = 14; Y += 20;
+            }
+            this.Controls.Add(containerPnl);
         }
 
         protected override void DrawBasePanel()
         {
             DrawSizeButtonPanel();
+            rowLbl = new Label
+            {
+                Location = new Point(650, 25),
+                Text = "Row",
+                Size = new Size(50, 30)
+            };
+            columnLbl = new Label
+            {
+                Location = new Point(650, 65),
+                Text = "Column",
+                Size = new Size(50, 30)
+            };
+            rowNud = new NumericUpDown
+            {
+                Location = new Point(710, 25),
+                Size = new Size(80, 30),
+                Minimum = 5,
+                Maximum = 15,
+                Value = (resizePanel.Height - 15) / 20
+            };
+            columnNud = new NumericUpDown
+            {
+                Location = new Point(710, 65),
+                Size = new Size(80, 30),
+                Minimum = 5,
+                Maximum = 30,
+                Value = (resizePanel.Width - 15) / 20
+            };
+            addBut = new CaroButton
+            {
+                Location = new Point(650, 105),
+                Text = languageManager.GetString("add"),
+                Size = new Size(140, 30),
+                FlatStyle = FlatStyle.Flat
+            };
+            removeBut = new CaroButton
+            {
+                Location = new Point(650, 145),
+                Text = languageManager.GetString("remove"),
+                Size = new Size(140, 30)
+            };
+            resetBut = new CaroButton
+            {
+                Location = new Point(650, 185),
+                Text = languageManager.GetString("reset"),
+                Size = new Size(140, 30)
+            };
             backBut = new CaroButton()
             {
-                Location = new Point(20, 300),
+                Location = new Point(650, 225),
                 Text = languageManager.GetString("back"),
-                Size = new Size(70, 30)
+                Size = new Size(140, 30)
             };
             nextBut = new CaroButton()
             {
-                Location = new Point(455, 300),
+                Location = new Point(650, 265),
                 Text = languageManager.GetString("next"),
-                Size = new Size(70, 30)
+                Size = new Size(140, 30)
             };
+            rowNud.ValueChanged += RowNud_ValueChanged;
+            columnNud.ValueChanged += ColumnNud_ValueChanged;
+            addBut.Click += AddBut_Click;
+            removeBut.Click += RemoveBut_Click;
+            resetBut.Click += ResetBut_Click;
             backBut.Click += BackBut_Click;
             nextBut.Click += NextBut_Click;
+            this.Controls.Add(rowLbl);
+            this.Controls.Add(columnLbl);
+            this.Controls.Add(rowNud);
+            this.Controls.Add(columnNud);
+            this.Controls.Add(addBut);
+            this.Controls.Add(removeBut);
+            this.Controls.Add(resetBut);
             this.Controls.Add(backBut);
             this.Controls.Add(nextBut);
         }
 
+        private void ResizePanel_SizeChanged(object sender, EventArgs e)
+        {
+            ResizePanel rePnl = sender as ResizePanel;
+            if (rePnl != null)
+            {
+                rowNud.Value = (rePnl.Height - 15) / 20;
+                columnNud.Value = (rePnl.Width - 15) / 20;
+            }
+        }
+
+        private void ColumnNud_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown temp = sender as NumericUpDown;
+            if (temp != null)
+            {
+                resizePanel.Width = 15 + 20 * (int)temp.Value;
+            }
+        }
+
+        private void RowNud_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown temp = sender as NumericUpDown;
+            if (temp != null)
+            {
+                resizePanel.Height = 15 + 20 * (int)temp.Value;
+            }
+        }
+
+        private void RemoveBut_Click(object sender, EventArgs e)
+        {
+            if (action == SizeAction.Add)
+            {
+                removeBut.FlatStyle = FlatStyle.Flat;
+                addBut.FlatStyle = FlatStyle.Standard;
+                action = SizeAction.Remove;
+            }
+        }
+
+        private void AddBut_Click(object sender, EventArgs e)
+        {
+            if (action == SizeAction.Remove)
+            {
+                addBut.FlatStyle = FlatStyle.Flat;
+                removeBut.FlatStyle = FlatStyle.Standard;
+                action = SizeAction.Add;
+            }
+        }
+
+        private void ResetBut_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void NextBut_Click(object sender, EventArgs e)
         {
-            int rows = SettingConfig.Rows;
-            int columns = SettingConfig.Columns;
-            if (rows < 5 || rows > 25 || columns < 5 || columns > 25)
-            {
-                MessageBox.Show("Nhập số sai");
-                SettingConfig.Rows = SettingConfig.Columns = 0;
-                return;
-            }
-            else routes.Routing(Constants.PLAYER_SETTING);
+            int rows = (int)rowNud.Value;
+            int columns = (int)columnNud.Value;
+            SettingConfig.BoardPattern = "";
+            for (int i = 0; i < rows; i++)
+                for (int j = 0; j < columns; j++)
+                    SettingConfig.BoardPattern += board[i, j];
+            SettingConfig.Rows = rows;
+            SettingConfig.Columns = columns;
+            routes.Routing(Constants.PLAYER_SETTING);
         }
 
         private void BackBut_Click(object sender, EventArgs e)
         {
             routes.Routing(Constants.GAME_MODE);
+        }
+
+        private void But_Click(object sender, EventArgs e)
+        {
+            BoardButton but = sender as BoardButton;
+            if (action == SizeAction.Remove)
+            {
+                if (but.BackColor != Color.Black)
+                {
+                    but.BackColor = Color.Black;
+                    int row = but.Rows;
+                    int column = but.Columns;
+                    board[row, column] = 0;
+                }
+            }
+            else
+            {
+                if (but.BackColor == Color.Black)
+                {
+                    but.BackColor = Color.Transparent;
+                    int row = but.Rows;
+                    int column = but.Columns;
+                    board[row, column] = 3;
+                }
+            }
         }
     }
 }

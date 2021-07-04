@@ -16,6 +16,7 @@ namespace CaroGame.Configuration
     {
         public static int Columns = 0;
         public static int Rows = 0;
+        public static string BoardPattern = "";
         public static string GameMode = "";
         public static bool IsTime = false;
         public static bool IsPlayMusic = false;

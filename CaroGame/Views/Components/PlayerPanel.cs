@@ -35,13 +35,13 @@ namespace CaroGame.Views.Components
         {
             lbl1 = new Label
             {
-                Size = new Size(80, 45),
+                Size = new Size(100, 45),
                 Location = new Point(30, 85),
                 Text = languageManager.GetString(Constants.PLAYER1_DEFAULT_NAME)
             };
             lbl2 = new Label()
             {
-                Size = new Size(80, 45),
+                Size = new Size(100, 45),
                 Location = new Point(30, 170),
                 Text = languageManager.GetString(Constants.PLAYER2_DEFAULT_NAME)
             };
@@ -49,7 +49,7 @@ namespace CaroGame.Views.Components
             {
                 TextWidth = 360,
                 Size = new Size(400, 80),
-                Location = new Point(120, 85),
+                Location = new Point(135, 85),
                 RequiredText = languageManager.GetString("invalid"),
                 ValidateText = (text) =>
                 {
@@ -64,7 +64,7 @@ namespace CaroGame.Views.Components
             player2Tb = new CaroTextBox()
             {
                 TextWidth = 360,
-                Location = new Point(120, 170),
+                Location = new Point(135, 170),
                 Size = new Size(400, 80),
                 RequiredText = languageManager.GetString("invalid"),
                 ValidateText = (text) =>

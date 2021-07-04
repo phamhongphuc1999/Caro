@@ -35,8 +35,6 @@ namespace CaroGame.Configuration
         public readonly static string VI_LANGUAGE = "vi";
         public readonly static string EN_LANGUAGE = "en";
 
-        public readonly static (int, int)[] CARO_SIZE = new (int, int)[] { (5, 5), (10, 5), (10, 10), (15, 10), (15, 15), (20, 15), (20, 20), (25, 20), (25, 25) };
-
         public readonly static string OVERVIEW = "overview";
         public readonly static string GAME_MODE = "gameMode";
         public readonly static string SIZE_SETTING = "sizeSetting";
@@ -52,5 +50,20 @@ namespace CaroGame.Configuration
 
         public readonly static string ABOUT = "about";
         public readonly static string GITHUB_LINK = "https://github.com/phamhongphuc1999/Caro";
+
+        public enum EdgeEnum
+        {
+            None,
+            Right,
+            Left,
+            Top,
+            Bottom,
+            TopLeft
+        }
+
+        public enum SizeAction
+        {
+            Remove, Add
+        }
     }
 }

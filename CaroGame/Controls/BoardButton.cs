@@ -10,16 +10,20 @@
 //
 // ------------------------------------------------------
 
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace CaroGame.Controls
 {
-    public class CaroButton : Button
+    public class BoardButton : Button
     {
-        public CaroButton() : base()
+        public int Rows
         {
-            BackColor = ColorTranslator.FromHtml("#8BC4FC");
+            get; set;
         }
+        public int Columns
+        {
+            get; set;
+        }
+        public BoardButton() : base() { }
     }
 }

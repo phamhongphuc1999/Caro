@@ -70,6 +70,15 @@ namespace CaroGame.Resources.locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thêm.
+        /// </summary>
+        internal static string add {
+            get {
+                return ResourceManager.GetString("add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Người với máy.
         /// </summary>
         internal static string aiMode {
@@ -255,6 +264,15 @@ namespace CaroGame.Resources.locale {
         internal static string redo {
             get {
                 return ResourceManager.GetString("redo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xóa.
+        /// </summary>
+        internal static string remove {
+            get {
+                return ResourceManager.GetString("remove", resourceCulture);
             }
         }
         
