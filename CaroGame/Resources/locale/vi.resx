@@ -120,6 +120,9 @@
   <data name="about" xml:space="preserve">
     <value>Giới thiệu</value>
   </data>
+  <data name="add" xml:space="preserve">
+    <value>Thêm</value>
+  </data>
   <data name="aiMode" xml:space="preserve">
     <value>Người với máy</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="redo" xml:space="preserve">
     <value>Hoàn tác</value>
+  </data>
+  <data name="remove" xml:space="preserve">
+    <value>Xóa</value>
   </data>
   <data name="setting" xml:space="preserve">
     <value>Cài đặt</value>
