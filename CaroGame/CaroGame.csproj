@@ -81,6 +81,7 @@
     <Compile Include="Controls\ToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Entities\BoardPosition.cs" />
     <Compile Include="Entities\GameSaveEntities.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="CaroManagement\PlayerManager.cs" />

@@ -232,9 +232,9 @@ namespace CaroGame.Views.Components
             SettingConfig.BoardPattern = "";
             for (int i = 0; i < rows; i++)
                 for (int j = 0; j < columns; j++)
-                {
                     SettingConfig.BoardPattern += board[i, j];
-                }
+            SettingConfig.Rows = rows;
+            SettingConfig.Columns = columns;
             routes.Routing(Constants.PLAYER_SETTING);
         }
 

@@ -13,7 +13,6 @@
 using CaroGame.Configuration;
 using CaroGame.Entities;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using static CaroGame.Program;
@@ -103,13 +102,14 @@ namespace CaroGame.Views.Components.SettingComponents
             GameSaveData data = storageManager.GameSaveList[count - 1];
             SettingConfig.Rows = data.Row;
             SettingConfig.Columns = data.Column;
+            SettingConfig.BoardPattern = data.CaroBoard;
             playerManager.PlayerName1 = data.PlayerName1;
             playerManager.PlayerName2 = data.PlayerName2;
             playerManager.Turn = data.Turn;
             actionManager.ResetAction();
             caroBoardManager.InitCaroBoard();
-            List<(Point, int)> result = caroBoardManager.DrawLoadCaroBoard(data.CaroBoard);
-            winnerManager.LoadSaveGame(data.Turn, result);
+            caroBoardManager.DrawCaroBoard();
+            winnerManager.LoadSaveGame(data.Turn, data.CaroBoard);
             if (isSetting)
             {
                 Control parent = this.Parent;

@@ -11,6 +11,8 @@
 // ------------------------------------------------------
 
 using CaroGame.Configuration;
+using CaroGame.Controls;
+using CaroGame.Entities;
 using CaroGame.Views.Components;
 using System;
 using System.Collections.Generic;
@@ -23,7 +25,7 @@ namespace CaroGame.CaroManagement
     public class CaroBoardManager
     {
         private Panel caroBoardView;
-        private Dictionary<Point, Button> caroBoard;
+        private Dictionary<BoardPosition, Button> caroBoard;
         private TextBox playerTxt;
 
         public void InitMainView(MainPanel mainView)
@@ -36,7 +38,7 @@ namespace CaroGame.CaroManagement
         {
             playerTxt.Text = playerManager.CurrentPlayerName;
             playerTxt.BackColor = playerManager.CurrentPlayerColor;
-            caroBoard = new Dictionary<Point, Button>();
+            caroBoard = new Dictionary<BoardPosition, Button>();
         }
 
         public void DrawCaroBoard()
@@ -44,57 +46,27 @@ namespace CaroGame.CaroManagement
             caroBoardView.Controls.Clear();
             caroBoardView.Enabled = true;
             caroBoard.Clear();
-            for (int i = 0; i < SettingConfig.Rows; i++)
-            {
-                for (int j = 0; j < SettingConfig.Columns; j++)
-                {
-                    Button but = new Button()
-                    {
-                        Size = new Size(Constants.CHESS_WIDTH, Constants.CHESS_HEIGHT),
-                        Location = new Point(Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i),
-                        FlatStyle = FlatStyle.Standard
-                    };
-                    but.Click += But_Click;
-                    caroBoard.Add(new Point(Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i), but);
-                    caroBoardView.Controls.Add(but);
-                }
-            }
-        }
-
-        public List<(Point, int)> DrawLoadCaroBoard(string sCaroBoard)
-        {
-            caroBoardView.Controls.Clear();
-            caroBoardView.Enabled = true;
-            caroBoard.Clear();
-            List<(Point, int)> result = new List<(Point, int)>();
             int count = 0;
             for (int i = 0; i < SettingConfig.Rows; i++)
-            {
                 for (int j = 0; j < SettingConfig.Columns; j++)
                 {
-                    Button but = new Button()
+                    if (SettingConfig.BoardPattern[count] != '0')
                     {
-                        Size = new Size(Constants.CHESS_WIDTH, Constants.CHESS_HEIGHT),
-                        Location = new Point(Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i),
-                        FlatStyle = FlatStyle.Standard
-                    };
-                    if (sCaroBoard[count] == '1')
-                    {
-                        but.BackColor = playerManager.PlayerColor1;
-                        result.Add((but.Location, 0));
+                        BoardButton but = new BoardButton
+                        {
+                            Size = new Size(Constants.CHESS_WIDTH, Constants.CHESS_HEIGHT),
+                            Location = new Point(Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i),
+                            Rows = i,
+                            Columns = j
+                        };
+                        if (SettingConfig.BoardPattern[count] == '1') but.BackColor = playerManager.PlayerColor1;
+                        else if (SettingConfig.BoardPattern[count] == '2') but.BackColor = playerManager.PlayerColor2;
+                        but.Click += But_Click;
+                        caroBoard.Add(new BoardPosition(i, j), but);
+                        caroBoardView.Controls.Add(but);
                     }
-                    else if (sCaroBoard[count] == '2')
-                    {
-                        but.BackColor = playerManager.PlayerColor2;
-                        result.Add((but.Location, 1));
-                    }
-                    but.Click += But_Click;
-                    caroBoard.Add(new Point(Constants.CHESS_WIDTH * j, Constants.CHESS_HEIGHT * i), but);
-                    caroBoardView.Controls.Add(but);
                     count++;
                 }
-            }
-            return result;
         }
 
         public string ConvertBoardToString()
@@ -102,7 +74,7 @@ namespace CaroGame.CaroManagement
             string board = "";
             Color playerColor1 = playerManager.PlayerColor1;
             Color playerColor2 = playerManager.PlayerColor2;
-            foreach (KeyValuePair<Point, Button> item in caroBoard)
+            foreach (KeyValuePair<BoardPosition, Button> item in caroBoard)
             {
                 Button button = item.Value;
                 if (button.BackColor == playerColor1) board += "1";
@@ -121,17 +93,17 @@ namespace CaroGame.CaroManagement
             winnerManager.NewGameHanlde(turn);
         }
 
-        public void UndoGame(int X, int Y, string playerName)
+        public void UndoGame(int row, int column, string playerName)
         {
-            Button but = caroBoard[new Point(X, Y)];
+            Button but = caroBoard[new BoardPosition(row, column)];
             but.BackColor = Color.Transparent;
             but.FlatStyle = FlatStyle.Standard;
             playerTxt.Text = playerName;
         }
 
-        public void RedoGame(int X, int Y, string playerName, Color playerColor)
+        public void RedoGame(int row, int column, string playerName, Color playerColor)
         {
-            Button but = caroBoard[new Point(X, Y)];
+            Button but = caroBoard[new BoardPosition(row, column)];
             but.BackColor = playerColor;
             playerTxt.Text = playerName;
             but.FlatStyle = FlatStyle.Standard;
@@ -150,22 +122,22 @@ namespace CaroGame.CaroManagement
             int[] check = winnerManager.check;
             if (check[0] == 1)
             {
-                foreach (Point item in winnerManager.arrRow)
+                foreach (BoardPosition item in winnerManager.arrRow)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             if (check[1] == 1)
             {
-                foreach (Point item in winnerManager.arrColumn)
+                foreach (BoardPosition item in winnerManager.arrColumn)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             if (check[2] == 1)
             {
-                foreach (Point item in winnerManager.arrMainDiagonal)
+                foreach (BoardPosition item in winnerManager.arrMainDiagonal)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             if (check[3] == 1)
             {
-                foreach (Point item in winnerManager.arrSubDiagomal)
+                foreach (BoardPosition item in winnerManager.arrSubDiagomal)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             eventBut.FlatStyle = FlatStyle.Flat;
@@ -201,15 +173,13 @@ namespace CaroGame.CaroManagement
 
         private void But_Click(object sender, EventArgs e)
         {
-            Button but = sender as Button;
-            if (!winnerManager.CheckExtist(but.Location))
+            BoardButton but = sender as BoardButton;
+            if (!winnerManager.CheckExtist(but.Rows, but.Columns))
             {
-                int X = but.Location.X;
-                int Y = but.Location.Y;
                 but.BackColor = playerManager.CurrentPlayerColor;
-                winnerManager.DrawCaroBoard(but.Location);
+                winnerManager.DrawCaroBoard(but.Rows, but.Columns);
                 actionManager.UpdateTurn(but);
-                if (winnerManager.IsWiner(X, Y).Result) Winner(but);
+                if (winnerManager.IsWiner(but.Rows, but.Columns).Result) Winner(but);
                 else if (winnerManager.IsEndGame()) EndGame();
                 else
                 {
