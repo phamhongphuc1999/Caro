@@ -21,72 +21,96 @@ namespace CaroGame.Views.Components
 {
     public class SizePanel : BaseCaroPanel
     {
-        protected CaroButton backBut, nextBut;
-        private Button currentBut;
+        protected CaroButton backBut, nextBut, addBut, removeBut;
+        private Panel containerPnl;
 
         public SizePanel(bool isAutoSize) : base(isAutoSize)
         {
-            this.Size = new Size(Constants.WIDTH_STANDARD, Constants.HEIGHT_STANDARD);
-            currentBut = new Button();
+            this.Size = new Size(700, 330);
             DrawBasePanel();
         }
 
         private void DrawSizeButtonPanel()
         {
-            int index = 0;
-            int Y = 20;
-            foreach ((int, int) size in Constants.CARO_SIZE)
+            containerPnl = new Panel
             {
-                int X = 29 + 129 * index;
-                if (X > Constants.WIDTH_STANDARD)
+                Location = new Point(5, 5),
+                Size = new Size(620, 320)
+            };
+            ResizePanel resizePanel = new ResizePanel(false, true)
+            {
+                Location = new Point(5, 5),
+                Size = new Size(610, 310),
+                BorderStyle = BorderStyle.FixedSingle,
+                MaximumSize = new Size(620, 320),
+                MinimumSize = new Size(20, 20),
+                BackColor = Color.Red
+            };
+            containerPnl.Controls.Add(resizePanel);
+            int X = 10, Y = 10;
+            for (int i = 0; i < 15; i++)
+            {
+                for (int j = 0; j < 30; j++)
                 {
-                    index = 0;
-                    X = 29;
-                    Y += 80;
-                }
-                CaroButton button = new CaroButton
-                {
-                    Size = new Size(100, 60),
-                    Font = new Font("Time New Roman", 15),
-                    Location = new Point(X, Y),
-                    Text = string.Format("{0} x {1}", size.Item1, size.Item2)
-                };
-                button.Click += (sender, e) =>
-                {
-                    SettingConfig.Columns = size.Item1;
-                    SettingConfig.Rows = size.Item2;
-                    if (currentBut != null) currentBut.FlatStyle = FlatStyle.Flat;
-                    Button but = sender as Button;
-                    if (but != null)
+                    Button but = new Button
                     {
-                        currentBut = but;
-                        currentBut.FlatStyle = FlatStyle.Standard;
-                    }
-                };
-                this.Controls.Add(button);
-                index++;
+                        Location = new Point(X, Y),
+                        Size = new Size(20, 20)
+                    };
+                    but.Click += But_Click;
+                    containerPnl.Controls.Add(but);
+                    X += 20;
+                }
+                X = 10; Y += 20;
             }
+            this.Controls.Add(containerPnl);
         }
 
         protected override void DrawBasePanel()
         {
             DrawSizeButtonPanel();
+            addBut = new CaroButton
+            {
+                Location = new Point(630, 5),
+                Text = "Add",
+                Size = new Size(60, 30)
+            };
+            removeBut = new CaroButton
+            {
+                Location = new Point(630, 55),
+                Text = "Remove",
+                Size = new Size(60, 30)
+            };
             backBut = new CaroButton()
             {
-                Location = new Point(20, 300),
+                Location = new Point(630, 105),
                 Text = languageManager.GetString("back"),
-                Size = new Size(70, 30)
+                Size = new Size(60, 30)
             };
             nextBut = new CaroButton()
             {
-                Location = new Point(455, 300),
+                Location = new Point(630, 155),
                 Text = languageManager.GetString("next"),
-                Size = new Size(70, 30)
+                Size = new Size(60, 30)
             };
+            addBut.Click += AddBut_Click;
+            removeBut.Click += RemoveBut_Click;
             backBut.Click += BackBut_Click;
             nextBut.Click += NextBut_Click;
+            this.Controls.Add(addBut);
+            this.Controls.Add(removeBut);
             this.Controls.Add(backBut);
             this.Controls.Add(nextBut);
+        }
+
+        private void RemoveBut_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddBut_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void NextBut_Click(object sender, EventArgs e)
@@ -100,11 +124,17 @@ namespace CaroGame.Views.Components
                 return;
             }
             else routes.Routing(Constants.PLAYER_SETTING);
+            routes.Routing(Constants.PLAYER_SETTING);
         }
 
         private void BackBut_Click(object sender, EventArgs e)
         {
             routes.Routing(Constants.GAME_MODE);
+        }
+
+        private void But_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
