@@ -53,13 +53,17 @@
     <Compile Include="CaroManagement\ActionManager.cs" />
     <Compile Include="CaroManagement\CaroBoardManager.cs" />
     <Compile Include="CaroManagement\LanguageManager.cs" />
+    <Compile Include="CaroManagement\LanManager.cs" />
     <Compile Include="CaroManagement\StorageManager.cs" />
     <Compile Include="CaroManagement\TimerManager.cs" />
     <Compile Include="CaroManagement\WinnerManager.cs" />
+    <Compile Include="Configuration\ConnectConfig.cs" />
     <Compile Include="Configuration\Constants.cs" />
     <Compile Include="Configuration\SettingConfig.cs" />
     <Compile Include="Configuration\TempConfig.cs" />
-    <Compile Include="Controls\BaseTextBox.cs" />
+    <Compile Include="Controls\BaseTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\CaroButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -75,6 +79,7 @@
     <Compile Include="Controls\ToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Entities\CrossThread.cs" />
     <Compile Include="Entities\GameSaveEntities.cs" />
     <Compile Include="Entities\Player.cs" />
     <Compile Include="CaroManagement\PlayerManager.cs" />
@@ -210,7 +215,12 @@
     <Content Include="Resources\Images\setting.ico" />
     <Content Include="Resources\Musics\a-town-with-an-ocean-view.wav" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DataTransmission\DataTransmission.csproj">
+      <Project>{58d014bb-c33c-4cba-8a5e-3f418bcf2164}</Project>
+      <Name>DataTransmission</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <COMReference Include="WMPLib">
       <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
