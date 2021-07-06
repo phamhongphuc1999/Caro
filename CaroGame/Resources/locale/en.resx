@@ -126,11 +126,17 @@
   <data name="aiMode" xml:space="preserve">
     <value>AI Mode</value>
   </data>
+  <data name="appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
   <data name="appearanceSetting" xml:space="preserve">
     <value>Appearance Setting</value>
   </data>
   <data name="back" xml:space="preserve">
     <value>Back</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="caro" xml:space="preserve">
     <value>Caro</value>
@@ -149,6 +155,9 @@
   </data>
   <data name="invalid" xml:space="preserve">
     <value>Invalid</value>
+  </data>
+  <data name="language" xml:space="preserve">
+    <value>Language</value>
   </data>
   <data name="languageSetting" xml:space="preserve">
     <value>Language Setting</value>
@@ -174,6 +183,9 @@
   <data name="overview" xml:space="preserve">
     <value>Overview</value>
   </data>
+  <data name="player" xml:space="preserve">
+    <value>Player</value>
+  </data>
   <data name="player1" xml:space="preserve">
     <value>First Player</value>
   </data>
@@ -189,14 +201,29 @@
   <data name="remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="saveGame" xml:space="preserve">
+    <value>Save game</value>
+  </data>
   <data name="setting" xml:space="preserve">
     <value>Setting</value>
+  </data>
+  <data name="sizeBoard" xml:space="preserve">
+    <value>Size board</value>
   </data>
   <data name="sizeSetting" xml:space="preserve">
     <value>Size Setting</value>
   </data>
+  <data name="sound" xml:space="preserve">
+    <value>Sound</value>
+  </data>
   <data name="soundSetting" xml:space="preserve">
     <value>Sound Setting</value>
+  </data>
+  <data name="time" xml:space="preserve">
+    <value>Time</value>
   </data>
   <data name="timeSetting" xml:space="preserve">
     <value>Time Setting</value>

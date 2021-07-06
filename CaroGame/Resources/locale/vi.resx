@@ -126,11 +126,17 @@
   <data name="aiMode" xml:space="preserve">
     <value>Người với máy</value>
   </data>
+  <data name="appearance" xml:space="preserve">
+    <value>Giao diện</value>
+  </data>
   <data name="appearanceSetting" xml:space="preserve">
     <value>Cài đặt giao diện</value>
   </data>
   <data name="back" xml:space="preserve">
     <value>Quay lại</value>
+  </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Hủy</value>
   </data>
   <data name="caro" xml:space="preserve">
     <value>Caro</value>
@@ -149,6 +155,9 @@
   </data>
   <data name="invalid" xml:space="preserve">
     <value>Lỗi</value>
+  </data>
+  <data name="language" xml:space="preserve">
+    <value>Ngôn ngữ</value>
   </data>
   <data name="languageSetting" xml:space="preserve">
     <value>Cài đặt ngôn ngữ</value>
@@ -174,6 +183,9 @@
   <data name="overview" xml:space="preserve">
     <value>Tổng quan</value>
   </data>
+  <data name="player" xml:space="preserve">
+    <value>Người chơi</value>
+  </data>
   <data name="player1" xml:space="preserve">
     <value>Người chơi đầu tiên</value>
   </data>
@@ -189,14 +201,29 @@
   <data name="remove" xml:space="preserve">
     <value>Xóa</value>
   </data>
+  <data name="save" xml:space="preserve">
+    <value>Lưu</value>
+  </data>
+  <data name="saveGame" xml:space="preserve">
+    <value>Lưu game</value>
+  </data>
   <data name="setting" xml:space="preserve">
     <value>Cài đặt</value>
+  </data>
+  <data name="sizeBoard" xml:space="preserve">
+    <value>Kích thức</value>
   </data>
   <data name="sizeSetting" xml:space="preserve">
     <value>Cài đặt kích thức</value>
   </data>
+  <data name="sound" xml:space="preserve">
+    <value>Âm thanh</value>
+  </data>
   <data name="soundSetting" xml:space="preserve">
     <value>Cài đặt âm thanh</value>
+  </data>
+  <data name="time" xml:space="preserve">
+    <value>Thời gian</value>
   </data>
   <data name="timeSetting" xml:space="preserve">
     <value>Cài đặt thời gian</value>

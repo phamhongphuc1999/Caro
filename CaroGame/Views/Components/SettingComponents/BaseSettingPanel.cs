@@ -14,6 +14,7 @@ using CaroGame.Configuration;
 using CaroGame.Controls;
 using System;
 using System.Drawing;
+using static CaroGame.Program;
 
 namespace CaroGame.Views.Components.SettingComponents
 {
@@ -32,13 +33,13 @@ namespace CaroGame.Views.Components.SettingComponents
         {
             cancelBut = new CaroButton
             {
-                Text = "Cancel",
+                Text = languageManager.GetString("cancel"),
                 Size = new Size(70, 30)
             };
             saveBut = new CaroButton()
             {
                 Location = new Point(455, 300),
-                Text = "Save",
+                Text = languageManager.GetString("save"),
                 Size = new Size(70, 30)
             };
             if (isSave) cancelBut.Location = new Point(380, 300);

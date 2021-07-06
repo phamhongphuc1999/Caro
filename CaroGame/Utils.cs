@@ -10,22 +10,18 @@
 //
 // ------------------------------------------------------
 
-using System.Drawing;
 using System.Windows.Forms;
 using static CaroGame.Program;
 
-namespace CaroGame.Views
+namespace CaroGame
 {
-    public partial class SettingForm : BaseForm
+    internal static class Utils
     {
-        public SettingForm(string title, Icon icon) : base(title, icon)
+        public static void ApplicationExit()
         {
-        }
-
-        protected override void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            this.Hide();
-            timerManager.StartTimer(false);
+            storageManager.SaveConfiguration();
+            storageManager.SaveGameToFile();
+            Application.Exit();
         }
     }
 }

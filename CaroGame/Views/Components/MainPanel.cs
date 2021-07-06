@@ -87,16 +87,19 @@ namespace CaroGame.Views.Components
         private void MainMenu_AboutItemClickEvent(object sender, EventArgs e)
         {
             aboutForm.ShowDialog(mainForm);
+            timerManager.StopTimer(false);
         }
 
         private void MainMenu_SettingItemClickEvent(object sender, EventArgs e)
         {
             settingForm.ShowDialog(mainForm);
+            timerManager.StopTimer(false);
         }
 
         private void MainMenu_QuickItemClickEvent(object sender, EventArgs e)
         {
-
+            DialogResult result = MessageBox.Show("Bạn có muốn thoát khỏi chương trình không?", "Thông báo", MessageBoxButtons.OKCancel);
+            if (result == DialogResult.OK) Utils.ApplicationExit();
         }
 
         private void MainMenu_NewGameItemClickEvent(object sender, EventArgs e)

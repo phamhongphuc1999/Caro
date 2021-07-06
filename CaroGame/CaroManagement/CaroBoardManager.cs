@@ -74,13 +74,19 @@ namespace CaroGame.CaroManagement
             string board = "";
             Color playerColor1 = playerManager.PlayerColor1;
             Color playerColor2 = playerManager.PlayerColor2;
-            foreach (KeyValuePair<BoardPosition, Button> item in caroBoard)
-            {
-                Button button = item.Value;
-                if (button.BackColor == playerColor1) board += "1";
-                else if (button.BackColor == playerColor2) board += "2";
-                else board += "0";
-            }
+            for(int i = 0; i < SettingConfig.Rows; i++)
+                for(int j = 0; j < SettingConfig.Columns; j++)
+                {
+                    BoardPosition position = new BoardPosition(i, j);
+                    if (caroBoard.ContainsKey(new BoardPosition(i, j)))
+                    {
+                        Button button = caroBoard[position];
+                        if (button.BackColor == playerColor1) board += "1";
+                        else if (button.BackColor == playerColor2) board += "2";
+                        else board += "3";
+                    }
+                    else board += "0";
+                }
             return board;
         }
 
@@ -185,6 +191,7 @@ namespace CaroGame.CaroManagement
                 {
                     playerManager.Turn = playerManager.Turn + 1;
                     winnerManager.Turn = 1 - winnerManager.Turn;
+                    timerManager.TurnTimer();
                 }
             }
         }

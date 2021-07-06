@@ -82,6 +82,7 @@ namespace CaroGame
             routes.Routing(Constants.OVERVIEW);
             caroBoardManager.InitMainView(routes.MainView);
             playerManager.InitMainView(routes.MainView);
+            timerManager.InitMainView(routes.MainView);
 
             // Initiliaze setting routes
             settingRoutes = SettingRoutes.GetInstance(settingForm);

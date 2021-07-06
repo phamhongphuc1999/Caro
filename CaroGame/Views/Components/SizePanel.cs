@@ -55,9 +55,9 @@ namespace CaroGame.Views.Components
             resizePanel.SizeChanged += ResizePanel_SizeChanged;
             containerPnl.Controls.Add(resizePanel);
             int X = 20, Y = 20;
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < Constants.MAX_ROW; i++)
             {
-                for (int j = 0; j < 30; j++)
+                for (int j = 0; j < Constants.MAX_COLUMN; j++)
                 {
                     Button but = new Button
                     {
@@ -111,16 +111,16 @@ namespace CaroGame.Views.Components
             {
                 Location = new Point(710, 25),
                 Size = new Size(80, 30),
-                Minimum = 5,
-                Maximum = 15,
+                Minimum = Constants.MIN_ROW,
+                Maximum = Constants.MAX_ROW,
                 Value = (resizePanel.Height - 15) / 20
             };
             columnNud = new NumericUpDown
             {
                 Location = new Point(710, 65),
                 Size = new Size(80, 30),
-                Minimum = 5,
-                Maximum = 30,
+                Minimum = Constants.MIN_COLUMN,
+                Maximum = Constants.MAX_COLUMN,
                 Value = (resizePanel.Width - 15) / 20
             };
             addBut = new CaroButton

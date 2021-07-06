@@ -133,5 +133,25 @@ namespace CaroGame.CaroManagement
             sw.WriteLine(data);
             sw.Close();
         }
+
+        public void SaveGameToFile()
+        {
+            StreamWriter sw = new StreamWriter("../../Resources/game-save.json");
+            string data = JsonConvert.SerializeObject(gameSaveModel);
+            sw.WriteLine(data);
+            sw.Close();
+        }
+
+        public void RemoveGameToFile(int index)
+        {
+            if (index < gameSaveModel.GameSaveList.Count)
+            {
+                gameSaveModel.GameSaveList.RemoveAt(index);
+                StreamWriter sw = new StreamWriter("../../Resources/game-save.json");
+                string data = JsonConvert.SerializeObject(gameSaveModel);
+                sw.WriteLine(data);
+                sw.Close();
+            }
+        }
     }
 }

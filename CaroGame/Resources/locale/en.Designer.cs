@@ -88,6 +88,15 @@ namespace CaroGame.Resources.locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Appearance.
+        /// </summary>
+        internal static string appearance {
+            get {
+                return ResourceManager.GetString("appearance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Appearance Setting.
         /// </summary>
         internal static string appearanceSetting {
@@ -102,6 +111,15 @@ namespace CaroGame.Resources.locale {
         internal static string back {
             get {
                 return ResourceManager.GetString("back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string cancel {
+            get {
+                return ResourceManager.GetString("cancel", resourceCulture);
             }
         }
         
@@ -156,6 +174,15 @@ namespace CaroGame.Resources.locale {
         internal static string invalid {
             get {
                 return ResourceManager.GetString("invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        internal static string language {
+            get {
+                return ResourceManager.GetString("language", resourceCulture);
             }
         }
         
@@ -232,6 +259,15 @@ namespace CaroGame.Resources.locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Player.
+        /// </summary>
+        internal static string player {
+            get {
+                return ResourceManager.GetString("player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First Player.
         /// </summary>
         internal static string player1 {
@@ -277,11 +313,38 @@ namespace CaroGame.Resources.locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string save {
+            get {
+                return ResourceManager.GetString("save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save game.
+        /// </summary>
+        internal static string saveGame {
+            get {
+                return ResourceManager.GetString("saveGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Setting.
         /// </summary>
         internal static string setting {
             get {
                 return ResourceManager.GetString("setting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size board.
+        /// </summary>
+        internal static string sizeBoard {
+            get {
+                return ResourceManager.GetString("sizeBoard", resourceCulture);
             }
         }
         
@@ -295,11 +358,29 @@ namespace CaroGame.Resources.locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sound.
+        /// </summary>
+        internal static string sound {
+            get {
+                return ResourceManager.GetString("sound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sound Setting.
         /// </summary>
         internal static string soundSetting {
             get {
                 return ResourceManager.GetString("soundSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time.
+        /// </summary>
+        internal static string time {
+            get {
+                return ResourceManager.GetString("time", resourceCulture);
             }
         }
         

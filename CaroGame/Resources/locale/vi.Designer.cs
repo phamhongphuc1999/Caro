@@ -88,6 +88,15 @@ namespace CaroGame.Resources.locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Giao diện.
+        /// </summary>
+        internal static string appearance {
+            get {
+                return ResourceManager.GetString("appearance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cài đặt giao diện.
         /// </summary>
         internal static string appearanceSetting {
@@ -102,6 +111,15 @@ namespace CaroGame.Resources.locale {
         internal static string back {
             get {
                 return ResourceManager.GetString("back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hủy.
+        /// </summary>
+        internal static string cancel {
+            get {
+                return ResourceManager.GetString("cancel", resourceCulture);
             }
         }
         
@@ -156,6 +174,15 @@ namespace CaroGame.Resources.locale {
         internal static string invalid {
             get {
                 return ResourceManager.GetString("invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngôn ngữ.
+        /// </summary>
+        internal static string language {
+            get {
+                return ResourceManager.GetString("language", resourceCulture);
             }
         }
         
@@ -232,6 +259,15 @@ namespace CaroGame.Resources.locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Người chơi.
+        /// </summary>
+        internal static string player {
+            get {
+                return ResourceManager.GetString("player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Người chơi đầu tiên.
         /// </summary>
         internal static string player1 {
@@ -277,11 +313,38 @@ namespace CaroGame.Resources.locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lưu.
+        /// </summary>
+        internal static string save {
+            get {
+                return ResourceManager.GetString("save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lưu game.
+        /// </summary>
+        internal static string saveGame {
+            get {
+                return ResourceManager.GetString("saveGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cài đặt.
         /// </summary>
         internal static string setting {
             get {
                 return ResourceManager.GetString("setting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kích thức.
+        /// </summary>
+        internal static string sizeBoard {
+            get {
+                return ResourceManager.GetString("sizeBoard", resourceCulture);
             }
         }
         
@@ -295,11 +358,29 @@ namespace CaroGame.Resources.locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Âm thanh.
+        /// </summary>
+        internal static string sound {
+            get {
+                return ResourceManager.GetString("sound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cài đặt âm thanh.
         /// </summary>
         internal static string soundSetting {
             get {
                 return ResourceManager.GetString("soundSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thời gian.
+        /// </summary>
+        internal static string time {
+            get {
+                return ResourceManager.GetString("time", resourceCulture);
             }
         }
         

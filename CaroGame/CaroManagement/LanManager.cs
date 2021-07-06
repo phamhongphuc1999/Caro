@@ -22,7 +22,7 @@ namespace CaroGame.CaroManagement
 {
     public class LanManager
     {
-        #region both
+        #region BOTH
         public Socket client, server;
 
         private static string GetLocalIPv4(NetworkInterfaceType _type)

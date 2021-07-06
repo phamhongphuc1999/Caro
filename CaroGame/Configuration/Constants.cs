@@ -17,6 +17,11 @@ namespace CaroGame.Configuration
         public readonly static int WIDTH_STANDARD = 545;
         public readonly static int HEIGHT_STANDARD = 340;
 
+        public readonly static int MIN_ROW = 10;
+        public readonly static int MAX_ROW = 15;
+        public readonly static int MIN_COLUMN = 10;
+        public readonly static int MAX_COLUMN = 30;
+
         public readonly static string TWO_PLAYER_GAME_MODE = "two_palyer";
         public readonly static string LAN_GAME_MODE = "lan_game_mode";
         public readonly static string AI_GAME_MODE = "ai_game_mode";
@@ -53,12 +58,9 @@ namespace CaroGame.Configuration
 
         public enum EdgeEnum
         {
-            None,
-            Right,
-            Left,
-            Top,
-            Bottom,
-            TopLeft
+            None, Right,
+            Left, Top,
+            Bottom, TopLeft
         }
 
         public enum SizeAction

@@ -15,6 +15,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
+using static CaroGame.Program;
 
 namespace CaroGame.Views
 {
@@ -34,6 +35,8 @@ namespace CaroGame.Views
         protected override void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Hide();
+            timerManager.StartTimer(false);
+
         }
     }
 }

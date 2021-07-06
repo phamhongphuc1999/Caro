@@ -12,6 +12,7 @@
 
 using System.Drawing;
 using System.Windows.Forms;
+using static CaroGame.Program;
 
 namespace CaroGame.Views
 {
@@ -25,8 +26,7 @@ namespace CaroGame.Views
 
         protected virtual void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //storageManager.SaveGameToFile();
-            Application.Exit();
+            Utils.ApplicationExit();
         }
 
         protected Point SetCenterLocation(Point baseLocation, Size baseSize, Size size)

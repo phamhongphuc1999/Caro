@@ -34,57 +34,57 @@ namespace CaroGame.Views.Components.SettingComponents
             base.DrawBasePanel();
             gameModeBut = new CaroButton()
             {
-                Text = "Game Mode",
+                Text = languageManager.GetString("gameMode"),
                 Size = new Size(100, 45),
                 Location = new Point(29, 70)
             };
             timerBut = new CaroButton()
             {
-                Text = "Time",
+                Text = languageManager.GetString("time"),
                 Size = new Size(100, 45),
                 Location = new Point(158, 70)
             };
             playerBut = new CaroButton()
             {
-                Text = "Player",
+                Text = languageManager.GetString("player"),
                 Size = new Size(100, 45),
                 Location = new Point(287, 70)
             };
             sizeBut = new CaroButton()
             {
-                Text = "Size Board",
+                Text = languageManager.GetString("sizeBoard"),
                 Size = new Size(100, 45),
                 Location = new Point(416, 70)
             };
             soundBut = new CaroButton()
             {
-                Text = "Sound",
+                Text = languageManager.GetString("sound"),
                 Size = new Size(100, 45),
                 Location = new Point(29, 135)
             };
             languageBut = new CaroButton()
             {
-                Text = "Language",
+                Text = languageManager.GetString("language"),
                 Size = new Size(100, 45),
                 Location = new Point(158, 135)
             };
             appearanceBut = new CaroButton
             {
-                Text = "Appearance",
+                Text = languageManager.GetString("appearance"),
                 Size = new Size(100, 45),
                 Location = new Point(287, 135)
             };
             loadGameBut = new CaroButton()
             {
-                Text = "Load Game",
-                Size = new Size(80, 30),
-                Location = new Point(345, 0)
+                Text = languageManager.GetString("loadGame"),
+                Size = new Size(100, 30),
+                Location = new Point(325, 5)
             };
             saveGameBut = new CaroButton()
             {
-                Text = "Save Game",
+                Text = languageManager.GetString("saveGame"),
                 Size = new Size(80, 30),
-                Location = new Point(445, 0)
+                Location = new Point(445, 5)
             };
             gameModeBut.Click += GameModeBut_Click;
             timerBut.Click += TimerBut_Click;
@@ -112,6 +112,13 @@ namespace CaroGame.Views.Components.SettingComponents
             {
                 playerManager.PlayerName1 = TempConfig.NamePlayer1;
                 playerManager.PlayerName2 = TempConfig.NamePlayer2;
+            }
+            else if (SettingConfig.TimeOption)
+            {
+                SettingConfig.Interval = TempConfig.Interval;
+                SettingConfig.TimeTurn = TempConfig.TimeTurn;
+                SettingConfig.IsTime = TempConfig.IsTime;
+                timerManager.StartTimer(true);
             }
             SettingConfig.ResetSettingOption();
             Control parent = this.Parent;

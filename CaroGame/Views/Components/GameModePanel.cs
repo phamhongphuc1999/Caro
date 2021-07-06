@@ -55,7 +55,7 @@ namespace CaroGame.Views.Components
             {
                 Text = languageManager.GetString("or"),
                 Size = new Size(60, 20),
-                Location = new Point(260, 147)
+                Location = new Point(242, 147)
             };
             loadgameBut = new CaroButton()
             {
