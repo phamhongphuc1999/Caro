@@ -226,9 +226,9 @@ namespace CaroGame.CaroManagement
                 }
                 else break;
             }
-            int MAX_X = SettingConfig.Columns - 1;
-            int MAX_Y = SettingConfig.Rows - 1;
-            for (int i = column + 1, j = row + 1; i <= MAX_X && j < MAX_Y; i++, j++)
+            int MaxColumn = SettingConfig.Columns - 1;
+            int MaxRow = SettingConfig.Rows - 1;
+            for (int i = column + 1, j = row + 1; i <= MaxColumn && j < MaxRow; i++, j++)
             {
                 BoardPosition temp = new BoardPosition(j, i);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -237,7 +237,7 @@ namespace CaroGame.CaroManagement
                     {
                         arrMainDiagonal[count] = temp;
                         count++;
-                        if (i == MAX_X || j == MAX_Y) countEnemy++;
+                        if (i == MaxColumn || j == MaxRow) countEnemy++;
                     }
                     else { countEnemy++; break; }
                 }
@@ -249,8 +249,8 @@ namespace CaroGame.CaroManagement
         private async Task<bool> IsWinSubDiagonal(int row, int column)
         {
             int count = 0, countEnemy = 0, player = -1;
-            int MAX_X = SettingConfig.Columns - 1;
-            for (int i = column + 1, j = row - 1; i <= MAX_X && j >= 0; i++, j--)
+            int MaxColumn = SettingConfig.Columns - 1;
+            for (int i = column + 1, j = row - 1; i <= MaxColumn && j >= 0; i++, j--)
             {
                 BoardPosition temp = new BoardPosition(j, i);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -259,14 +259,14 @@ namespace CaroGame.CaroManagement
                     {
                         arrSubDiagomal[count] = temp;
                         count++;
-                        if (i == MAX_X || j == 0) countEnemy++;
+                        if (i == MaxColumn || j == 0) countEnemy++;
                     }
                     else { countEnemy++; break; }
                 }
                 else break;
             }
-            int MAX_Y = SettingConfig.Rows - 1;
-            for (int i = column - 1, j = row + 1; i >= 0 && j <= MAX_Y; i--, j++)
+            int MaxRow = SettingConfig.Rows - 1;
+            for (int i = column - 1, j = row + 1; i >= 0 && j <= MaxRow; i--, j++)
             {
                 BoardPosition temp = new BoardPosition(j, i);
                 if (caroBoard.TryGetValue(temp, out player))
@@ -275,7 +275,7 @@ namespace CaroGame.CaroManagement
                     {
                         arrSubDiagomal[count] = temp;
                         count++;
-                        if (i == 0 || j == MAX_Y) countEnemy++;
+                        if (i == 0 || j == MaxRow) countEnemy++;
                     }
                     else { countEnemy++; break; }
                 }

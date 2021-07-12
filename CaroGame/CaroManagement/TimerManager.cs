@@ -64,7 +64,7 @@ namespace CaroGame.CaroManagement
 
         public void TurnTimer()
         {
-            timeLbl.Text = count.ToString();
+            if (caroTimer.Enabled) timeLbl.Text = count.ToString();
         }
     }
 }

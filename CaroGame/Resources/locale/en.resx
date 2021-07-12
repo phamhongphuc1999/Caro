@@ -201,6 +201,9 @@
   <data name="remove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
   <data name="save" xml:space="preserve">
     <value>Save</value>
   </data>

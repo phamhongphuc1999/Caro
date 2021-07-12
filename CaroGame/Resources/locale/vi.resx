@@ -201,6 +201,9 @@
   <data name="remove" xml:space="preserve">
     <value>Xóa</value>
   </data>
+  <data name="reset" xml:space="preserve">
+    <value>Đặt lại</value>
+  </data>
   <data name="save" xml:space="preserve">
     <value>Lưu</value>
   </data>

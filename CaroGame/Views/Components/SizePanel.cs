@@ -10,28 +10,32 @@
 //
 // ------------------------------------------------------
 
+using System;
 using CaroGame.Configuration;
 using CaroGame.Controls;
-using System;
 using System.Drawing;
 using System.Windows.Forms;
 using static CaroGame.Configuration.Constants;
 using static CaroGame.Program;
+using System.Collections.Generic;
+using CaroGame.Entities;
 
 namespace CaroGame.Views.Components
 {
     public class SizePanel : BaseCaroPanel
     {
-        protected CaroButton backBut, nextBut, addBut, removeBut, resetBut;
+        protected CaroButton backBut, nextBut, addBut, saveBut, removeBut, resetBut;
         protected NumericUpDown rowNud, columnNud;
         protected Label rowLbl, columnLbl;
         private ResizePanel resizePanel;
         private Panel containerPnl;
         private SizeAction action = SizeAction.Add;
         private int[,] board;
+        private Dictionary<BoardPosition, Button> butList;
 
         public SizePanel(bool isAutoSize) : base(isAutoSize)
         {
+            butList = new Dictionary<BoardPosition, Button>();
             board = new int[15, 30];
             this.Size = new Size(800, 340);
             DrawBasePanel();
@@ -86,6 +90,7 @@ namespace CaroGame.Views.Components
                     resizePanel.Controls.Add(but);
                     X += 20;
                     board[i, j] = 3;
+                    butList.Add(new BoardPosition(i, j), but);
                 }
                 X = 14; Y += 20;
             }
@@ -142,15 +147,21 @@ namespace CaroGame.Views.Components
                 Text = languageManager.GetString("reset"),
                 Size = new Size(140, 30)
             };
-            backBut = new CaroButton()
+            saveBut = new CaroButton()
             {
                 Location = new Point(650, 225),
+                Text = languageManager.GetString("save"),
+                Size = new Size(140, 30)
+            };
+            backBut = new CaroButton()
+            {
+                Location = new Point(650, 265),
                 Text = languageManager.GetString("back"),
                 Size = new Size(140, 30)
             };
             nextBut = new CaroButton()
             {
-                Location = new Point(650, 265),
+                Location = new Point(650, 305),
                 Text = languageManager.GetString("next"),
                 Size = new Size(140, 30)
             };
@@ -159,6 +170,7 @@ namespace CaroGame.Views.Components
             addBut.Click += AddBut_Click;
             removeBut.Click += RemoveBut_Click;
             resetBut.Click += ResetBut_Click;
+            saveBut.Click += SaveBut_Click;
             backBut.Click += BackBut_Click;
             nextBut.Click += NextBut_Click;
             this.Controls.Add(rowLbl);
@@ -168,6 +180,7 @@ namespace CaroGame.Views.Components
             this.Controls.Add(addBut);
             this.Controls.Add(removeBut);
             this.Controls.Add(resetBut);
+            this.Controls.Add(saveBut);
             this.Controls.Add(backBut);
             this.Controls.Add(nextBut);
         }
@@ -221,6 +234,18 @@ namespace CaroGame.Views.Components
         }
 
         private void ResetBut_Click(object sender, EventArgs e)
+        {
+            int rows = (int)rowNud.Value;
+            int columns = (int)columnNud.Value;
+            for (int i = 0; i < rows; i++)
+                for (int j = 0; j < columns; j++)
+                {
+                    butList[new BoardPosition(i, j)].BackColor = Color.Transparent;
+                    board[i, j] = 3;
+                }
+        }
+
+        private void SaveBut_Click(object sender, EventArgs e)
         {
 
         }

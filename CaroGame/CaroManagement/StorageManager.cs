@@ -53,7 +53,7 @@ namespace CaroGame.CaroManagement
 
         private void InitializeConfiguration()
         {
-            using (StreamReader sr = File.OpenText("../../Resources/settings.json"))
+            using (StreamReader sr = File.OpenText("../../Resources/data/settings.json"))
             {
                 string data = sr.ReadToEnd();
                 SettingEntity configEntity = JsonConvert.DeserializeObject<SettingEntity>(data);
@@ -81,7 +81,7 @@ namespace CaroGame.CaroManagement
                 interval = SettingConfig.Interval,
                 language = SettingConfig.Language
             };
-            StreamWriter sw = new StreamWriter("../../Resources/settings.json");
+            StreamWriter sw = new StreamWriter("../../Resources/data/settings.json");
             string data = JsonConvert.SerializeObject(configEntity);
             sw.WriteLine(data);
             sw.Close();
@@ -89,7 +89,7 @@ namespace CaroGame.CaroManagement
 
         private void LoadGame()
         {
-            using (StreamReader sr = File.OpenText("../../resources/game-save.json"))
+            using (StreamReader sr = File.OpenText("../../Resources/data/game-save.json"))
             {
                 string data = sr.ReadToEnd();
                 if (data.Length > 0) gameSaveModel = JsonConvert.DeserializeObject<GameSaveModel>(data);
@@ -128,7 +128,7 @@ namespace CaroGame.CaroManagement
         public void SaveGameToFile(string caroBoard, int turn)
         {
             SaveCurrentGame(caroBoard, turn);
-            StreamWriter sw = new StreamWriter("../../Resources/game-save.json");
+            StreamWriter sw = new StreamWriter("../../Resources/data/game-save.json");
             string data = JsonConvert.SerializeObject(gameSaveModel);
             sw.WriteLine(data);
             sw.Close();
@@ -136,7 +136,7 @@ namespace CaroGame.CaroManagement
 
         public void SaveGameToFile()
         {
-            StreamWriter sw = new StreamWriter("../../Resources/game-save.json");
+            StreamWriter sw = new StreamWriter("../../Resources/data/game-save.json");
             string data = JsonConvert.SerializeObject(gameSaveModel);
             sw.WriteLine(data);
             sw.Close();
@@ -147,7 +147,7 @@ namespace CaroGame.CaroManagement
             if (index < gameSaveModel.GameSaveList.Count)
             {
                 gameSaveModel.GameSaveList.RemoveAt(index);
-                StreamWriter sw = new StreamWriter("../../Resources/game-save.json");
+                StreamWriter sw = new StreamWriter("../../Resources/data/game-save.json");
                 string data = JsonConvert.SerializeObject(gameSaveModel);
                 sw.WriteLine(data);
                 sw.Close();

@@ -209,8 +209,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Resources\game-save.json" />
-    <None Include="Resources\settings.json" />
+    <None Include="Resources\data\board.json" />
+    <None Include="Resources\data\game-save.json" />
+    <None Include="Resources\data\settings.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
