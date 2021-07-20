@@ -33,12 +33,12 @@ namespace CaroGame.SQLData.Workers
 
         public int InsertGame(GameSaveData insertData, SQLConnecter connecter)
         {
-            string updateCommand = string.Format("INSERT INTO Game(Row,Column,PlayerName1,PlayerName2,GameMode,Turn,CaroBoard) VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')",
+            string insertCommand = string.Format("INSERT INTO Game(Row,Column,PlayerName1,PlayerName2,GameMode,Turn,CaroBoard) VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')",
              insertData.Row, insertData.Column, insertData.PlayerName1, insertData.PlayerName2, insertData.GameMode, insertData.Turn, insertData.CaroBoard);
-            if (ExecuteCommand(updateCommand, connecter.connection))
+            if (ExecuteCommand(insertCommand, connecter.connection))
             {
-                string getIdCoommand = "select last_insert_rowid() as id from Game";
-                int _id = (int)ExecuteScalar(getIdCoommand, connecter.connection);
+                string getIdCoommand = "SELECT last_insert_rowid()";
+                int _id = Convert.ToInt32(ExecuteScalar(getIdCoommand, connecter.connection));
                 return _id;
             }
             else return -1;

@@ -14,6 +14,10 @@ namespace CaroGame.Entities
 {
     public class GameSaveData
     {
+        public int id
+        {
+            get; set;
+        }
         public int Row
         {
             get; set;

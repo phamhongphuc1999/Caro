@@ -74,7 +74,7 @@ namespace CaroGame.Views.Components.SettingComponents
                         string butText = count.ToString() + "." + item.PlayerName1 + " vs " + item.PlayerName2;
                         Button butGame = new Button()
                         {
-                            Tag = count,
+                            Tag = item.id,
                             Text = butText,
                             Size = new Size(445, 40),
                             Location = new Point(30, Y)
@@ -99,8 +99,8 @@ namespace CaroGame.Views.Components.SettingComponents
         private void ButtonDelete_Click(object sender, EventArgs e)
         {
             Button but = sender as Button;
-            int count = (int)but.Tag;
-            storageManager.DeleteGame(count - 1);
+            int id = (int)but.Tag;
+            storageManager.DeleteGame(id);
             LoadGamePanel_VisibleChanged(this, new EventArgs());
         }
 

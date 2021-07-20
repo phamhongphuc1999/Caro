@@ -29,7 +29,10 @@ namespace CaroGame.CaroManagement
 
         public List<GameSaveData> GameList
         {
-            get; private set;
+            get
+            {
+                return gameWorker.GetListGames(connecter).ToList();
+            }
         }
 
         public int CurrentIndex
@@ -39,8 +42,6 @@ namespace CaroGame.CaroManagement
 
         public StorageManager()
         {
-            GameList = new List<GameSaveData>();
-
             string currentPath = Utils.GetCurrentDirectory();
             string projectDirectory = Directory.GetParent(currentPath).Parent.FullName;
             connecter = SQLConnecter.GetInstance(string.Format("Data Source={0}; Version = 3;",
@@ -92,7 +93,6 @@ namespace CaroGame.CaroManagement
         private void LoadGame()
         {
             gameWorker.CreateTable(connecter);
-            GameList = gameWorker.GetListGames(connecter).ToList();
         }
 
         public void SaveGame(string caroBoard, int turn)
