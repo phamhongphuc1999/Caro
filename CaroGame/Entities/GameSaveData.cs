@@ -10,8 +10,6 @@
 //
 // ------------------------------------------------------
 
-using System.Collections.Generic;
-
 namespace CaroGame.Entities
 {
     public class GameSaveData
@@ -43,19 +41,6 @@ namespace CaroGame.Entities
         public string CaroBoard
         {
             get; set;
-        }
-    }
-
-    public class GameSaveModel
-    {
-        public List<GameSaveData> GameSaveList
-        {
-            get; set;
-        }
-
-        public GameSaveModel()
-        {
-            GameSaveList = new List<GameSaveData>();
         }
     }
 }

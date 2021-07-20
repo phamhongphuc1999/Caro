@@ -12,40 +12,42 @@
 
 using CaroGame.Configuration;
 using CaroGame.Entities;
+using CaroGame.SQLData;
+using CaroGame.SQLData.Workers;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using static CaroGame.Program;
 
 namespace CaroGame.CaroManagement
 {
     public class StorageManager
     {
-        private GameSaveModel gameSaveModel;
+        private SQLConnecter connecter;
+        private SaveGameWorker gameWorker;
+
+        public List<GameSaveData> GameList
+        {
+            get; private set;
+        }
+
         public int CurrentIndex
         {
             get; set;
         }
 
-        public int Count
-        {
-            get
-            {
-                return gameSaveModel.GameSaveList.Count;
-            }
-        }
-
-        public List<GameSaveData> GameSaveList
-        {
-            get
-            {
-                return gameSaveModel.GameSaveList;
-            }
-        }
-
         public StorageManager()
         {
-            gameSaveModel = new GameSaveModel();
+            GameList = new List<GameSaveData>();
+
+            string currentPath = Utils.GetCurrentDirectory();
+            string projectDirectory = Directory.GetParent(currentPath).Parent.FullName;
+            connecter = SQLConnecter.GetInstance(string.Format("Data Source={0}; Version = 3;",
+                projectDirectory + @"\Resources\data\data.sqlite"));
+            connecter.OpenConnection();
+            gameWorker = new SaveGameWorker();
+
             CurrentIndex = -1;
             InitializeConfiguration();
             LoadGame();
@@ -68,7 +70,7 @@ namespace CaroGame.CaroManagement
             }
         }
 
-        public void SaveConfiguration()
+        private void SaveConfiguration()
         {
             SettingEntity configEntity = new SettingEntity
             {
@@ -89,69 +91,35 @@ namespace CaroGame.CaroManagement
 
         private void LoadGame()
         {
-            using (StreamReader sr = File.OpenText("../../Resources/data/game-save.json"))
-            {
-                string data = sr.ReadToEnd();
-                if (data.Length > 0) gameSaveModel = JsonConvert.DeserializeObject<GameSaveModel>(data);
-            }
+            gameWorker.CreateTable(connecter);
+            GameList = gameWorker.GetListGames(connecter).ToList();
         }
 
-        private void SaveCurrentGame(string caroBoard, int turn)
+        public void SaveGame(string caroBoard, int turn)
         {
-            if (CurrentIndex >= 0)
+            GameSaveData gameSave = new GameSaveData
             {
-                gameSaveModel.GameSaveList[CurrentIndex].Row = SettingConfig.Rows;
-                gameSaveModel.GameSaveList[CurrentIndex].Column = SettingConfig.Columns;
-                gameSaveModel.GameSaveList[CurrentIndex].PlayerName1 = playerManager.PlayerName1;
-                gameSaveModel.GameSaveList[CurrentIndex].PlayerName2 = playerManager.PlayerName2;
-                gameSaveModel.GameSaveList[CurrentIndex].CaroBoard = caroBoard;
-                gameSaveModel.GameSaveList[CurrentIndex].Turn = turn;
-                gameSaveModel.GameSaveList[CurrentIndex].GameMode = SettingConfig.GameMode;
-            }
-            else
-            {
-                GameSaveData gameSave = new GameSaveData()
-                {
-                    Column = SettingConfig.Columns,
-                    Row = SettingConfig.Rows,
-                    PlayerName1 = playerManager.PlayerName1,
-                    PlayerName2 = playerManager.PlayerName2,
-                    CaroBoard = caroBoard,
-                    GameMode = SettingConfig.GameMode,
-                    Turn = turn
-                };
-                gameSaveModel.GameSaveList.Add(gameSave);
-                CurrentIndex = gameSaveModel.GameSaveList.Count - 1;
-            }
+                Row = SettingConfig.Rows,
+                Column = SettingConfig.Columns,
+                PlayerName1 = playerManager.PlayerName1,
+                PlayerName2 = playerManager.PlayerName2,
+                CaroBoard = caroBoard,
+                Turn = turn,
+                GameMode = SettingConfig.GameMode
+            };
+            if (CurrentIndex >= 0) gameWorker.UpdateGameById(CurrentIndex, gameSave, connecter);
+            else CurrentIndex = gameWorker.InsertGame(gameSave, connecter);
         }
 
-        public void SaveGameToFile(string caroBoard, int turn)
+        public void DeleteGame(int id)
         {
-            SaveCurrentGame(caroBoard, turn);
-            StreamWriter sw = new StreamWriter("../../Resources/data/game-save.json");
-            string data = JsonConvert.SerializeObject(gameSaveModel);
-            sw.WriteLine(data);
-            sw.Close();
+            gameWorker.DeleteGameById(id, connecter);
         }
 
-        public void SaveGameToFile()
+        public void Exit()
         {
-            StreamWriter sw = new StreamWriter("../../Resources/data/game-save.json");
-            string data = JsonConvert.SerializeObject(gameSaveModel);
-            sw.WriteLine(data);
-            sw.Close();
-        }
-
-        public void RemoveGameToFile(int index)
-        {
-            if (index < gameSaveModel.GameSaveList.Count)
-            {
-                gameSaveModel.GameSaveList.RemoveAt(index);
-                StreamWriter sw = new StreamWriter("../../Resources/data/game-save.json");
-                string data = JsonConvert.SerializeObject(gameSaveModel);
-                sw.WriteLine(data);
-                sw.Close();
-            }
+            SaveConfiguration();
+            connecter.CloseConnection();
         }
     }
 }

@@ -55,7 +55,7 @@ namespace CaroGame.Views.Components.SettingComponents
             {
                 int Y = 40, count = 1;
                 containerPnl.Controls.Clear();
-                if (storageManager.Count == 0)
+                if (storageManager.GameList.Count == 0)
                 {
                     Label info = new Label()
                     {
@@ -69,7 +69,7 @@ namespace CaroGame.Views.Components.SettingComponents
                 }
                 else
                 {
-                    foreach (GameSaveData item in storageManager.GameSaveList)
+                    foreach (GameSaveData item in storageManager.GameList)
                     {
                         string butText = count.ToString() + "." + item.PlayerName1 + " vs " + item.PlayerName2;
                         Button butGame = new Button()
@@ -100,7 +100,7 @@ namespace CaroGame.Views.Components.SettingComponents
         {
             Button but = sender as Button;
             int count = (int)but.Tag;
-            storageManager.RemoveGameToFile(count - 1);
+            storageManager.DeleteGame(count - 1);
             LoadGamePanel_VisibleChanged(this, new EventArgs());
         }
 
@@ -108,7 +108,7 @@ namespace CaroGame.Views.Components.SettingComponents
         {
             Button but = sender as Button;
             int count = (int)but.Tag;
-            GameSaveData data = storageManager.GameSaveList[count - 1];
+            GameSaveData data = storageManager.GameList[count - 1];
             storageManager.CurrentIndex = count - 1;
             SettingConfig.Rows = data.Row;
             SettingConfig.Columns = data.Column;

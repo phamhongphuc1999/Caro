@@ -21,7 +21,7 @@ namespace CaroGame.Controls
         private bool mMouseDown = false;
         private bool mOutlineDrawn = false;
         private EdgeEnum mEdge = EdgeEnum.None;
-        private int mWidth = 5;
+        private int mWidth = 10;
         private bool top, right, bottom, left;
 
         public ResizePanel(bool top, bool right, bool bottom, bool left) : base()

@@ -134,7 +134,7 @@ namespace CaroGame.Views.Components.SettingComponents
 
         private void SaveGameBut_Click(object sender, EventArgs e)
         {
-            storageManager.SaveGameToFile(caroBoardManager.ConvertBoardToString(), playerManager.Turn);
+            storageManager.SaveGame(caroBoardManager.ConvertBoardToString(), playerManager.Turn);
         }
 
         private void LoadGameBut_Click(object sender, EventArgs e)
