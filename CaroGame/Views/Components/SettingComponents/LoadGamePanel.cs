@@ -14,6 +14,7 @@ using CaroGame.Configuration;
 using CaroGame.Entities;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using static CaroGame.Program;
 
@@ -55,7 +56,7 @@ namespace CaroGame.Views.Components.SettingComponents
             {
                 int Y = 40, count = 1;
                 containerPnl.Controls.Clear();
-                if (storageManager.Count == 0)
+                if (storageManager.GameList.Count == 0)
                 {
                     Label info = new Label()
                     {
@@ -69,19 +70,19 @@ namespace CaroGame.Views.Components.SettingComponents
                 }
                 else
                 {
-                    foreach (GameSaveData item in storageManager.GameSaveList)
+                    foreach (GameSaveData item in storageManager.GameList)
                     {
                         string butText = count.ToString() + "." + item.PlayerName1 + " vs " + item.PlayerName2;
                         Button butGame = new Button()
                         {
-                            Tag = count,
+                            Tag = item.id,
                             Text = butText,
                             Size = new Size(445, 40),
                             Location = new Point(30, Y)
                         };
                         Button buttonDelete = new Button()
                         {
-                            Tag = count,
+                            Tag = item.id,
                             Text = "X",
                             Size = new Size(40, 40),
                             Location = new Point(475, Y)
@@ -99,33 +100,35 @@ namespace CaroGame.Views.Components.SettingComponents
         private void ButtonDelete_Click(object sender, EventArgs e)
         {
             Button but = sender as Button;
-            int count = (int)but.Tag;
-            storageManager.RemoveGameToFile(count - 1);
+            int id = (int)but.Tag;
+            storageManager.DeleteGame(id);
             LoadGamePanel_VisibleChanged(this, new EventArgs());
         }
 
         private void ButGame_Click(object sender, EventArgs e)
         {
             Button but = sender as Button;
-            int count = (int)but.Tag;
-            GameSaveData data = storageManager.GameSaveList[count - 1];
-            storageManager.CurrentIndex = count - 1;
-            SettingConfig.Rows = data.Row;
-            SettingConfig.Columns = data.Column;
-            SettingConfig.BoardPattern = data.CaroBoard;
-            playerManager.PlayerName1 = data.PlayerName1;
-            playerManager.PlayerName2 = data.PlayerName2;
-            playerManager.Turn = data.Turn;
-            actionManager.ResetAction();
-            caroBoardManager.InitCaroBoard();
-            caroBoardManager.DrawCaroBoard();
-            winnerManager.LoadSaveGame(data.Turn, data.CaroBoard);
-            if (isSetting)
+            int id = (int)but.Tag;
+            GameSaveData data = storageManager.GameList.SingleOrDefault(x => x.id == id);
+            if (data != null)
             {
-                Control parent = this.Parent;
-                parent.Hide();
+                storageManager.CurrentIndex = id;
+                SettingConfig.InitializeGameSaveSetting(data);
+                playerManager.PlayerName1 = data.PlayerName1;
+                playerManager.PlayerName2 = data.PlayerName2;
+                playerManager.Turn = data.Turn;
+                actionManager.ResetAction();
+                caroBoardManager.InitCaroBoard();
+                caroBoardManager.DrawCaroBoard();
+                winnerManager.LoadSaveGame(data.Turn, data.CaroBoard);
+                if (isSetting)
+                {
+                    Control parent = this.Parent;
+                    parent.Hide();
+                }
+                else routes.Routing(Constants.MAIN);
             }
-            else routes.Routing(Constants.MAIN);
+            else MessageBox.Show("Not Found Your Game", "Thông Báo", MessageBoxButtons.OK);
         }
     }
 }

@@ -10,6 +10,8 @@
 //
 // ------------------------------------------------------
 
+using CaroGame.Entities;
+
 namespace CaroGame.Configuration
 {
     public static class SettingConfig
@@ -25,12 +27,27 @@ namespace CaroGame.Configuration
         public static int Interval = 1000;
         public static string Language = "";
 
+        public static bool IsSaveGame = false;
+
         public static bool AppearanceOption = false;
         public static bool LanguageOption = false;
         public static bool PlayerOption = false;
         public static bool SizeOption = false;
         public static bool SoundOption = false;
         public static bool TimeOption = false;
+
+        public static void InitializeGameSaveSetting(GameSaveData data)
+        {
+            Rows = data.Row;
+            Columns = data.Column;
+            GameMode = data.GameMode;
+            BoardPattern = data.CaroBoard;
+        }
+
+        public static void NewGame()
+        {
+            IsSaveGame = false;
+        }
 
         public static void ResetSettingOption()
         {

@@ -72,7 +72,7 @@ namespace CaroGame.CaroManagement
         {
             this.Turn = turn % 2;
             check[0] = check[1] = check[2] = check[3] = 0;
-            caroBoard.Clear();
+            if (!SettingConfig.IsSaveGame) caroBoard.Clear();
         }
 
         public void LoadSaveGame(int turn, string stringCaroBoard)
@@ -84,8 +84,8 @@ namespace CaroGame.CaroManagement
             for (int i = 0; i < SettingConfig.Rows; i++)
                 for (int j = 0; j < SettingConfig.Columns; j++)
                 {
-                    if (stringCaroBoard[count] == '1') caroBoard.Add(new BoardPosition(i, j), 1);
-                    else if (stringCaroBoard[count] == '2') caroBoard.Add(new BoardPosition(i, j), 2);
+                    if (stringCaroBoard[count] == Constants.PLAYER1_POSITION) caroBoard.Add(new BoardPosition(i, j), 0);
+                    else if (stringCaroBoard[count] == Constants.PLAYER2_POSITION) caroBoard.Add(new BoardPosition(i, j), 1);
                     count++;
                 }
         }

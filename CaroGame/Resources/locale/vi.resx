@@ -147,6 +147,9 @@
   <data name="developer" xml:space="preserve">
     <value>Lập trình viên</value>
   </data>
+  <data name="exitMessage" xml:space="preserve">
+    <value>Bạn có chắc muốn thoát khỏi trò chơi?</value>
+  </data>
   <data name="gameMode" xml:space="preserve">
     <value>Chế độ chơi</value>
   </data>

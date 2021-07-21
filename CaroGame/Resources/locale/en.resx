@@ -147,6 +147,9 @@
   <data name="developer" xml:space="preserve">
     <value>Developer</value>
   </data>
+  <data name="exitMessage" xml:space="preserve">
+    <value>Are you sure exit your game?</value>
+  </data>
   <data name="gameMode" xml:space="preserve">
     <value>Game Mode</value>
   </data>

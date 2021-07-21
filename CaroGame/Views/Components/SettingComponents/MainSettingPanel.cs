@@ -77,8 +77,7 @@ namespace CaroGame.Views.Components.SettingComponents
             loadGameBut = new CaroButton()
             {
                 Text = languageManager.GetString("loadGame"),
-                Size = new Size(100, 30),
-                Location = new Point(325, 5)
+                Size = new Size(100, 30)
             };
             saveGameBut = new CaroButton()
             {
@@ -86,6 +85,8 @@ namespace CaroGame.Views.Components.SettingComponents
                 Size = new Size(80, 30),
                 Location = new Point(445, 5)
             };
+            if (SettingConfig.GameMode == Constants.LAN_GAME_MODE) loadGameBut.Location = new Point(445, 5);
+            else loadGameBut.Location = new Point(325, 5);
             gameModeBut.Click += GameModeBut_Click;
             timerBut.Click += TimerBut_Click;
             playerBut.Click += PlayerBut_Click;
@@ -134,7 +135,7 @@ namespace CaroGame.Views.Components.SettingComponents
 
         private void SaveGameBut_Click(object sender, EventArgs e)
         {
-            storageManager.SaveGameToFile(caroBoardManager.ConvertBoardToString(), playerManager.Turn);
+            storageManager.SaveGame(caroBoardManager.ConvertBoardToString(), playerManager.Turn);
         }
 
         private void LoadGameBut_Click(object sender, EventArgs e)

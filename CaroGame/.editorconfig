@@ -128,4 +128,4 @@ dotnet_style_qualification_for_method = false:suggestion
 #prefer properties not to be prefaced with this. or Me. in Visual Basic
 dotnet_style_qualification_for_property = false:suggestion
 
-file_header_template = --------------------CARO  GAME-----------------\n\n\nCopyright (c) Microsoft. All Rights Reserved.\nLicense under the Apache License, Version 2.0.\n\n\nProduct by: Pham Hong Phuc\n\n\n------------------------------------------------------
+file_header_template = ---------------CARO GAME---------------\n\n\nCopyright (c) Microsoft. All Rights Reserved.\nLicense under the Apache License, Version 2.0.\n\n\nProduct by: Pham Hong Phuc\n\n\n----------------------------------------
