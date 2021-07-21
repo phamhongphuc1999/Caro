@@ -53,6 +53,11 @@ namespace CaroGame.Configuration
         public readonly static string TIME_SETTING = "timeSetting";
         public readonly static string APPEARANCE_SETTING = "appearanceSetting";
 
+        public readonly static char VOID_POSITION = '0';
+        public readonly static char PLAYER1_POSITION = '1';
+        public readonly static char PLAYER2_POSITION = '2';
+        public readonly static char EMPTY_POSITION = '3';
+
         public readonly static string ABOUT = "about";
         public readonly static string GITHUB_LINK = "https://github.com/phamhongphuc1999/Caro";
 

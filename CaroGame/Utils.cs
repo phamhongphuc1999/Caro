@@ -24,8 +24,12 @@ namespace CaroGame
     {
         public static void ApplicationExit()
         {
-            storageManager.Exit();
-            Application.Exit();
+            //DialogResult result = MessageBox.Show(languageManager.GetString("exitMessage"), "Thông Báo", MessageBoxButtons.OKCancel); ;
+            //if(result == DialogResult.OK)
+            //{
+                storageManager.Exit();
+                Application.Exit();
+            //}
         }
 
         public static string GetCurrentDirectory()

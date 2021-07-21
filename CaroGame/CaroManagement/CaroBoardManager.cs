@@ -50,7 +50,7 @@ namespace CaroGame.CaroManagement
             for (int i = 0; i < SettingConfig.Rows; i++)
                 for (int j = 0; j < SettingConfig.Columns; j++)
                 {
-                    if (SettingConfig.BoardPattern[count] != '0')
+                    if (SettingConfig.BoardPattern[count] != Constants.VOID_POSITION)
                     {
                         BoardButton but = new BoardButton
                         {
@@ -59,8 +59,8 @@ namespace CaroGame.CaroManagement
                             Rows = i,
                             Columns = j
                         };
-                        if (SettingConfig.BoardPattern[count] == '1') but.BackColor = playerManager.PlayerColor1;
-                        else if (SettingConfig.BoardPattern[count] == '2') but.BackColor = playerManager.PlayerColor2;
+                        if (SettingConfig.BoardPattern[count] == Constants.PLAYER1_POSITION) but.BackColor = playerManager.PlayerColor1;
+                        else if (SettingConfig.BoardPattern[count] == Constants.PLAYER2_POSITION) but.BackColor = playerManager.PlayerColor2;
                         but.Click += But_Click;
                         caroBoard.Add(new BoardPosition(i, j), but);
                         caroBoardView.Controls.Add(but);
@@ -81,11 +81,11 @@ namespace CaroGame.CaroManagement
                     if (caroBoard.ContainsKey(new BoardPosition(i, j)))
                     {
                         Button button = caroBoard[position];
-                        if (button.BackColor == playerColor1) board += "1";
-                        else if (button.BackColor == playerColor2) board += "2";
-                        else board += "3";
+                        if (button.BackColor == playerColor1) board += Constants.PLAYER1_POSITION;
+                        else if (button.BackColor == playerColor2) board += Constants.PLAYER2_POSITION;
+                        else board += Constants.EMPTY_POSITION;
                     }
-                    else board += "0";
+                    else board += Constants.VOID_POSITION;
                 }
             return board;
         }
@@ -96,6 +96,7 @@ namespace CaroGame.CaroManagement
             actionManager.ResetAction();
             InitCaroBoard();
             DrawCaroBoard();
+            SettingConfig.NewGame();
             winnerManager.NewGameHanlde(turn);
         }
 

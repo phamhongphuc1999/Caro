@@ -151,6 +151,15 @@ namespace CaroGame.Resources.locale {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bạn có chắc muốn thoát khỏi trò chơi?.
+        /// </summary>
+        internal static string exitMessage {
+            get {
+                return ResourceManager.GetString("exitMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chế độ chơi.
         /// </summary>
         internal static string gameMode {
