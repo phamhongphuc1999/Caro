@@ -16,21 +16,21 @@ using CaroGame.Views.Components;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace CaroGame.CaroManagement
+namespace CaroGame.Services.Services
 {
-    public class PlayerManager
+    public class PlayerService
     {
         private Player player1;
         private Player player2;
         private TextBox playerTxt;
 
-        public PlayerManager()
+        public PlayerService()
         {
             player1 = new Player(Constants.PLAYER1_DEFAULT_NAME, Color.Green, true);
             player2 = new Player(Constants.PLAYER2_DEFAULT_NAME, Color.Red, false);
         }
 
-        public PlayerManager(string playerName1, string playerName2)
+        public PlayerService(string playerName1, string playerName2)
         {
             player1 = new Player(playerName1, Color.Green, true);
             player2 = new Player(playerName2, Color.Red, false);

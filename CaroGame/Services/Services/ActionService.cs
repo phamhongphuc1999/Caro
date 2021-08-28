@@ -14,16 +14,16 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace CaroGame.CaroManagement
+namespace CaroGame.Services.Services
 {
-    public class ActionManager
+    public class ActionService
     {
         private Stack<Button> undoBut;
         private Stack<Button> redoBut;
         private int maxUndo;
         private int count;
 
-        public ActionManager()
+        public ActionService()
         {
             undoBut = new Stack<Button>();
             redoBut = new Stack<Button>();
@@ -31,7 +31,7 @@ namespace CaroGame.CaroManagement
             count = 0;
         }
 
-        public ActionManager(int maxUndo)
+        public ActionService(int maxUndo)
         {
             undoBut = new Stack<Button>();
             redoBut = new Stack<Button>();

@@ -33,19 +33,19 @@ namespace CaroGame.Views.Components.SettingComponents
             base.DrawBasePanel();
             twoPlayerBut = new CaroButton()
             {
-                Text = languageManager.GetString("twoPlayerMode"),
+                Text = CaroService.Language.GetString("twoPlayerMode"),
                 Size = new Size(130, 40),
                 Location = new Point(22, 100)
             };
             lanModeBut = new CaroButton()
             {
-                Text = languageManager.GetString("lanMode"),
+                Text = CaroService.Language.GetString("lanMode"),
                 Size = new Size(130, 40),
                 Location = new Point(202, 100)
             };
             aiModeBut = new CaroButton()
             {
-                Text = languageManager.GetString("aiMode"),
+                Text = CaroService.Language.GetString("aiMode"),
                 Size = new Size(130, 40),
                 Location = new Point(382, 100)
             };

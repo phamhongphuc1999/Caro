@@ -5,8 +5,7 @@
 1. [Introduction](#introduction)
 2. [Environment](#environment)
 3. [Libraries](#libraries)
-4. [Game Mode](#game-mode)
-5. [Note](#note)
+4. [Note](#note)
 
 ---
 ### Introduction <a name="introduction"></a>
@@ -15,10 +14,6 @@ Caro Game
 ---
 ### Environment <a name="environment"></a>
 Visual Studio 2019, C# Winform Framework
-
----
-### Libraries <a name="libraries"></a>
-- Newtonsoft.Json version 12.0.3
 
 ---
 ### Game Mode <a name="game-mode"></a>

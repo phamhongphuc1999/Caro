@@ -12,12 +12,12 @@
 
 using WMPLib;
 
-namespace CaroGame.CaroManagement
+namespace CaroGame.Services.Services
 {
-    public class SoundManager
+    public class SoundService
     {
         private WindowsMediaPlayer sound;
-        public SoundManager()
+        public SoundService()
         {
             sound = new WindowsMediaPlayer();
         }

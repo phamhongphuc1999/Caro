@@ -15,9 +15,9 @@ using CaroGame.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CaroGame.CaroManagement
+namespace CaroGame.Services.Services
 {
-    public class WinnerManager
+    public class WinnerService
     {
         public int Turn
         {
@@ -27,7 +27,7 @@ namespace CaroGame.CaroManagement
         public BoardPosition[] arrRow, arrColumn, arrMainDiagonal, arrSubDiagomal;
         public int[] check;
 
-        public WinnerManager()
+        public WinnerService()
         {
             caroBoard = new Dictionary<BoardPosition, int>();
             arrRow = new BoardPosition[4];

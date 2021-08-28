@@ -35,38 +35,38 @@ namespace CaroGame.Views.Components
         {
             twoPlayerBut = new CaroButton()
             {
-                Text = languageManager.GetString("twoPlayerMode"),
+                Text = CaroService.Language.GetString("twoPlayerMode"),
                 Size = new Size(130, 40),
                 Location = new Point(22, 45)
             };
             lanModeBut = new CaroButton()
             {
-                Text = languageManager.GetString("lanMode"),
+                Text = CaroService.Language.GetString("lanMode"),
                 Size = new Size(130, 40),
                 Location = new Point(202, 45)
             };
             aiModeBut = new CaroButton()
             {
-                Text = languageManager.GetString("aiMode"),
+                Text = CaroService.Language.GetString("aiMode"),
                 Size = new Size(130, 40),
                 Location = new Point(382, 45)
             };
             orLbl = new Label()
             {
-                Text = languageManager.GetString("or"),
+                Text = CaroService.Language.GetString("or"),
                 Size = new Size(60, 20),
                 Location = new Point(242, 147)
             };
             loadgameBut = new CaroButton()
             {
                 Location = new Point(202, 200),
-                Text = languageManager.GetString("loadGame"),
+                Text = CaroService.Language.GetString("loadGame"),
                 Size = new Size(130, 40)
             };
             backBut = new CaroButton()
             {
                 Location = new Point(20, 300),
-                Text = languageManager.GetString("back"),
+                Text = CaroService.Language.GetString("back"),
                 Size = new Size(70, 30)
             };
             twoPlayerBut.Click += TwoPlayerBut_Click;

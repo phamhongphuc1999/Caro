@@ -131,38 +131,38 @@ namespace CaroGame.Views.Components
             addBut = new CaroButton
             {
                 Location = new Point(650, 105),
-                Text = languageManager.GetString("add"),
+                Text = CaroService.Language.GetString("add"),
                 Size = new Size(70, 30),
                 FlatStyle = FlatStyle.Flat
             };
             removeBut = new CaroButton
             {
                 Location = new Point(720, 105),
-                Text = languageManager.GetString("remove"),
+                Text = CaroService.Language.GetString("remove"),
                 Size = new Size(70, 30)
             };
             resetBut = new CaroButton
             {
                 Location = new Point(650, 145),
-                Text = languageManager.GetString("reset"),
+                Text = CaroService.Language.GetString("reset"),
                 Size = new Size(140, 30)
             };
             saveBut = new CaroButton()
             {
                 Location = new Point(650, 185),
-                Text = languageManager.GetString("save"),
+                Text = CaroService.Language.GetString("save"),
                 Size = new Size(140, 30)
             };
             backBut = new CaroButton()
             {
                 Location = new Point(650, 225),
-                Text = languageManager.GetString("back"),
+                Text = CaroService.Language.GetString("back"),
                 Size = new Size(70, 30)
             };
             nextBut = new CaroButton()
             {
                 Location = new Point(720, 225),
-                Text = languageManager.GetString("next"),
+                Text = CaroService.Language.GetString("next"),
                 Size = new Size(70, 30)
             };
             rowNud.ValueChanged += RowNud_ValueChanged;

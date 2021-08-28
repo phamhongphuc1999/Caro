@@ -87,13 +87,13 @@ namespace CaroGame.Views.Components
         private void MainMenu_AboutItemClickEvent(object sender, EventArgs e)
         {
             aboutForm.ShowDialog(mainForm);
-            timerManager.StopTimer(false);
+            CaroService.Timer.StopTimer(false);
         }
 
         private void MainMenu_SettingItemClickEvent(object sender, EventArgs e)
         {
             settingForm.ShowDialog(mainForm);
-            timerManager.StopTimer(false);
+            CaroService.Timer.StopTimer(false);
         }
 
         private void MainMenu_QuickItemClickEvent(object sender, EventArgs e)
@@ -111,10 +111,10 @@ namespace CaroGame.Views.Components
         {
             try
             {
-                Button but = actionManager.AddRedo();
-                winnerManager.RedoHandle(but.Location.X, but.Location.Y);
-                caroBoardManager.RedoGame(but.Location.X, but.Location.Y, playerManager.CurrentPlayerName, playerManager.CurrentPlayerColor);
-                playerManager.Turn = playerManager.Turn + 1;
+                Button but = CaroService.Action.AddRedo();
+                CaroService.Winner.RedoHandle(but.Location.X, but.Location.Y);
+                CaroService.Board.RedoGame(but.Location.X, but.Location.Y, CaroService.Player.CurrentPlayerName, CaroService.Player.CurrentPlayerColor);
+                CaroService.Player.Turn = CaroService.Player.Turn + 1;
             }
             catch (Exception exception)
             {
@@ -126,10 +126,10 @@ namespace CaroGame.Views.Components
         {
             try
             {
-                Button but = actionManager.AddUndo();
-                winnerManager.UndoHandle(but.Location.X, but.Location.Y);
-                playerManager.Turn = playerManager.Turn + 1;
-                caroBoardManager.UndoGame(but.Location.X, but.Location.Y, playerManager.CurrentPlayerName);
+                Button but = CaroService.Action.AddUndo();
+                CaroService.Winner.UndoHandle(but.Location.X, but.Location.Y);
+                CaroService.Player.Turn = CaroService.Player.Turn + 1;
+                CaroService.Board.UndoGame(but.Location.X, but.Location.Y, CaroService.Player.CurrentPlayerName);
             }
             catch (Exception exception)
             {

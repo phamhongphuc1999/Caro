@@ -56,11 +56,11 @@ namespace CaroGame.Views.Components.SettingComponents
             {
                 int Y = 40, count = 1;
                 containerPnl.Controls.Clear();
-                if (storageManager.GameList.Count == 0)
+                if (CaroService.Storage.GameList.Count == 0)
                 {
                     Label info = new Label()
                     {
-                        Text = languageManager.GetString("nothingMessage"),
+                        Text = CaroService.Language.GetString("nothingMessage"),
                         TextAlign = ContentAlignment.MiddleCenter,
                         Size = new Size(200, 30),
                         Location = new Point(172, Y)
@@ -70,7 +70,7 @@ namespace CaroGame.Views.Components.SettingComponents
                 }
                 else
                 {
-                    foreach (GameSaveData item in storageManager.GameList)
+                    foreach (GameSaveData item in CaroService.Storage.GameList)
                     {
                         string butText = count.ToString() + "." + item.PlayerName1 + " vs " + item.PlayerName2;
                         Button butGame = new Button()
@@ -101,7 +101,7 @@ namespace CaroGame.Views.Components.SettingComponents
         {
             Button but = sender as Button;
             int id = (int)but.Tag;
-            storageManager.DeleteGame(id);
+            CaroService.Storage.DeleteGame(id);
             LoadGamePanel_VisibleChanged(this, new EventArgs());
         }
 
@@ -109,18 +109,18 @@ namespace CaroGame.Views.Components.SettingComponents
         {
             Button but = sender as Button;
             int id = (int)but.Tag;
-            GameSaveData data = storageManager.GameList.SingleOrDefault(x => x.id == id);
+            GameSaveData data = CaroService.Storage.GameList.SingleOrDefault(x => x.id == id);
             if (data != null)
             {
-                storageManager.CurrentIndex = id;
+                CaroService.Storage.CurrentIndex = id;
                 SettingConfig.InitializeGameSaveSetting(data);
-                playerManager.PlayerName1 = data.PlayerName1;
-                playerManager.PlayerName2 = data.PlayerName2;
-                playerManager.Turn = data.Turn;
-                actionManager.ResetAction();
-                caroBoardManager.InitCaroBoard();
-                caroBoardManager.DrawCaroBoard();
-                winnerManager.LoadSaveGame(data.Turn, data.CaroBoard);
+                CaroService.Player.PlayerName1 = data.PlayerName1;
+                CaroService.Player.PlayerName2 = data.PlayerName2;
+                CaroService.Player.Turn = data.Turn;
+                CaroService.Action.ResetAction();
+                CaroService.Board.InitCaroBoard();
+                CaroService.Board.DrawCaroBoard();
+                CaroService.Winner.LoadSaveGame(data.Turn, data.CaroBoard);
                 if (isSetting)
                 {
                     Control parent = this.Parent;

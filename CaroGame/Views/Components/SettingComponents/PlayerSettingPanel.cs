@@ -38,20 +38,20 @@ namespace CaroGame.Views.Components.SettingComponents
             {
                 Size = new Size(100, 45),
                 Location = new Point(30, 85),
-                Text = languageManager.GetString(Constants.PLAYER1_DEFAULT_NAME)
+                Text = CaroService.Language.GetString(Constants.PLAYER1_DEFAULT_NAME)
             };
             lbl2 = new Label()
             {
                 Size = new Size(100, 45),
                 Location = new Point(30, 170),
-                Text = languageManager.GetString(Constants.PLAYER2_DEFAULT_NAME)
+                Text = CaroService.Language.GetString(Constants.PLAYER2_DEFAULT_NAME)
             };
             player1Tb = new CaroTextBox()
             {
                 TextWidth = 360,
                 Size = new Size(400, 80),
                 Location = new Point(135, 85),
-                RequiredText = languageManager.GetString("invalid"),
+                RequiredText = CaroService.Language.GetString("invalid"),
                 ValidateText = (text) =>
                 {
                     if (string.IsNullOrEmpty(text)) return false;
@@ -67,7 +67,7 @@ namespace CaroGame.Views.Components.SettingComponents
                 TextWidth = 360,
                 Location = new Point(135, 170),
                 Size = new Size(400, 80),
-                RequiredText = languageManager.GetString("invalid"),
+                RequiredText = CaroService.Language.GetString("invalid"),
                 ValidateText = (text) =>
                 {
                     if (string.IsNullOrEmpty(text)) return false;
@@ -105,8 +105,8 @@ namespace CaroGame.Views.Components.SettingComponents
             {
                 if (mainPanel.Visible)
                 {
-                    player1Tb.InfoText = playerManager.PlayerName1;
-                    player2Tb.InfoText = playerManager.PlayerName2;
+                    player1Tb.InfoText = CaroService.Player.PlayerName1;
+                    player2Tb.InfoText = CaroService.Player.PlayerName2;
                 }
             }
         }

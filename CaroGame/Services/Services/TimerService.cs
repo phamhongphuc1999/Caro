@@ -14,15 +14,15 @@ using CaroGame.Configuration;
 using CaroGame.Views.Components;
 using System.Windows.Forms;
 
-namespace CaroGame.CaroManagement
+namespace CaroGame.Services.Services
 {
-    public class TimerManager
+    public class TimerService
     {
         private Label timeLbl;
         private Timer caroTimer;
         private int count;
 
-        public TimerManager()
+        public TimerService()
         {
             caroTimer = new Timer
             {

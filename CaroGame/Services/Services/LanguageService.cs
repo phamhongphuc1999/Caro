@@ -14,13 +14,13 @@ using CaroGame.Configuration;
 using System.Reflection;
 using System.Resources;
 
-namespace CaroGame.CaroManagement
+namespace CaroGame.Services.Services
 {
-    public class LanguageManager
+    public class LanguageService
     {
         private ResourceManager viLanguage, enLanguage;
 
-        public LanguageManager()
+        public LanguageService()
         {
             viLanguage = new ResourceManager("CaroGame.Resources.locale.vi", Assembly.GetExecutingAssembly());
             enLanguage = new ResourceManager("CaroGame.Resources.locale.en", Assembly.GetExecutingAssembly());

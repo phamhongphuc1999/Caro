@@ -10,9 +10,9 @@
 //
 // ------------------------------------------------------
 
-using CaroGame.CaroManagement;
 using CaroGame.Configuration;
 using CaroGame.Routers;
+using CaroGame.Services;
 using CaroGame.Views;
 using System;
 using System.Drawing;
@@ -29,14 +29,7 @@ namespace CaroGame
         public static Routes routes;
         public static SettingRoutes settingRoutes;
 
-        public static PlayerManager playerManager;
-        public static CaroBoardManager caroBoardManager;
-        public static WinnerManager winnerManager;
-        public static ActionManager actionManager;
-        public static SoundManager soundManager;
-        public static StorageManager storageManager;
-        public static TimerManager timerManager;
-        public static LanguageManager languageManager;
+        public static Service CaroService;
 
         /// <summary>
         /// The main entry point for the application.
@@ -48,14 +41,7 @@ namespace CaroGame
             Icon settingIcon = new Icon("../../Resources/Images/setting.ico");
             Icon aboutIcon = new Icon("../../Resources/Images/about.ico");
 
-            storageManager = new StorageManager();
-            timerManager = new TimerManager();
-            languageManager = new LanguageManager();
-            caroBoardManager = new CaroBoardManager();
-            playerManager = new PlayerManager();
-            winnerManager = new WinnerManager();
-            actionManager = new ActionManager();
-            soundManager = new SoundManager();
+            CaroService = new Service();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -72,17 +58,17 @@ namespace CaroGame
                 Control control = sender as Control;
                 if (control != null)
                 {
-                    mainForm.Text = languageManager.GetString(e.title);
+                    mainForm.Text = CaroService.Language.GetString(e.title);
                 }
             };
             routes.MainViewEvent += (sender, e) =>
             {
-                caroBoardManager.CreateNewGame(playerManager.Turn);
+                CaroService.Board.CreateNewGame(CaroService.Player.Turn);
             };
             routes.Routing(Constants.OVERVIEW);
-            caroBoardManager.InitMainView(routes.MainView);
-            playerManager.InitMainView(routes.MainView);
-            timerManager.InitMainView(routes.MainView);
+            CaroService.Board.InitMainView(routes.MainView);
+            CaroService.Player.InitMainView(routes.MainView);
+            CaroService.Timer.InitMainView(routes.MainView);
 
             // Initiliaze setting routes
             settingRoutes = SettingRoutes.GetInstance(settingForm);
@@ -91,7 +77,7 @@ namespace CaroGame
                 Control control = sender as Control;
                 if (control != null)
                 {
-                    settingForm.Text = languageManager.GetString(e.title);
+                    settingForm.Text = CaroService.Language.GetString(e.title);
                 }
             };
             settingRoutes.Routing(Constants.MAIN_SETTING);

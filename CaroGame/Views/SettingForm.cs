@@ -25,7 +25,7 @@ namespace CaroGame.Views
         protected override void BaseForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Hide();
-            timerManager.StartTimer(false);
+            CaroService.Timer.StartTimer(false);
         }
     }
 }

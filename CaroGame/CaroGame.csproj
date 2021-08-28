@@ -69,12 +69,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CaroException.cs" />
-    <Compile Include="CaroManagement\ActionManager.cs" />
-    <Compile Include="CaroManagement\CaroBoardManager.cs" />
-    <Compile Include="CaroManagement\LanguageManager.cs" />
-    <Compile Include="CaroManagement\StorageManager.cs" />
-    <Compile Include="CaroManagement\TimerManager.cs" />
-    <Compile Include="CaroManagement\WinnerManager.cs" />
+    <Compile Include="Services\Services\ActionService.cs" />
+    <Compile Include="Services\Services\BoardService.cs" />
+    <Compile Include="Services\Services\LanguageService.cs" />
+    <Compile Include="Services\Service.cs" />
+    <Compile Include="Services\Services\StorageService.cs" />
+    <Compile Include="Services\Services\TimerService.cs" />
+    <Compile Include="Services\Services\WinnerService.cs" />
     <Compile Include="Configuration\ConnectConfig.cs" />
     <Compile Include="Configuration\Constants.cs" />
     <Compile Include="Configuration\SettingConfig.cs" />
@@ -82,7 +83,9 @@
     <Compile Include="Controls\BoardButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\BaseTextBox.cs" />
+    <Compile Include="Controls\BaseTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\CaroButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -105,7 +108,7 @@
     <Compile Include="Entities\BoardPosition.cs" />
     <Compile Include="Entities\GameSaveData.cs" />
     <Compile Include="Entities\Player.cs" />
-    <Compile Include="CaroManagement\PlayerManager.cs" />
+    <Compile Include="Services\Services\PlayerService.cs" />
     <Compile Include="Entities\SettingEntity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,7 +125,7 @@
     <Compile Include="Routers\BaseRoutes.cs" />
     <Compile Include="Routers\Routes.cs" />
     <Compile Include="Routers\SettingRoutes.cs" />
-    <Compile Include="CaroManagement\SoundManager.cs" />
+    <Compile Include="Services\Services\SoundService.cs" />
     <Compile Include="SQLData\SQLConnecter.cs" />
     <Compile Include="SQLData\Workers\BaseWorker.cs" />
     <Compile Include="SQLData\Workers\SaveGameWorker.cs" />
@@ -254,6 +257,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

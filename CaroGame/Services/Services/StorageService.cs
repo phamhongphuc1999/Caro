@@ -20,9 +20,9 @@ using System.IO;
 using System.Linq;
 using static CaroGame.Program;
 
-namespace CaroGame.CaroManagement
+namespace CaroGame.Services.Services
 {
-    public class StorageManager
+    public class StorageService
     {
         private SQLConnecter connecter;
         private SaveGameWorker gameWorker;
@@ -40,7 +40,7 @@ namespace CaroGame.CaroManagement
             get; set;
         }
 
-        public StorageManager()
+        public StorageService()
         {
             string currentPath = Utils.GetCurrentDirectory();
             string projectDirectory = Directory.GetParent(currentPath).Parent.FullName;
@@ -101,8 +101,8 @@ namespace CaroGame.CaroManagement
             {
                 Row = SettingConfig.Rows,
                 Column = SettingConfig.Columns,
-                PlayerName1 = playerManager.PlayerName1,
-                PlayerName2 = playerManager.PlayerName2,
+                PlayerName1 = CaroService.Player.PlayerName1,
+                PlayerName2 = CaroService.Player.PlayerName2,
                 CaroBoard = caroBoard,
                 Turn = turn,
                 GameMode = SettingConfig.GameMode

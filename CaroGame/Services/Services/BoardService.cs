@@ -20,9 +20,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using static CaroGame.Program;
 
-namespace CaroGame.CaroManagement
+namespace CaroGame.Services.Services
 {
-    public class CaroBoardManager
+    public class BoardService
     {
         private Panel caroBoardView;
         private Dictionary<BoardPosition, Button> caroBoard;
@@ -36,8 +36,8 @@ namespace CaroGame.CaroManagement
 
         public void InitCaroBoard()
         {
-            playerTxt.Text = playerManager.CurrentPlayerName;
-            playerTxt.BackColor = playerManager.CurrentPlayerColor;
+            playerTxt.Text = CaroService.Player.CurrentPlayerName;
+            playerTxt.BackColor = CaroService.Player.CurrentPlayerColor;
             caroBoard = new Dictionary<BoardPosition, Button>();
         }
 
@@ -59,8 +59,8 @@ namespace CaroGame.CaroManagement
                             Rows = i,
                             Columns = j
                         };
-                        if (SettingConfig.BoardPattern[count] == Constants.PLAYER1_POSITION) but.BackColor = playerManager.PlayerColor1;
-                        else if (SettingConfig.BoardPattern[count] == Constants.PLAYER2_POSITION) but.BackColor = playerManager.PlayerColor2;
+                        if (SettingConfig.BoardPattern[count] == Constants.PLAYER1_POSITION) but.BackColor = CaroService.Player.PlayerColor1;
+                        else if (SettingConfig.BoardPattern[count] == Constants.PLAYER2_POSITION) but.BackColor = CaroService.Player.PlayerColor2;
                         but.Click += But_Click;
                         caroBoard.Add(new BoardPosition(i, j), but);
                         caroBoardView.Controls.Add(but);
@@ -72,8 +72,8 @@ namespace CaroGame.CaroManagement
         public string ConvertBoardToString()
         {
             string board = "";
-            Color playerColor1 = playerManager.PlayerColor1;
-            Color playerColor2 = playerManager.PlayerColor2;
+            Color playerColor1 = CaroService.Player.PlayerColor1;
+            Color playerColor2 = CaroService.Player.PlayerColor2;
             for(int i = 0; i < SettingConfig.Rows; i++)
                 for(int j = 0; j < SettingConfig.Columns; j++)
                 {
@@ -92,12 +92,12 @@ namespace CaroGame.CaroManagement
 
         public void CreateNewGame(int turn)
         {
-            playerManager.Turn = turn;
-            actionManager.ResetAction();
+            CaroService.Player.Turn = turn;
+            CaroService.Action.ResetAction();
             InitCaroBoard();
             DrawCaroBoard();
             SettingConfig.NewGame();
-            winnerManager.NewGameHanlde(turn);
+            CaroService.Winner.NewGameHanlde(turn);
         }
 
         public void UndoGame(int row, int column, string playerName)
@@ -119,32 +119,32 @@ namespace CaroGame.CaroManagement
         private void ExecuteNewGame()
         {
             DialogResult result = MessageBox.Show("Bạn có muốn chơi trò chơi mới?", "Thông Báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (result == DialogResult.OK) CreateNewGame(playerManager.Turn);
+            if (result == DialogResult.OK) CreateNewGame(CaroService.Player.Turn);
             throw new StayOldGameException();
         }
 
         private void DrawWinner(Button eventBut)
         {
             caroBoardView.Enabled = false;
-            int[] check = winnerManager.check;
+            int[] check = CaroService.Winner.check;
             if (check[0] == 1)
             {
-                foreach (BoardPosition item in winnerManager.arrRow)
+                foreach (BoardPosition item in CaroService.Winner.arrRow)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             if (check[1] == 1)
             {
-                foreach (BoardPosition item in winnerManager.arrColumn)
+                foreach (BoardPosition item in CaroService.Winner.arrColumn)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             if (check[2] == 1)
             {
-                foreach (BoardPosition item in winnerManager.arrMainDiagonal)
+                foreach (BoardPosition item in CaroService.Winner.arrMainDiagonal)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             if (check[3] == 1)
             {
-                foreach (BoardPosition item in winnerManager.arrSubDiagomal)
+                foreach (BoardPosition item in CaroService.Winner.arrSubDiagomal)
                     caroBoard[item].FlatStyle = FlatStyle.Flat;
             }
             eventBut.FlatStyle = FlatStyle.Flat;
@@ -155,7 +155,7 @@ namespace CaroGame.CaroManagement
             DrawWinner(eventBut);
             if (SettingConfig.GameMode == Constants.TWO_PLAYER_GAME_MODE)
             {
-                MessageBox.Show($"Người chơi {playerManager.CurrentPlayerName} chiến thắng", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Người chơi {CaroService.Player.CurrentPlayerName} chiến thắng", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 try
                 {
                     ExecuteNewGame();
@@ -181,18 +181,18 @@ namespace CaroGame.CaroManagement
         private void But_Click(object sender, EventArgs e)
         {
             BoardButton but = sender as BoardButton;
-            if (!winnerManager.CheckExtist(but.Rows, but.Columns))
+            if (!CaroService.Winner.CheckExtist(but.Rows, but.Columns))
             {
-                but.BackColor = playerManager.CurrentPlayerColor;
-                winnerManager.DrawCaroBoard(but.Rows, but.Columns);
-                actionManager.UpdateTurn(but);
-                if (winnerManager.IsWiner(but.Rows, but.Columns).Result) Winner(but);
-                else if (winnerManager.IsEndGame()) EndGame();
+                but.BackColor = CaroService.Player.CurrentPlayerColor;
+                CaroService.Winner.DrawCaroBoard(but.Rows, but.Columns);
+                CaroService.Action.UpdateTurn(but);
+                if (CaroService.Winner.IsWiner(but.Rows, but.Columns).Result) Winner(but);
+                else if (CaroService.Winner.IsEndGame()) EndGame();
                 else
                 {
-                    playerManager.Turn = playerManager.Turn + 1;
-                    winnerManager.Turn = 1 - winnerManager.Turn;
-                    timerManager.TurnTimer();
+                    CaroService.Player.Turn = CaroService.Player.Turn + 1;
+                    CaroService.Winner.Turn = 1 - CaroService.Winner.Turn;
+                    CaroService.Timer.TurnTimer();
                 }
             }
         }

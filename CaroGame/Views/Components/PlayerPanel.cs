@@ -37,20 +37,20 @@ namespace CaroGame.Views.Components
             {
                 Size = new Size(100, 45),
                 Location = new Point(30, 85),
-                Text = languageManager.GetString(Constants.PLAYER1_DEFAULT_NAME)
+                Text = CaroService.Language.GetString(Constants.PLAYER1_DEFAULT_NAME)
             };
             lbl2 = new Label()
             {
                 Size = new Size(100, 45),
                 Location = new Point(30, 170),
-                Text = languageManager.GetString(Constants.PLAYER2_DEFAULT_NAME)
+                Text = CaroService.Language.GetString(Constants.PLAYER2_DEFAULT_NAME)
             };
             player1Tb = new CaroTextBox()
             {
                 TextWidth = 360,
                 Size = new Size(400, 80),
                 Location = new Point(135, 85),
-                RequiredText = languageManager.GetString("invalid"),
+                RequiredText = CaroService.Language.GetString("invalid"),
                 ValidateText = (text) =>
                 {
                     if (string.IsNullOrEmpty(text)) return false;
@@ -66,7 +66,7 @@ namespace CaroGame.Views.Components
                 TextWidth = 360,
                 Location = new Point(135, 170),
                 Size = new Size(400, 80),
-                RequiredText = languageManager.GetString("invalid"),
+                RequiredText = CaroService.Language.GetString("invalid"),
                 ValidateText = (text) =>
                 {
                     if (string.IsNullOrEmpty(text)) return false;
@@ -80,13 +80,13 @@ namespace CaroGame.Views.Components
             backBut = new CaroButton()
             {
                 Location = new Point(20, 300),
-                Text = languageManager.GetString("back"),
+                Text = CaroService.Language.GetString("back"),
                 Size = new Size(70, 30)
             };
             nextBut = new CaroButton()
             {
                 Location = new Point(455, 300),
-                Text = languageManager.GetString("next"),
+                Text = CaroService.Language.GetString("next"),
                 Size = new Size(70, 30)
             };
             backBut.Click += BackBut_Click;
@@ -108,8 +108,8 @@ namespace CaroGame.Views.Components
         {
             if (player1Tb.TextValidate && player2Tb.TextValidate)
             {
-                playerManager.PlayerName1 = player1Tb.InfoText;
-                playerManager.PlayerName2 = player2Tb.InfoText;
+                CaroService.Player.PlayerName1 = player1Tb.InfoText;
+                CaroService.Player.PlayerName2 = player2Tb.InfoText;
                 routes.Routing(Constants.MAIN);
             }
         }

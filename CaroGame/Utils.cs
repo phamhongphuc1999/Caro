@@ -24,10 +24,10 @@ namespace CaroGame
     {
         public static void ApplicationExit()
         {
-            //DialogResult result = MessageBox.Show(languageManager.GetString("exitMessage"), "Thông Báo", MessageBoxButtons.OKCancel); ;
+            //DialogResult result = MessageBox.Show(CaroService.Language.GetString("exitMessage"), "Thông Báo", MessageBoxButtons.OKCancel); ;
             //if(result == DialogResult.OK)
             //{
-                storageManager.Exit();
+                CaroService.Storage.Exit();
                 Application.Exit();
             //}
         }

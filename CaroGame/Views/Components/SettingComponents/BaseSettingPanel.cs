@@ -33,13 +33,13 @@ namespace CaroGame.Views.Components.SettingComponents
         {
             cancelBut = new CaroButton
             {
-                Text = languageManager.GetString("cancel"),
+                Text = CaroService.Language.GetString("cancel"),
                 Size = new Size(70, 30)
             };
             saveBut = new CaroButton()
             {
                 Location = new Point(455, 300),
-                Text = languageManager.GetString("save"),
+                Text = CaroService.Language.GetString("save"),
                 Size = new Size(70, 30)
             };
             if (isSave) cancelBut.Location = new Point(380, 300);
