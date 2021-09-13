@@ -10,13 +10,13 @@
 //
 // ------------------------------------------------------
 
+using MaterialSkin.Controls;
 using System.Drawing;
 using System.Windows.Forms;
-using static CaroGame.Program;
 
 namespace CaroGame.Views
 {
-    public partial class BaseForm : Form
+    public partial class BaseForm : MaterialForm
     {
         public BaseForm(string title, Icon icon)
         {

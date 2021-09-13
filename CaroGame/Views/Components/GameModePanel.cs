@@ -12,6 +12,7 @@
 
 using CaroGame.Configuration;
 using CaroGame.Controls;
+using MaterialSkin.Controls;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -23,7 +24,7 @@ namespace CaroGame.Views.Components
     {
         protected CaroButton twoPlayerBut, lanModeBut, aiModeBut, loadgameBut;
         protected CaroButton backBut;
-        protected Label orLbl;
+        protected MaterialLabel orLbl;
 
         public GameModePanel(bool isAutoSize) : base(isAutoSize)
         {
@@ -51,7 +52,7 @@ namespace CaroGame.Views.Components
                 Size = new Size(130, 40),
                 Location = new Point(382, 45)
             };
-            orLbl = new Label()
+            orLbl = new MaterialLabel()
             {
                 Text = CaroService.Language.GetString("or"),
                 Size = new Size(60, 20),

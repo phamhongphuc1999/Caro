@@ -51,6 +51,8 @@ namespace CaroGame
             settingForm = new SettingForm(Constants.MAIN_SETTING, settingIcon);
             aboutForm = new AboutForm(Constants.ABOUT, aboutIcon);
 
+            CaroService.GetForms(mainForm, settingForm, aboutForm);
+
             // Initliaze routers
             routes = Routes.GetInstance(mainForm);
             routes.RoutingEvent += (sender, e) =>

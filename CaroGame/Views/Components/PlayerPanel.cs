@@ -10,19 +10,19 @@
 //
 // ------------------------------------------------------
 
-using CaroGame.Configuration;
-using CaroGame.Controls;
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using static CaroGame.Program;
+using CaroGame.Configuration;
+using CaroGame.Controls;
+using MaterialSkin.Controls;
 
 namespace CaroGame.Views.Components
 {
     public class PlayerPanel : BaseCaroPanel
     {
         protected CaroTextBox player1Tb, player2Tb;
-        protected Label lbl1, lbl2;
+        protected MaterialLabel lbl1, lbl2;
         protected CaroButton backBut, nextBut;
 
         public PlayerPanel(bool isAutoSize) : base(isAutoSize)
@@ -33,15 +33,15 @@ namespace CaroGame.Views.Components
 
         protected override void DrawBasePanel()
         {
-            lbl1 = new Label
+            lbl1 = new MaterialLabel
             {
-                Size = new Size(100, 45),
+                Size = new Size(150, 45),
                 Location = new Point(30, 85),
                 Text = CaroService.Language.GetString(Constants.PLAYER1_DEFAULT_NAME)
             };
-            lbl2 = new Label()
+            lbl2 = new MaterialLabel()
             {
-                Size = new Size(100, 45),
+                Size = new Size(150, 45),
                 Location = new Point(30, 170),
                 Text = CaroService.Language.GetString(Constants.PLAYER2_DEFAULT_NAME)
             };
@@ -49,22 +49,20 @@ namespace CaroGame.Views.Components
             {
                 TextWidth = 360,
                 Size = new Size(400, 80),
-                Location = new Point(135, 85),
+                Location = new Point(185, 85),
                 RequiredText = CaroService.Language.GetString("invalid"),
                 ValidateText = (text) =>
                 {
                     if (string.IsNullOrEmpty(text)) return false;
                     if (!string.IsNullOrEmpty(player2Tb.InfoText))
-                    {
                         if (text.Equals(player2Tb.InfoText)) return false;
-                    }
                     return true;
                 }
             };
             player2Tb = new CaroTextBox()
             {
                 TextWidth = 360,
-                Location = new Point(135, 170),
+                Location = new Point(185, 170),
                 Size = new Size(400, 80),
                 RequiredText = CaroService.Language.GetString("invalid"),
                 ValidateText = (text) =>

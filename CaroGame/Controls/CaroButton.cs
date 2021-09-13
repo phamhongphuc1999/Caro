@@ -10,16 +10,14 @@
 //
 // ------------------------------------------------------
 
-using System.Drawing;
-using System.Windows.Forms;
+using MaterialSkin.Controls;
 
 namespace CaroGame.Controls
 {
-    public class CaroButton : Button
+    public class CaroButton : MaterialRaisedButton
     {
         public CaroButton() : base()
         {
-            BackColor = ColorTranslator.FromHtml("#8BC4FC");
         }
     }
 }

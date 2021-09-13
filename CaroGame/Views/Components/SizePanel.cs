@@ -19,6 +19,7 @@ using static CaroGame.Configuration.Constants;
 using static CaroGame.Program;
 using System.Collections.Generic;
 using CaroGame.Entities;
+using MaterialSkin.Controls;
 
 namespace CaroGame.Views.Components
 {
@@ -63,7 +64,7 @@ namespace CaroGame.Views.Components
             {
                 for (int j = 0; j < Constants.MAX_COLUMN; j++)
                 {
-                    Button but = new Button
+                    MaterialFlatButton but = new MaterialFlatButton
                     {
                         Location = new Point(X, Y),
                         Size = new Size(20, 20),

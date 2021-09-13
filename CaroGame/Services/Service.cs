@@ -11,6 +11,8 @@
 // ----------------------------------------
 
 using CaroGame.Services.Services;
+using MaterialSkin.Controls;
+using System.Collections.Generic;
 
 namespace CaroGame.Services
 {
@@ -24,6 +26,7 @@ namespace CaroGame.Services
         public StorageService Storage;
         public TimerService Timer;
         public WinnerService Winner;
+        public ThemeService Theme;
 
         public Service()
         {
@@ -35,6 +38,16 @@ namespace CaroGame.Services
             Storage = new StorageService();
             Timer = new TimerService();
             Winner = new WinnerService();
+        }
+
+        public void GetForms(params MaterialForm[] forms)
+        {
+            if(Theme == null) Theme = new ThemeService(forms);
+        }
+
+        public void GetForms(IEnumerable<MaterialForm> forms)
+        {
+            if (Theme == null) Theme = new ThemeService(forms);
         }
     }
 }
