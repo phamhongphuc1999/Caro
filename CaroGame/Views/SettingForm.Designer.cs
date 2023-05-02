@@ -1,6 +1,6 @@
 ﻿namespace CaroGame.Views
 {
-    partial class SettingForm
-    {
-    }
+  partial class SettingForm
+  {
+  }
 }
