@@ -3,3 +3,5 @@ obj/
 .vs/
 packages/
 .fake
+venv/
+pyvenv.cfg
